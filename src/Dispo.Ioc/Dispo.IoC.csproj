@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dispo.Infrastructure\Dispo.Infrastructure.csproj" />
+    <ProjectReference Include="..\Dispo.Service\Dispo.Service.csproj" />
+  </ItemGroup>
+
+</Project>
