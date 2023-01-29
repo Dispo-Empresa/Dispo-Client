@@ -5,12 +5,12 @@ namespace Dispo.Service.Services.Interfaces
 {
     public interface IAccountService
     {
-        Task<UserAccountResponseDto> GetUserWithAccountByEmailAndPassword(string email, string password);
+        UserAccountResponseDto GetUserWithAccountByEmailAndPassword(string email, string password);
 
-        Task<UserResponseDto> CreateAccountAndUser(SignUpRequestDto signUpModel);
+        UserResponseDto CreateAccountAndUser(SignUpRequestDto signUpModel);
 
-        Task ResetPassword(long accountId, string newPassword);
+        void ResetPassword(long accountId, string newPassword);
 
-        Task<UserAccountResponseDto> UpdateUserAccountInfo(UserAccountResponseDto userAccountModel);
+        UserAccountResponseDto UpdateUserAccountInfo(UserAccountResponseDto userAccountModel);
     }
 }

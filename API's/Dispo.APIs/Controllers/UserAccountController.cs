@@ -1,10 +1,12 @@
-﻿using Dispo.Service.DTOs.ResponseDTOs;
+﻿using Dispo.API.ResponseBuilder;
+using Dispo.APIs.ResponseBuilder;
+using Dispo.Service.DTOs.ResponseDTOs;
 using Dispo.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
 {
-    [Route("/api/v1/userAccount/[controller]")]
+    [Route("/api/v1/[controller]")]
     [ApiController]
     public class UserAccountController : ControllerBase
     {
@@ -17,19 +19,26 @@ namespace Dispo.API.Controllers
 
         [HttpPut]
         [Route("updateUserAccountInfo/{accountId}")]
-        public async Task<IActionResult> UpdateUserAccountInfo(int accountId, [FromBody] UserAccountResponseDto userAccountModel) // IMPLEMENTAR AUTHORIZATION NOS HEADERS DAS REQUISICOES
+        public IActionResult UpdateUserAccountInfo(int accountId, [FromBody] UserAccountResponseDto userAccountModel)
         {
             try
             {
                 userAccountModel.Id = accountId;
+                var response = _userAccountService.UpdateUserAccountInfo(userAccountModel);
 
-                var response = await _userAccountService.UpdateUserAccountInfo(userAccountModel);
-
-                return Ok(response);
+                return Ok(new ResponseModelBuilder().WithMessage("Dados atualizados com sucesso!")
+                                                    .WithSuccess(true)
+                                                    .WithData(response)
+                                                    .WithAlert(AlertType.Success)
+                                                    .Build());
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new ResponseModelBuilder().WithMessage($"Erro não esperado: {ex.Message}")
+                                                            .WithSuccess(false)
+                                                            .WithData(ex)
+                                                            .WithAlert(AlertType.Error)
+                                                            .Build());
             }
         }
     }

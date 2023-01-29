@@ -11,7 +11,11 @@ namespace Dispo.Domain.Validators
                 .NotNull()
                 .WithMessage("O nome do produto não pode ser nulo")
                 .NotEmpty()
-                .WithMessage("O nome do produto não pode ser vazio");
+                .WithMessage("O nome do produto não pode ser vazio")
+                .MinimumLength(10)
+                .WithMessage("O nome do produto deve ter no mínimo 10 caractéres")
+                .MaximumLength(50)
+                .WithMessage("O nome do produto deve ter no máximo 50 caractéres");
 
             RuleFor(x => x.UnitPrice)
                 .NotNull()

@@ -17,7 +17,7 @@ namespace Dispo.Service.Token
             _configuration = configuration;
         }
 
-        public TokenResponseDto GenerateToken(long accountId)
+        public TokenResponseDto GenerateSigninToken(long accountId)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 

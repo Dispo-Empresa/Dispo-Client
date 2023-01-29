@@ -5,6 +5,6 @@ namespace Dispo.Service.Services.Interfaces
 {
     public interface IBranchService
     {
-        Task<BranchResponseDto> CreateBranch(BranchRequestDto branchModel);
+        BranchResponseDto CreateBranch(BranchRequestDto branchModel);
     }
 }

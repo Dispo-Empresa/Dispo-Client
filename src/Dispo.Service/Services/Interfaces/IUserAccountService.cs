@@ -4,6 +4,6 @@ namespace Dispo.Service.Services.Interfaces
 {
     public interface IUserAccountService
     {
-        Task<UserAccountResponseDto> UpdateUserAccountInfo(UserAccountResponseDto userAccountModel);
+        UserAccountResponseDto UpdateUserAccountInfo(UserAccountResponseDto userAccountModel);
     }
 }

@@ -20,9 +20,9 @@ namespace Dispo.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<BranchResponseDto> CreateBranch(BranchRequestDto branchModel)
+        public BranchResponseDto CreateBranch(BranchRequestDto branchModel)
         {
-            if (await _branchRepository.ExistsByLocationId(branchModel.LocationId))
+            if (_branchRepository.ExistsByLocationId(branchModel.LocationId))
                 throw new AlreadyExistsException("Já existe essa Filial cadastrada!");
 
             BranchResponseDto branchDto;

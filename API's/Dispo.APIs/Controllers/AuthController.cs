@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
 {
-    [Route("/api/v1/auth/[controller]")]
+    [Route("/api/v1/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -25,18 +25,18 @@ namespace Dispo.API.Controllers
         [HttpPost]
         [Route("signin")]
         [AllowAnonymous]
-        public async Task<IActionResult> SignIn([FromBody] SignInRequestDto signInRequestDto)
+        public IActionResult SignIn([FromBody] SignInRequestDto signInRequestDto)
         {
             try
             {
-                var userAccountModelCretated = await _accountService.GetUserWithAccountByEmailAndPassword(signInRequestDto.Email, signInRequestDto.Password);
-                var generatedToken = _tokenGenerator.GenerateToken(userAccountModelCretated.Id);
+                var userAccountModelCretated = _accountService.GetUserWithAccountByEmailAndPassword(signInRequestDto.Email, signInRequestDto.Password);
+                var generatedToken = _tokenGenerator.GenerateSigninToken(userAccountModelCretated.Id);
 
                 return Ok(new ResponseModelBuilder().WithMessage("User exists!")
                                                     .WithSuccess(true)
-                                                    .WithData(new SignUpResponseDto()
+                                                    .WithData(new SignInResponseDto()
                                                     {
-                                                        userResponseDto = userAccountModelCretated,
+                                                        userAccountResponseDto = userAccountModelCretated,
                                                         tokenResponseDto = generatedToken
                                                     })
                                                     .Build());
@@ -56,11 +56,11 @@ namespace Dispo.API.Controllers
         [HttpPost]
         [Route("signup")]
         [AllowAnonymous]
-        public async Task<IActionResult> SignUp([FromBody] SignUpRequestDto signUpRequestDto)
+        public IActionResult SignUp([FromBody] SignUpRequestDto signUpRequestDto)
         {
             try
             {
-                var createdUser = await _accountService.CreateAccountAndUser(signUpRequestDto);
+                var createdUser = _accountService.CreateAccountAndUser(signUpRequestDto);
 
                 return Created("/api/v1/auth/signup", new ResponseModelBuilder().WithMessage("User Created!")
                                                                                 .WithSuccess(true)

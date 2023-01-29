@@ -5,14 +5,15 @@ namespace Dispo.Infrastructure.Repositories.Interfaces
 {
     public interface IAccountRepository : IBaseRepository<Account>
     {
-        Task<bool> ExistsByEmailAndPassword(string email, string password);
+        bool ExistsByEmail(string email);
+        bool ExistsByEmailAndPassword(string email, string password);
 
-        Task<Account?> GetUserWithAccountByEmailAndPassword(string email, string password);
+        Account? GetUserWithAccountByEmailAndPassword(string email, string password);
 
-        Task ResetPassword(Account account, string newPassword);
+        void ResetPassword(Account account, string newPassword);
 
-        Task<long> GetAccountIdByEmail(string email);
+        long GetAccountIdByEmail(string email);
 
-        Task<UserInfoResponseDto> GetUserInfoResponseDto(long id);
+        UserInfoResponseDto GetUserInfoResponseDto(long id);
     }
 }

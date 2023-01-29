@@ -1,7 +1,6 @@
 ﻿using Dispo.Domain.Entities;
 using Dispo.Infrastructure.Context;
 using Dispo.Infrastructure.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Dispo.Infrastructure.Repositories
@@ -18,12 +17,12 @@ namespace Dispo.Infrastructure.Repositories
         private Expression<Func<User, bool>> ExpExistsByCpfCnpj(string cpfCnpj)
             => w => w.CpfCnpj.Equals(cpfCnpj);
 
-        public async Task<bool> ExistsByCpfCnpj(string cpfCnpj)
-            => await _dispoContext.Users
-                                  .AnyAsync(ExpExistsByCpfCnpj(cpfCnpj));
+        public bool ExistsByCpfCnpj(string cpfCnpj)
+            => _dispoContext.Users
+                            .Any(ExpExistsByCpfCnpj(cpfCnpj));
 
-        public async Task<User?> GetUserByAccountId(long accountId)
-            => await _dispoContext.Users
-                                  .FirstOrDefaultAsync(x => x.AccountId == accountId);
+        public User? GetUserByAccountId(long accountId)
+            => _dispoContext.Users
+                            .FirstOrDefault(x => x.AccountId == accountId);
     }
 }
