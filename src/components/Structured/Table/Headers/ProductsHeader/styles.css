@@ -1,0 +1,11 @@
+.container-buttons {
+  margin-left: 7%;
+  margin-Top: 1%;
+  display: inline-block;
+}
+
+.filterLine {
+  margin-left: 10px;
+  margin-Top: 3.5px;
+  width: 1280px;
+}

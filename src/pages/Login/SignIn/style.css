@@ -1,0 +1,16 @@
+#login {
+    background-color: #222222;
+    border-radius: 15px;
+    width: 500px;
+    height: 585px;
+}
+
+.rounded-border {
+    border-radius: 15px;
+    margin-left: 100px;
+}
+
+#content {
+    padding-left: 50px;
+    padding-right: 50px;
+}
