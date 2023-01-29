@@ -11,7 +11,7 @@ namespace Dispo.API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountRepository _accountRepository;
-        private readonly IRijndaelCryptography _rijndaelCryptography; //teste real agora
+        private readonly IRijndaelCryptography _rijndaelCryptography;
 
         public AccountController(IAccountRepository accountRepository, IRijndaelCryptography rijndaelCryptography)
         {
