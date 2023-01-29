@@ -63,8 +63,7 @@ export default function MovimentCard() {
                   <div class="container">
                     <div class="content">
                       <form action="#">
-                        <h1>Teste para pull  request1</h1>
-                        <h1>Teste para pull  request1</h1>
+                        <h1>Github organization</h1>
                       </form>
                     </div>
                   </div>
