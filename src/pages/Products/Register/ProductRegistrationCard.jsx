@@ -10,6 +10,7 @@ import { handleRegisterProduct } from "../../../services/Product/productServices
 import { handleGetBrandNames } from "../../../services/Brand/brandServices"
 import { DefaultButton } from '../../../components/Basic/Button/Default/DefaultButton';
 import { BACKGROUNDS, COLORS } from '../../../config/defaultColors';
+import { AlertMessagePanel } from "../../../components/Structured/Notifications/MessagePanel/AlertMessagePanel"
 
 import "../../../styles/registrationContent.css"
 
@@ -25,6 +26,9 @@ export default function ProductRegistrationCard() {
   const [productInventory, setProductInventory] = useState(1);
 
   const [BrandsRegistered, setBrandsRegistered] = useState([]);
+  const [alertMessage, setAlertMessage] = useState([]);
+
+// Passar os enums do c# para o react ou deixar assim?????
 
   const unitOfMeansurement = [
     'Meter',
@@ -37,8 +41,8 @@ export default function ProductRegistrationCard() {
   const productTypes = [
     'Comida',
     'Roupas',
-    'Eletronico',
-    'Livro'
+    'Eletronicos',
+    'Livros'
   ];
 
   const productColors = [
@@ -56,7 +60,6 @@ export default function ProductRegistrationCard() {
     handleGetBrandNames()
     .then(function(res)
     { 
-      console.log(res.data);
       setBrandsRegistered(res.data);
     })
     .catch(function(err)
@@ -81,12 +84,18 @@ export default function ProductRegistrationCard() {
     handleRegisterProduct(data)
     .then(function(res){
 
-      alert(res.data);
+      setAlertMessage([{ description: res.data.message, type: res.data.alertType }]);
 
     })
     .catch(function(err){
       
-      alert(err);
+      if (err.response.data){
+        setAlertMessage([{ description: err.response.data.message, type: "error" }]);
+      }else{
+        setAlertMessage([{ description: "Serviço não encontrado ou fora do ar", type: "error" }]);
+      }
+
+      console.log(err);
 
     })
   };
@@ -94,6 +103,9 @@ export default function ProductRegistrationCard() {
   return (
     <div style={{ backgroundColor: BACKGROUNDS.WhiteTheme }}>
       <Sidebar contentTitle="Cadastro de Produto" contentMarginLeft="4%" >
+        <div>
+          { alertMessage && alertMessage.map(item => <AlertMessagePanel type={item.type} description={item.description} />) }
+        </div>
         <div style={{ marginLeft: "4%", width: "1400px" }}>
           <Card style={{ border: "1px solid #e7ecf1", marginBottom: "2%" }}>
             <CardContent>

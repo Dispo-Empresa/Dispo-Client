@@ -4,6 +4,6 @@ export const setUserInfo = (userInfo) => localStorage.setItem('accessUserInfo', 
 
 export const getUserInfo = () => localStorage.getItem('accessUserInfo');
 
-export const getUserId = () => jwt_decode(localStorage.getItem('accessToken')).name;
+export const getUserId = () => jwt_decode(localStorage.getItem('accessToken')).unique_name;
 
 export const removeUserInfo = () => localStorage.removeItem('accessUserInfo');

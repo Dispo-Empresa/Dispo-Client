@@ -8,19 +8,22 @@ import { Box } from "@mui/system";
 import { getUserId, setUserInfo } from "../../services/Getters/lsUserInfoService"
 import { handleUpdateUserAccountInfo } from "../../services/UserAccount/profileCallAPI"
 import { COLORS, BACKGROUNDS } from "../../config/defaultColors"
+import { AlertMessagePanel } from "../../components/Structured/Notifications/MessagePanel/AlertMessagePanel"
 
 import "../../styles/registrationContent.css"
 
 export default function ProfileCard() {
 
-  const userInfo = JSON.parse(localStorage.getItem('accessUserInfo'))
+  const userInfo = JSON.parse(localStorage.getItem('accessUserInfo'));
 
-  const [userInfoFirstName, setUserInfoFirstName] = useState(userInfo.firstName)
-  const [userInfoLastName, setUserInfoLastName] = useState(userInfo.lastName)
-  const [userInfoCpfCnpj, setUserInfoCpfCnpj] = useState(userInfo.cpfCnpj)
-  const [userInfoPhone, setUserInfoPhone] = useState(userInfo.phone)
-  const [userInfoBirthDate, setUserInfoBirthDate] = useState(userInfo.birthDate)
-  const [userInfoEmail, setUserInfoEmail] = useState(userInfo.email)
+  const [userInfoFirstName, setUserInfoFirstName] = useState(userInfo.firstName);
+  const [userInfoLastName, setUserInfoLastName] = useState(userInfo.lastName);
+  const [userInfoCpfCnpj, setUserInfoCpfCnpj] = useState(userInfo.cpfCnpj);
+  const [userInfoPhone, setUserInfoPhone] = useState(userInfo.phone);
+  const [userInfoBirthDate, setUserInfoBirthDate] = useState(userInfo.birthDate);
+  const [userInfoEmail, setUserInfoEmail] = useState(userInfo.email);
+  
+  const [alertMessage, setAlertMessage] = useState([]);
 
   const UpdateUserAccountInfo = () => {
 
@@ -35,6 +38,7 @@ export default function ProfileCard() {
 
     handleUpdateUserAccountInfo(getUserId(), dataRequest)
     .then(function(res){
+
       setUserInfo({
         birthDate: res.data.birthDate,
         cpfCnpj: res.data.cpfCnpj,
@@ -42,14 +46,29 @@ export default function ProfileCard() {
         firstName: res.data.firstName,
         lastName: res.data.lastName,
         phone: res.data.phone
-      })
+      });
+
+      setAlertMessage([{ description: res.data.message, type: res.data.alertType }]);
+
     })
-    .catch(err => alert(err.response.data));
-  }
+    .catch(function(err){
+
+      if (err.response.data){
+        setAlertMessage([{ description: err.message, type: "error" }]);
+      }else{
+        setAlertMessage([{ description: "Serviço não encontrado ou fora do ar", type: "error" }]);
+      }
+
+      console.log(err.response);
+    });
+  };
 
   return (
     <div style={{ backgroundColor: BACKGROUNDS.WhiteTheme }}>
       <Sidebar contentTitle="Perfil" contentMarginLeft="4%">
+        <div>
+          { alertMessage && alertMessage.map(item => <AlertMessagePanel type={item.type} description={item.description} />) }
+        </div>
         <div style={{ marginLeft: "4%", width: "1400px" }}>
           <Card>
             <CardContent>

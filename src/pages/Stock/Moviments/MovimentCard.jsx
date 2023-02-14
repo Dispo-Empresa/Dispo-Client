@@ -53,7 +53,7 @@ export default function MovimentCard() {
                           {option.name} - ({option.code})
                         </Box>
                       )}
-                      renderInput={(params) => <TextField {...params} label="Pesquise pelo produto desejado > Produto - (Código)" />}
+                      renderInput={(params) => <TextField {...params} label="Pesquise pelo produto desejado > Produto - (Código SKU)" />}
                       value={productSearched}
                       onChange={(e) => setProductSearched(e.target.innerText) }
                     />
@@ -63,7 +63,6 @@ export default function MovimentCard() {
                   <div class="container">
                     <div class="content">
                       <form action="#">
-                        <h1>Github organization</h1>
                       </form>
                     </div>
                   </div>

@@ -45,6 +45,7 @@
     "react-icons": "^4.7.1",
     "react-input-mask": "^2.0.4",
     "react-multistep": "^5.3.2",
+    "react-notifications": "^1.7.4",
     "react-paginate": "^8.1.4",
     "react-rounded-image": "^2.0.14",
     "react-router-dom": "^6.3.0",

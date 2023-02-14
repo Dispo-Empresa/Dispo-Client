@@ -10,6 +10,7 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav } from "reactstrap"
 import { Footer } from "../Footer/Footer"
 import { DefaultTypography } from "../../Basic/Labels/Typography"
 import { Box } from "@mui/system";
+import { AlertMessagePanel } from "../../Structured/Notifications/MessagePanel/AlertMessagePanel"
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css"
@@ -61,7 +62,9 @@ export default function Sidebar(props) {
           <Box paddingBottom={3} paddingTop={2} style={{ marginLeft: props.contentMarginLeft }}>
             <DefaultTypography variant="h3" text={props.contentTitle} />
           </Box>
-          {props.children}
+            <div>
+              {props.children}
+            </div>
           <div>
             <Footer />
           </div>

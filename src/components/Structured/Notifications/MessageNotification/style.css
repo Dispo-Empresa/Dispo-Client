@@ -1,0 +1,69 @@
+.notification-wrapper {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 300px;
+    z-index: 999;
+}
+
+.notification-item {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    animation: SlideLeft 0.4s;
+    animation-fill-mode: forwards;
+    width: 300px;
+    background-color: aliceblue;
+    z-index: 999;
+}
+
+@keyframes SlideLeft {
+    0% {
+        margin-left: 120%;
+    }
+
+    100% {
+        margin-left: 0;
+    }
+}
+
+@keyframes SlideRight {
+    0% {
+        margin-left: 0;
+    }
+
+    100% {
+        margin-left: 120%;
+    }
+}
+
+.notification-item.exit {
+    animation: SlideRight 0.4s;
+    animation-fill-mode: forwards;
+    z-index: 999;
+}
+
+.notification-item p {
+    margin: 0;
+    padding: 10px;
+}
+
+.notification-item .bar {
+    height: 10px;
+}
+
+.notification-item.success .bar {
+    background-color: #65d266;
+}
+
+.notification-item.error .bar {
+    background-color: red;
+}
+
+.notification-item.success {
+    box-shadow: 0 0 10px #65d266;
+}
+
+.notification-item.error  {
+    box-shadow: 0 0 10px red;
+}
