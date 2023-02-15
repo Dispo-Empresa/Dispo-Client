@@ -5,7 +5,7 @@ import axios from "axios"
 //---------------------------
 
 const URL = {
-  Matheus: "https://localhost:7221",
+  Matheus: "https://localhost:7153",
   Arthur: "https://localhost:53120",
   Guilherme: ""
 }
@@ -15,34 +15,34 @@ const BASE_URL = URL.Matheus // <--------
 export const ENDPOINTS = {
 
   auth: {
-    signIn: "auth/signin",
-    signUp: "auth/signup"
+    signIn: "Auth/signin",
+    signUp: "Auth/signup"
   },
 
   account: {
-    getAccountIdByEmail: "accounts/getAccountIdByEmail",
+    getAccountIdByEmail: "Accounts/getAccountIdByEmail",
   },
 
   userAccount: {
-    updateUserAccountInfo: "userAccount/updateUserAccountInfo",
+    updateUserAccountInfo: "UserAccount/updateUserAccountInfo",
   },
 
   forgotPassword: {
-    sendResetPasswordCode: "forgotPassword/sendResetPasswordCode",
-    emailCodeChecker: "forgotPassword/emailCodeChecker",
-    resetPassword: "forgotPassword/resetPassword"
+    sendResetPasswordCode: "ForgotPassword/sendResetPasswordCode",
+    emailCodeChecker: "ForgotPassword/emailCodeChecker",
+    resetPassword: "ForgotPassword/resetPassword"
   },
 
   brand: {
-    registerBrand: "brands/registerBrand",
-    getBrandNames: "brands/getBrandNames",
-    getAllBrands: "brands/getAllBrandsInfo",
+    registerBrand: "Brands/registerBrand",
+    getBrandNames: "Brands/getBrandNames",
+    getAllBrands: "Brands/getAllBrandsInfo",
   },
 
   product: {
-    registerProduct: "products/registerProduct",
-    getProductNamesWithCode: "products/getProductNamesWithCode",
-    getAllProducts: "products/getAllProductsInfo",
+    registerProduct: "Products/registerProduct",
+    getProductNamesWithCode: "Products/getProductNamesWithCode",
+    getAllProducts: "Products/getAllProductsInfo",
   },
 }
 

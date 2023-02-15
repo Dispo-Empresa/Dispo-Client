@@ -10,6 +10,7 @@ import { SkipLine } from "../../../../components/Basic/SkipLine/styles"
 import { DefaultButton } from "../../../../components/Basic/Button/Default/DefaultButton"
 import { handleEmailCodeChecker } from "../../../../services/Login/coderesetpasswordcard"
 import { COLORS } from "../../../../config/defaultColors"
+import { getUserInfo } from "../../../../services/Getters/lsUserInfoService"
 
 export default function CodeResetPasswordCard() {
 
@@ -20,7 +21,7 @@ export default function CodeResetPasswordCard() {
   const [codeN5, setcodeN5] = useState("");
   const [codeN6, setcodeN6] = useState("");
   const [goToResetPassword, setgoToResetPassword] = useState(false);
-  const accountId = window.location.pathname.substring(24);           // Melhorar //
+  const accountId = window.location.pathname.substring(40);           // Melhorar //
 
   if (goToResetPassword){
     var urlWithAccountId = "/login/resetPassword/" + accountId;
@@ -29,7 +30,12 @@ export default function CodeResetPasswordCard() {
 
   const EmailCodeChecker = () => {
 
-    handleEmailCodeChecker(JSON.stringify(codeN1 + codeN2 + codeN3 + codeN4 + codeN5 + codeN6))
+    const request = {
+      email: localStorage.getItem("emailInputed"),
+      inputedToken: codeN1 + codeN2 + codeN3 + codeN4 + codeN5 + codeN6
+    };
+
+    handleEmailCodeChecker(JSON.stringify(request))
       .then(res => res.data.success ? setgoToResetPassword(true) : console.log(res.data.message))
       .catch(err => console.log(err));
   }

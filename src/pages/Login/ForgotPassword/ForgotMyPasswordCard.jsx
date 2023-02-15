@@ -25,6 +25,7 @@ export default function ForgotMyPasswordCard() {
   
   const SendResetPasswordCodeEmail = () => {
 
+    localStorage.setItem("emailInputed", emailRequest);
     handleSendResetPasswordCodeEmail(emailRequest);
     setGoToResetPassword(true);
     getAccountIdByEmail(emailRequest).then(res => setAccountId(res.data.data)).catch(err => console.log(err));

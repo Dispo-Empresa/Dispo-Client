@@ -6,7 +6,6 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import { DefaultBox } from "../../../../Basic/Box/DefaultBox"
 import { SearchTextField  } from "../../../../Basic/TextField/TextField";
-import { DefaultTypography } from "../../../../Basic/Labels/Typography"
 import { IconButtonTest } from "../../../../Basic/Icons/IconButton"
 import { COLORS } from "../../../../../config/defaultColors";
 

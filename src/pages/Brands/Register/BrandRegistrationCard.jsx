@@ -7,10 +7,12 @@ import { DefaultButton } from "../../../components/Basic/Button/Default/DefaultB
 import { DefaultTextField } from "../../../components/Basic/TextField/TextField";
 import { handleRegisterBrand } from "../../../services/Brand/brandServices"
 import { Box, Card, CardContent } from '@material-ui/core';
+import { AlertMessagePanel } from "../../../components/Structured/Notifications/MessagePanel/AlertMessagePanel"
 
 export default function BrandRegistrationCard() {
 
   const [brandName, setBrandName] = useState();
+  const [alertMessage, setAlertMessage] = useState([]);
 
   const RegisterBrand = () => {
 
@@ -20,16 +22,27 @@ export default function BrandRegistrationCard() {
 
     handleRegisterBrand(data)
       .then(function(res){
-        alert(res);
+        
+        setAlertMessage([{ description: res.data.message, type: res.data.alertType }]);
+
       })
       .catch(function(err){
-        alert(err);
+
+        if (err.response.data){
+          setAlertMessage([{ description: err.response.data.message, type: "error" }]);
+        }else{
+          setAlertMessage([{ description: "Serviço não encontrado ou fora do ar", type: "error" }]);
+        }
+
       })
   };
 
   return (
     <div style={{ backgroundColor: BACKGROUNDS.WhiteTheme }}>
       <Sidebar contentTitle="Cadastro de Marca" contentMarginLeft="4%">
+        <div>
+          { alertMessage && alertMessage.map(item => <AlertMessagePanel type={item.type} description={item.description} />) }
+        </div>
         <div style={{ marginLeft: "4%", width: "1400px" }}>
           <Card>
             <CardContent>

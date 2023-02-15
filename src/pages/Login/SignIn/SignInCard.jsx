@@ -13,6 +13,7 @@ import { handleSignIn } from "../../../services/Login/signin"
 import { setUserInfo } from "../../../services/Getters/lsUserInfoService"
 import { setToken } from "../../../services/Getters/lsTokenService"
 import { COLORS } from "../../../config/defaultColors"
+import { sleep } from "../../../utils/nomear"
 
 import "./style.css"
 import "../../../services/apiMap"
@@ -22,7 +23,8 @@ export default function SignInCard() {
   const [emailRequest, setEmailRequest] = useState("");
   const [passwordRequest, setpasswordRequest] = useState("");
   const [goToHomePage, setgoToHomePage] = useState(false);
-
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   if (goToHomePage){
     return <Navigate to="/Home" />
@@ -36,16 +38,25 @@ export default function SignInCard() {
     }
 
     handleSignIn(data)
-    .then(function(res){
+    .then(async function(res){
 
-      window.addEventListener('load', console.log('loading...'))
-      setToken(res.data.data.tokenData.token);
-      setUserInfo(res.data.data.userAccountModel);
+      setToken(res.data.data.tokenResponseDto.token);
+      setUserInfo(res.data.data.userAccountResponseDto);
+      setSuccessMessage("Logado com sucesso. Entrando...");
+      setErrorMessage(null);
+      await sleep(2500);
       setgoToHomePage(true);
     })
     .catch(function(err)
     {
-      alert(err);
+      if (err.response.status == 404) {
+        setErrorMessage(err.response.data.message);
+        setSuccessMessage(null);
+      }else{
+        setErrorMessage("Erro inesperado");
+        setSuccessMessage(null);
+        console.log(err);
+      }
     })
   }
 
@@ -61,6 +72,21 @@ export default function SignInCard() {
         <div id="content">
           <Box sx={{ marginLeft: "-15px" }}>
             <img src={logo} alt="Dispo" width="250" height="220" style={{ marginLeft: "10%", marginTop: "-10%" }} />
+            { 
+              errorMessage 
+              ?
+              <div style={{ marginTop: "-15%", marginBottom: "10%", textAlign: "center", color: "red" }}>
+                <label>{errorMessage}</label>
+              </div>
+              :
+              successMessage
+              ?
+              <div style={{ marginTop: "-15%", marginBottom: "10%", textAlign: "center", color: "green" }}>
+                <label>{successMessage}</label>
+              </div>
+              :
+              null
+            }
             <DefaultTextField label="E-mail" variant="outlined" type="email"
                               onChange={(value) => setEmailRequest(value.target.value) } onKeyPress={(e) => keyPress(e)} />
           </Box>
