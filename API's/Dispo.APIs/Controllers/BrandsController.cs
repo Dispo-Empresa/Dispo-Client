@@ -1,4 +1,5 @@
 ﻿using Dispo.API.ResponseBuilder;
+using Dispo.APIs.ResponseBuilder;
 using Dispo.Domain.Exceptions;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.DTOs.RequestDTOs;
@@ -7,14 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
 {
-    [Route("/api/v1/brands/[controller]")]
+    [Route("/api/v1/[controller]")]
     [ApiController]
-    public class BrandController : ControllerBase
+    public class BrandsController : ControllerBase
     {
         private readonly IBrandService _brandService;
         private readonly IBrandRepository _brandRepository;
 
-        public BrandController(IBrandService brandService, IBrandRepository brandRepository)
+        public BrandsController(IBrandService brandService, IBrandRepository brandRepository)
         {
             _brandService = brandService;
             _brandRepository = brandRepository;
@@ -28,15 +29,25 @@ namespace Dispo.API.Controllers
             {
                 var brandCreated = _brandService.CreateBrand(brandRequestDto);
 
-                return Ok(brandCreated);
+                return Ok(new ResponseModelBuilder().WithMessage("Marca criada com sucesso!")
+                                                    .WithSuccess(true)
+                                                    .WithData(brandCreated)
+                                                    .WithAlert(AlertType.Success)
+                                                    .Build());
             }
             catch (AlreadyExistsException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new ResponseModelBuilder().WithMessage(ex.Message)
+                                                            .WithSuccess(false)
+                                                            .WithAlert(AlertType.Error)
+                                                            .Build());
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new ResponseModelBuilder().WithMessage($"Erro inesperado:  {ex.Message}")
+                                                            .WithSuccess(false)
+                                                            .WithAlert(AlertType.Error)
+                                                            .Build());
             }
         }
 
@@ -57,7 +68,7 @@ namespace Dispo.API.Controllers
 
         [HttpGet]
         [Route("getAllBrandsInfo")]
-        public async Task<IActionResult> GetAllBrandInfo()
+        public IActionResult GetAllBrandInfo()
         {
             try
             {

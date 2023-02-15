@@ -1,9 +1,14 @@
-﻿using Dispo.Infrastructure.Repositories;
+﻿using Dispo.APIs.Queues.Publishers;
+using Dispo.Domain.Queues.Publishers;
+using Dispo.Domain.Queues.Publishers.Interfaces;
+using Dispo.Infrastructure.Repositories;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.Cache;
 using Dispo.Service.Cache.Interfaces;
 using Dispo.Service.Services;
 using Dispo.Service.Services.Interfaces;
+using Dispo.Service.Services.PasswordRecovery;
+using Dispo.Service.Services.PasswordRecovery.Interfaces;
 using Dispo.Service.Token;
 using Dispo.Service.Token.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,12 +48,14 @@ namespace Dispo.IoC
             serviceColletion.AddScoped<IUserAccountService, UserAccountService>();
             serviceColletion.AddScoped<IPasswordRecoveryService, PasswordRecoveryService>();
             serviceColletion.AddScoped<IBrandService, BrandService>();
+            serviceColletion.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
         }
 
         private static void InjectGenerics(IServiceCollection serviceColletion)
         {
             serviceColletion.AddScoped<ITokenGenerator, TokenGenerator>();
             serviceColletion.AddScoped<ICacheManager, CacheManager>();
+            serviceColletion.AddScoped<IEmailSenderPublisher, EmailSenderPublisher>();
             serviceColletion.AddSingleton(MappingProfile.CreateMappingProfile().CreateMapper());
         }
     }

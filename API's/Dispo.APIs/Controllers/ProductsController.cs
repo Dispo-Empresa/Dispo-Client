@@ -1,4 +1,5 @@
 ﻿using Dispo.API.ResponseBuilder;
+using Dispo.APIs.ResponseBuilder;
 using Dispo.Domain.Exceptions;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.DTOs.RequestDTOs;
@@ -7,14 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
 {
-    [Route("/api/v1/products/[controller]")]
+    [Route("/api/v1/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
         private readonly IProductRepository _productRepository;
 
-        public ProductController(IProductService productService, IProductRepository productRepository)
+        public ProductsController(IProductService productService, IProductRepository productRepository)
         {
             _productService = productService;
             _productRepository = productRepository;
@@ -27,15 +28,26 @@ namespace Dispo.API.Controllers
             try
             {
                 var productCreated = _productService.CreateProduct(productModel);
-                return Ok(productCreated);
+
+                return Ok(new ResponseModelBuilder().WithMessage("Produto criado com sucesso!")
+                                                    .WithSuccess(true)
+                                                    .WithData(productCreated)
+                                                    .WithAlert(AlertType.Success)
+                                                    .Build());
             }
             catch (AlreadyExistsException ex)
             {
-                throw;
+                return BadRequest(new ResponseModelBuilder().WithMessage(ex.Message)
+                                                            .WithSuccess(false)
+                                                            .WithAlert(AlertType.Error)
+                                                            .Build());
             }
             catch (Exception ex)
             {
-                throw;
+                return BadRequest(new ResponseModelBuilder().WithMessage($"Erro inesperado:  {ex.Message}")
+                                                            .WithSuccess(false)
+                                                            .WithAlert(AlertType.Error)
+                                                            .Build());
             }
         }
 
@@ -56,7 +68,7 @@ namespace Dispo.API.Controllers
 
         [HttpGet]
         [Route("getAllProductsInfo")]
-        public async Task<IActionResult> GetAllProductsInfo()
+        public IActionResult GetAllProductsInfo()
         {
             try
             {

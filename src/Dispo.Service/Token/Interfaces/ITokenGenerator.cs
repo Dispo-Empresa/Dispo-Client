@@ -4,6 +4,6 @@ namespace Dispo.Service.Token.Interfaces
 {
     public interface ITokenGenerator
     {
-        TokenResponseDto GenerateToken(long accountId);
+        TokenResponseDto GenerateSigninToken(long accountId);
     }
 }

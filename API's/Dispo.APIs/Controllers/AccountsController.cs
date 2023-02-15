@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
 {
-    [Route("/api/v1/accounts/[controller]")]
+    [Route("/api/v1/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountsController : ControllerBase
     {
         private readonly IAccountRepository _accountRepository;
         private readonly IRijndaelCryptography _rijndaelCryptography;
 
-        public AccountController(IAccountRepository accountRepository, IRijndaelCryptography rijndaelCryptography)
+        public AccountsController(IAccountRepository accountRepository, IRijndaelCryptography rijndaelCryptography)
         {
             _accountRepository = accountRepository;
             _rijndaelCryptography = rijndaelCryptography;
@@ -21,9 +21,9 @@ namespace Dispo.API.Controllers
 
         [HttpPost]
         [Route("getAccountIdByEmail")]
-        public async Task<IActionResult> GetAccountIdByEmail([FromBody] string email)
+        public IActionResult GetAccountIdByEmail([FromBody] string email)
         {
-            var accountId = await _accountRepository.GetAccountIdByEmail(_rijndaelCryptography.Encrypt(email));
+            var accountId = _accountRepository.GetAccountIdByEmail(_rijndaelCryptography.Encrypt(email));
 
             if (accountId.IsIdValid())
             {

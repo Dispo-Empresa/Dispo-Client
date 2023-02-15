@@ -38,11 +38,11 @@ namespace Dispo.Service.Services
                     Name = productModel.Name,
                     Code = BuildProductSKUCode(productModel.Name, productModel.Type),
                     BrandId = _brandRepository.GetBrandIdByName(productModel.BrandName),
-                    UnitOfMeasurement = UoMConverter(productModel.UnitOfMeasurement),
+                    UnitOfMeasurement = EnumHelper.ConvertToEnum(productModel.UnitOfMeasurement, eUnitOfMeasurement.Others),
                     UnitPrice = productModel.UnitPrice,
-                    Color = ColorConverter(productModel.Color),
+                    Color = EnumHelper.ConvertToEnum(productModel.Color, eColor.Other),
                     InventoryId = productModel.InventoryId,
-                    Type = ProductTypeConverter(productModel.Type),
+                    Type = EnumHelper.ConvertToEnum(productModel.Type, eProductType.Others),
                     Description = productModel.Description
                 };
 
@@ -65,8 +65,8 @@ namespace Dispo.Service.Services
             var productNameWords = productName.Split(' ').ToList();
             var productSKUCode = "";
 
-            productNameWords.ForEach(x => productSKUCode += x.Count() > 2 ? x.Substring(0, 3) : x.Substring(0, 2));
-            productSKUCode += productType.Substring(0, 4);
+            productNameWords.ForEach(x => productSKUCode += x.Count() > 2 && productName.Count() < 25 ? x.Substring(0, 3) : x.Substring(0, 2));
+            productSKUCode += productType.Substring(0, 3);
             productSKUCode += DateTime.Today.Day.ToString() + DateTime.Today.Month.ToString().Count();
 
             productSKUCode = productSKUCode.ToUpper();
@@ -77,92 +77,6 @@ namespace Dispo.Service.Services
             }
 
             return productSKUCode;
-        }
-
-        /////////////////////////////////////////////////////
-        // Melhor colocar os métodos abaixo em outro lugar???
-        /////////////////////////////////////////////////////
-
-        public eUnitOfMeasurement UoMConverter(string uom)
-        {
-            if (uom == "Meter")
-            {
-                return eUnitOfMeasurement.Meter;
-            }
-            else if (uom == "Liter")
-            {
-                return eUnitOfMeasurement.Liter;
-            }
-            else if (uom == "Kilo")
-            {
-                return eUnitOfMeasurement.Kilo;
-            }
-            else if (uom == "Gram")
-            {
-                return eUnitOfMeasurement.Gram;
-            }
-            else if (uom == "Unit")
-            {
-                return eUnitOfMeasurement.Unit;
-            }
-
-            return eUnitOfMeasurement.Others;
-        }
-
-        public eColor ColorConverter(string color)
-        {
-            if (color == "Amarelo")
-            {
-                return eColor.Yellow;
-            }
-            else if (color == "Vermelho")
-            {
-                return eColor.Red;
-            }
-            else if (color == "Roxo")
-            {
-                return eColor.Purple;
-            }
-            else if (color == "Azul")
-            {
-                return eColor.Blue;
-            }
-            else if (color == "Verde")
-            {
-                return eColor.Green;
-            }
-            else if (color == "Branco")
-            {
-                return eColor.White;
-            }
-            else if (color == "Preto")
-            {
-                return eColor.Black;
-            }
-
-            return eColor.Black;
-        }
-
-        public eProductType ProductTypeConverter(string productType)
-        {
-            if (productType == "Comida")
-            {
-                return eProductType.Food;
-            }
-            else if (productType == "Roupas")
-            {
-                return eProductType.Clothes;
-            }
-            else if (productType == "Eletronico")
-            {
-                return eProductType.Eletronics;
-            }
-            else if (productType == "Livro")
-            {
-                return eProductType.Books;
-            }
-
-            return eProductType.Others;
         }
     }
 }

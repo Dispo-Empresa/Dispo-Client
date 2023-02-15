@@ -6,6 +6,7 @@ using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.DTOs.RequestDTOs;
 using Dispo.Service.DTOs.ResponseDTOs;
 using Dispo.Service.Services.Interfaces;
+using Dispo.Service.Services.PasswordRecovery.Interfaces;
 using EscNet.Cryptography.Interfaces;
 using EscNet.Hashers.Interfaces.Algorithms;
 using Microsoft.Extensions.Configuration;
@@ -20,27 +21,22 @@ namespace Dispo.Service.Services
         private readonly IArgon2IdHasher _hasher;
         private readonly IRijndaelCryptography _rijndaelCryptography;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
-        private readonly IPasswordRecoveryService _passwordRecoveryService;
 
-        public AccountService(IAccountRepository accountRepository, IUserRepository userRepository, IArgon2IdHasher hasher,
-                              IRijndaelCryptography rijndaelCryptography, IMapper mapper, IConfiguration configuration, IPasswordRecoveryService passwordRecoveryService)
+        public AccountService(IAccountRepository accountRepository, IUserRepository userRepository, IArgon2IdHasher hasher, IRijndaelCryptography rijndaelCryptography, IMapper mapper)
         {
             _accountRepository = accountRepository;
             _userRepository = userRepository;
             _hasher = hasher;
             _rijndaelCryptography = rijndaelCryptography;
             _mapper = mapper;
-            _configuration = configuration;
-            _passwordRecoveryService = passwordRecoveryService;
         }
 
-        public async Task<UserAccountResponseDto> GetUserWithAccountByEmailAndPassword(string email, string password)
+        public UserAccountResponseDto GetUserWithAccountByEmailAndPassword(string email, string password)
         {
             var encryptedEmail = _rijndaelCryptography.Encrypt(email);
             var hashedPassword = _hasher.Hash(password);
 
-            var account = await _accountRepository.GetUserWithAccountByEmailAndPassword(encryptedEmail, hashedPassword);
+            var account = _accountRepository.GetUserWithAccountByEmailAndPassword(encryptedEmail, hashedPassword);
 
             if (account == null || account.User == null)
                 throw new NotFoundedException("Conta ou Usuário não encontrado");
@@ -57,10 +53,13 @@ namespace Dispo.Service.Services
             };
         }
 
-        public async Task<UserResponseDto> CreateAccountAndUser(SignUpRequestDto signUpRequestDto)
+        public UserResponseDto CreateAccountAndUser(SignUpRequestDto signUpRequestDto)
         {
-            if (await _userRepository.ExistsByCpfCnpj(signUpRequestDto.CpfCnpj))
-                throw new AlreadyExistsException("Já existe um usuário com o CPF/CNPJ cadastrado");
+            if (_accountRepository.ExistsByEmail(signUpRequestDto.Email))
+                throw new AlreadyExistsException("Já existe um usuário com o Email informado");
+
+            if (_userRepository.ExistsByCpfCnpj(signUpRequestDto.CpfCnpj))
+                throw new AlreadyExistsException("Já existe um usuário com o CPF/CNPJ informado");
 
             UserResponseDto userDto;
             using (var tc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
@@ -88,7 +87,7 @@ namespace Dispo.Service.Services
             return userDto;
         }
 
-        public async Task ResetPassword(long accountId, string newPassword)
+        public void ResetPassword(long accountId, string newPassword)
         {
             var account = _accountRepository.GetById(accountId);
 
@@ -96,21 +95,19 @@ namespace Dispo.Service.Services
             {
                 using (var tc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    await _accountRepository.ResetPassword(account, _hasher.Hash(newPassword));
+                    _accountRepository.ResetPassword(account, _hasher.Hash(newPassword));
                     tc.Complete();
                 }
-
-                _passwordRecoveryService.RemoveFromCacheByEmail(account.Email);
             }
         }
 
-        public async Task<UserAccountResponseDto> UpdateUserAccountInfo(UserAccountResponseDto userAccountModel)
+        public UserAccountResponseDto UpdateUserAccountInfo(UserAccountResponseDto userAccountModel)
         {
             User? userInfo = null;
 
             using (var tc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var userUpdated = await _userRepository.GetUserByAccountId(userAccountModel.Id);
+                var userUpdated = _userRepository.GetUserByAccountId(userAccountModel.Id);
 
                 if (userUpdated == null)
                     throw new Exception("Informações não encontradas para esta conta!");

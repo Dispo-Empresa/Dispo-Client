@@ -1,10 +1,14 @@
-﻿namespace Dispo.API.ResponseBuilder
+﻿using Dispo.APIs.ResponseBuilder;
+using Dispo.Commom;
+
+namespace Dispo.API.ResponseBuilder
 {
     public class ResponseModelBuilder
     {
         private object? _data = null;
         private string _message = string.Empty;
         private bool _success = false;
+        private string _alertType = string.Empty;
 
         public ResponseModelBuilder WithData(object? data)
         {
@@ -24,6 +28,12 @@
             return this;
         }
 
+        public ResponseModelBuilder WithAlert(AlertType type)
+        {
+            _alertType = EnumHelper.ConvertToString(type).ToLower();
+            return this;
+        }
+
         public ResponseModel Build()
         {
             return new ResponseModel
@@ -31,6 +41,7 @@
                 Data = _data,
                 Message = _message,
                 Success = _success,
+                AlertType = _alertType
             };
         }
     }

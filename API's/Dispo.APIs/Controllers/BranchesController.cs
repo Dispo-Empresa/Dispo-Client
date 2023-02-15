@@ -6,24 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
 {
-    [Route("/api/v1/branches/[controller]")]
+    [Route("/api/v1/[controller]")]
     [ApiController]
-    public class BranchController : ControllerBase
+    public class BranchesController : ControllerBase
     {
         private readonly IBranchService _branchService;
 
-        public BranchController(IBranchService branchService)
+        public BranchesController(IBranchService branchService)
         {
             _branchService = branchService;
         }
 
         [HttpPost]
         [Route("registerBranch")]
-        public async Task<IActionResult> CreateBranch(BranchRequestDto branchRequestDto)
+        public IActionResult CreateBranch(BranchRequestDto branchRequestDto)
         {
             try
             {
-                var branchModelCreated = await _branchService.CreateBranch(branchRequestDto);
+                var branchModelCreated = _branchService.CreateBranch(branchRequestDto);
 
                 return Ok(new ResponseModelBuilder().WithMessage("Branch created!")
                                                     .WithSuccess(true)

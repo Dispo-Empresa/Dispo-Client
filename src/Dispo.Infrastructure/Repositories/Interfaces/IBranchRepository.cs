@@ -4,6 +4,6 @@ namespace Dispo.Infrastructure.Repositories.Interfaces
 {
     public interface IBranchRepository : IBaseRepository<Branch>
     {
-        Task<bool> ExistsByLocationId(long locationId);
+        bool ExistsByLocationId(long locationId);
     }
 }

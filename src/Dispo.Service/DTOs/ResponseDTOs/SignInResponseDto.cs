@@ -1,8 +1,8 @@
 ﻿namespace Dispo.Service.DTOs.ResponseDTOs
 {
-    public class SignUpResponseDto
+    public class SignInResponseDto
     {
-        public UserAccountResponseDto? userResponseDto { get; set; }
+        public UserAccountResponseDto? userAccountResponseDto { get; set; }
         public TokenResponseDto? tokenResponseDto { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Dispo.Domain.Entities;
 using Dispo.Infrastructure.Context;
 using Dispo.Infrastructure.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dispo.Infrastructure.Repositories
 {
@@ -14,7 +13,7 @@ namespace Dispo.Infrastructure.Repositories
             _context = dispoContext;
         }
 
-        public async Task<bool> ExistsByLocationId(long locationId)
-            => await _context.Branches.AnyAsync(x => x.LocationId == locationId);
+        public bool ExistsByLocationId(long locationId)
+            => _context.Branches.Any(x => x.LocationId == locationId);
     }
 }

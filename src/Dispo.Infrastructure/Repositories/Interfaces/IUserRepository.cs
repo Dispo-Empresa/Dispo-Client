@@ -4,8 +4,8 @@ namespace Dispo.Infrastructure.Repositories.Interfaces
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        Task<bool> ExistsByCpfCnpj(string cpfCnpj);
+        bool ExistsByCpfCnpj(string cpfCnpj);
 
-        Task<User?> GetUserByAccountId(long accountId);
+        User? GetUserByAccountId(long accountId);
     }
 }

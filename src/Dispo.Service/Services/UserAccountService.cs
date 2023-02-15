@@ -16,13 +16,13 @@ namespace Dispo.Service.Services
             _userRepository = userRepository;
         }
 
-        public async Task<UserAccountResponseDto> UpdateUserAccountInfo(UserAccountResponseDto userAccountModel)
+        public UserAccountResponseDto UpdateUserAccountInfo(UserAccountResponseDto userAccountModel)
         {
             User? userInfo = null;
 
             using (var tc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var userUpdated = await _userRepository.GetUserByAccountId(userAccountModel.Id);
+                var userUpdated = _userRepository.GetUserByAccountId(userAccountModel.Id);
 
                 if (userUpdated == null)
                     throw new Exception("Informações não encontradas para esta conta!");

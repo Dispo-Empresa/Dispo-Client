@@ -26,46 +26,55 @@ namespace Dispo.Infrastructure.Repositories
         private Expression<Func<Account, bool>> ExpById(long accountId)
             => exp => exp.Id.Equals(accountId);
 
+        private Expression<Func<Account, bool>> ExpExistsByEmail(string email)
+            => exp => exp.Email.Equals(email);
+
         #endregion Expressions
 
-        public async Task<bool> ExistsByEmailAndPassword(string email, string password)
+        public bool ExistsByEmail(string email)
         {
-            return await _dispoContext.Accounts
-                                      .AnyAsync(ExpBySignInModel(email, password));
+            return _dispoContext.Accounts
+                                .Any(ExpExistsByEmail(email));
         }
 
-        public async Task<Account?> GetUserWithAccountByEmailAndPassword(string email, string password)
+        public bool ExistsByEmailAndPassword(string email, string password)
         {
-            return await _dispoContext.Accounts
-                                      .Include(x => x.User)
-                                      .FirstOrDefaultAsync(ExpBySignInModel(email, password));
+            return _dispoContext.Accounts
+                                .Any(ExpBySignInModel(email, password));
         }
 
-        public async Task ResetPassword(Account account, string newPassword)
+        public Account? GetUserWithAccountByEmailAndPassword(string email, string password)
+        {
+            return _dispoContext.Accounts
+                                .Include(x => x.User)
+                                .FirstOrDefault(ExpBySignInModel(email, password));
+        }
+
+        public void ResetPassword(Account account, string newPassword)
         {
             _dispoContext.Entry(account).State = EntityState.Modified;
             account.Password = newPassword;
-            await _dispoContext.SaveChangesAsync();
+            _dispoContext.SaveChanges();
         }
 
-        public async Task<long> GetAccountIdByEmail(string email)
-            => (await _dispoContext.Accounts.Where(x => x.Email == email)
-                                            .Select(s => s.Id)
-                                            .SingleOrDefaultAsync())
-                                            .ToLong();
+        public long GetAccountIdByEmail(string email)
+            => (_dispoContext.Accounts.Where(x => x.Email == email)
+                                      .Select(s => s.Id)
+                                      .SingleOrDefault())
+                                      .ToLong();
 
-        public async Task<UserInfoResponseDto> GetUserInfoResponseDto(long id)
-            => await _dispoContext.Accounts.Where(x => x.Id == id)
-                                           .Include(x => x.User)
-                                           .Select(s => new UserInfoResponseDto()
-                                           {
-                                               Email = s.Email,
-                                               FirstName = s.User.FirstName,
-                                               LastName = s.User.LastName,
-                                               CpfCnpj = s.User.CpfCnpj,
-                                               Phone = s.User.Phone,
-                                               BirthDate = s.User.BirthDate
-                                           })
-                                           .SingleOrDefaultAsync() ?? new UserInfoResponseDto();
+        public UserInfoResponseDto GetUserInfoResponseDto(long id)
+            => _dispoContext.Accounts.Where(x => x.Id == id)
+                                     .Include(x => x.User)
+                                     .Select(s => new UserInfoResponseDto()
+                                     {
+                                         Email = s.Email,
+                                         FirstName = s.User.FirstName,
+                                         LastName = s.User.LastName,
+                                         CpfCnpj = s.User.CpfCnpj,
+                                         Phone = s.User.Phone,
+                                         BirthDate = s.User.BirthDate
+                                     })
+                                     .SingleOrDefault() ?? new UserInfoResponseDto();
     }
 }
