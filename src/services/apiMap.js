@@ -44,6 +44,11 @@ export const ENDPOINTS = {
     getProductNamesWithCode: "Products/getProductNamesWithCode",
     getAllProducts: "Products/getAllProductsInfo",
   },
+
+  provider: {
+    registerProduct: "Providers/registerProvider",
+    getAllProvidersInfo: "Providers/getAllProvidersInfo",
+  },
 }
 
 export const createAPIEndpoint = (endpoint) => {

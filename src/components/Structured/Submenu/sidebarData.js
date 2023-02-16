@@ -83,13 +83,13 @@ export const SidebarData = [
     subNav: [
       {
         title: 'Cadastro',
-        path: '/brands/registration',
+        path: '/providers/registration',
         icon: <CiIcons.CiCirclePlus />,
         cName: 'sub-nav'
       },
       {
         title: 'Visualização',
-        path: '/brands/visualization',
+        path: '/providers/visualization',
         icon: <CiIcons.CiLaptop />,
         cName: 'sub-nav'
       }

@@ -13,6 +13,8 @@ import ProductVisualizationCard from "./pages/Products/Visualization/ProductVisu
 import BrandRegistrationCard from "./pages/Brands/Register/BrandRegistrationCard"
 import BrandVisualizationCard from "./pages/Brands/Visualization/BrandVisualizationCard"
 import MovimentCard from "./pages/Stock/Moviments/MovimentCard"
+import ProviderRegistrationCard from "./pages/Providers/Register/ProviderRegistrationCard"
+import ProviderVisualizationCard from "./pages/Providers/Visualization/ProviderVisualizationCard"
 
 export default function SetRoutes(){
   return (
@@ -35,6 +37,9 @@ export default function SetRoutes(){
         <Route path="/brands/visualization" element={<BrandVisualizationCard/>}></Route>
         
         <Route path="/stock/moviments" element={<MovimentCard/>}></Route>
+
+        <Route path="/providers/registration" element={<ProviderRegistrationCard/>}></Route>
+        <Route path="/providers/visualization" element={<ProviderVisualizationCard/>}></Route>
       </Routes>
     </BrowserRouter>
   );
