@@ -2,19 +2,24 @@ import Sidebar from "../../../components/Structured/Sidebar/Sidebar"
 
 import { useState, useEffect } from "react"
 import { BACKGROUNDS } from "../../../config/defaultColors"
-import { handleGetAllBrandsInfo } from "../../../services/Getters/brand"
+import { handleGetAllProvidersInfo } from "../../../services/Providers/providersServices"
 import { ActionButtons } from "../../../components/Basic/Button/Default/DefaultButton"
 import { HeaderTable } from "../../../components/Structured/Table/Headers/ProductsHeader/HeaderTable"
 import { DefaultTable } from "../../../components/Structured/Table/DefaultTable"
 import { Card, CardContent } from '@material-ui/core';
 
-export default function BrandVisualizationCard() {
+export default function ProviderVisualizationCard() {
 
   var [records, setRecords] = useState();
   const columns = [ // Achar uma forma de melhorar isso
     {
       Header: "Name",
       accessor: "name",
+      width: 300
+    },
+    {
+      Header: "CNPJ",
+      accessor: "cnpj",
       width: 300
     },
     {
@@ -28,9 +33,9 @@ export default function BrandVisualizationCard() {
   ];
 
   useEffect(() => { // call api only once || important to fetch data from api endpoints
-    handleGetAllBrandsInfo()
+    handleGetAllProvidersInfo()
     .then(function(res){
-      setRecords(res.data);
+      setRecords(res.data.data);
     })
     .catch(function(err)
     {
@@ -41,11 +46,11 @@ export default function BrandVisualizationCard() {
   
   return (
     <div style={{ backgroundColor: BACKGROUNDS.WhiteTheme }}>
-      <Sidebar contentTitle="Visualização de Marcas" contentMarginLeft="4%">
+      <Sidebar contentTitle="Visualização de Fornecedores" contentMarginLeft="4%">
         <div style={{ marginLeft: "4%" }}>
           <Card>
             <CardContent>
-              <DefaultTable title="Marcas" data={records} columns={columns} headerTable={ <HeaderTable /> } />
+              <DefaultTable title="Fornecedores" data={records} columns={columns} headerTable={ <HeaderTable /> } />
             </CardContent>
           </Card>
         </div>

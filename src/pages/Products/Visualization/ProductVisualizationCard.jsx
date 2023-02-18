@@ -10,7 +10,7 @@ import { Card, CardContent } from '@material-ui/core';
 
 export default function ProductVisualizationCard() {
 
-  var [registros, setRegistros] = useState();
+  var [records, setRecords] = useState();
   const columns = [ // Achar uma forma de melhorar isso
     {
       Header: "Name",
@@ -60,7 +60,7 @@ export default function ProductVisualizationCard() {
   useEffect(() => { // call api only once || important to fetch data from api endpoints
     handleGetAllProductsInfo()
     .then(function(res){
-      setRegistros(res.data);
+      setRecords(res.data);
     })
     .catch(function(err)
     {
@@ -75,7 +75,7 @@ export default function ProductVisualizationCard() {
         <div style={{ marginLeft: "4%" }}>
           <Card>
             <CardContent>
-              <DefaultTable title="Produtos" data={registros} columns={columns} headerTable={ <HeaderTable /> } />
+              <DefaultTable title="Produtos" data={records} columns={columns} headerTable={ <HeaderTable /> } />
             </CardContent>
           </Card>
         </div>
