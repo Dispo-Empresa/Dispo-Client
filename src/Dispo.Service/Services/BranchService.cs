@@ -23,7 +23,7 @@ namespace Dispo.Service.Services
         public BranchResponseDto CreateBranch(BranchRequestDto branchModel)
         {
             if (_branchRepository.ExistsByLocationId(branchModel.LocationId))
-                throw new AlreadyExistsException("Já existe essa Filial cadastrada!");
+                throw new AlreadyExistsException("Já existe essa Filial informada!");
 
             BranchResponseDto branchDto;
             using (var tc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
