@@ -42,7 +42,7 @@ export default function ProviderVisualizationCard() {
       alert(err);
     });
 
-  });
+  }, []);
   
   return (
     <div style={{ backgroundColor: BACKGROUNDS.WhiteTheme }}>

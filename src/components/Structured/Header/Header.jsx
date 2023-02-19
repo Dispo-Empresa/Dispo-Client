@@ -8,15 +8,20 @@ import Divider from '@mui/material/Divider';
 import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-
+import Cookies from "universal-cookie";
 
 export default function Header() {
 
+  const cookies = new Cookies();
   const [showModal, setShowModal] = useState(false);
   const [anchorEl, setProfileOptionsPosition] = useState(null);
   const open = Boolean(anchorEl)
 
   const onLogout = () => {
+
+    cookies.remove("emailSignin", { path: "/" });
+    cookies.remove("passwordSignin", { path: "/" });
+
     localStorage.removeItem('accessToken'); 
     localStorage.removeItem('accessUserInfo');
   }
