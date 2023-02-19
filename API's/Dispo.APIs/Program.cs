@@ -138,7 +138,6 @@ app.UseCors(x => x.AllowAnyHeader()
       .WithOrigins("http://localhost:3000"));
 
 app.UseAuthorization();
-app.UseAuthentication();
 
 app.MapControllers();
 

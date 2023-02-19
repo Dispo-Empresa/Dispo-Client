@@ -2,6 +2,7 @@
 using Dispo.APIs.ResponseBuilder;
 using Dispo.Service.DTOs.ResponseDTOs;
 using Dispo.Service.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
@@ -19,6 +20,7 @@ namespace Dispo.API.Controllers
 
         [HttpPut]
         [Route("updateUserAccountInfo/{accountId}")]
+        [Authorize]
         public IActionResult UpdateUserAccountInfo(int accountId, [FromBody] UserAccountResponseDto userAccountModel)
         {
             try

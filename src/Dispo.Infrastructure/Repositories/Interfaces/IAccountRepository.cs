@@ -6,6 +6,7 @@ namespace Dispo.Infrastructure.Repositories.Interfaces
     public interface IAccountRepository : IBaseRepository<Account>
     {
         bool ExistsByEmail(string email);
+
         bool ExistsByEmailAndPassword(string email, string password);
 
         Account? GetUserWithAccountByEmailAndPassword(string email, string password);

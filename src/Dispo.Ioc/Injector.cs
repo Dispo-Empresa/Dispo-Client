@@ -1,5 +1,4 @@
 ﻿using Dispo.APIs.Queues.Publishers;
-using Dispo.Domain.Queues.Publishers;
 using Dispo.Domain.Queues.Publishers.Interfaces;
 using Dispo.Infrastructure.Repositories;
 using Dispo.Infrastructure.Repositories.Interfaces;

@@ -19,7 +19,7 @@ namespace Dispo.Infrastructure.Repositories
                             .Select(b => new ProviderDto()
                             {
                                 Name = b.Name,
-                                Cnpj= b.Cnpj,
+                                Cnpj = b.Cnpj,
                             })
                             .ToList();
     }

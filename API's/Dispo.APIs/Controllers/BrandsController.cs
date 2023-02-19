@@ -4,6 +4,7 @@ using Dispo.Domain.Exceptions;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.DTOs.RequestDTOs;
 using Dispo.Service.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
@@ -23,6 +24,7 @@ namespace Dispo.API.Controllers
 
         [HttpPost]
         [Route("registerBrand")]
+        [Authorize]
         public IActionResult CreateBrand([FromBody] BrandRequestDto brandRequestDto)
         {
             try
@@ -53,6 +55,7 @@ namespace Dispo.API.Controllers
 
         [HttpGet]
         [Route("getBrandNames")]
+        [Authorize]
         public IActionResult GetBrandNames()
         {
             try
@@ -68,6 +71,7 @@ namespace Dispo.API.Controllers
 
         [HttpGet]
         [Route("getAllBrandsInfo")]
+        [Authorize]
         public IActionResult GetAllBrandInfo()
         {
             try

@@ -4,7 +4,7 @@ using Dispo.Domain.Exceptions;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.DTOs.RequestDTOs;
 using Dispo.Service.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.APIs.Controllers
@@ -24,6 +24,7 @@ namespace Dispo.APIs.Controllers
 
         [HttpPost]
         [Route("RegisterProvider")]
+        [Authorize]
         public IActionResult CreateProvider(ProviderRequestDto providerRequestDto)
         {
             try
@@ -34,7 +35,6 @@ namespace Dispo.APIs.Controllers
                                                     .WithSuccess(true)
                                                     .WithAlert(AlertType.Success)
                                                     .Build());
-
             }
             catch (AlreadyExistsException ex)
             {
@@ -54,6 +54,7 @@ namespace Dispo.APIs.Controllers
 
         [HttpGet]
         [Route("getAllProvidersInfo")]
+        [Authorize]
         public IActionResult GetAllProvidersInfo()
         {
             try

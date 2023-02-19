@@ -4,6 +4,7 @@ using Dispo.Domain.Exceptions;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.DTOs.RequestDTOs;
 using Dispo.Service.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
@@ -23,6 +24,7 @@ namespace Dispo.API.Controllers
 
         [HttpPost]
         [Route("registerProduct")]
+        [Authorize]
         public IActionResult CreateProduct([FromBody] ProductRequestDto productModel)
         {
             try
@@ -53,6 +55,7 @@ namespace Dispo.API.Controllers
 
         [HttpGet]
         [Route("getProductNamesWithCode")]
+        [Authorize]
         public IActionResult GetProductNamesWithCode()
         {
             try
@@ -68,6 +71,7 @@ namespace Dispo.API.Controllers
 
         [HttpGet]
         [Route("getAllProductsInfo")]
+        [Authorize]
         public IActionResult GetAllProductsInfo()
         {
             try

@@ -5,6 +5,7 @@ using Dispo.Service.DTOs.PluginDTOs.RequestsDTOs;
 using Dispo.Service.DTOs.RequestDTOs;
 using Dispo.Service.Services.Interfaces;
 using Dispo.Service.Services.PasswordRecovery.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
@@ -15,17 +16,16 @@ namespace Dispo.API.Controllers
     {
         private readonly IAccountService _accountService;
         private readonly IPasswordRecoveryService _passwordRecoveryService;
-        private readonly ICacheManager _cacheManager;
 
-        public ForgotPasswordController(IAccountService accountService, IPasswordRecoveryService emailRecoveryService, ICacheManager cacheManager)
+        public ForgotPasswordController(IAccountService accountService, IPasswordRecoveryService emailRecoveryService)
         {
             _accountService = accountService;
             _passwordRecoveryService = emailRecoveryService;
-            _cacheManager = cacheManager;
         }
 
         [HttpPost]
         [Route("sendResetPasswordCode")]
+        [AllowAnonymous]
         public IActionResult SendEmailCodeResetPassword([FromBody] string emailTo)
         {
             try
@@ -50,6 +50,7 @@ namespace Dispo.API.Controllers
 
         [HttpPost]
         [Route("emailCodeChecker")]
+        [AllowAnonymous]
         public IActionResult VerifyEmailCode([FromBody] VerifyEmailCodeRequestDto verifyEmailCodeRequestDto)
         {
             try
@@ -70,6 +71,7 @@ namespace Dispo.API.Controllers
 
         [HttpPost]
         [Route("resetPassword")]
+        [AllowAnonymous]
         public IActionResult ResetPassword([FromBody] ResetPasswordRequestDto resetPasswordRequestDto)
         {
             try

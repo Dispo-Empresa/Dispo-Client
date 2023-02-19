@@ -6,10 +6,8 @@ using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.DTOs.RequestDTOs;
 using Dispo.Service.DTOs.ResponseDTOs;
 using Dispo.Service.Services.Interfaces;
-using Dispo.Service.Services.PasswordRecovery.Interfaces;
 using EscNet.Cryptography.Interfaces;
 using EscNet.Hashers.Interfaces.Algorithms;
-using Microsoft.Extensions.Configuration;
 using System.Transactions;
 
 namespace Dispo.Service.Services

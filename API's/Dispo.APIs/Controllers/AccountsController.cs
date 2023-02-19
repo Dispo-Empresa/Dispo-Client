@@ -2,6 +2,7 @@
 using Dispo.Commom;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using EscNet.Cryptography.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
@@ -21,6 +22,7 @@ namespace Dispo.API.Controllers
 
         [HttpPost]
         [Route("getAccountIdByEmail")]
+        [Authorize]
         public IActionResult GetAccountIdByEmail([FromBody] string email)
         {
             var accountId = _accountRepository.GetAccountIdByEmail(_rijndaelCryptography.Encrypt(email));

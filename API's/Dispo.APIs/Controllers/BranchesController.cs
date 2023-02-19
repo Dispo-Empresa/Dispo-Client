@@ -2,6 +2,7 @@
 using Dispo.Domain.Exceptions;
 using Dispo.Service.DTOs.RequestDTOs;
 using Dispo.Service.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
@@ -19,6 +20,7 @@ namespace Dispo.API.Controllers
 
         [HttpPost]
         [Route("registerBranch")]
+        [Authorize]
         public IActionResult CreateBranch(BranchRequestDto branchRequestDto)
         {
             try
