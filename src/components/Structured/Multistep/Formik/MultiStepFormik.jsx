@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 
-import { Box, Button, Card, CardContent, CircularProgress, Grid, Step, StepLabel, Stepper } from '@material-ui/core';
-import { Field, Form, Formik } from 'formik';
-import { CheckboxWithLabel, TextField } from 'formik-material-ui';
-import { mixed, number, object } from 'yup';
-import { COLORS, BACKGROUNDS } from "../../../../config/defaultColors";
+import { Button, CircularProgress, Grid, Step, StepLabel, Stepper } from '@material-ui/core';
+import { Form, Formik } from 'formik';
+import { COLORS } from "../../../../config/defaultColors";
 
 export function FormikStep({ children }) {
     return <>{children}</>;

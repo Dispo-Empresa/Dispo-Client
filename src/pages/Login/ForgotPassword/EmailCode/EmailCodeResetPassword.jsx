@@ -10,7 +10,7 @@ import { SkipLine } from "../../../../components/Basic/SkipLine/styles"
 import { DefaultButton } from "../../../../components/Basic/Button/Default/DefaultButton"
 import { handleEmailCodeChecker } from "../../../../services/Login/coderesetpasswordcard"
 import { COLORS } from "../../../../config/defaultColors"
-import { getUserInfo } from "../../../../services/Getters/lsUserInfoService"
+import { getLocalStorage } from "../../../../Storage/local"
 
 export default function CodeResetPasswordCard() {
 
@@ -31,7 +31,7 @@ export default function CodeResetPasswordCard() {
   const EmailCodeChecker = () => {
 
     const request = {
-      email: localStorage.getItem("emailInputed"),
+      email: getLocalStorage("emailInputed"),
       inputedToken: codeN1 + codeN2 + codeN3 + codeN4 + codeN5 + codeN6
     };
 

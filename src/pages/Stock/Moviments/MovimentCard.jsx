@@ -4,7 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 import { Box, Card, CardContent } from '@material-ui/core';
 import { FormikStep, FormikStepper } from "../../../components/Structured/Multistep/Formik/MultiStepFormik"
-import { sleep } from "../../../utils/nomear"
+import { sleep } from "../../../utils/helperFunctions"
 import { DefaultTypography } from "../../../components/Basic/Labels/Typography";
 import { TextField } from '@mui/material';
 import { handleGetProductNamesWithCode } from "../../../services/Product/productServices"

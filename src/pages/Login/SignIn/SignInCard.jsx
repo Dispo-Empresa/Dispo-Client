@@ -1,19 +1,21 @@
 import logo from "../../../assets/DispoLogo.png"
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Box, Link } from "@mui/material"
 import { Navigate } from "react-router-dom"
 import { Grid } from "../../../components/Basic/Grid/DefaultGrid"
 import { DefaultBox } from "../../../components/Basic/Box/DefaultBox"
 import { DefaultButton } from "../../../components/Basic/Button/Default/DefaultButton"
-import { SkipLine } from "../../../components/Basic/SkipLine/styles"
 import { DefaultTextField, PasswordTextField } from "../../../components/Basic/TextField/TextField"
-import { DefaultTypography } from "../../../components/Basic/Labels/Typography"
 import { handleSignIn } from "../../../services/Login/signin"
 import { setUserInfo } from "../../../services/Getters/lsUserInfoService"
 import { setToken } from "../../../services/Getters/lsTokenService"
 import { COLORS } from "../../../config/defaultColors"
-import { sleep } from "../../../utils/nomear"
+import { sleep } from "../../../utils/helperFunctions"
+import { encryptData, decryptData } from "../../../security/cryptClient"
+import { getCookie, setCookie } from "../../../Storage/cookies"
 
 import "./style.css"
 import "../../../services/apiMap"
@@ -25,6 +27,18 @@ export default function SignInCard() {
   const [goToHomePage, setgoToHomePage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [keepConnected, setKeepConnected] = useState(false);
+
+  useEffect(() => {
+
+    const emailSigninCookie = getCookie("emailSignin");
+    const passwordSigninCookie = getCookie("passwordSignin");
+
+    if(emailSigninCookie && passwordSigninCookie){
+      SignIn();
+    }
+
+  }, []);
 
   if (goToHomePage){
     return <Navigate to="/Home" />
@@ -32,13 +46,27 @@ export default function SignInCard() {
 
   const SignIn = () => {
 
+    const emailSigninCookie = decryptData(getCookie("emailSignin"));
+    const passwordSigninCookie = decryptData(getCookie("passwordSignin"));
+
+    if(emailSigninCookie && passwordSigninCookie){
+      setEmailRequest(emailSigninCookie);
+      setpasswordRequest(passwordSigninCookie);
+    }
+
     var data = {
-      email: emailRequest,
-      password: passwordRequest,
+      
+      email: emailSigninCookie ? emailSigninCookie : emailRequest,
+      password: passwordSigninCookie ? passwordSigninCookie: passwordRequest,
     }
 
     handleSignIn(data)
     .then(async function(res){
+
+      if(keepConnected && (!emailSigninCookie && !passwordSigninCookie)){
+        setCookie("emailSignin", encryptData(emailRequest), "/");
+        setCookie("passwordSignin", encryptData(passwordRequest), "/");
+      }
 
       setToken(res.data.data.tokenResponseDto.token);
       setUserInfo(res.data.data.userAccountResponseDto);
@@ -52,6 +80,9 @@ export default function SignInCard() {
       if (err.response.status == 404) {
         setErrorMessage(err.response.data.message);
         setSuccessMessage(null);
+      }else if(err.code == "ERR_NETWORK"){
+        setErrorMessage("Serviço não encontrado ou fora do ar");
+        setSuccessMessage(null);
       }else{
         setErrorMessage("Erro inesperado");
         setSuccessMessage(null);
@@ -64,50 +95,50 @@ export default function SignInCard() {
     if (e.key === 'Enter'){
       SignIn();
     }
-  }
+  };
 
   return (
     <Grid backgroundColor={COLORS.SecondColor}>
       <DefaultBox width="400px" height="600px" marginLeft="0%" marginTop="0%">
         <div id="content">
           <Box sx={{ marginLeft: "-15px" }}>
-            <img src={logo} alt="Dispo" width="250" height="220" style={{ marginLeft: "10%", marginTop: "-10%" }} />
-            { 
-              errorMessage 
-              ?
-              <div style={{ marginTop: "-15%", marginBottom: "10%", textAlign: "center", color: "red" }}>
-                <label>{errorMessage}</label>
-              </div>
-              :
-              successMessage
-              ?
-              <div style={{ marginTop: "-15%", marginBottom: "10%", textAlign: "center", color: "green" }}>
-                <label>{successMessage}</label>
-              </div>
-              :
-              null
-            }
-            <DefaultTextField label="E-mail" variant="outlined" type="email"
-                              onChange={(value) => setEmailRequest(value.target.value) } onKeyPress={(e) => keyPress(e)} />
+            <Box>
+              <img src={logo} alt="Dispo" width="250" height="220" style={{ marginLeft: "10%", marginTop: "-5%" }} />
+            </Box>
+            <Box>
+              { 
+                errorMessage 
+                ?
+                <div style={{ marginTop: "-15%", marginBottom: "10%", textAlign: "center", color: "red" }}>
+                  <label>{errorMessage}</label>
+                </div>
+                :
+                successMessage
+                ?
+                <div style={{ marginTop: "-15%", marginBottom: "10%", textAlign: "center", color: "green" }}>
+                  <label>{successMessage}</label>
+                </div>
+                :
+                null
+              }
+            </Box>
+            <Box>
+              <DefaultTextField label="E-mail" variant="outlined" type="email"
+                                onChange={(value) => setEmailRequest(value.target.value) } onKeyPress={(e) => keyPress(e)} />
+            </Box>
+            <Box sx={{ marginTop: "10%" }}>
+              <PasswordTextField label="Senha" variant="outlined" type="password" 
+                                 onChange={(value) => setpasswordRequest(value.target.value) } onKeyPress={(e) => keyPress(e)} />
+            </Box>
           </Box>
-          <Box sx={{ marginLeft: "-15px" }}>
-            <SkipLine paddingTop="40" />
-            <PasswordTextField label="Senha" variant="outlined" type="password" 
-                               onChange={(value) => setpasswordRequest(value.target.value) } onKeyPress={(e) => keyPress(e)} />
+          <Box sx={{ marginLeft: "-5%", marginTop: "5%" }}>
+            <FormControlLabel control={<Checkbox label="Mantenha-me conectado" onChange={() => setKeepConnected(!keepConnected)} value={keepConnected} />} label="Mantenha-me conectado" />
           </Box>
-          <Box>
-            <Link href="/login/forgotmypassword" underline="none"
-                  style={{ color: COLORS.PrimaryColor, float: "right", marginBottom: 30, marginTop: 10 }}>
-            Esqueci minha senha
-            </Link>
-          </Box>
-          <Box textAlign="center">
+          <Box textAlign="center" sx={{ marginTop: "20%" }}>
             <DefaultButton onClick={SignIn} backgroundColor={COLORS.PrimaryColor} title="Login" width="250px" height="50px" />
           </Box>
-          <DefaultTypography variant="h6" color={COLORS.PrimaryColor} textAlign="center" text="OU" paddingTop="15px"
-                             paddingBottom="15px" />
-          <Box textAlign="center">
-            <DefaultButton href="/login/signup" backgroundColor={COLORS.PrimaryColor} title="Registrar" width="250px" height="50px" />
+          <Box textAlign="center" sx={{ marginTop: "5%" }}>
+            <Link href="/login/forgotmypassword" underline="none">Esqueci minha senha</Link>
           </Box>
         </div>
       </DefaultBox>

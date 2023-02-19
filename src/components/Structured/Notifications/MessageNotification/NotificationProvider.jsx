@@ -1,5 +1,5 @@
-import React, {createContext, useContext, useReducer, useState} from "react";
-import {v4} from "uuid";
+import React, { createContext, useContext, useReducer } from "react";
+import { v4 } from "uuid";
 import { Notification } from "./Notification";
 
 import "./style.css";

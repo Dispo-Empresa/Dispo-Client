@@ -67,7 +67,7 @@ export default function ProductVisualizationCard() {
       alert(err);
     });
 
-  });
+  }, []);
   
   return (
     <div style={{ backgroundColor: BACKGROUNDS.WhiteTheme }}>

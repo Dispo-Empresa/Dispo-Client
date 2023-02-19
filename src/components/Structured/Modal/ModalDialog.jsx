@@ -7,9 +7,9 @@ import avatar from "../../../assets/avatar.png"
 
 import { DefaultButton } from "../../Basic/Button/Default/DefaultButton"
 import { DefaultTextField } from "../../Basic/TextField/TextField"
-import { SkipLine } from "../../Basic/SkipLine/styles";
 import { ProfileModalStyle, ModalDefaultStyle } from "./styles"
 import { COLORS } from "../../../config/defaultColors"
+import { getLocalStorage } from "../../../Storage/local"
 
 export function DefaultModal(props) {
   return (
@@ -40,7 +40,7 @@ export function DefaultModal(props) {
 
 export function ProfileModal(props) {
 
-  const userInfo = JSON.parse(localStorage.getItem('accessUserInfo'));
+  const userInfo = JSON.parse(getLocalStorage("accessUserInfo"));
 
   return (
     <div>

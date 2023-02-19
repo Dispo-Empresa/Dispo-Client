@@ -8,7 +8,7 @@ import { DefaultTextField } from "../../../components/Basic/TextField/TextField"
 import { handleRegisterProvider } from "../../../services/Providers/providersServices"
 import { Box, Card, CardContent } from '@material-ui/core';
 import { AlertMessagePanel } from "../../../components/Structured/Notifications/MessagePanel/AlertMessagePanel"
-import { cnpjChange } from "../../../utils/nomear";
+import { cnpjChange } from "../../../utils/helperFunctions";
 
 export default function ProviderRegistrationCard() {
 
