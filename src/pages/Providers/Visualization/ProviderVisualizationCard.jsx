@@ -35,6 +35,7 @@ export default function ProviderVisualizationCard() {
   useEffect(() => { // call api only once || important to fetch data from api endpoints
     handleGetAllProvidersInfo()
     .then(function(res){
+      console.log(res)
       setRecords(res.data.data);
     })
     .catch(function(err)

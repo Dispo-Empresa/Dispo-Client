@@ -3,7 +3,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 import { useState, useEffect } from "react"
-import { useState, useEffect } from "react"
 import { Box, Link } from "@mui/material"
 import { Navigate } from "react-router-dom"
 import { Grid } from "../../../components/Basic/Grid/DefaultGrid"
@@ -23,7 +22,6 @@ import "../../../services/apiMap"
 
 export default function SignInCard() {
 
-  const cookies = new Cookies();
   const [emailRequest, setEmailRequest] = useState("");
   const [passwordRequest, setpasswordRequest] = useState("");
   const [goToHomePage, setgoToHomePage] = useState(false);
@@ -88,9 +86,6 @@ export default function SignInCard() {
       }else if(err.code == "ERR_NETWORK"){
         setErrorMessage("Serviço não encontrado ou fora do ar");
         setSuccessMessage(null);
-      }else if(err.code == "ERR_NETWORK"){
-        setErrorMessage("Serviço não encontrado ou fora do ar");
-        setSuccessMessage(null);
       }else{
         setErrorMessage("Erro inesperado");
         setSuccessMessage(null);
@@ -103,7 +98,6 @@ export default function SignInCard() {
     if (e.key === 'Enter'){
       SignIn();
     }
-  };
   };
 
   return (
@@ -142,44 +136,10 @@ export default function SignInCard() {
           </Box>
           <Box sx={{ marginLeft: "-5%", marginTop: "5%" }}>
             <FormControlLabel control={<Checkbox label="Mantenha-me conectado" onChange={() => setKeepConnected(!keepConnected)} value={keepConnected} />} label="Mantenha-me conectado" />
-            <Box>
-              <img src={logo} alt="Dispo" width="250" height="220" style={{ marginLeft: "10%", marginTop: "-5%" }} />
-            </Box>
-            <Box>
-              { 
-                errorMessage 
-                ?
-                <div style={{ marginTop: "-15%", marginBottom: "10%", textAlign: "center", color: "red" }}>
-                  <label>{errorMessage}</label>
-                </div>
-                :
-                successMessage
-                ?
-                <div style={{ marginTop: "-15%", marginBottom: "10%", textAlign: "center", color: "green" }}>
-                  <label>{successMessage}</label>
-                </div>
-                :
-                null
-              }
-            </Box>
-            <Box>
-              <DefaultTextField label="E-mail" variant="outlined" type="email"
-                                onChange={(value) => setEmailRequest(value.target.value) } onKeyPress={(e) => keyPress(e)} />
-            </Box>
-            <Box sx={{ marginTop: "10%" }}>
-              <PasswordTextField label="Senha" variant="outlined" type="password" 
-                                 onChange={(value) => setpasswordRequest(value.target.value) } onKeyPress={(e) => keyPress(e)} />
-            </Box>
           </Box>
-          <Box sx={{ marginLeft: "-5%", marginTop: "5%" }}>
-            <FormControlLabel control={<Checkbox label="Mantenha-me conectado" onChange={() => setKeepConnected(!keepConnected)} value={keepConnected} />} label="Mantenha-me conectado" />
-          </Box>
-          <Box textAlign="center" sx={{ marginTop: "20%" }}>
           <Box textAlign="center" sx={{ marginTop: "20%" }}>
             <DefaultButton onClick={SignIn} backgroundColor={COLORS.PrimaryColor} title="Login" width="250px" height="50px" />
           </Box>
-          <Box textAlign="center" sx={{ marginTop: "5%" }}>
-            <Link href="/login/forgotmypassword" underline="none">Esqueci minha senha</Link>
           <Box textAlign="center" sx={{ marginTop: "5%" }}>
             <Link href="/login/forgotmypassword" underline="none">Esqueci minha senha</Link>
           </Box>

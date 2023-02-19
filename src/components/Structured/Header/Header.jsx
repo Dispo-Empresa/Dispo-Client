@@ -13,7 +13,6 @@ import { removeLocalStorage } from "../../../Storage/local"
 
 export default function Header() {
 
-  const cookies = new Cookies();
   const [showModal, setShowModal] = useState(false);
   const [anchorEl, setProfileOptionsPosition] = useState(null);
   const open = Boolean(anchorEl)
