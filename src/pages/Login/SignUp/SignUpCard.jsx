@@ -8,7 +8,7 @@ import { handleSignUp } from "../../../services/Login/signup"
 import { BACKGROUNDS, COLORS } from "../../../config/defaultColors"
 import { Box, Card, CardContent } from '@material-ui/core';
 import { TextField } from '@mui/material';
-import { cpfCnpjChange } from "../../../utils/nomear"
+import { cpfCnpjChange } from "../../../utils/helperFunctions"
 
 import "../../../styles/registrationContent.css"
 

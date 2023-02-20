@@ -6,11 +6,9 @@ import { useState } from "react";
 import { SubMenu } from "../../Structured/Submenu/Submenu";
 import { SidebarData, SidebarDataCollapsed } from "../../Structured/Submenu/sidebarData";
 import { COLORS } from "../../../config/defaultColors";
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav } from "reactstrap"
 import { Footer } from "../Footer/Footer"
 import { DefaultTypography } from "../../Basic/Labels/Typography"
 import { Box } from "@mui/system";
-import { AlertMessagePanel } from "../../Structured/Notifications/MessagePanel/AlertMessagePanel"
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css"

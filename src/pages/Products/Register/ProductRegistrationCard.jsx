@@ -66,7 +66,7 @@ export default function ProductRegistrationCard() {
     { 
       console.log(err)
     });
-  });
+  }, [1]);
 
   const handleSalvarProduto = () => {
 

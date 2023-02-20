@@ -11,6 +11,7 @@ import { DefaultButton } from "../../../components/Basic/Button/Default/DefaultB
 import { handleSendResetPasswordCodeEmail } from "../../../services/Login/forgotmypassword"
 import { getAccountIdByEmail } from "../../../services/Getters/account"
 import { COLORS } from "../../../config/defaultColors"
+import { setLocalStorage } from "../../../Storage/local"
 
 export default function ForgotMyPasswordCard() {
 
@@ -25,7 +26,7 @@ export default function ForgotMyPasswordCard() {
   
   const SendResetPasswordCodeEmail = () => {
 
-    localStorage.setItem("emailInputed", emailRequest);
+    setLocalStorage("emailInputed", emailRequest);
     handleSendResetPasswordCodeEmail(emailRequest);
     setGoToResetPassword(true);
     getAccountIdByEmail(emailRequest).then(res => setAccountId(res.data.data)).catch(err => console.log(err));

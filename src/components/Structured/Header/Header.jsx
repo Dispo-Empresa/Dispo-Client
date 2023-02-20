@@ -8,7 +8,8 @@ import Divider from '@mui/material/Divider';
 import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-
+import { removeCookie } from "../../../Storage/cookies"
+import { removeLocalStorage } from "../../../Storage/local"
 
 export default function Header() {
 
@@ -17,8 +18,12 @@ export default function Header() {
   const open = Boolean(anchorEl)
 
   const onLogout = () => {
-    localStorage.removeItem('accessToken'); 
-    localStorage.removeItem('accessUserInfo');
+
+    removeCookie("emailSignin", "/");
+    removeCookie("passwordSignin", "/");
+
+    removeLocalStorage('accessToken'); 
+    removeLocalStorage('accessUserInfo');
   }
 
   const openProfile = () => {

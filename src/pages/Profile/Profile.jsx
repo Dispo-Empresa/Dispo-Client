@@ -9,12 +9,13 @@ import { getUserId, setUserInfo } from "../../services/Getters/lsUserInfoService
 import { handleUpdateUserAccountInfo } from "../../services/UserAccount/profileCallAPI"
 import { COLORS, BACKGROUNDS } from "../../config/defaultColors"
 import { AlertMessagePanel } from "../../components/Structured/Notifications/MessagePanel/AlertMessagePanel"
+import { getLocalStorage } from "../../Storage/local"
 
 import "../../styles/registrationContent.css"
 
 export default function ProfileCard() {
 
-  const userInfo = JSON.parse(localStorage.getItem('accessUserInfo'));
+  const userInfo = JSON.parse(getLocalStorage("accessUserInfo"));
 
   const [userInfoFirstName, setUserInfoFirstName] = useState(userInfo.firstName);
   const [userInfoLastName, setUserInfoLastName] = useState(userInfo.lastName);
