@@ -1,0 +1,1 @@
+cd "../../Visual studio/Dispo/scripts"; .\RunDispoComplete.bat; cd '..\..\..\Visual studio code\Dispo-Web\'; npm start;

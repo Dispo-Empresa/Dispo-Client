@@ -1,5 +1,3 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
-
 import App from "./App"
 import SignInCard from "./pages/Login/SignIn/SignInCard"
 import SignUpCard from "./pages/Login/SignUp/SignUpCard"
@@ -16,10 +14,15 @@ import MovimentCard from "./pages/Stock/Moviments/MovimentCard"
 import ProviderRegistrationCard from "./pages/Providers/Register/ProviderRegistrationCard"
 import ProviderVisualizationCard from "./pages/Providers/Visualization/ProviderVisualizationCard"
 
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { PrivateRoute } from "./PrivateRoute"
+
 export default function SetRoutes(){
+
   return (
     <BrowserRouter>
       <Routes>
+
         <Route path='/' element={<App/>}></Route>
         <Route path='/login/signin' element={<SignInCard/>}></Route>
         <Route path='/login/signup' element={<SignUpCard/>}></Route>
@@ -27,19 +30,89 @@ export default function SetRoutes(){
         <Route path="/login/emailCodeResetPassword/:accountId" element={<EmailCodeResetPassword/>}></Route>
         <Route path="/login/resetPassword/:accountId" element={<ResetPasswordCard/>}></Route>
 
-        <Route path="/home" element={<Home/>}></Route>
-        <Route path="/profile" element={<Profile/>}></Route>
+        <Route
+          path="/home"
+          element={
+            <PrivateRoute>
+              <Home/>
+            </PrivateRoute>
+          }
+        />
 
-        <Route path="/products/registration" element={<ProductRegistrationCard/>}></Route>
-        <Route path="/products/visualization" element={<ProductVisualizationCard/>}></Route>
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <Profile/>
+            </PrivateRoute>
+          }
+        />
 
-        <Route path="/brands/registration" element={<BrandRegistrationCard/>}></Route>
-        <Route path="/brands/visualization" element={<BrandVisualizationCard/>}></Route>
+
+        <Route
+          path="/products/registration"
+          element={
+            <PrivateRoute>
+              <ProductRegistrationCard/>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/products/visualization"
+          element={
+            <PrivateRoute>
+              <ProductVisualizationCard/>
+            </PrivateRoute>
+          }
+        />
+
+
+        <Route
+          path="/brands/registration"
+          element={
+            <PrivateRoute>
+              <BrandRegistrationCard/>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/brands/visualization"
+          element={
+            <PrivateRoute>
+              <BrandVisualizationCard/>
+            </PrivateRoute>
+          }
+        />
+
+
+        <Route
+          path="/stock/moviments"
+          element={
+            <PrivateRoute>
+              <MovimentCard/>
+            </PrivateRoute>
+          }
+        />
         
-        <Route path="/stock/moviments" element={<MovimentCard/>}></Route>
 
-        <Route path="/providers/registration" element={<ProviderRegistrationCard/>}></Route>
-        <Route path="/providers/visualization" element={<ProviderVisualizationCard/>}></Route>
+        <Route
+          path="/providers/registration"
+          element={
+            <PrivateRoute>
+              <ProviderRegistrationCard/>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/providers/visualization"
+          element={
+            <PrivateRoute>
+              <ProviderVisualizationCard/>
+            </PrivateRoute>
+          }
+        />
+
+
       </Routes>
     </BrowserRouter>
   );
