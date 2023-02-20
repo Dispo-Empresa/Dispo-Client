@@ -1,4 +1,4 @@
-import SetRoutes from './routes'
+import SetRoutes from './Routes/routes'
 import React from "react";
 import ReactDOM from "react-dom";
 
