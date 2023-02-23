@@ -1,5 +1,7 @@
 import axios from "axios"
 
+import { getToken } from "./Getters/lsTokenService"
+
 //---------------------------
 // development environment  |
 //---------------------------
@@ -52,13 +54,22 @@ export const ENDPOINTS = {
 }
 
 export const createAPIEndpoint = (endpoint) => {
+  
   let url = BASE_URL + "/api/v1/" + endpoint;
+  let jwtToken = getToken();
+  
+  let configHeader = {
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': `Bearer ${jwtToken}` 
+    }
+  };
 
   return {
-      getAll: () => axios.get(url),
-      getBy: data => axios.get(url + data),
-      post: newRecord => axios.post(url, newRecord, { headers: { "Content-Type": "application/json" }}),
-      put: (id, updateRecord) => axios.put(`${url}/${id}`, updateRecord, { headers: { "Content-Type": "application/json" }}),
-      delete: id => axios.delete(url + id)
+    getAll: () => axios.get(url, configHeader),
+    getBy: data => axios.get(url + data, configHeader),
+    post: newRecord => axios.post(url, newRecord, configHeader),
+    put: (id, updateRecord) => axios.put(`${url}/${id}`, updateRecord, configHeader),
+    delete: id => axios.delete(url + id, configHeader)
   }
 }

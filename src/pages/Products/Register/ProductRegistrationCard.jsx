@@ -94,7 +94,7 @@ export default function ProductRegistrationCard() {
       }else{
         setAlertMessage([{ description: "Serviço não encontrado ou fora do ar", type: "error" }]);
       }
-
+      
       console.log(err);
 
     })
