@@ -61,6 +61,7 @@ namespace Dispo.API.Controllers
             try
             {
                 var productNamesWithCodes = _productService.GetProductNamesWithCode();
+
                 return Ok(productNamesWithCodes);
             }
             catch (Exception ex)
