@@ -17,6 +17,8 @@ export const COLORS = {
     //#2A2C35  < mt bom
 
     //#FBFBFB
+
+    //#009EF7
 }
 
 export const BACKGROUNDS = {

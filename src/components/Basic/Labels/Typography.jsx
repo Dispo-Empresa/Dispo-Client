@@ -10,10 +10,11 @@ export function DefaultTypography(props) {
         textAlign: props.textAlign,
         paddingTop: props.paddingTop,
         paddingBottom: props.paddingBottom,
-        fontFamily: "Calibri",
+        fontFamily: "Open Sans",
         fontSize: props.fontSize,
         marginLeft: props.marginLeft,
-        marginTop: props.marginTop
+        marginTop: props.marginTop,
+        fontWeight: "bold"
       }}
     >
       { props.text }

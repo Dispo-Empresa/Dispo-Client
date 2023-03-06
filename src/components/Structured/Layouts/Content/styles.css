@@ -1,0 +1,16 @@
+.container {
+    margin-top: 5%;
+}
+
+.title {
+    margin-left: -10%;
+    margin-bottom: 2%;
+}
+
+.content {
+    margin-left: -10%;
+}
+
+.content-children {
+    margin-left: 10%;
+}

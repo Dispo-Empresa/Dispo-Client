@@ -1,0 +1,146 @@
+.noscroll {
+    overflow-y: hidden;
+  }
+  
+  .navHeaderWrap {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    height: 58px;
+    z-index: 999;
+    margin-left: 259px;
+  }
+  
+  .navHeaderWrap-collapse {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    height: 58px;
+    z-index: 999;
+    margin-left: 79px;
+  }
+  
+  .bodyWrap {
+    position: relative;
+    z-index: 100;
+  }
+  
+  .main {
+    transition: margin-left 0.5s;
+    padding: 16px;
+    box-sizing: border-box;
+    height: 100%;
+    display: block;
+  }
+  
+  .sidenavOpen {
+    height: 100%;
+    width: 259px;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    padding-top: 58px;
+    transition: 0.3s;
+    z-index: 999;
+  }
+  
+  .mainShrink {
+    transition: margin-left 0.5s;
+    padding: 16px;
+    height: 100vh;
+    display: block;
+    margin-left: 15%;
+  }
+  
+  .sidenavClose {
+    height: 100%;
+    width: 79px;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    padding-top: 15px;
+    transition: 0.3s;
+    z-index: 999;
+  }
+  
+  .mainExpand {
+    transition: margin-left 0.5s;
+    padding: 16px;
+    height: 100vh;
+    display: block;
+    margin-left: 5%;
+  }
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    display: block;
+    transition: 0.3s;
+    color: #ffff;
+  }
+  
+  .sidenav a:hover, .sidenav a:focus {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+  }
+  
+  .hidex {
+    display: none !important;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  @media screen and (max-width: 425px) {
+    .bodyWrap {
+      margin-top: 53px;
+      position: relative;
+      z-index: 100;
+    }
+    .sidenavOpen {
+      top: 52px;
+    }
+  }
+  @media screen and (max-width: 766px) {
+    .navbar {
+      position: relative;
+      height: auto;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .sidenav {
+      width: 150px;
+    }
+    .main {
+      margin-left: 150px;
+    }
+  
+    .hidex {
+      display: block !important;
+    }
+    .sidenavOpen {
+      width: 250px;
+    }
+    .mainShrink {
+      margin-left: 0px;
+    }
+  
+    .sidenavClose {
+      width: 0px;
+    }
+  
+    .mainExpand {
+      margin-left: -10px;
+    }
+    .sidenav a {
+      font-size: 18px;
+    }
+  }

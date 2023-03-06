@@ -1,16 +1,14 @@
-import Sidebar from "../../../components/Structured/Sidebar/Sidebar"
+import MainContent from "../../../components/Structured/Layouts/Content/MainContent"
 
 import { useState, useEffect } from "react"
-import { BACKGROUNDS } from "../../../config/defaultColors"
 import { handleGetAllBrandsInfo } from "../../../services/Getters/brand"
 import { ActionButtons } from "../../../components/Basic/Button/Default/DefaultButton"
 import { HeaderTable } from "../../../components/Structured/Table/Headers/ProductsHeader/HeaderTable"
 import { DefaultTable } from "../../../components/Structured/Table/DefaultTable"
-import { Card, CardContent } from '@material-ui/core';
 
 export default function BrandVisualizationCard() {
-
   var [records, setRecords] = useState();
+
   const columns = [ // Achar uma forma de melhorar isso
     {
       Header: "Name",
@@ -40,16 +38,8 @@ export default function BrandVisualizationCard() {
   });
   
   return (
-    <div style={{ backgroundColor: BACKGROUNDS.WhiteTheme }}>
-      <Sidebar contentTitle="Visualização de Marcas" contentMarginLeft="4%">
-        <div style={{ marginLeft: "4%" }}>
-          <Card>
-            <CardContent>
-              <DefaultTable title="Marcas" data={records} columns={columns} headerTable={ <HeaderTable /> } />
-            </CardContent>
-          </Card>
-        </div>
-      </Sidebar>
-    </div>
+    <MainContent title="Visualização de Marcas">
+      <DefaultTable title="Marcas" data={records} columns={columns} headerTable={ <HeaderTable/> } />
+    </MainContent>
   );
 }
