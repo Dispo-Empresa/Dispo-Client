@@ -1,4 +1,3 @@
-import App from "../App"
 import SignInCard from "../pages/Login/SignIn/SignInCard"
 import SignUpCard from "../pages/Login/SignUp/SignUpCard"
 import ForgotMyPasswordCard from "../pages/Login/ForgotPassword/ForgotMyPasswordCard"
@@ -13,107 +12,158 @@ import BrandVisualizationCard from "../pages/Brands/Visualization/BrandVisualiza
 import MovimentCard from "../pages/Stock/Moviments/MovimentCard"
 import ProviderRegistrationCard from "../pages/Providers/Register/ProviderRegistrationCard"
 import ProviderVisualizationCard from "../pages/Providers/Visualization/ProviderVisualizationCard"
+import MainClient from "../components/Structured/Layouts/Client/MainClient"
 
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes  } from "react-router-dom"
 import { PrivateRoute } from "./PrivateRoute"
+import { useState, useEffect } from "react"
 
-export default function SetRoutes(){
+export default function GetRoutes() {
 
   return (
     <BrowserRouter>
-      <Routes>
-
-        <Route path='/' element={<App/>}></Route>
-        <Route path='/login/signin' element={<SignInCard/>}></Route>
-        <Route path='/login/signup' element={<SignUpCard/>}></Route>
-        <Route path="/login/forgotmypassword" element={<ForgotMyPasswordCard/>}></Route>
-        <Route path="/login/emailCodeResetPassword/:accountId" element={<EmailCodeResetPassword/>}></Route>
-        <Route path="/login/resetPassword/:accountId" element={<ResetPasswordCard/>}></Route>
-
-        <Route
-          path="/home"
-          element={
-            <PrivateRoute>
-              <Home/>
-            </PrivateRoute>
-          }
-        />
-
-        <Route
-          path="/profile"
-          element={
-            <PrivateRoute>
-              <Profile/>
-            </PrivateRoute>
-          }
-        />
-
-
-        <Route
-          path="/products/registration"
-          element={
-            <PrivateRoute>
-              <ProductRegistrationCard/>
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/products/visualization"
-          element={
-            <PrivateRoute>
-              <ProductVisualizationCard/>
-            </PrivateRoute>
-          }
-        />
-
-
-        <Route
-          path="/brands/registration"
-          element={
-            <PrivateRoute>
-              <BrandRegistrationCard/>
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/brands/visualization"
-          element={
-            <PrivateRoute>
-              <BrandVisualizationCard/>
-            </PrivateRoute>
-          }
-        />
-
-
-        <Route
-          path="/stock/moviments"
-          element={
-            <PrivateRoute>
-              <MovimentCard/>
-            </PrivateRoute>
-          }
-        />
-        
-
-        <Route
-          path="/providers/registration"
-          element={
-            <PrivateRoute>
-              <ProviderRegistrationCard/>
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/providers/visualization"
-          element={
-            <PrivateRoute>
-              <ProviderVisualizationCard/>
-            </PrivateRoute>
-          }
-        />
-
-
+        <Routes>
+          <Route 
+            path='/' 
+            element={
+              <ElementRouteController>
+                <SignInCard />
+              </ElementRouteController>
+            }
+          />
+          <Route 
+            path='/login/signin' 
+            element={
+              <ElementRouteController>
+                <SignInCard />
+              </ElementRouteController>
+            }
+          />
+          <Route 
+            path='/login/signup' 
+            element={
+              <ElementRouteController>
+                <SignUpCard/>
+              </ElementRouteController>
+            } 
+          />
+          <Route 
+            path="/login/forgotmypassword"
+            element={
+              <ElementRouteController>
+                <ForgotMyPasswordCard/>
+              </ElementRouteController>
+            } 
+          />
+          <Route 
+            path="/login/emailCodeResetPassword/:accountId"
+            element={
+              <ElementRouteController>
+                <EmailCodeResetPassword/>
+              </ElementRouteController>
+            }  
+          />
+          <Route 
+            path="/login/resetPassword/:accountId" 
+            element={
+              <ElementRouteController>
+                <ResetPasswordCard/>
+              </ElementRouteController>
+            }
+          />
+          <Route
+            path="/home"
+            element={
+              <ElementRouteController>
+                <Home />
+              </ElementRouteController>
+            }
+            />
+          <Route
+            path="/profile"
+            element={
+              <ElementRouteController>
+                <Profile />
+              </ElementRouteController>
+            }
+            />
+          <Route
+            path="/products/registration"
+            element={
+              <ElementRouteController>
+                <ProductRegistrationCard />
+              </ElementRouteController>
+            }
+            />
+          <Route
+            path="/products/visualization"
+            element={
+              <ElementRouteController>
+                <ProductVisualizationCard/>
+              </ElementRouteController>
+            }
+            />
+          <Route
+            path="/brands/registration"
+            element={
+              <ElementRouteController>
+                <BrandRegistrationCard/>
+              </ElementRouteController>
+            }
+            />
+          <Route
+            path="/brands/visualization"
+            element={
+              <ElementRouteController>
+                <BrandVisualizationCard/>
+              </ElementRouteController>
+            }
+            />
+          <Route
+            path="/stock/moviments"
+            element={
+              <ElementRouteController>
+                <MovimentCard/>
+              </ElementRouteController>
+            }
+            />
+          <Route
+            path="/providers/registration"
+            element={
+              <ElementRouteController>
+                <ProviderRegistrationCard/>
+              </ElementRouteController>
+            }
+            />
+          <Route
+            path="/providers/visualization"
+            element={
+              <ElementRouteController>
+                <ProviderVisualizationCard/>
+              </ElementRouteController>
+            }
+          />
       </Routes>
     </BrowserRouter>
   );
+}
+
+function ElementRouteController(props) {
+  const [isSomeLogin, setIsSomeLogin] = useState(true);
+
+    useEffect(() => {
+      setIsSomeLogin((window.location.pathname.includes("/login")) || window.location.pathname == "/")
+    });
+    
+    return (
+      isSomeLogin 
+      ? 
+        props.children
+      : 
+        <PrivateRoute>
+          <MainClient>
+            {props.children}
+          </MainClient>
+        </PrivateRoute>
+    );
 };

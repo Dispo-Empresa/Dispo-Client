@@ -11,7 +11,7 @@ import Logout from '@mui/icons-material/Logout';
 import { removeCookie } from "../../../Storage/cookies"
 import { removeLocalStorage } from "../../../Storage/local"
 
-export default function Header() {
+export default function Header(props) {
 
   const [showModal, setShowModal] = useState(false);
   const [anchorEl, setProfileOptionsPosition] = useState(null);
@@ -34,7 +34,7 @@ export default function Header() {
   return (
     <div>
       <Navbar color="" light expand="md">
-        <Collapse style={{position: "fixed", marginLeft: open || showModal ? "64.4%" : "65%"}} isOpen={open} navbar>
+        <Collapse style={{position: "fixed", marginLeft: props.collapsed ? "64.5%" : "55%"}} isOpen={open} navbar>
           <Nav className="ml-auto" navbar>
             <div style={{ marginTop: "60%", marginLeft: "50%" }}>
               <Tooltip title="Account settings">

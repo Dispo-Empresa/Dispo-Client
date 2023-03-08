@@ -1,12 +1,10 @@
-import Sidebar from "../../../components/Structured/Sidebar/Sidebar"
+import MainContent from "../../../components/Structured/Layouts/Content/MainContent"
 
 import { useState, useEffect } from "react"
-import { BACKGROUNDS } from "../../../config/defaultColors"
 import { handleGetAllProductsInfo } from "../../../services/Getters/products"
 import { ActionButtons } from "../../../components/Basic/Button/Default/DefaultButton"
 import { HeaderTable } from "../../../components/Structured/Table/Headers/ProductsHeader/HeaderTable"
 import { DefaultTable } from "../../../components/Structured/Table/DefaultTable"
-import { Card, CardContent } from '@material-ui/core';
 
 export default function ProductVisualizationCard() {
 
@@ -64,22 +62,14 @@ export default function ProductVisualizationCard() {
     })
     .catch(function(err)
     {
-      alert(err);
+      console.log(err);
     });
 
   }, []);
   
   return (
-    <div style={{ backgroundColor: BACKGROUNDS.WhiteTheme }}>
-      <Sidebar contentTitle="Visualização de Produtos" contentMarginLeft="4%">
-        <div style={{ marginLeft: "4%" }}>
-          <Card>
-            <CardContent>
-              <DefaultTable title="Produtos" data={records} columns={columns} headerTable={ <HeaderTable /> } />
-            </CardContent>
-          </Card>
-        </div>
-      </Sidebar>
-    </div>
+    <MainContent title="Visualização de Produtos">
+      <DefaultTable title="Produtos" data={records} columns={columns} headerTable={<HeaderTable /> } />
+    </MainContent>
   );
 }

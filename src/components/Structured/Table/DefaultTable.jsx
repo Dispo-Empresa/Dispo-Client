@@ -7,14 +7,15 @@ export function DefaultTable(props) {
 
   return (
     <div>
-      {props.headerTable}
+      <div className="header-table">
+        {props.headerTable}
+      </div>
       <ReactTable
         className="react-table-style"
         data={props.data}
         //PaginationComponent={Pagination}
         columns={props.columns}
         rowsText={props.title}
-        r
       />
     </div>
   );

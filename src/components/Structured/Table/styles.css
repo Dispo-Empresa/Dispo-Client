@@ -1,3 +1,7 @@
+.header-table {
+  margin-left: -16.2%;
+}
+
 .react-table-style {
   height: 470px;
   width: 1300px;
@@ -5,5 +9,5 @@
   box-shadow: 0 0 5px #2A2C35;
   border-radius: 10px;
   margin-top: 1%;
-  margin-left: 7%;
+  margin-left: -8%;
 }

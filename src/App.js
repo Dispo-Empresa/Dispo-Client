@@ -1,7 +1,8 @@
-import SignInCard from "./pages/Login/SignIn/SignInCard";
+import GetRoutes from "./Routes/routes";
 
-export default function App() {
+export default function App(){
+  
   return (
-    <SignInCard />
+    <GetRoutes />
   );
 };

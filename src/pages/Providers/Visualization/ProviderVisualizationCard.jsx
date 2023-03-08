@@ -1,12 +1,10 @@
-import Sidebar from "../../../components/Structured/Sidebar/Sidebar"
+import MainContent from "../../../components/Structured/Layouts/Content/MainContent"
 
 import { useState, useEffect } from "react"
-import { BACKGROUNDS } from "../../../config/defaultColors"
 import { handleGetAllProvidersInfo } from "../../../services/Providers/providersServices"
 import { ActionButtons } from "../../../components/Basic/Button/Default/DefaultButton"
 import { HeaderTable } from "../../../components/Structured/Table/Headers/ProductsHeader/HeaderTable"
 import { DefaultTable } from "../../../components/Structured/Table/DefaultTable"
-import { Card, CardContent } from '@material-ui/core';
 
 export default function ProviderVisualizationCard() {
 
@@ -46,16 +44,8 @@ export default function ProviderVisualizationCard() {
   }, []);
   
   return (
-    <div style={{ backgroundColor: BACKGROUNDS.WhiteTheme }}>
-      <Sidebar contentTitle="Visualização de Fornecedores" contentMarginLeft="4%">
-        <div style={{ marginLeft: "4%" }}>
-          <Card>
-            <CardContent>
-              <DefaultTable title="Fornecedores" data={records} columns={columns} headerTable={ <HeaderTable /> } />
-            </CardContent>
-          </Card>
-        </div>
-      </Sidebar>
-    </div>
+    <MainContent title="Visualização de Fornecedores">
+      <DefaultTable title="Fornecedores" data={records} columns={columns} headerTable={ <HeaderTable/> } />
+    </MainContent>
   );
 }

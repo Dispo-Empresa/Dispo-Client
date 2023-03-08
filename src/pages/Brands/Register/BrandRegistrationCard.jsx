@@ -1,13 +1,13 @@
 import React from "react"
-import Sidebar from "../../../components/Structured/Sidebar/Sidebar"
+import MainContent from "../../../components/Structured/Layouts/Content/MainContent";
 
 import { useState } from "react";
-import { BACKGROUNDS, COLORS } from "../../../config/defaultColors"
+import { COLORS } from "../../../config/defaultColors"
 import { DefaultButton } from "../../../components/Basic/Button/Default/DefaultButton";
 import { DefaultTextField } from "../../../components/Basic/TextField/TextField";
 import { handleRegisterBrand } from "../../../services/Brand/brandServices"
-import { Box, Card, CardContent } from '@material-ui/core';
-import { AlertMessagePanel } from "../../../components/Structured/Notifications/MessagePanel/AlertMessagePanel"
+import { Box } from '@material-ui/core';
+
 
 export default function BrandRegistrationCard() {
 
@@ -38,38 +38,27 @@ export default function BrandRegistrationCard() {
   };
 
   return (
-    <div style={{ backgroundColor: BACKGROUNDS.WhiteTheme }}>
-      <Sidebar contentTitle="Cadastro de Marca" contentMarginLeft="4%">
-        <div>
-          { alertMessage && alertMessage.map(item => <AlertMessagePanel type={item.type} description={item.description} />) }
-        </div>
-        <div style={{ marginLeft: "4%", width: "1400px" }}>
-          <Card>
-            <CardContent>
-              <div class="container">
-                <div class="content">
-                  <form action="#">
-                    <div class="user-details">
-                      <div class="input-box">
-                        <Box paddingTop={5}>
-                          <DefaultTextField label="Informe a marca" variant="outlined" type="text" 
-                                    value={brandName} onChange={(e) => setBrandName(e.target.value)} />
-                        </Box>
-                      </div>
-                    </div>
-                  </form>
-                  <div>
-                    <Box paddingTop={3} paddingBottom={5}>
-                      <DefaultButton backgroundColor={COLORS.PrimaryColor} title="Cadastrar marca" width="250px" height="50px"  
-                                      onClick={RegisterBrand} />
-                    </Box>
-                  </div>
-                </div>
+    <MainContent title="Cadastro de Marca" AlertMessage={alertMessage}>
+      <div class="container">
+        <div class="content">
+          <form action="#">
+            <div class="user-details">
+              <div class="input-box">
+                <Box paddingTop={5}>
+                  <DefaultTextField label="Informe a marca" variant="outlined" type="text" 
+                            value={brandName} onChange={(e) => setBrandName(e.target.value)} />
+                </Box>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </form>
+          <div>
+            <Box paddingTop={3} paddingBottom={5}>
+              <DefaultButton backgroundColor={COLORS.PrimaryColor} title="Cadastrar marca" width="250px" height="50px"  
+                              onClick={RegisterBrand} />
+            </Box>
+          </div>
         </div>
-      </Sidebar>
-    </div>
+      </div>
+    </MainContent>
   );
 }
