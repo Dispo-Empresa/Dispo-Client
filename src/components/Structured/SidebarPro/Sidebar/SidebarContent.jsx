@@ -7,8 +7,8 @@ import "./styles.css"
 export default function SidebarContent(props) {
 
   return (
-    <div className="sidebar-content">
-      <Sidebar width="260px" backgroundColor={COLORS.SecondColor} style={{ marginTop: props.open ? "80px" : "35px" }}>
+    <div>
+      <Sidebar width="260px" className="sidebar-content" backgroundColor={COLORS.SecondColor} style={{ marginTop: props.open ? "80px" : "45px" }}>
         <SidebarItens />
       </Sidebar>
     </div>

@@ -35,7 +35,7 @@ export function SidebarItens() {
     >
       <MenuItem component={<Link to="/Home" />} active={isActivePage("/Home")}
                 prefix="Dashboard" icon={<CiIcons.CiHome style={{ fontSize: "25px" }} />} />
-
+                
       <MenuItem component={<Link to="/Profile" />} active={isActivePage("/Profile")}
                 prefix="Profile" icon={<CiIcons.CiUser style={{ fontSize: "25px" }} />} />
 
