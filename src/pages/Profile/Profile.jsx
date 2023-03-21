@@ -63,7 +63,7 @@ export default function ProfileCard() {
   };
 
   return (
-    <MainContent title="PROFILE" AlertMessage={alertMessage}>
+    <MainContent title="Perfil" alertMessage={alertMessage}>
       <div class="container">
         <div class="content">
           <form action="#">

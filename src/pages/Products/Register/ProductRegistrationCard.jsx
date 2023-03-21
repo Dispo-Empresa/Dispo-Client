@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield'
 import MainContent from '../../../components/Structured/Layouts/Content/MainContent';
+import Form from "../../../components/Structured/Layouts/Content/FormRegistration/Form";
 
-import { Box } from '@material-ui/core';
 import { DefaultTextField, DefaultTextArea } from '../../../components/Basic/TextField/TextField';
 import { TextField } from '@mui/material';
 import { handleRegisterProduct } from "../../../services/Product/productServices"
 import { handleGetBrandNames } from "../../../services/Brand/brandServices"
-import { DefaultButton } from '../../../components/Basic/Button/Default/DefaultButton';
-import { COLORS } from '../../../config/defaultColors';
+import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 
 import "../../../styles/registrationContent.css"
 
@@ -67,7 +66,7 @@ export default function ProductRegistrationCard() {
     });
   }, [1]);
 
-  const handleSalvarProduto = () => {
+  const RegisterProduct = () => {
 
     var data = {
       name: productName,
@@ -84,9 +83,11 @@ export default function ProductRegistrationCard() {
     .then(function(res){
 
       setAlertMessage([{ description: res.data.message, type: res.data.alertType }]);
+      console.log(alertMessage)
 
     })
     .catch(function(err){
+      console.log(alertMessage)
       
       if (err.response.data){
         setAlertMessage([{ description: err.response.data.message, type: "error" }]);
@@ -101,97 +102,81 @@ export default function ProductRegistrationCard() {
 
   return (
     <MainContent title="Cadastro de Produto" alertMessage={alertMessage} >
-      <div class="container">
-        <div class="content">
-          <form action="#">
-            <div class="user-details">
-              <div class="input-box">
-                <Box paddingTop={5}>
-                  <DefaultTextField label="Nome do produto" width="500px" variant="outlined" type="text" value={productName} 
-                                    onChange={(e) => setProductName(e.target.value) } />
-                </Box>
-              </div>
-              <div class="input-box">
-                <Box paddingTop={5}>
-                  <Autocomplete
-                    disablePortal
-                    options={BrandsRegistered}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Marca" />}
-                    value={productBrand}
-                    onChange={(e) => setProductBrand(e.target.innerText) }
-                  />
-                </Box>
-              </div>
-              <div class="input-box">
-                <Autocomplete
-                  disablePortal
-                  options={unitOfMeansurement}
-                  sx={{ width: 150 }}
-                  renderInput={(params) => <TextField {...params} label="UoM" />}
-                  value={productUnitOfMeansurement}
-                  onChange={(e) => setProductUnitOfMeansurement(e.target.innerText) }
-                />
-              </div>
-              <div class="input-box">
-                <Autocomplete
-                  disablePortal
-                  options={productColors}
-                  sx={{ width: 300 }}
-                  renderInput={(params) => <TextField {...params} label="Cor" />}
-                  value={productColor}
-                  onChange={(e) => setProductColor(e.target.innerText) }
-                />
-              </div>
-              <div class="input-box">
-                <Autocomplete
-                  disablePortal
-                  options={productTypes}
-                  sx={{ width: 300 }}
-                  renderInput={(params) => <TextField {...params} label="Tipo" />}
-                  value={productType}
-                  onChange={(e) => setProductType(e.target.innerText) }
-                />
-              </div>
-              <div class="input-box">
-                <Autocomplete
-                  disablePortal
-                  options={[]}
-                  sx={{ width: 300 }}
-                  renderInput={(params) => <TextField {...params} label="Inventário" />}
-                  value={productInventory}
-                  onChange={(e) => setProductInventory(e.target.innerText) }
-                />
-              </div>
-              <div class="input-box">
-                <Box paddingBottom={2}>
-                  <DefaultTextArea label="Descrição" rows="3" width="500px" value={productDescription} 
-                                   onChange={(e) => setProductDescription(e.target.value) } />
-                </Box>
-              </div>
-              <div class="input-box">
-                <Box paddingBottom={2}>
-                  <CurrencyTextField
-	                  label="Preço unitário"
-	                  variant="filled"
-	                  value={productUnitPrice}
-                    unselectable
-	                  currencySymbol="R$"
-                    style={{ width: "200px" }}
-                    onChange={(event, value)=> setProductUnitPrice(value)}
-                  />
-                </Box>
-              </div>
-            </div>
-            <div>
-              <Box paddingBottom={5}>
-                <DefaultButton backgroundColor={COLORS.PrimaryColor} title="Registrar" width="300px" height="50px"
-                               onClick={handleSalvarProduto} />
-              </Box>
-            </div>
-          </form>
-        </div>
-      </div>
+      <Form width="1000px" onSave={RegisterProduct}>
+
+        <MDBRow className='g-4'>
+          <MDBCol md='6'>
+              <DefaultTextField label="Nome do produto" width="500px" variant="outlined" type="text" value={productName} 
+                                onChange={(e) => setProductName(e.target.value) } />
+          </MDBCol>
+          <MDBCol md='5'>
+            <Autocomplete
+              disablePortal
+              options={BrandsRegistered}
+              sx={{ width: 300 }}
+              renderInput={(params) => <TextField {...params} label="Marca" inputProps={{ style: { height: 0 } }} />}
+              value={productBrand}
+              onChange={(e) => setProductBrand(e.target.innerText) }
+            />
+          </MDBCol>
+          <MDBCol md='6'>
+              <Autocomplete
+                disablePortal
+                options={unitOfMeansurement}
+                sx={{ width: 150 }}
+                renderInput={(params) => <TextField {...params} label="UoM" />}
+                value={productUnitOfMeansurement}
+                onChange={(e) => setProductUnitOfMeansurement(e.target.innerText) }
+              />
+          </MDBCol>
+          <MDBCol md='6' className='mb-4'>
+              <Autocomplete
+                disablePortal
+                options={productColors}
+                sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Cor" />}
+                value={productColor}
+                onChange={(e) => setProductColor(e.target.innerText) }
+              />
+          </MDBCol>
+          <MDBCol md='6'>
+            <Autocomplete
+              disablePortal
+              options={productTypes}
+              sx={{ width: 300 }}
+              renderInput={(params) => <TextField {...params} label="Tipo" />}
+              value={productType}
+              onChange={(e) => setProductType(e.target.innerText) }
+            />
+          </MDBCol>
+          <MDBCol md='6'>
+            <Autocomplete
+              disablePortal
+              options={[]}
+              sx={{ width: 300 }}
+              renderInput={(params) => <TextField {...params} label="Inventário" />}
+              value={productInventory}
+              onChange={(e) => setProductInventory(e.target.innerText) }
+            />
+          </MDBCol>
+          <MDBCol md='6'>
+              <DefaultTextArea label="Descrição" rows="3" width="500px" value={productDescription} 
+                               onChange={(e) => setProductDescription(e.target.value) } />
+          </MDBCol>
+          <MDBCol md='6'>
+              <CurrencyTextField
+	              label="Preço unitário"
+	              variant="filled"
+	              value={productUnitPrice}
+                unselectable
+	              currencySymbol="R$"
+                style={{ width: "200px" }}
+                onChange={(event, value)=> setProductUnitPrice(value)}
+              />
+          </MDBCol>
+        </MDBRow>
+
+      </Form>
     </MainContent>
   );
 }
