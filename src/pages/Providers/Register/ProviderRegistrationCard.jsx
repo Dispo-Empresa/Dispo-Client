@@ -1,13 +1,12 @@
 import React from "react"
 import MainContent from "../../../components/Structured/Layouts/Content/MainContent"
+import Form from "../../../components/Structured/Layouts/Content/FormRegistration/Form";
 
 import { useState } from "react";
-import { COLORS } from "../../../config/defaultColors"
-import { DefaultButton } from "../../../components/Basic/Button/Default/DefaultButton";
 import { DefaultTextField } from "../../../components/Basic/TextField/TextField";
 import { handleRegisterProvider } from "../../../services/Providers/providersServices"
-import { Box } from '@material-ui/core';
 import { cnpjChange } from "../../../utils/helperFunctions";
+import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 
 export default function ProviderRegistrationCard() {
 
@@ -39,32 +38,20 @@ export default function ProviderRegistrationCard() {
 
   return (
     <MainContent title="Cadastro de Fornecedor" alertMessage={alertMessage}>
-      <div class="container">
-        <div class="content">
-          <form action="#">
-            <div class="user-details">
-              <div class="input-box">
-                <Box paddingTop={5}>
-                  <DefaultTextField label="Informe o nome do Fornecedor" variant="outlined" type="text" 
-                                    value={providerName} onChange={(e) => setProviderName(e.target.value)} />
-                </Box>
-              </div>
-              <div class="input-box">
-                <Box paddingTop={5}>
-                  <DefaultTextField label="Informe o CNPJ do Fornecedor" variant="outlined" type="text" 
-                                    value={providerCnpj} onChange={(e) => setProviderCnpj(cnpjChange(e))} />
-                </Box>
-              </div>
-            </div>
-          </form>
-          <div>
-            <Box paddingTop={3} paddingBottom={5}>
-              <DefaultButton backgroundColor={COLORS.PrimaryColor} title="Cadastrar Fornecedor" width="250px" height="50px"  
-                             onClick={RegisterProvider} />
-            </Box>
-          </div>
-        </div>
-      </div>
+      <Form width="1000px" onSave={RegisterProvider}>
+
+        <MDBRow className='g-4'>
+          <MDBCol md='6'>
+            <DefaultTextField label="Informe o nome do Fornecedor" variant="outlined" type="text" 
+                              value={providerName} onChange={(e) => setProviderName(e.target.value)} />
+          </MDBCol>
+          <MDBCol md='6'>
+            <DefaultTextField label="Informe o CNPJ do Fornecedor" variant="outlined" type="text" 
+                              value={providerCnpj} onChange={(e) => setProviderCnpj(cnpjChange(e))} />
+          </MDBCol>
+        </MDBRow>
+
+      </Form>
     </MainContent>
   );
 }

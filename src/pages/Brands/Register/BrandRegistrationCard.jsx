@@ -1,13 +1,11 @@
 import React from "react"
 import MainContent from "../../../components/Structured/Layouts/Content/MainContent";
+import Form from "../../../components/Structured/Layouts/Content/FormRegistration/Form";
 
 import { useState } from "react";
-import { COLORS } from "../../../config/defaultColors"
-import { DefaultButton } from "../../../components/Basic/Button/Default/DefaultButton";
 import { DefaultTextField } from "../../../components/Basic/TextField/TextField";
 import { handleRegisterBrand } from "../../../services/Brand/brandServices"
-import { Box } from '@material-ui/core';
-
+import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 
 export default function BrandRegistrationCard() {
 
@@ -38,27 +36,17 @@ export default function BrandRegistrationCard() {
   };
 
   return (
-    <MainContent title="Cadastro de Marca" AlertMessage={alertMessage}>
-      <div class="container">
-        <div class="content">
-          <form action="#">
-            <div class="user-details">
-              <div class="input-box">
-                <Box paddingTop={5}>
-                  <DefaultTextField label="Informe a marca" variant="outlined" type="text" 
-                            value={brandName} onChange={(e) => setBrandName(e.target.value)} />
-                </Box>
-              </div>
-            </div>
-          </form>
-          <div>
-            <Box paddingTop={3} paddingBottom={5}>
-              <DefaultButton backgroundColor={COLORS.PrimaryColor} title="Cadastrar marca" width="250px" height="50px"  
-                              onClick={RegisterBrand} />
-            </Box>
-          </div>
-        </div>
-      </div>
+    <MainContent title="Cadastro de Marca" alertMessage={alertMessage}>
+      <Form width="1000px" onSave={RegisterBrand}>
+
+        <MDBRow className='g-4'>
+          <MDBCol md='6'>
+            <DefaultTextField label="Informe a marca" variant="outlined" type="text" 
+                              value={brandName} onChange={(e) => setBrandName(e.target.value)} />
+          </MDBCol>
+        </MDBRow>
+
+      </Form>
     </MainContent>
   );
 }

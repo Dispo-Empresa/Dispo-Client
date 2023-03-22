@@ -7,8 +7,13 @@
     margin-bottom: 2%;
 }
 
+.alert {
+    margin-left: -16%;
+}
+
 .content {
     margin-left: -10%;
+    margin-top: -2.5%;
 }
 
 .content-children {

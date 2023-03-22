@@ -13,8 +13,8 @@ export default function MainContent(props) {
       <Box className="title">
         <DefaultTypography variant="h4" text={props.title} color={COLORS.SecondColor} />
       </Box>
-      <div>
-        { props.AlertMessage && props.AlertMessage.map(item => <AlertMessagePanel type={item.type} description={item.description} />) }
+      <div className="alert">
+        { props.alertMessage && props.alertMessage.map(item => <AlertMessagePanel type={item.type} description={item.description} />) }
       </div>
       <div className="content" style={{ width: props.cardWidth ?? "1400px", height: props.cardHeight }}>
         <Card>
