@@ -35,9 +35,6 @@ export function SidebarItens() {
     >
       <MenuItem component={<Link to="/Home" />} active={isActivePage("/Home")}
                 prefix="Dashboard" icon={<CiIcons.CiHome style={{ fontSize: "25px" }} />} />
-                
-      <MenuItem component={<Link to="/Profile" />} active={isActivePage("/Profile")}
-                prefix="Profile" icon={<CiIcons.CiUser style={{ fontSize: "25px" }} />} />
 
       <SubMenu label="Estoque" icon={<CiIcons.CiBarcode style={{ fontSize: "25px" }} />}>
         <MenuItem component={<Link to="/stock/moviments" />} active={isActivePage("/stock/moviments")}
@@ -66,7 +63,10 @@ export function SidebarItens() {
       </SubMenu>
 
       <SubMenu label="Configurações" icon={<CiIcons.CiSettings style={{ fontSize: "25px" }} />}>
-        
+        <MenuItem component={<Link to="/Profile" />} active={isActivePage("/Profile")}
+                  prefix="Profile" icon={<CiIcons.CiUser style={{ fontSize: "25px" }} />} />
+        <MenuItem component={<Link to="/adm" />} active={isActivePage("/adm")}
+                  prefix="ADM" icon={<CiIcons.CiUser style={{ fontSize: "25px" }} />} />
       </SubMenu>
     </Menu>
   ); 

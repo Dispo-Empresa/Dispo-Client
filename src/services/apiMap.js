@@ -39,17 +39,20 @@ export const ENDPOINTS = {
     registerBrand: "Brands/registerBrand",
     getBrandNames: "Brands/getBrandNames",
     getAllBrands: "Brands/getAllBrandsInfo",
+    getBrandById: "Brands/getBrandById",
   },
 
   product: {
     registerProduct: "Products/registerProduct",
     getProductNamesWithCode: "Products/getProductNamesWithCode",
     getAllProducts: "Products/getAllProductsInfo",
+    getProductById: "Products/getProductById",
   },
 
   provider: {
     registerProduct: "Providers/registerProvider",
     getAllProvidersInfo: "Providers/getAllProvidersInfo",
+    getProviderById: "Providers/getProviderById",
   },
 }
 

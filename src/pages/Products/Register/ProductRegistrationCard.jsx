@@ -64,7 +64,7 @@ export default function ProductRegistrationCard() {
     { 
       console.log(err)
     });
-  }, [1]);
+  }, []);
 
   const RegisterProduct = () => {
 
@@ -106,44 +106,44 @@ export default function ProductRegistrationCard() {
 
         <MDBRow className='g-4'>
           <MDBCol md='6'>
-              <DefaultTextField label="Nome do produto" width="500px" variant="outlined" type="text" value={productName} 
+              <DefaultTextField label="Nome do produto" width="400px" variant="outlined" type="text" value={productName} 
                                 onChange={(e) => setProductName(e.target.value) } />
           </MDBCol>
           <MDBCol md='5'>
             <Autocomplete
               disablePortal
               options={BrandsRegistered}
-              sx={{ width: 300 }}
+              sx={{ width: 400 }}
               renderInput={(params) => <TextField {...params} label="Marca" inputProps={{ style: { height: 0 } }} />}
               value={productBrand}
               onChange={(e) => setProductBrand(e.target.innerText) }
             />
           </MDBCol>
           <MDBCol md='6'>
-              <Autocomplete
-                disablePortal
-                options={unitOfMeansurement}
-                sx={{ width: 150 }}
-                renderInput={(params) => <TextField {...params} label="UoM" />}
-                value={productUnitOfMeansurement}
-                onChange={(e) => setProductUnitOfMeansurement(e.target.innerText) }
-              />
+            <Autocomplete
+              disablePortal
+              options={unitOfMeansurement}
+              sx={{ width: 400 }}
+              renderInput={(params) => <TextField {...params} label="UoM" />}
+              value={productUnitOfMeansurement}
+              onChange={(e) => setProductUnitOfMeansurement(e.target.innerText) }
+            />
           </MDBCol>
           <MDBCol md='6' className='mb-4'>
-              <Autocomplete
-                disablePortal
-                options={productColors}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Cor" />}
-                value={productColor}
-                onChange={(e) => setProductColor(e.target.innerText) }
-              />
+            <Autocomplete
+              disablePortal
+              options={productColors}
+              sx={{ width: 400 }}
+              renderInput={(params) => <TextField {...params} label="Cor" />}
+              value={productColor}
+              onChange={(e) => setProductColor(e.target.innerText) }
+            />
           </MDBCol>
           <MDBCol md='6'>
             <Autocomplete
               disablePortal
               options={productTypes}
-              sx={{ width: 300 }}
+              sx={{ width: 400 }}
               renderInput={(params) => <TextField {...params} label="Tipo" />}
               value={productType}
               onChange={(e) => setProductType(e.target.innerText) }
@@ -153,26 +153,26 @@ export default function ProductRegistrationCard() {
             <Autocomplete
               disablePortal
               options={[]}
-              sx={{ width: 300 }}
+              sx={{ width: 400 }}
               renderInput={(params) => <TextField {...params} label="Inventário" />}
               value={productInventory}
               onChange={(e) => setProductInventory(e.target.innerText) }
             />
           </MDBCol>
           <MDBCol md='6'>
-              <DefaultTextArea label="Descrição" rows="3" width="500px" value={productDescription} 
+              <DefaultTextArea label="Descrição" rows="3" width="400px" value={productDescription} 
                                onChange={(e) => setProductDescription(e.target.value) } />
           </MDBCol>
           <MDBCol md='6'>
-              <CurrencyTextField
-	              label="Preço unitário"
-	              variant="filled"
-	              value={productUnitPrice}
-                unselectable
-	              currencySymbol="R$"
-                style={{ width: "200px" }}
-                onChange={(event, value)=> setProductUnitPrice(value)}
-              />
+            <CurrencyTextField
+	            label="Preço unitário"
+	            variant="filled"
+	            value={productUnitPrice}
+              unselectable
+	            currencySymbol="R$"
+              style={{ width: "400px" }}
+              onChange={(event, value)=> setProductUnitPrice(value)}
+            />
           </MDBCol>
         </MDBRow>
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import classnames from "classnames";
 import Header from "../../Header/Header";
 import SidebarHeader from "../../SidebarPro/Header/SidebarHeader"
@@ -12,7 +13,6 @@ import { Footer } from "../../Footer/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
 
-
 export default function MainClient(props) {
   const { collapseSidebar } = useProSidebar();
   const [open, setOpen] = useState(true);
@@ -25,8 +25,8 @@ export default function MainClient(props) {
 
   return ( 
     <div>
-      <div className={open ? "navHeaderWrap" : "navHeaderWrap-collapse"} style={{ backgroundColor: COLORS.PrimaryColor }}>
-        <Header collapsed={!open} />
+      <div>
+        <Header />
       </div>
       <div className="bodyWrap">
         <div className={classnames("sidenav", { sidenavOpen: open }, { sidenavClose: !open })} style={{ backgroundColor: COLORS.SecondColor }}>

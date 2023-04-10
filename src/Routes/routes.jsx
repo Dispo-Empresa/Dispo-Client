@@ -43,7 +43,7 @@ export default function GetRoutes() {
             path='/login/signup' 
             element={
               <ElementRouteController>
-                <SignUpCard/>
+                <SignUpCard />
               </ElementRouteController>
             } 
           />
@@ -51,7 +51,7 @@ export default function GetRoutes() {
             path="/login/forgotmypassword"
             element={
               <ElementRouteController>
-                <ForgotMyPasswordCard/>
+                <ForgotMyPasswordCard />
               </ElementRouteController>
             } 
           />
@@ -59,7 +59,7 @@ export default function GetRoutes() {
             path="/login/emailCodeResetPassword/:accountId"
             element={
               <ElementRouteController>
-                <EmailCodeResetPassword/>
+                <EmailCodeResetPassword />
               </ElementRouteController>
             }  
           />
@@ -67,7 +67,7 @@ export default function GetRoutes() {
             path="/login/resetPassword/:accountId" 
             element={
               <ElementRouteController>
-                <ResetPasswordCard/>
+                <ResetPasswordCard />
               </ElementRouteController>
             }
           />
@@ -99,7 +99,7 @@ export default function GetRoutes() {
             path="/products/visualization"
             element={
               <ElementRouteController>
-                <ProductVisualizationCard/>
+                <ProductVisualizationCard />
               </ElementRouteController>
             }
             />
@@ -107,7 +107,7 @@ export default function GetRoutes() {
             path="/brands/registration"
             element={
               <ElementRouteController>
-                <BrandRegistrationCard/>
+                <BrandRegistrationCard />
               </ElementRouteController>
             }
             />
@@ -115,7 +115,7 @@ export default function GetRoutes() {
             path="/brands/visualization"
             element={
               <ElementRouteController>
-                <BrandVisualizationCard/>
+                <BrandVisualizationCard />
               </ElementRouteController>
             }
             />
@@ -123,7 +123,7 @@ export default function GetRoutes() {
             path="/stock/moviments"
             element={
               <ElementRouteController>
-                <MovimentCard/>
+                <MovimentCard />
               </ElementRouteController>
             }
             />
@@ -131,7 +131,7 @@ export default function GetRoutes() {
             path="/providers/registration"
             element={
               <ElementRouteController>
-                <ProviderRegistrationCard/>
+                <ProviderRegistrationCard />
               </ElementRouteController>
             }
             />
@@ -139,7 +139,7 @@ export default function GetRoutes() {
             path="/providers/visualization"
             element={
               <ElementRouteController>
-                <ProviderVisualizationCard/>
+                <ProviderVisualizationCard />
               </ElementRouteController>
             }
           />

@@ -1,0 +1,14 @@
+.modal-header {
+    margin-bottom: 5%;
+}
+
+.modal-title {
+    float: left;
+    margin-top: 5px;
+    margin-left: 1%;
+}
+
+.modal-close-button {
+    float: right;
+    margin-right: 0.5%;
+}

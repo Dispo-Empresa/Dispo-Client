@@ -4,33 +4,39 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import ReactRoundedImage from "react-rounded-image";
 import avatar from "../../../assets/avatar.png"
+import IconButton from '@mui/material/IconButton';
 
 import { DefaultButton } from "../../Basic/Button/Default/DefaultButton"
 import { DefaultTextField } from "../../Basic/TextField/TextField"
-import { ProfileModalStyle, ModalDefaultStyle } from "./styles"
+import { ProfileModalStyle, ModalDefaultStyle, CloseButton } from "./styles"
 import { COLORS } from "../../../config/defaultColors"
 import { getLocalStorage } from "../../../Storage/local"
+import { DefaultTypography } from "../../../components/Basic/Labels/Typography"
+import { VscChromeClose } from "react-icons/vsc";
+
+import "./styles.css";
 
 export function DefaultModal(props) {
+
   return (
     <div>
       <Modal
         open={props.open}
         onClose={props.onClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
         <Box sx={ModalDefaultStyle}>
-          <div> {/* Header */}
-
-          </div>
-          <div className="modal-body">
-            <div> {/* Content */}
-
+          <div className="modal-header">
+            <div className="modal-title">
+              <DefaultTypography variant="h6" text={props.title} color={COLORS.SecondColor} />
+            </div>
+            <div className="modal-close-button">
+              <IconButton sx={CloseButton} onClick={props.onClose}>
+                <VscChromeClose />
+              </IconButton>
             </div>
           </div>
-          <div> {/* Footer */}
-          
+          <div>
+            { props.children }
           </div>
         </Box>
       </Modal>
