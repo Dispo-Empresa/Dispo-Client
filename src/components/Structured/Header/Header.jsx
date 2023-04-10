@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Collapse, Navbar, Nav } from "reactstrap"
 import { IconButton, Menu, Avatar, MenuItem } from "@mui/material"
 import { ProfileModal } from "../../Structured/Modal/ModalDialog"
 
@@ -10,6 +9,13 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { removeCookie } from "../../../Storage/cookies"
 import { removeLocalStorage } from "../../../Storage/local"
+
+import {
+  MDBNavbar,
+  MDBContainer,
+  MDBNavbarBrand,
+  MDBNavbarItem,
+} from 'mdb-react-ui-kit';
 
 export default function Header(props) {
 
@@ -33,10 +39,11 @@ export default function Header(props) {
 
   return (
     <div>
-      <Navbar color="" light expand="md">
-        <Collapse style={{position: "fixed", marginLeft: props.collapsed ? "64.5%" : "55%"}} isOpen={open} navbar>
-          <Nav className="ml-auto" navbar>
-            <div style={{ marginTop: "60%", marginLeft: "50%" }}>
+      <MDBNavbar expand='lg' light style={{ backgroundColor: "#ffff", boxShadow: "0px 0px 1px #2A2C35" }}>
+        <MDBContainer fluid>
+          <MDBNavbarBrand style={{ height: "40px" }}>
+          <MDBNavbarItem style={{ marginTop: "-41px", marginLeft: "1375px" }}>
+                <div>
               <Tooltip title="Account settings">
                 <IconButton
                   onClick={(e) => setProfileOptionsPosition(e.currentTarget)}
@@ -77,9 +84,10 @@ export default function Header(props) {
                 </Menu>
                 <ProfileModal open={showModal} href="/profile" onClose={()=> setShowModal(false)}/>
             </div>
-          </Nav>
-        </Collapse>
-      </Navbar>
+              </MDBNavbarItem>
+          </MDBNavbarBrand>
+        </MDBContainer>
+      </MDBNavbar>
     </div>
   );
 }

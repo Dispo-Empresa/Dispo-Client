@@ -1,0 +1,7 @@
+useEffect(() => { implementação aqui }, parametro)
+
+tipos de parametro:
+
+vazio: caso o parametro não seja preenchido, o useEffect vai ser executado a todo momento
+[]: caso tenha uma array vazia, ele vai ser executado sempre que o estado(useState) mudar
+[campoComUseState]: caso tenha campos dentro da array, ele vai ser executado somente quando o estado desses campos alterarem

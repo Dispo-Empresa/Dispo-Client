@@ -1,13 +1,13 @@
 import React, { useState } from "react"
+import MainContent from "../../components/Structured/Layouts/Content/MainContent";
+import Form from "../../components/Structured/Layouts/Content/FormRegistration/Form";
 
 import { DefaultTextField } from "../../components/Basic/TextField/TextField";
-import { DefaultButton } from "../../components/Basic/Button/Default/DefaultButton";
-import { Box } from "@mui/system";
 import { getUserId, setUserInfo } from "../../services/Getters/lsUserInfoService"
 import { handleUpdateUserAccountInfo } from "../../services/UserAccount/profileCallAPI"
-import { COLORS } from "../../config/defaultColors"
 import { getLocalStorage } from "../../Storage/local"
-import MainContent from "../../components/Structured/Layouts/Content/MainContent";
+import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
+import { MDBTextArea, MDBSelectTextField, MDBTextField } from "../../components/Basic/TextField/MDBTextField/TextField"
 
 import "../../styles/registrationContent.css"
 
@@ -64,56 +64,28 @@ export default function ProfileCard() {
 
   return (
     <MainContent title="Perfil" alertMessage={alertMessage}>
-      <div class="container">
-        <div class="content">
-          <form action="#">
-            <div class="user-details">
-              <div class="input-box">
-                <Box paddingTop={5}>
-                  <DefaultTextField label="E-mail" variant="standard" type="email" 
-                                    value={ userInfoEmail } onChange={(e)=> setUserInfoEmail(e.target.value) } />
-                </Box>
-              </div>
-              <div class="input-box">
-                <Box paddingTop={5}>
-                  <DefaultTextField label="FirstName" variant="standard" type="text" 
-                                    value={ userInfoFirstName } onChange={(e)=> setUserInfoFirstName(e.target.value) } />
-                </Box>
-              </div>
-              <div class="input-box">
-                <Box paddingTop={5}>
-                  <DefaultTextField label="LastName" variant="standard" type="text" 
-                                    value={ userInfoLastName } onChange={(e)=> setUserInfoLastName(e.target.value) } />
-                </Box>
-              </div>
-              <div class="input-box">
-                <Box paddingTop={5}>
-                  <DefaultTextField label="CpfCnpj" variant="standard" type="text" 
-                                    value={ userInfoCpfCnpj } onChange={(e)=> setUserInfoCpfCnpj(e.target.value) } />
-                </Box>
-              </div>
-              <div class="input-box">
-                <Box paddingTop={5}>
-                  <DefaultTextField label="Phone" variant="standard" type="text" 
-                                    value={ userInfoPhone } onChange={(e)=> setUserInfoPhone(e.target.value) } />
-                </Box>
-              </div>
-              <div class="input-box">
-                <Box paddingTop={5}>
-                  <DefaultTextField label="BirthDate" variant="standard" type="text" 
-                                    value={ userInfoBirthDate } onChange={(e)=> setUserInfoBirthDate(e.target.value) } />
-                </Box>
-              </div>
-            </div>
-            <div>
-              <Box paddingTop={5} paddingBottom={5}>
-                <DefaultButton backgroundColor={COLORS.PrimaryColor} title="Atualizar" 
-                               onClick={UpdateUserAccountInfo} width="300px" height="50px" />
-              </Box>
-            </div>
-          </form>
-        </div>
-      </div>
+      <Form width="1000px" onSave={UpdateUserAccountInfo}>
+        <MDBRow className='g-5'>
+          <MDBCol>
+            <MDBTextField label="E-mail" value={ userInfoEmail } onChange={(e)=> setUserInfoEmail(e.target.value) } />
+          </MDBCol>
+          <MDBCol>
+            <MDBTextField label="FirstName" value={ userInfoFirstName } onChange={(e)=> setUserInfoFirstName(e.target.value) } />
+          </MDBCol>
+          <MDBCol>
+            <MDBTextField label="LastName" value={ userInfoLastName } onChange={(e)=> setUserInfoLastName(e.target.value) } />
+          </MDBCol>
+          <MDBCol>
+            <MDBTextField label="CpfCnpj" value={ userInfoCpfCnpj } onChange={(e)=> setUserInfoCpfCnpj(e.target.value) } />
+          </MDBCol>
+          <MDBCol>
+            <MDBTextField label="Phone" value={ userInfoPhone } onChange={(e)=> setUserInfoPhone(e.target.value) } />
+          </MDBCol>
+          <MDBCol>
+            <MDBTextField label="BirthDate" value={ userInfoBirthDate } onChange={(e)=> setUserInfoBirthDate(e.target.value) } />
+          </MDBCol>
+        </MDBRow>
+      </Form>
     </MainContent>
   );
 }

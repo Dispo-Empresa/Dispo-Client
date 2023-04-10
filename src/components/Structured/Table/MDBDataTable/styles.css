@@ -1,0 +1,40 @@
+.header-table {
+  margin-left: -16.2%;
+}
+
+.react-table-style {
+  height: 470px;
+  width: 1300px;
+  border: #2A2C35 0px solid;
+  box-shadow: 0 0 5px #2A2C35;
+  border-radius: 10px;
+  margin-top: 1%;
+  margin-left: -8%;
+}
+
+.actionButtons {
+  display: flex;
+  grid-gap: 10px;
+}
+
+.datatable-container {
+  font-size: 15px;
+}
+
+.datatable-container ::-webkit-scrollbar {
+  width: 15px;
+}
+
+.datatable-container ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 10px #F1F1F1; 
+  border-radius: 10px;
+}
+ 
+.datatable-container ::-webkit-scrollbar-thumb {
+  background:#C1C1C1; 
+  border-radius: 10px;
+}
+
+.datatable-container ::-webkit-scrollbar-thumb:hover {
+  background:#C1C1C1; 
+}

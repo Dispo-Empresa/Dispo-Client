@@ -1,4 +1,5 @@
 import { TextField } from "@mui/material";
+import CurrencyTextField from '@unicef/material-ui-currency-textfield'
 
 export function DefaultTextField(props) {
   return (
@@ -15,8 +16,7 @@ export function DefaultTextField(props) {
       onKeyPress={props.onKeyPress}
       style={{
         width: props.width ?? 320,
-        height: props.height ?? 50,
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
       }}
     >
     </TextField>
@@ -82,4 +82,20 @@ export function DefaultTextArea(props) {
     >
     </TextField>
   )
+}
+
+export function DefaultCurrencyTextField(props) {
+  return (
+    <div>
+      <label>{props.label}</label><br />
+        <CurrencyTextField
+          disabled={props.disabled ?? false}
+          unselectable
+	        currencySymbol="R$"
+          style={{ width: "300px" }}
+          value={props.value}
+          onChange={props.onChange}
+      />
+    </div>
+  );
 }

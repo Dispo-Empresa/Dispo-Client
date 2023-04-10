@@ -2,58 +2,22 @@ import MainContent from "../../../components/Structured/Layouts/Content/MainCont
 
 import { useState, useEffect } from "react"
 import { handleGetAllProductsInfo } from "../../../services/Getters/products"
-import { ActionButtons } from "../../../components/Basic/Button/Default/DefaultButton"
-import { HeaderTable } from "../../../components/Structured/Table/Headers/ProductsHeader/HeaderTable"
-import { DefaultTable } from "../../../components/Structured/Table/DefaultTable"
+import { DefaultTable } from "../../../components/Structured/Table/MDBDataTable/DefaultTable"
 
 export default function ProductVisualizationCard() {
 
-  var [records, setRecords] = useState();
-  const columns = [ // Achar uma forma de melhorar isso
-    {
-      Header: "Name",
-      accessor: "name",
-      width: 300
-    },
-    {
-      Header: "UnitPrice",
-      accessor: "unitPrice",
-      width: 200
-    },
-    {
-      Header: "Color",
-      accessor: "color",
-      width: 50
-    },
-    {
-      Header: "Description",
-      accessor: "description",
-      width: 200
-    },
-    {
-      Header: "UnitOfMeasurement",
-      accessor: "unitOfMeasurement",
-      width: 50
-    },
-    {
-      Header: "Type",
-      accessor: "type",
-      width: 50
-    },
-    {
-      Header: "BrandId",
-      accessor: "brandId",
-      width: 50
-    },
-    {
-      Header: "Actions",
-      accessor: "actions",
-      width: 250,
-      Cell: () => (
-        <ActionButtons hrefSearch="/" hrefEdit="/" onClickRemove={() => { alert("removendo") }} />
-      )
-    }
-  ];
+  var [records, setRecords] = useState([]);
+  const columns = 
+  [
+    { label: 'Nome', field: 'name', sort: false, width: 260,  },
+    { label: 'Preço unitário', field: 'unitPrice', sort: false, width: 100 },
+    { label: 'Cor', field: 'color', sort: false, width: 100 },
+    { label: 'Descrição', field: 'description', sort: false, width: 400 },
+    { label: 'Unidade de peso', field: 'unitOfMeasurement', sort: false, width: 100 },
+    { label: 'Marca', field: 'brandId', sort: false, width: 100 },
+    { label: 'Tipo', field: 'type', sort: false, width: 100 },
+    { label: 'Actions', field: 'actions', sort: false, width: 100 },
+  ]
 
   useEffect(() => { // call api only once || important to fetch data from api endpoints
     handleGetAllProductsInfo()
@@ -67,9 +31,15 @@ export default function ProductVisualizationCard() {
 
   }, []);
   
+
   return (
-    <MainContent title="Visualização de Produtos">
-      <DefaultTable title="Produtos" data={records} columns={columns} headerTable={<HeaderTable /> } />
+    <MainContent title="Visualização de Produtos" cardWidth="1520px" cardHeight="820px" >
+      <DefaultTable 
+        data={records} 
+        columns={columns} 
+        rowsPerPageOptions={[10, 20, 30]} 
+        rowsPerPage={10}
+      />
     </MainContent>
   );
 }
