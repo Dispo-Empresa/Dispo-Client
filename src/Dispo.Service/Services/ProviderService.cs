@@ -1,5 +1,4 @@
 ﻿using Dispo.Domain.Entities;
-using Dispo.Infrastructure.DTOs;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.DTOs.RequestDTOs;
 using Dispo.Service.DTOs.ResponseDTOs;
@@ -29,11 +28,6 @@ namespace Dispo.Service.Services
                 Id = newProvider.Id,
                 IsSuccess = true,
             };
-        }
-
-        public IEnumerable<ProviderDto> GetProvidersInfo()
-        {
-            return _providerRepository.GetAllProvidersInfo();
         }
     }
 }

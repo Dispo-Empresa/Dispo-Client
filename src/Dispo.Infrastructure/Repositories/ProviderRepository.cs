@@ -1,6 +1,5 @@
 ﻿using Dispo.Domain.Entities;
 using Dispo.Infrastructure.Context;
-using Dispo.Infrastructure.DTOs;
 using Dispo.Infrastructure.Repositories.Interfaces;
 
 namespace Dispo.Infrastructure.Repositories
@@ -13,14 +12,5 @@ namespace Dispo.Infrastructure.Repositories
         {
             _dispoContext = dispoContext;
         }
-
-        public IEnumerable<ProviderDto> GetAllProvidersInfo()
-            => _dispoContext.Providers
-                            .Select(b => new ProviderDto()
-                            {
-                                Name = b.Name,
-                                Cnpj = b.Cnpj,
-                            })
-                            .ToList();
     }
 }
