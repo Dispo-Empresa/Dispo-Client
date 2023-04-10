@@ -86,5 +86,23 @@ namespace Dispo.API.Controllers
                                                             .Build());
             }
         }
+
+        [HttpPost]
+        [Route("getBrandById")]
+        [Authorize]
+        public IActionResult GetBrandById([FromBody] long brandId)
+        {
+            try
+            {
+                var brand = _brandRepository.GetById(brandId);
+
+                return Ok(brand);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
     }
 }

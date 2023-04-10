@@ -87,5 +87,23 @@ namespace Dispo.API.Controllers
                                                             .Build());
             }
         }
+
+        [HttpPost]
+        [Route("getProductById")]
+        [Authorize]
+        public IActionResult GetProductById([FromBody] long productId)
+        {
+            try
+            {
+                var product = _productRepository.GetById(productId);
+
+                return Ok(product);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
     }
 }

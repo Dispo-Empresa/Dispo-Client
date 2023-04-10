@@ -1,6 +1,7 @@
 ﻿using Dispo.API.ResponseBuilder;
 using Dispo.APIs.ResponseBuilder;
 using Dispo.Domain.Exceptions;
+using Dispo.Infrastructure.Repositories;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.DTOs.RequestDTOs;
 using Dispo.Service.Services.Interfaces;
@@ -59,7 +60,7 @@ namespace Dispo.APIs.Controllers
         {
             try
             {
-                var providers = _providerRepository.GetAllProvidersInfo();
+                var providers = _providerRepository.GetAll();
 
                 return Ok(new ResponseModelBuilder().WithData(providers)
                                                     .WithSuccess(true)
@@ -72,6 +73,24 @@ namespace Dispo.APIs.Controllers
                                                             .WithSuccess(false)
                                                             .WithAlert(AlertType.Error)
                                                             .Build());
+            }
+        }
+
+        [HttpPost]
+        [Route("getProviderById")]
+        [Authorize]
+        public IActionResult GetProviderById([FromBody] long providerId)
+        {
+            try
+            {
+                var provider = _providerRepository.GetById(providerId);
+
+                return Ok(provider);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
     }
