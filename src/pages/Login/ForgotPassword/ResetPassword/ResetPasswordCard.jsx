@@ -5,7 +5,6 @@ import { Navigate } from "react-router-dom"
 import { Grid } from "../../../../components/Basic/Grid/DefaultGrid"
 import { DefaultBox } from "../../../../components/Basic/Box/DefaultBox"
 import { DefaultTypography } from "../../../../components/Basic/Labels/Typography"
-import { SkipLine } from "../../../../components/Basic/SkipLine/styles"
 import { PasswordTextField } from "../../../../components/Basic/TextField/TextField"
 import { DefaultButton } from "../../../../components/Basic/Button/Default/DefaultButton"
 import { handleResetPassword } from "../../../../services/Login/resetpassword"
@@ -42,16 +41,13 @@ export default function ResetPasswordCard() {
         </Box>
         <Box textAlign="center" paddingTop="30px">
           <Box>
-            <SkipLine />
             <PasswordTextField variant="standard" label="Informe sua nova senha" width="300px" onChange={(value)=> setPasswordRequest(value.target.value) } />
           </Box>
           <Box paddingTop="30px">
-            <SkipLine />
             <PasswordTextField variant="standard" label="Informe sua nova senha novamente" width="300px"
               onChange={(value)=> setRepeatPasswordRequest(value.target.value) } />
           </Box>
           <Box textAlign="center" paddingTop="30px">
-            <SkipLine />
             <DefaultButton onClick={ResetPassword} backgroundColor={COLORS.PrimaryColor} title="Confirmar" />
           </Box>
         </Box>

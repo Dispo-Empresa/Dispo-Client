@@ -10,8 +10,6 @@ import { handleRegisterProduct } from "../../../services/Product/productServices
 import { handleGetBrandNames } from "../../../services/Brand/brandServices"
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 
-import "../../../styles/registrationContent.css"
-
 export default function ProductRegistrationCard() {
 
   const [productName, setProductName] = useState("");

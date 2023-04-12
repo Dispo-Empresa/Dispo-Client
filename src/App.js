@@ -1,4 +1,4 @@
-import GetRoutes from "./Routes/routes";
+import GetRoutes from "./context/Routes/routes";
 
 export default function App(){
   

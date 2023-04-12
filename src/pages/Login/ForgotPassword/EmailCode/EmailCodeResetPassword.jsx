@@ -6,7 +6,6 @@ import { Grid } from "../../../../components/Basic/Grid/DefaultGrid"
 import { DefaultBox } from "../../../../components/Basic/Box/DefaultBox"
 import { DefaultTypography } from "../../../../components/Basic/Labels/Typography"
 import { DefaultTextField } from "../../../../components/Basic/TextField/TextField"
-import { SkipLine } from "../../../../components/Basic/SkipLine/styles"
 import { DefaultButton } from "../../../../components/Basic/Button/Default/DefaultButton"
 import { handleEmailCodeChecker } from "../../../../services/Login/coderesetpasswordcard"
 import { COLORS } from "../../../../config/defaultColors"
@@ -44,17 +43,14 @@ export default function CodeResetPasswordCard() {
     <Grid backgroundColor={COLORS.SecondColor}>
       <DefaultBox width="1000px" height="500px">
         <Box>
-          <SkipLine paddingTop="40" />
           <DefaultTypography variant="h3" color={COLORS.PrimaryColor} textAlign="center" paddingTop="35" text="Código enviado!" />
         </Box>
         <Box>
-          <SkipLine paddingTop="20" />
           <DefaultTypography variant="h6" color={COLORS.PrimaryColor} textAlign="center" paddingTop="35" 
                              text="Enviamos um código no Email informado anteriormente, este código tem validade de X minutos 
                                    deve ser colocado nos campos abaixo para que você possa refazer sua senha." />
         </Box>
         <Box textAlign="center">
-          <SkipLine paddingTop="50" />
           <DefaultTextField variant="outlined" type="number" inputProps={{ inputProps: { max: 9, min: 0 } }}
                             width="60px" height="50px" onChange={(e) => setcodeN1(e.target.value) }/>
 
@@ -74,7 +70,6 @@ export default function CodeResetPasswordCard() {
                             width="60px" height="50px" onChange={(e) => setcodeN6(e.target.value) } />
         </Box>
         <Box textAlign="center">
-          <SkipLine paddingTop="80" />
           <DefaultButton onClick={EmailCodeChecker} backgroundColor={COLORS.PrimaryColor} title="Confirmar" />
         </Box>
       </DefaultBox>

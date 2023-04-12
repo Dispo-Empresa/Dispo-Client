@@ -9,8 +9,6 @@ import { getLocalStorage } from "../../Storage/local"
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 import { MDBTextArea, MDBSelectTextField, MDBTextField } from "../../components/Basic/TextField/MDBTextField/TextField"
 
-import "../../styles/registrationContent.css"
-
 export default function ProfileCard() {
 
   const userInfo = JSON.parse(getLocalStorage("accessUserInfo")) ?? "";

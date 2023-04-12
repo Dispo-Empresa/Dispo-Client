@@ -10,8 +10,6 @@ import { Box, Card, CardContent } from '@material-ui/core';
 import { TextField } from '@mui/material';
 import { cpfCnpjChange } from "../../../utils/helperFunctions"
 
-import "../../../styles/registrationContent.css"
-
 export default function SignUpCard() {
 
   const [cpfCnpjRequest, setCpfCnpjRequest] = useState("");
