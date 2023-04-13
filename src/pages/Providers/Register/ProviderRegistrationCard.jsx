@@ -4,7 +4,6 @@ import Form from "../../../components/Structured/Layouts/Content/FormRegistratio
 
 import { useState } from "react";
 import { DefaultTextField } from "../../../components/Basic/TextField/TextField";
-import { handleRegisterProvider } from "../../../services/Providers/providersServices"
 import { cnpjChange } from "../../../utils/helperFunctions";
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 
@@ -21,12 +20,13 @@ export default function ProviderRegistrationCard() {
       cnpj: providerCnpj
     };
 
-    handleRegisterProvider(data)
-        .then(function(res){
+    createAPIEndpoint(endpoints.providers.registerProviders)
+    .post(data)
+        .then(res => {
 
             setAlertMessage([{ description: res.data.message, type: res.data.alertType }])
         })
-        .catch(function(err){
+        .catch(err => {
 
             if(err.response.data){
                 setAlertMessage([{ description: err.response.data.message, type: "error" }]);

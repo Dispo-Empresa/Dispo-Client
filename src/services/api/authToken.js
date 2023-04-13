@@ -1,7 +1,7 @@
 import axios from "axios"
 import { getLocalStorage, setLocalStorage, removeLocalStorage } from "../../Storage/local"
 
-export const setToken = (token) => {
+const setToken = (token) => {
     if (token){
       setLocalStorage("accessToken", token);
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -11,8 +11,19 @@ export const setToken = (token) => {
     }
   }
 
-export const getToken = () => getLocalStorage("accessToken");
+const getToken = () => {
 
-export const removeToken = () => removeLocalStorage("accessToken");
+  getLocalStorage("accessToken");
+}
 
-export const isAuthenticated = () => !!this.getToken();
+const removeToken = () => {
+
+  removeLocalStorage("accessToken");
+}
+
+const isAuthenticated = () => {
+
+  return !!this.getToken();
+}
+
+export { setToken, getToken, removeToken, isAuthenticated };

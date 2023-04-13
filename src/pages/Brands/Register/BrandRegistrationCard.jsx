@@ -4,8 +4,10 @@ import Form from "../../../components/Structured/Layouts/Content/FormRegistratio
 
 import { useState } from "react";
 import { DefaultTextField } from "../../../components/Basic/TextField/TextField";
-import { handleRegisterBrand } from "../../../services/Brand/brandServices"
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
+
+import createAPIEndpoint from "../../../services/api/config"
+import endpoints from "../../../services/api/endpoints"
 
 export default function BrandRegistrationCard() {
 
@@ -18,22 +20,26 @@ export default function BrandRegistrationCard() {
       name: brandName
     };
 
-    handleRegisterBrand(data)
-      .then(function(res){
-        
+    createAPIEndpoint(endpoints.brands.registerBrand)
+      .post(data)
+      .then(res => {
+
         setAlertMessage([{ description: res.data.message, type: res.data.alertType }]);
 
       })
-      .catch(function(err){
+      .catch(err => {
 
         if (err.response.data){
-          setAlertMessage([{ description: err.response.data.message, type: "error" }]);
-        }else{
-          setAlertMessage([{ description: "Serviço não encontrado ou fora do ar", type: "error" }]);
-        }
 
-      })
-  };
+          setAlertMessage([{ description: err.response.data.message, type: "error" }]);
+
+        }else{
+
+          setAlertMessage([{ description: "Serviço não encontrado ou fora do ar", type: "error" }]);
+
+        }
+      }
+    )
 
   return (
     <MainContent title="Cadastro de Marca" alertMessage={alertMessage}>

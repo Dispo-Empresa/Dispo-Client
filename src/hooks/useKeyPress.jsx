@@ -19,17 +19,17 @@ export default useKeyPress;
 
 // COMO USAR
 
-import React from 'react';
-import useKeyPress from './hooks/useKeyPress';
-
-function App() {
-  function handleKeyPress() {
-    console.log('A tecla "Enter" foi pressionada!');
-  }
-
-  useKeyPress('Enter', handleKeyPress);
-
-  return <div>Pressione a tecla "Enter" para ver a mensagem no console.</div>;
-}
-
-export default App;
+//import React from 'react';
+//import useKeyPress from './hooks/useKeyPress';
+//
+//function App() {
+//  function handleKeyPress() {
+//    console.log('A tecla "Enter" foi pressionada!');
+//  }
+//
+//  useKeyPress('Enter', handleKeyPress);
+//
+//  return <div>Pressione a tecla "Enter" para ver a mensagem no console.</div>;
+//}
+//
+//export default App;

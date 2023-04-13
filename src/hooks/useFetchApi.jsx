@@ -13,6 +13,7 @@ function useFetch(url) {
         setData(jsonData);
         setLoading(false);
       } catch (error) {
+        console.log(error)
         setError(error);
         setLoading(false);
       }
@@ -28,27 +29,27 @@ export default useFetch;
 
 // COMO USAR
 
-import React from 'react';
-import useFetch from './hooks/useFetch';
-
-function App() {
-  const { data, loading, error } = useFetch('https://api.example.com/data');
-
-  if (loading) {
-    return <div>Carregando...</div>;
-  }
-
-  if (error) {
-    return <div>Ocorreu um erro: {error.message}</div>;
-  }
-
-  return (
-    <ul>
-      {data.map((item) => (
-        <li key={item.id}>{item.name}</li>
-      ))}
-    </ul>
-  );
-}
-
-export default App;
+//import React from 'react';
+//import useFetch from './hooks/useFetch';
+//
+//function App() {
+//  const { data, loading, error } = useFetch('https://api.example.com/data');
+//
+//  if (loading) {
+//    return <div>Carregando...</div>;
+//  }
+//
+//  if (error) {
+//    return <div>Ocorreu um erro: {error.message}</div>;
+//  }
+//
+//  return (
+//    <ul>
+//      {data.map((item) => (
+//        <li key={item.id}>{item.name}</li>
+//      ))}
+//    </ul>
+//  );
+//}
+//
+//export default App;

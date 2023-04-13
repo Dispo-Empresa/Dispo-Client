@@ -1,180 +1,149 @@
-import React, { useState, useEffect } from 'react';
-import Autocomplete from '@mui/material/Autocomplete';
-import CurrencyTextField from '@unicef/material-ui-currency-textfield'
-import MainContent from '../../../components/Structured/Layouts/Content/MainContent';
-import Form from "../../../components/Structured/Layouts/Content/FormRegistration/Form";
-
-import { DefaultTextField, DefaultTextArea } from '../../../components/Basic/TextField/TextField';
+import { useState } from 'react';
 import { TextField } from '@mui/material';
-import { handleRegisterProduct } from "../../../services/Product/productServices"
-import { handleGetBrandNames } from "../../../services/Brand/brandServices"
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 
-export default function ProductRegistrationCard() {
+import { DefaultTextField, DefaultTextArea } from '../../../components/Basic/TextField/TextField';
 
-  const [productName, setProductName] = useState("");
-  const [productUnitPrice, setProductUnitPrice] = useState("");
-  const [productColor, setProductColor] = useState("");
-  const [productDescription, setProductDescription] = useState("");
-  const [productUnitOfMeansurement, setProductUnitOfMeansurement] = useState("");
-  const [productType, setProductType] = useState("");
-  const [productBrand, setProductBrand] = useState("");
-  const [productInventory, setProductInventory] = useState(1);
+import Autocomplete from '@mui/material/Autocomplete';
+import CurrencyTextField from '@unicef/material-ui-currency-textfield'
 
-  const [BrandsRegistered, setBrandsRegistered] = useState([]);
-  const [alertMessage, setAlertMessage] = useState([]);
+import MainContent from '../../../components/Structured/Layouts/Content/MainContent';
+import Form from "../../../components/Structured/Layouts/Content/FormRegistration/Form";
+import useBrandNames from "../../../services/fetch/brand"
+import useForm from '../../../hooks/useForm';
+import * as Enum from "./enums";
 
-// Passar os enums do c# para o react ou deixar assim?????
-
-  const unitOfMeansurement = [
-    'Meter',
-    'Liter',
-    'Kilo',
-    'Gram',
-    'Unit'
-  ];
-
-  const productTypes = [
-    'Comida',
-    'Roupas',
-    'Eletronicos',
-    'Livros'
-  ];
-
-  const productColors = [
-    'Amarelo',
-    'Vermelho',
-    'Roxo',
-    'Azul',
-    'Verde',
-    'Branco',
-    'Preto'
-  ];
-
-  useEffect(() => {
-
-    handleGetBrandNames()
-    .then(function(res)
-    { 
-      setBrandsRegistered(res.data);
-    })
-    .catch(function(err)
-    { 
-      console.log(err)
-    });
-  }, []);
-
-  const RegisterProduct = () => {
-
-    var data = {
-      name: productName,
-      UnitPrice: productUnitPrice,
-      Color: productColor,
-      Description: productDescription,
-      UnitOfMeasurement: productUnitOfMeansurement,
-      Type: productType,
-      BrandName: productBrand,
-      InventoryId: 1,
+function ProductRegistrationCard() {
+    
+    const initialState = {
+        productName: "",
+        productUnitPrice: "",
+        productColor: "",
+        productDescription: "",
+        productUnitOfMeansurement: "",
+        productType: "",
+        productBrand: "",
+        productInventory: 1,
     };
 
-    handleRegisterProduct(data)
-    .then(function(res){
+    const { values, errors, handleChange, handleSubmit } = useForm(initialState, validate);
 
-      setAlertMessage([{ description: res.data.message, type: res.data.alertType }]);
-      console.log(alertMessage)
+    const [alertMessage, setAlertMessage] = useState([]);
 
-    })
-    .catch(function(err){
-      console.log(alertMessage)
-      
-      if (err.response.data){
-        setAlertMessage([{ description: err.response.data.message, type: "error" }]);
-      }else{
-        setAlertMessage([{ description: "Serviço não encontrado ou fora do ar", type: "error" }]);
-      }
-      
-      console.log(err);
+    const { brandNames, loadingBrands, errorBrands } = useBrandNames('https://localhost:7153/api/v1/Brands/getBrandNames');
 
-    })
-  };
+    const RegisterProduct = () => {
 
-  return (
-    <MainContent title="Cadastro de Produto" alertMessage={alertMessage} >
-      <Form width="1000px" onSave={RegisterProduct}>
+      var data = {
+          name: values.productName,
+          UnitPrice: values.productUnitPrice,
+          Color: values.productColor,
+          Description: values.productDescription,
+          UnitOfMeasurement: values.productUnitOfMeansurement,
+          Type: values.productType,
+          BrandName: values.productBrand,
+          InventoryId: values.productInventory,
+      };
 
-        <MDBRow className='g-4'>
-          <MDBCol md='6'>
-              <DefaultTextField label="Nome do produto" width="400px" variant="outlined" type="text" value={productName} 
-                                onChange={(e) => setProductName(e.target.value) } />
-          </MDBCol>
-          <MDBCol md='5'>
-            <Autocomplete
-              disablePortal
-              options={BrandsRegistered}
-              sx={{ width: 400 }}
-              renderInput={(params) => <TextField {...params} label="Marca" inputProps={{ style: { height: 0 } }} />}
-              value={productBrand}
-              onChange={(e) => setProductBrand(e.target.innerText) }
-            />
-          </MDBCol>
-          <MDBCol md='6'>
-            <Autocomplete
-              disablePortal
-              options={unitOfMeansurement}
-              sx={{ width: 400 }}
-              renderInput={(params) => <TextField {...params} label="UoM" />}
-              value={productUnitOfMeansurement}
-              onChange={(e) => setProductUnitOfMeansurement(e.target.innerText) }
-            />
-          </MDBCol>
-          <MDBCol md='6' className='mb-4'>
-            <Autocomplete
-              disablePortal
-              options={productColors}
-              sx={{ width: 400 }}
-              renderInput={(params) => <TextField {...params} label="Cor" />}
-              value={productColor}
-              onChange={(e) => setProductColor(e.target.innerText) }
-            />
-          </MDBCol>
-          <MDBCol md='6'>
-            <Autocomplete
-              disablePortal
-              options={productTypes}
-              sx={{ width: 400 }}
-              renderInput={(params) => <TextField {...params} label="Tipo" />}
-              value={productType}
-              onChange={(e) => setProductType(e.target.innerText) }
-            />
-          </MDBCol>
-          <MDBCol md='6'>
-            <Autocomplete
-              disablePortal
-              options={[]}
-              sx={{ width: 400 }}
-              renderInput={(params) => <TextField {...params} label="Inventário" />}
-              value={productInventory}
-              onChange={(e) => setProductInventory(e.target.innerText) }
-            />
-          </MDBCol>
-          <MDBCol md='6'>
-              <DefaultTextArea label="Descrição" rows="3" width="400px" value={productDescription} 
-                               onChange={(e) => setProductDescription(e.target.value) } />
-          </MDBCol>
-          <MDBCol md='6'>
-            <CurrencyTextField
-	            label="Preço unitário"
-	            variant="filled"
-	            value={productUnitPrice}
-              unselectable
-	            currencySymbol="R$"
-              style={{ width: "400px" }}
-              onChange={(event, value)=> setProductUnitPrice(value)}
-            />
-          </MDBCol>
-        </MDBRow>
+      createAPIEndpoint(endpoints.product.registerProduct)
+          .post(data)
+          .then(res => {
 
-      </Form>
-    </MainContent>
-  );
+            setAlertMessage([{ description: res.data.message, type: res.data.alertType }]);
+            console.log(alertMessage)
+
+      })
+      .catch(err => {
+        console.log(alertMessage)
+
+        if (err.response.data){
+          setAlertMessage([{ description: err.response.data.message, type: "error" }]);
+        }else{
+          setAlertMessage([{ description: "Serviço não encontrado ou fora do ar", type: "error" }]);
+        }
+
+        console.log(err);
+
+      })
+    };
+
+    return (
+        <MainContent title="Cadastro de Produto" alertMessage={alertMessage} >
+            <Form width="1000px" onSave={RegisterProduct}>
+                <MDBRow className='g-4'>
+                    <MDBCol md='6'>
+                        <DefaultTextField label="Nome do produto" width="400px" variant="outlined" type="text"
+                                          value={values.productName} onChange={handleChange} />
+                    </MDBCol>
+                    <MDBCol md='5'>
+                        <Autocomplete
+                            disablePortal
+                            options={brandNames.data}
+                            sx={{ width: 400 }}
+                            renderInput={(params) => <TextField {...params} label="Marca" inputProps={{ style: { height: 0 } }} />}
+                            value={values.productBrand}
+                            onChange={handleChange}
+                        />
+                    </MDBCol>
+                        <MDBCol md='6'>
+                          <Autocomplete
+                              disablePortal
+                              options={Enum.unitOfMeansurement}
+                              sx={{ width: 400 }}
+                              renderInput={(params) => <TextField {...params} label="UoM" />}
+                              value={values.productUnitOfMeansurement}
+                              onChange={handleChange}
+                          />
+                        </MDBCol>
+                        <MDBCol md='6' className='mb-4'>
+                          <Autocomplete
+                              disablePortal
+                              options={Enum.productColors}
+                              sx={{ width: 400 }}
+                              renderInput={(params) => <TextField {...params} label="Cor" />}
+                              value={values.productColor}
+                              onChange={handleChange}
+                          />
+                        </MDBCol>
+                        <MDBCol md='6'>
+                          <Autocomplete
+                              disablePortal
+                              options={Enum.productTypes}
+                              sx={{ width: 400 }}
+                              renderInput={(params) => <TextField {...params} label="Tipo" />}
+                              value={values.productType}
+                              onChange={handleChange}
+                          />
+                        </MDBCol>
+                        <MDBCol md='6'>
+                          <Autocomplete
+                              disablePortal
+                              options={[]}
+                              sx={{ width: 400 }}
+                              renderInput={(params) => <TextField {...params} label="Inventário" />}
+                              value={values.productInventory}
+                              onChange={handleChange}
+                          />
+                        </MDBCol>
+                    <MDBCol md='6'>
+                        <DefaultTextArea label="Descrição" rows="3" width="400px" value={values.productDescription} 
+                                         onChange={handleChange} />
+                    </MDBCol>
+                      <MDBCol md='6'>
+                        <CurrencyTextField
+	                          label="Preço unitário"
+	                          variant="filled"
+	                          value={values.productUnitPrice}
+                            unselectable
+	                          currencySymbol="R$"
+                            style={{ width: "400px" }}
+                            onChange={handleChange}
+                        />
+                      </MDBCol>
+                </MDBRow>
+            </Form>
+        </MainContent>
+    );
 }
+
+export default ProductRegistrationCard;
