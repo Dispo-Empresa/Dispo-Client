@@ -1,10 +1,25 @@
 import jwt_decode from "jwt-decode";
-import { getLocalStorage, setLocalStorage, removeLocalStorage } from "../../Storage/local"
 
-export const setUserInfo = (userInfo) => setLocalStorage('accessUserInfo', JSON.stringify(userInfo));
+import { getLocalStorage, setLocalStorage, removeLocalStorage } from "../../data/storage/browser/local"
 
-export const getUserInfo = () => getLocalStorage('accessUserInfo');
+const setUserInfo = (userInfo) => {
 
-export const getUserId = () => jwt_decode(getLocalStorage('accessToken')).unique_name;
+    setLocalStorage('accessUserInfo', JSON.stringify(userInfo));
+};
 
-export const removeUserInfo = () => removeLocalStorage('accessUserInfo');
+const getUserInfo = () => {
+
+    return getLocalStorage('accessUserInfo');
+}
+
+const getUserId = () => {
+
+    return jwt_decode(getLocalStorage('accessToken')).unique_name;
+}
+
+const removeUserInfo = () => {
+
+    removeLocalStorage('accessUserInfo');
+}
+
+export { setUserInfo, getUserInfo, getUserId, removeUserInfo };

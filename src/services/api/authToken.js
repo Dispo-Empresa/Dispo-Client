@@ -1,5 +1,6 @@
 import axios from "axios"
-import { getLocalStorage, setLocalStorage, removeLocalStorage } from "../../Storage/local"
+
+import { getLocalStorage, setLocalStorage, removeLocalStorage } from "../../data/storage/browser/local"
 
 const setToken = (token) => {
     if (token){
