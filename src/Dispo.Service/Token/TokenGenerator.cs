@@ -28,7 +28,7 @@ namespace Dispo.Service.Token
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, accountId.ToString())
-                    //new Claim(ClaimTypes.Role, "User")
+                    //new Claim(ClaimTypes.Role, roleId)
                 }),
                 Expires = DateTime.UtcNow.AddHours(int.Parse(_configuration["Jwt:HoursToExpire"])),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

@@ -37,11 +37,11 @@ namespace Dispo.Service.Services
                 {
                     Name = productModel.Name,
                     Code = BuildProductSKUCode(productModel.Name, productModel.Type),
-                    BrandId = _brandRepository.GetBrandIdByName(productModel.BrandName),
+                    BrandId = productModel.brandId,
                     UnitOfMeasurement = EnumHelper.ConvertToEnum(productModel.UnitOfMeasurement, eUnitOfMeasurement.Others),
-                    UnitPrice = productModel.UnitPrice,
+                    UnitPrice = 0,//productModel.UnitPrice,
                     Color = EnumHelper.ConvertToEnum(productModel.Color, eColor.Other),
-                    InventoryId = productModel.InventoryId,
+                    InventoryId = 1,
                     Type = EnumHelper.ConvertToEnum(productModel.Type, eProductType.Others),
                     Description = productModel.Description
                 };

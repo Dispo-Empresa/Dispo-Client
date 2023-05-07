@@ -40,6 +40,7 @@ namespace Dispo.API.Controllers
                                                         tokenResponseDto = generatedToken
                                                     })
                                                     .Build());
+
             }
             catch (NotFoundedException ex)
             {

@@ -23,7 +23,7 @@ namespace Dispo.API.Controllers
         }
 
         [HttpPost]
-        [Route("registerBrand")]
+        [Route("register")]
         [Authorize]
         public IActionResult CreateBrand([FromBody] BrandRequestDto brandRequestDto)
         {
@@ -84,6 +84,24 @@ namespace Dispo.API.Controllers
             {
                 return BadRequest(new ResponseModelBuilder().WithMessage("Brands not found: " + ex.Message)
                                                             .Build());
+            }
+        }
+
+        [HttpGet]
+        [Route("getBrandById/{brandId}")]
+        [Authorize]
+        public IActionResult GetBrandById(long brandId)
+        {
+            try
+            {
+                var brand = _brandRepository.GetById(brandId);
+
+                return Ok(brand);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
     }

@@ -23,7 +23,7 @@ namespace Dispo.APIs.Controllers
         }
 
         [HttpPost]
-        [Route("RegisterProvider")]
+        [Route("register")]
         [Authorize]
         public IActionResult CreateProvider(ProviderRequestDto providerRequestDto)
         {
@@ -59,12 +59,9 @@ namespace Dispo.APIs.Controllers
         {
             try
             {
-                var providers = _providerRepository.GetAllProvidersInfo();
+                var providers = _providerRepository.GetAllAsNoTracking();
 
-                return Ok(new ResponseModelBuilder().WithData(providers)
-                                                    .WithSuccess(true)
-                                                    .WithAlert(AlertType.Success)
-                                                    .Build());
+                return Ok(providers);
             }
             catch (Exception ex)
             {
@@ -72,6 +69,24 @@ namespace Dispo.APIs.Controllers
                                                             .WithSuccess(false)
                                                             .WithAlert(AlertType.Error)
                                                             .Build());
+            }
+        }
+
+        [HttpGet]
+        [Route("getProviderById/{providerId}")]
+        [Authorize]
+        public IActionResult GetProviderById(long providerId)
+        {
+            try
+            {
+                var provider = _providerRepository.GetById(providerId);
+
+                return Ok(provider);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
     }

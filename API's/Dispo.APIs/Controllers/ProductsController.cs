@@ -23,7 +23,7 @@ namespace Dispo.API.Controllers
         }
 
         [HttpPost]
-        [Route("registerProduct")]
+        [Route("register")]
         [Authorize]
         public IActionResult CreateProduct([FromBody] ProductRequestDto productModel)
         {
@@ -84,6 +84,24 @@ namespace Dispo.API.Controllers
             {
                 return BadRequest(new ResponseModelBuilder().WithMessage("Products not found: " + ex.Message)
                                                             .Build());
+            }
+        }
+
+        [HttpGet]
+        [Route("getProductById/{productId}")]
+        [Authorize]
+        public IActionResult GetProductById(long productId)
+        {
+            try
+            {
+                var product = _productRepository.GetById(productId);
+
+                return Ok(product);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
     }
