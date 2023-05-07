@@ -1,19 +1,27 @@
-import CurrencyTextField from "@unicef/material-ui-currency-textfield"
+import CurrencyInput from "react-currency-input-field";
 
 function CurrencyField(props) {
-    return (
-      <div>
-        <label>{props.label}</label><br />
-          <CurrencyTextField
-            disabled={props.disabled ?? false}
-            unselectable
-            currencySymbol="R$"
-            style={{ width: "300px" }}
-            value={props.value}
-            onChange={props.onChange}
-        />
-      </div>
-    );
+  return (
+    <div>
+      <label style={{ marginBottom: "2%", fontWeight: "bold" }}>
+        {props.label}
+      </label>
+      <CurrencyInput
+        className="form-control"
+        name={props.name}
+        decimalsLimit={2}
+        onValueChange={props.onChange}
+        value={props.value}
+        prefix="R$ "
+        style={{
+          width: "200px",
+          borderColor: props.error && "red",
+          fontSize: "15px",
+          borderRadius: "5px",
+        }}
+      />
+    </div>
+  );
 }
 
 export default CurrencyField;

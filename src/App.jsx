@@ -1,8 +1,21 @@
 import RoutesConfiguration from "./routes/Routes";
+import React from "react";
+import { ProSidebarProvider } from "react-pro-sidebar";
+import { Provider } from "react-alert";
 
-export default function App(){
-  
+import {
+  NotificacaoOptions,
+  NotificacaoTemplate,
+} from "./components/structured/alert/notification/Notification";
+
+function App() {
   return (
-      <RoutesConfiguration />
+    <ProSidebarProvider>
+      <Provider template={NotificacaoTemplate} {...NotificacaoOptions}>
+        <RoutesConfiguration />;
+      </Provider>
+    </ProSidebarProvider>
   );
-};
+}
+
+export default App;

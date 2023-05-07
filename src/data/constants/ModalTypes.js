@@ -1,5 +1,7 @@
-export const TypeOptions = {
+const TypeOptions = {
 
     ViewModal: "view",
     EditModal: "edit"
 };
+
+export default TypeOptions;

@@ -1,82 +1,68 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import { positions } from "react-alert";
 
-// Usabilidade
+import "./styles.css";
 
-// import { useNotification } from "../../components/Structured/Notifications/NotificationProvider"
-
-// const dispatch = useNotification();
-
-// dispatch({
-//   type: "SUCCESS",
-//   message: "Conta atualizada!",
-//   title: "Sucesso!"
-// });
-
-// dispatch({
-//   type: "ERROR",
-//   message: "Serviço não encontrado ou fora do ar",
-//   title: "Erro encontrado!"
-// });
-
-function Notification(props) {
-  const [exit, setExit] = useState(false);
-  const [width, setWidth] = useState(0);
-  const [intervalID, setIntervalID] = useState(null);
-
-  const handleStartTimer = () => {
-    const id = setInterval(() => {
-      setWidth(prev => {
-        if (prev < 100) {
-          return prev + 0.5;
-        }
-
-        clearInterval(id);
-        return prev;
-      });
-    }, 20);
-
-    setIntervalID(id);
-  };
-
-  const handlePauseTimer = () => {
-    clearInterval(intervalID);
-  };
-
-  const handleCloseNotification = () => {
-    handlePauseTimer();
-    setExit(true);
-    setTimeout(() => {
-      props.dispatch({
-        type: "REMOVE_NOTIFICATION",
-        id: props.id
-      })
-    }, 400)
-  };
-
-  React.useEffect(() => {
-    if (width === 100) {
-      // Close notification
-      handleCloseNotification()
-    }
-  }, [width])
-
-  React.useEffect(() => {
-    handleStartTimer();
-  }, []);
+function NotificacaoTemplate({ message, options, style, close }) {
+  const { type } = options;
 
   return (
     <div
-      onMouseEnter={handlePauseTimer}
-      onMouseLeave={handleStartTimer}
-      className={`notification-item ${
-        props.type === "SUCCESS" ? "success" : "error"
-      } ${exit ? "exit" : ""}`}
+      className={`alert-notification ${type}`}
+      style={{
+        ...style,
+      }}
     >
-      {props.title && <h4><p>{props.title}</p></h4>}
-      <p>{props.message}</p>
-      <div className={"bar"} style={{ width: `${width}%` }} />
+      <div className="notification-message">
+        {type === "info" && (
+          <i className="fas fa-info-circle icon" style={{ color: "#1893D5" }} />
+        )}
+        {type === "success" && (
+          <i
+            className="fas fa-check-circle icon"
+            style={{ color: "#408944" }}
+          />
+        )}
+        {type === "error" && (
+          <i
+            className="fas fa-exclamation-circle icon"
+            style={{ color: "#D74141" }}
+          />
+        )}
+        {type === "warning" && (
+          <i
+            className="fas fa-exclamation-triangle icon"
+            style={{ color: "#EF7918" }}
+          />
+        )}
+        {message}
+      </div>
+      <i
+        className="fas fa-times"
+        onClick={close}
+        style={{
+          cursor: "pointer",
+          color: "#D74141",
+          fontSize: "18px",
+        }}
+      ></i>
     </div>
   );
+}
+
+NotificacaoTemplate.propTypes = {
+  message: PropTypes.string.isRequired,
+  options: PropTypes.shape({
+    type: PropTypes.oneOf(["info", "success", "warning", "error"]).isRequired,
+  }).isRequired,
+  style: PropTypes.object.isRequired,
+  close: PropTypes.func.isRequired,
 };
 
-export default Notification;
+const NotificacaoOptions = {
+  timeout: 8000,
+  position: positions.BOTTOM_RIGHT,
+};
+
+export { NotificacaoOptions, NotificacaoTemplate };

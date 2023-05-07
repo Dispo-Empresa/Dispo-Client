@@ -7,12 +7,7 @@ const setUserInfo = (userInfo) => {
     setLocalStorage('accessUserInfo', JSON.stringify(userInfo));
 };
 
-const getUserInfo = () => {
-
-    return getLocalStorage('accessUserInfo');
-}
-
-const getUserId = () => {
+const loggedAccountId = () => {
 
     return jwt_decode(getLocalStorage('accessToken')).unique_name;
 }
@@ -22,4 +17,4 @@ const removeUserInfo = () => {
     removeLocalStorage('accessUserInfo');
 }
 
-export { setUserInfo, getUserInfo, getUserId, removeUserInfo };
+export { setUserInfo, loggedAccountId, removeUserInfo };

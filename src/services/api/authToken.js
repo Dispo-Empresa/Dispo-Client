@@ -23,8 +23,9 @@ const removeToken = () => {
 }
 
 const isAuthenticated = () => {
-
-  return !!this.getToken();
+  
+  console.log("testge")
+  return localStorage.getItem("accessToken") && localStorage.getItem("accessToken") !== "";
 }
 
 export { setToken, getToken, removeToken, isAuthenticated };

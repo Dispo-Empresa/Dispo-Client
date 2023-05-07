@@ -1,20 +1,22 @@
-.container {
-    margin-top: 1%;
-}
-
-.title {
-    margin-left: -10%;
-    margin-bottom: 1%;
-}
-
-.alert {
-    margin-left: -16%;
-}
-
-.content {
-    margin-left: -10%;
-    margin-top: -2.5%;
+.card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .content-children {
+    margin-bottom: 3%;
+}
+
+.card-title {
+    font-family: Open Sans;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.card-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }

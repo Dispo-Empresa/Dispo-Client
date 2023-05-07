@@ -1,43 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-function useAlert(message, duration) {
-  const [visible, setVisible] = useState(false);
+const useAlert = (type = null, title = null, message = null) => {
+  const [alertType, setAlertType] = useState(type);
+  const [alertTitle, setAlertTitle] = useState(title);
+  const [alertMessage, setAlertMessage] = useState(message);
 
   useEffect(() => {
-    if (message) {
-      setVisible(true);
-      const timer = setTimeout(() => {
-        setVisible(false);
-      }, duration || 3000);
-      return () => clearTimeout(timer);
+    let timeout;
+    if (alertTitle && alertType) {
+      timeout = setTimeout(() => {
+        setAlertType(null);
+        setAlertTitle(null);
+        setAlertMessage(null);
+      }, 3000);
     }
-  }, [message, duration]);
+    return () => clearTimeout(timeout);
+  }, [alertType, alertTitle, alertMessage]);
 
-  return visible;
-}
+  const closeAlert = () => {
+    setAlertType(null);
+    setAlertTitle(null);
+    setAlertMessage(null);
+  };
+
+  const openAlert = (type, title, message) => {
+    setAlertType(type);
+    setAlertTitle(title);
+    setAlertMessage(message);
+  };
+
+  return [alertType, alertTitle, alertMessage, openAlert, closeAlert];
+};
 
 export default useAlert;
-
-// COMO USAR
-
-//import React, { useState } from 'react';
-//import useAlert from './hooks/useAlert';
-//
-//function App() {
-//  const [message, setMessage] = useState(null);
-//
-//  const showMessage = () => {
-//    setMessage('Olá! Esta é uma mensagem de alerta.');
-//  };
-//
-//  const visible = useAlert(message);
-//
-//  return (
-//    <div>
-//      <button onClick={showMessage}>Mostrar mensagem de alerta</button>
-//      {visible && <div>{message}</div>}
-//    </div>
-//  );
-//}
-//
-//export default App;

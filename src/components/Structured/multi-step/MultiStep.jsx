@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
-import { Button, CircularProgress, Grid, Step, StepLabel, Stepper } from '@material-ui/core';
-import { Form, Formik } from 'formik';
+import React, { useState } from "react";
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  Step,
+  StepLabel,
+  Stepper,
+} from "@material-ui/core";
+import { Form, Formik } from "formik";
 
 import { COLORS } from "../../../themes/colors";
 
 function FormikStep({ children }) {
-    return <>{children}</>;
+  return <>{children}</>;
 }
-  
+
 function FormikStepper({ children, ...props }) {
   const childrenArray = React.Children.toArray(children);
   const [step, setStep] = useState(0);
@@ -36,7 +43,10 @@ function FormikStepper({ children, ...props }) {
         <Form autoComplete="off">
           <Stepper alternativeLabel activeStep={step}>
             {childrenArray.map((child, index) => (
-              <Step key={child.props.label} completed={step > index || completed}>
+              <Step
+                key={child.props.label}
+                completed={step > index || completed}
+              >
                 <StepLabel>{child.props.label}</StepLabel>
               </Step>
             ))}
@@ -50,38 +60,33 @@ function FormikStepper({ children, ...props }) {
                 <Button
                   disabled={isSubmitting}
                   variant="contained"
+                  color="primary"
                   onClick={() => setStep((s) => s - 1)}
                   style={{
-                    backgroundColor: COLORS.PrimaryColor,
-                    color: "#FFFFFF",
-                    width: 150,
-                    height: 50,
-                    borderRadius: 10,
-                    fontWeight: "initial",
-                    fontSize: 12
+                    backgroundColor: COLORS.SecondColor,
+                    color: "#ffff",
                   }}
                 >
-                  Back
+                  Anterior
                 </Button>
               </Grid>
             ) : null}
             <Grid item>
               <Button
-                startIcon={isSubmitting ? <CircularProgress size="1.5rem" color='success' /> : null}
+                startIcon={
+                  isSubmitting ? <CircularProgress size="1rem" /> : null
+                }
                 disabled={isSubmitting}
                 variant="contained"
+                color="#ffff"
                 type="submit"
-                style={{
-                  backgroundColor: COLORS.PrimaryColor,
-                  color: "#FFFFFF",
-                  width: 150,
-                  height: 50,
-                  borderRadius: 10,
-                  fontWeight: "initial",
-                  fontSize: 12
-                }}
+                style={{ backgroundColor: COLORS.SecondColor, color: "#ffff" }}
               >
-                {isSubmitting ? 'Submitting' : isLastStep() ? 'Submit' : 'Next'}
+                {isSubmitting
+                  ? "Confirmando"
+                  : isLastStep()
+                  ? "Confirmar"
+                  : "Próximo"}
               </Button>
             </Grid>
           </Grid>

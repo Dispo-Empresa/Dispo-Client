@@ -1,0 +1,11 @@
+.form-button {
+    width: 50px;
+    height: 35px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    font-weight: bold;
+}
+
+.form-icons {
+    font-size: 25px;
+}

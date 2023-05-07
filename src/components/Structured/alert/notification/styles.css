@@ -1,0 +1,32 @@
+.alert-notification {
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+}
+
+.alert-notification.success {
+    border-color: #408944;
+}
+
+.alert-notification.error {
+    border-color: #D74141;
+}
+
+.alert-notification.info {
+    border-color: #1893D5;
+}
+
+.notification-message {
+    display: "flex"; 
+    align-items: center;
+    margin-right: 20px;
+    font-weight: 500;
+}
+
+.icon {
+    margin-right: 20px; 
+    font-size: 20px;
+}

@@ -1,0 +1,11 @@
+.body-container {
+  display: flex;
+}
+
+.main {
+  transition: margin-left 0.5s;
+  margin-right: 60px;
+  margin-left: 60px;
+  margin-top: 60px;
+  flex: 1;
+}

@@ -1,0 +1,18 @@
+
+.logo {
+    width: 150px;
+  }
+  
+  .toggler {
+    color: #ffffff;
+    font-size: 30px;
+    position: absolute;
+  }
+  
+  .toggler :hover {
+    cursor: pointer;
+  }
+  
+  .toggler-collapsed :hover {
+    cursor: pointer;
+  }

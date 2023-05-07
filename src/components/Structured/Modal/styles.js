@@ -1,15 +1,3 @@
-export const ProfileModalStyle = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 370,
-  bgcolor: "white",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-}
-
 export const ModalDefaultStyle = {
   width: "1200px",
   overflowX: "auto",
@@ -32,4 +20,20 @@ export const CloseButton = {
     bgcolor: "#e43846",
     color: "#ffff"
   }
+};
+
+export const ModalHeader = {
+  marginBottom: "7%"
+};
+
+export const ModalTitle = {
+  float: "left",
+  marginTop: "5px",
+  marginLeft: "1%"
+};
+
+
+export const ModalCloseButton = {
+  float: "right",
+  marginRight: "0.5%"
 };
