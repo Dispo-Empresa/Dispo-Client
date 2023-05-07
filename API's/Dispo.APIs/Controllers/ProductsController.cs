@@ -23,7 +23,7 @@ namespace Dispo.API.Controllers
         }
 
         [HttpPost]
-        [Route("registerProduct")]
+        [Route("register")]
         [Authorize]
         public IActionResult CreateProduct([FromBody] ProductRequestDto productModel)
         {
@@ -88,10 +88,10 @@ namespace Dispo.API.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("getProductById")]
+        [HttpGet]
+        [Route("getProductById/{productId}")]
         [Authorize]
-        public IActionResult GetProductById([FromBody] long productId)
+        public IActionResult GetProductById(long productId)
         {
             try
             {

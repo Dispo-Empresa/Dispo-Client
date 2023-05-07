@@ -23,7 +23,7 @@ namespace Dispo.API.Controllers
         }
 
         [HttpPost]
-        [Route("registerBrand")]
+        [Route("register")]
         [Authorize]
         public IActionResult CreateBrand([FromBody] BrandRequestDto brandRequestDto)
         {
@@ -87,10 +87,10 @@ namespace Dispo.API.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("getBrandById")]
+        [HttpGet]
+        [Route("getBrandById/{brandId}")]
         [Authorize]
-        public IActionResult GetBrandById([FromBody] long brandId)
+        public IActionResult GetBrandById(long brandId)
         {
             try
             {
