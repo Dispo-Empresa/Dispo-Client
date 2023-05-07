@@ -1,6 +1,7 @@
 ﻿using Dispo.API.ResponseBuilder;
 using Dispo.APIs.ResponseBuilder;
 using Dispo.Domain.Exceptions;
+using Dispo.Infrastructure.Repositories;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.DTOs.RequestDTOs;
 using Dispo.Service.Services.Interfaces;

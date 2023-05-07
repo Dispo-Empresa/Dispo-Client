@@ -7,7 +7,5 @@ namespace Dispo.Service.Services.Interfaces
     public interface IProviderService
     {
         ResponseDto CreateProvider(ProviderRequestDto providerRequestDto);
-
-        IEnumerable<ProviderDto> GetProvidersInfo();
     }
 }
