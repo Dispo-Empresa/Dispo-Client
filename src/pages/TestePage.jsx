@@ -9,6 +9,59 @@ import { sleep } from "../utils/helperFunctions";
 import { SelectWithFilter } from "../components/ui/textfields/form/SelectField";
 import { FormikStep,FormikStepper } from "../components/structured/multi-step/MultiStep";
 
+//#region Passos
+  function StepOne (props) {
+    return(
+    <div>
+        <RegisterPanel title="Informações da ordem de compra">
+          <MDBCol>
+              <TextField
+                name="orderNumber"
+                label="Número da ordem"
+                value={props.orderNumber}
+                onChange={props.handleInputChange}
+              />
+          </MDBCol>
+          <MDBCol>
+              <TextField
+                name="creationDate"
+                label="Data de criação"
+                type="date"
+                value={props.creationDate}
+                onChange={props.handleInputChange}
+              />    
+          </MDBCol>
+          <MDBCol>
+              <SelectWithFilter
+                name="notificationType"
+                label="Tipo de notificação"
+                options={props.notification}
+                value={props.notificationType}
+                onChange={props.handleInputChange}
+              />    
+          </MDBCol>
+        </RegisterPanel>
+    </div> 
+    );
+  };
+
+  function StepTwo (props){
+    return(
+      <div>
+
+      </div>
+    );
+  } 
+
+  function StepThree (props){
+    return(
+      <div>
+        
+      </div>
+    );
+  }
+//#endregion
+
 function PurchaseOder() {
   const initialState = {
     orderNumber: null,
@@ -21,47 +74,6 @@ function PurchaseOder() {
     { value: "Whatsapp", label: "Whatsapp" }
   ];
 
-  const StepOne = () => {
-    return(
-     <RegisterPanel title="Informações da ordem de compra">
-        <MDBCol>
-            <TextField
-              name="orderNumber"
-              label="Número da ordem"
-              value={formValues.orderNumber}
-              onChange={handleInputChange}
-            />
-        </MDBCol>
-        <MDBCol>
-            <TextField
-              name="creationDate"
-              label="Data de criação"
-              type="date"
-              value={formValues.creationDate}
-              onChange={handleInputChange}
-            />    
-        </MDBCol>
-        <MDBCol>
-            <SelectWithFilter
-              name="notificationType"
-              label="Tipo de notificação"
-              options={notification}
-              value={formValues.notificationType}
-              onChange={handleInputChange}
-            />    
-        </MDBCol>
-     </RegisterPanel>
-    );
-  };
-
-  const StepTwo = () => {
-    return <div>Programar aqui dentro</div>;
-  };
-
-  const StepThree = () => {
-    return <div>Outra programagem aqui rs rs</div>;
-  };
-
   return (
     <ContentPage title="Ordem de compra">
       <RegisterPanel>
@@ -72,7 +84,13 @@ function PurchaseOder() {
           }}
         >
           <FormikStep label="Informações da ordem de compra">
-            <StepOne />
+            <StepOne 
+              orderNumber={formValues.orderNumber}  
+              creationDate={formValues.creationDate}
+              notificationType={formValues.notificationType}
+              notification={notification}
+              handleInputChange={handleInputChange}       
+            />
           </FormikStep>
 
           <FormikStep label="Detalhes">
