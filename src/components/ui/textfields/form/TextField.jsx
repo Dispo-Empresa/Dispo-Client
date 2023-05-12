@@ -21,6 +21,7 @@ function TextField(props) {
         onChange={props.onChange}
         onBlur={props.onBlur}
         onKeyDown={props.onKeyPress}
+        placeholder={props.placeholder}
       />
       {props.error && <span style={{ color: "red" }}>{props.error}</span>}
     </div>
