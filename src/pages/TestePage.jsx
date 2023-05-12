@@ -20,6 +20,7 @@ import { FormikStep,FormikStepper } from "../components/structured/multi-step/Mu
                 label="Número da ordem"
                 value={props.orderNumber}
                 onChange={props.handleInputChange}
+                placeholder="EX:123"
               />
           </MDBCol>
           <MDBCol>
@@ -48,7 +49,17 @@ import { FormikStep,FormikStepper } from "../components/structured/multi-step/Mu
   function StepTwo (props){
     return(
       <div>
-
+          <RegisterPanel title="Informações do pedido">
+            <MDBCol>
+              <SelectWithFilter
+                name="product"
+                label="Produto"
+                options={props.products}
+                value={props.product}
+                onChange={props.handleInputChange}
+              />         
+            </MDBCol>
+          </RegisterPanel>
       </div>
     );
   } 
@@ -66,12 +77,18 @@ function PurchaseOder() {
   const initialState = {
     orderNumber: null,
     creationDate: moment().format("YYYY-MM-DD"),
-    notificationType: "Email"
+    notificationType: "Email",
+    product: "Laranja"
   };
   const {formValues, handleInputChange} = useForm(initialState);
+
   const notification = [
     { value: "Email", label: "Email" },
     { value: "Whatsapp", label: "Whatsapp" }
+  ];
+  const products = [
+    { value: "Laranja", label: "Laranja"},
+    { value: "Carne", label: "Carne"}   
   ];
 
   return (
@@ -93,8 +110,12 @@ function PurchaseOder() {
             />
           </FormikStep>
 
-          <FormikStep label="Detalhes">
-            <StepTwo />
+          <FormikStep label="Informações do pedido">
+            <StepTwo 
+              product={formValues.product}
+              products={products}
+              handleInputChange={handleInputChange}
+            />
           </FormikStep>
           
           <FormikStep label="Confirmação">
