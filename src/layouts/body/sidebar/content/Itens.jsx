@@ -42,6 +42,18 @@ function SidebarItens() {
         icon={<GrIcons.GrProjects className="icon" size={20} />}
       />
 
+      <SubMenu 
+          label="Ordem de compra"
+          icon={<GrIcons.GrDiamond className="icon" size={20}/>}
+        >
+          <MenuItem 
+            component={<Link to="/teste"/>}  
+            active={isActivePage("/teste")}
+            prefix="Cadastrar"  
+            icon={<GrIcons.GrAdd className="icon" size={20}/>}
+          />
+      </SubMenu>
+
       <SubMenu
         label="Estoque"
         icon={<GrIcons.GrUpdate className="icon" size={20} />}
