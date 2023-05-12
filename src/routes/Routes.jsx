@@ -27,6 +27,8 @@ import PrivateRoute from "./PrivateRoute";
 
 import ButtonScroll from "../components/ui/buttons/scroll/ButtonScroll";
 
+import TestPage from "../pages/TestePage"
+
 function RouteController(props) {
   const [isSomeLogin, setIsSomeLogin] = useState(true);
 
@@ -40,9 +42,9 @@ function RouteController(props) {
   return isSomeLogin ? (
     props.children
   ) : (
-    <PrivateRoute>
+    //<PrivateRoute>
       <BodyLayout>{props.children}</BodyLayout>
-    </PrivateRoute>
+    //</PrivateRoute>
   );
 }
 
@@ -55,6 +57,14 @@ function RoutesConfiguration() {
           element={
             <RouteController>
               <SignInCard />
+            </RouteController>
+          }
+        />
+        <Route
+          path="/teste"
+          element={
+            <RouteController>
+              <TestPage></TestPage>
             </RouteController>
           }
         />
