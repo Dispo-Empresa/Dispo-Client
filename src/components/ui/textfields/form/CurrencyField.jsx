@@ -19,6 +19,7 @@ function CurrencyField(props) {
           fontSize: "15px",
           borderRadius: "5px",
         }}
+        disabled={props.disabled}
       />
     </div>
   );
