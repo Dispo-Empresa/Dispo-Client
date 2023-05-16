@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import moment from "moment";
 import { MDBCol } from "mdb-react-ui-kit";
 
-import ContentPage from "../layouts/content/ContentPage";
-import RegisterPanel from "../layouts/panel/register-panel/RegisterPanel";
-import TextField from "../components/ui/textfields/form/TextField";
-import useForm from "../hooks/useForm";
-import CurrencyField from "../components/ui/textfields/form/CurrencyField";
-import Datagrid from '../components/structured/datagrid/Datagrid';
-import ButtonGroup from "../components/ui/buttons/group/ButtonGroup";
-import TextArea from "../components/ui/textfields/form/TextArea";
-import { sleep } from "../utils/helperFunctions";
-import { SelectWithFilter } from "../components/ui/textfields/form/SelectField";
-import { FormikStep,FormikStepper } from "../components/structured/multi-step/MultiStep";
-import {SaveButton} from "../components/ui/buttons/icons/IconButton";
+import ContentPage from "../../../layouts/content/ContentPage";
+import RegisterPanel from "../../../layouts/panel/register-panel/RegisterPanel";
+import TextField from "../../../components/ui/textfields/form/TextField";
+import useForm from "../../../hooks/useForm";
+import CurrencyField from "../../../components/ui/textfields/form/CurrencyField";
+import Datagrid from '../../../components/structured/datagrid/Datagrid';
+import ButtonGroup from "../../../components/ui/buttons/group/ButtonGroup";
+import TextArea from "../../../components/ui/textfields/form/TextArea";
+import { sleep } from "../../../utils/helperFunctions";
+import { SelectWithFilter } from "../../../components/ui/textfields/form/SelectField";
+import { FormikStep,FormikStepper } from "../../../components/structured/multi-step/MultiStep";
+import {SaveButton} from "../../../components/ui/buttons/icons/IconButton";
 
 //#region Passos
   function StepOne (props) {
