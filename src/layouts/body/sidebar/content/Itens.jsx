@@ -47,8 +47,8 @@ function SidebarItens() {
           icon={<GrIcons.GrDiamond className="icon" size={20}/>}
         >
           <MenuItem 
-            component={<Link to="/teste"/>}  
-            active={isActivePage("/teste")}
+            component={<Link to="/purchaseOrder/registration"/>}  
+            active={isActivePage("/purchaseOrder/registration")}
             prefix="Cadastrar"  
             icon={<GrIcons.GrAdd className="icon" size={20}/>}
           />
