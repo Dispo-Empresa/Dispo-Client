@@ -1,8 +1,6 @@
 import { Sidebar } from "react-pro-sidebar";
 
-import SidebarHeader from "../header/SidebarHeader";
 import SidebarItens from "./Itens";
-import SidebarFooter from "../footer/SidebarFooter";
 import { COLORS } from "../../../../themes/colors";
 
 import "./styles.css";
@@ -14,13 +12,8 @@ function SidebarContent(props) {
       className="sidebar"
       backgroundColor={COLORS.SecondColor}
     >
-      <SidebarHeader onToggleNav={props.onToggleNav} />
-      <div className="sidebar-content">
-        <SidebarItens />
-      </div>
-      <div className="sidebar--footer">
-        <SidebarFooter />
-      </div>
+      <SidebarItens open={props.open} onToggleNav={props.onToggleNav} />
+      <div className="sidebar-content"></div>
     </Sidebar>
   );
 }

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Card, CardContent } from "@material-ui/core";
 
-import DropdownButtons from "../../components/ui/buttons/group/DropdownButton";
 import { COLORS } from "../../themes/colors";
 import { CollapseButton } from "../../components/ui/buttons/icons/IconButton";
 
@@ -33,7 +32,7 @@ function ContentPage(props) {
             </label>
           </div>
           <div className="card-buttons">
-            {!collapsed && <DropdownButtons />}
+            {/*{!collapsed && <DropdownButtons />} */}
             {!collapsed && props.buttons}
             <CollapseButton
               collapsed={collapsed}

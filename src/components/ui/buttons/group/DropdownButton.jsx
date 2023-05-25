@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 
 import { MoreButton } from "../icons/IconButton";
 
-function DropdownButtons(props) {
+function DropdownButtons() {
   const StyledMenu = styled((props) => (
     <Menu
       elevation={0}

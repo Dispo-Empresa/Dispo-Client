@@ -14,7 +14,6 @@ function SidebarHeader(props) {
             return {
               backgroundColor: "#08317D",
               height: "60px",
-              marginBottom: "60px",
               "&:hover": {
                 backgroundColor: COLORS.PrimaryColor,
                 color: COLORS.DetailsColor,
