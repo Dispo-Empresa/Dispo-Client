@@ -27,6 +27,8 @@ import PrivateRoute from "./PrivateRoute";
 
 import ButtonScroll from "../components/ui/buttons/scroll/ButtonScroll";
 
+import PurchaseOrderFormCard from "../pages/purchase-order/registration/PurchaseOrderFormCard"
+
 function RouteController(props) {
   const [isSomeLogin, setIsSomeLogin] = useState(true);
 
@@ -40,9 +42,9 @@ function RouteController(props) {
   return isSomeLogin ? (
     props.children
   ) : (
-    <PrivateRoute>
+    //<PrivateRoute>
       <BodyLayout>{props.children}</BodyLayout>
-    </PrivateRoute>
+    //</PrivateRoute>
   );
 }
 
@@ -57,7 +59,7 @@ function RoutesConfiguration() {
               <SignInCard />
             </RouteController>
           }
-        />
+        />      
         <Route
           path="/login/signin"
           element={
@@ -111,6 +113,14 @@ function RoutesConfiguration() {
           element={
             <RouteController>
               <ProfileCard />
+            </RouteController>
+          }
+        />
+        <Route
+          path="/purchaseOrder/registration"
+          element={
+            <RouteController>
+              <PurchaseOrderFormCard></PurchaseOrderFormCard>
             </RouteController>
           }
         />
