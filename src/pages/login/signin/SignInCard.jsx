@@ -9,7 +9,7 @@ import Button from "../../../components/ui/buttons/classic/Button";
 import useKeyPress from "../../../hooks/useKeyPress";
 import { setToken } from "../../../services/api/authToken";
 import { COLORS } from "../../../themes/colors";
-import { encryptData, decryptData } from "../../../data/security/cryptClient";
+import { encryptData, decryptData } from "../../../utils/security/cryptClient";
 import { getCookie, setCookie } from "../../../data/storage/browser/cookies";
 import { post } from "../../../services/api/crud";
 

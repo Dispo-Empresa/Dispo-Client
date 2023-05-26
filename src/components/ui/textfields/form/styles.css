@@ -3,3 +3,10 @@
   font-size: 15px;
   padding: 0.25rem;
 }
+
+.form-control.classic {
+  font-size: 15px;
+  border-radius: 5px;
+  font-family: Open Sans,sans-serif;
+  width: 300px;
+}

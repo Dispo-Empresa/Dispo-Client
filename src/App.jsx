@@ -12,7 +12,7 @@ function App() {
   return (
     <ProSidebarProvider>
       <Provider template={NotificacaoTemplate} {...NotificacaoOptions}>
-        <RoutesConfiguration />;
+        <RoutesConfiguration />
       </Provider>
     </ProSidebarProvider>
   );

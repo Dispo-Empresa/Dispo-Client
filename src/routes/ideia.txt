@@ -1,0 +1,3 @@
+Criar um arquivo para armazenar as constantes de caminhos que não precisam de login para serem acessados
+
+Dessa forma, nós só vamos precisar consumir essas constantes no Routes.jsx quando ele validar se a rota é publica ou não
