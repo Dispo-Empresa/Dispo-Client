@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import SignInCard from "../pages/login/signin/SignInCard";
-import SignUpCard from "../pages/login/signin/SignUpCard";
+import SignUpCard from "../pages/login/signup/SignUpCard";
 import ForgotPasswordCard from "../pages/login/forgot-password/ForgotPasswordCard";
 import EmailCodeCard from "../pages/login/forgot-password/email-code/EmailCodeCard";
 import ResetPasswordCard from "../pages/login/forgot-password/reset-password/ResetPasswordCard";

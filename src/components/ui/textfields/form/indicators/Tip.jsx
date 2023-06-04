@@ -1,20 +1,13 @@
-import { IconButton, Tooltip } from "@mui/material";
 import { FaRegQuestionCircle } from "react-icons/fa";
 
 function Tip(props) {
   return (
-    <Tooltip
+    <i
       title={props.message}
-      style={{
-        fontSize: "14px",
-        color: "#0C9ABE",
-        cursor: "default",
-      }}
+      style={{ color: "#0C9ABE", fontSize: "14px", marginLeft: "10px" }}
     >
-      <IconButton>
-        <FaRegQuestionCircle />
-      </IconButton>
-    </Tooltip>
+      <FaRegQuestionCircle />
+    </i>
   );
 }
 

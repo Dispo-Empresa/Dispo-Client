@@ -4,12 +4,15 @@ import Tip from "./indicators/Tip";
 function TextArea(props) {
   return (
     <div>
-      <label style={{ marginBottom: "1%", fontWeight: "bold" }}>
-        {props.label}
-      </label>
-      {props.required && <Required />}
-      {props.message && <Tip message={props.message} />}
-      <br />
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <label style={{ marginBottom: "2%", fontWeight: "bold" }}>
+          {props.label}
+        </label>
+        <div style={{ marginLeft: "10px", marginBottom: "10px" }}>
+          {props.required && <Required />}
+          {props.message && <Tip message={props.message} />}
+        </div>
+      </div>
       <textarea
         rows={props.rows ?? 4}
         cols={props.cols ?? 50}
