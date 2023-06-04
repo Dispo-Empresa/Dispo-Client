@@ -10,12 +10,15 @@ import "./styles.css";
 function SelectWithFilter(props) {
   return (
     <div>
-      <label style={{ marginBottom: "2%", fontWeight: "bold" }}>
-        {props.label}
-      </label>
-      {props.required && <Required />}
-      {props.message && <Tip message={props.message} />}
-      <br />
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <label style={{ marginBottom: "2%", fontWeight: "bold" }}>
+          {props.label}
+        </label>
+        <div style={{ marginLeft: "10px", marginBottom: "10px" }}>
+          {props.required && <Required />}
+          {props.message && <Tip message={props.message} />}
+        </div>
+      </div>
       <Dropdown
         name={props.name}
         value={props.value}

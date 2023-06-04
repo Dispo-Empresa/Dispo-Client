@@ -11,7 +11,7 @@ function ContentDivisor({ title }) {
       >
         {title}
       </label>
-      <hr style={{ marginTop: "20px", width: "100%", marginBottom: "auto" }} />
+      <hr style={{ marginTop: "10px", width: "100%", marginBottom: "auto" }} />
     </div>
   );
 }

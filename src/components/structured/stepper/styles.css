@@ -1,0 +1,31 @@
+.multistep-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-bottom: -50px;
+}
+
+.multistep-content {
+    flex: 2;
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.buttons-prev {
+    color: #6C757D;
+    background-color: transparent;
+    z-index: 999;
+    padding: 10px;
+    border: none;
+    opacity: 0.5;
+    width: 80px;
+    min-height: 300px;
+}
+
+.buttons-prev:hover {
+    opacity: 0.3;
+    background-color: #000;
+    color: white;
+}
