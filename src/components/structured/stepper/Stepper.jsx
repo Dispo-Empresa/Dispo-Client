@@ -1,8 +1,8 @@
 import { useState } from "react";
-import * as Multistep from "react-form-stepper";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Button } from "reactstrap";
 import StepWizard from "react-step-wizard";
+import * as Multistep from "react-form-stepper";
 
 import { COLORS } from "../../../themes/colors";
 import RegisterPanel from "../../../layouts/panel/register-panel/RegisterPanel";
