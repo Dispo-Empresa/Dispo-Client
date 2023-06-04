@@ -6,12 +6,15 @@ import "./styles.css";
 function TextField(props) {
   return (
     <div>
-      <label style={{ marginBottom: "2%", fontWeight: "bold" }}>
-        {props.label}
-      </label>
-      {props.required && <Required />}
-      {props.message && <Tip message={props.message} />}
-      <br />
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <label style={{ marginBottom: "2%", fontWeight: "bold" }}>
+          {props.label}
+        </label>
+        <div style={{ marginLeft: "10px", marginBottom: "10px" }}>
+          {props.required && <Required />}
+          {props.tipMessage && <Tip message={props.tipMessage} />}
+        </div>
+      </div>
       <input
         type={props.type ?? "text"}
         className="form-control classic"
@@ -22,6 +25,7 @@ function TextField(props) {
         placeholder={props.placeholder}
         style={{
           borderColor: props.error && "red",
+          width: props.width ?? "300px",
         }}
       />
       {props.error && (
