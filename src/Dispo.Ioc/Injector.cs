@@ -33,6 +33,7 @@ namespace Dispo.IoC
             serviceColletion.AddScoped<IProviderRepository, ProviderRepository>();
             serviceColletion.AddScoped<IUserRepository, UserRepository>();
             serviceColletion.AddScoped<IBrandRepository, BrandRepository>();
+            serviceColletion.AddScoped<IProductWarehouseQuantityRepository, ProductWarehouseQuantityRepository>();
         }
 
         private static void InjectServices(IServiceCollection serviceColletion)
@@ -48,6 +49,7 @@ namespace Dispo.IoC
             serviceColletion.AddScoped<IPasswordRecoveryService, PasswordRecoveryService>();
             serviceColletion.AddScoped<IBrandService, BrandService>();
             serviceColletion.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
+            serviceColletion.AddScoped<IProductWarehouseQuantityService, ProductWarehouseQuantityService>();
         }
 
         private static void InjectGenerics(IServiceCollection serviceColletion)

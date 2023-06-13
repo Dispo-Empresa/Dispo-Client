@@ -59,5 +59,52 @@ namespace Dispo.Infrastructure.Repositories
                 _dispoContext.SaveChanges();
             }
         }
+
+        public virtual async Task<bool> CreateAsync(T obj)
+        {
+            await _dispoContext.AddAsync(obj);
+            return await _dispoContext.SaveChangesAsync() > 0;
+        }
+
+        public virtual async Task<T?> GetByIdAsync(long id)
+        {
+            return await _dispoContext.Set<T>()
+                                      .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public virtual async Task<IEnumerable<T?>> GetAllAsync()
+        {
+            return await _dispoContext.Set<T>()
+                                    .ToListAsync();
+        }
+
+        public virtual async Task<IEnumerable<T?>> GetAllAsNoTrackinAsync()
+        {
+            return await _dispoContext.Set<T>()
+                                    .AsNoTracking()
+                                    .ToListAsync();
+        }
+
+        public virtual async Task<bool> UpdateAsync(T obj)
+        {
+            _dispoContext.Entry(obj).State = EntityState.Modified;
+            return await _dispoContext.SaveChangesAsync() > 0;
+        }
+
+        public virtual async Task<bool> DeleteAsync(long id)
+        {
+            var obj = await GetByIdAsync(id);
+
+            if (obj is null)
+                return false;
+
+            _dispoContext.Remove(obj);
+            return await _dispoContext.SaveChangesAsync() > 0;
+        }
+
+        public virtual async Task<bool> ExistsByIdAsync(long id)
+        {
+            return await _dispoContext.Set<T>().AnyAsync(w => w.Id == id);
+        }
     }
 }

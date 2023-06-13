@@ -3,7 +3,6 @@
     public enum eMovementType
     {
         Input,
-        Output,
-        Transition
+        Output
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace Dispo.Infrastructure.Repositories.Interfaces
+﻿using Dispo.Domain.Entities;
+
+namespace Dispo.Infrastructure.Repositories.Interfaces
 {
-    public interface IMovementRepository
+    public interface IMovementRepository : IBaseRepository<Movement>
     {
     }
 }

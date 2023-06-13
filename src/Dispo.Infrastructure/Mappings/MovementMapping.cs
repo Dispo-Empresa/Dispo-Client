@@ -22,9 +22,9 @@ namespace Dispo.Infrastructure.Mappings
                 .HasColumnName("Date")
                 .HasColumnType("datetime2");
 
-            builder.Property(x => x.Type)
+            builder.Property(x => x.MovementType)
                 .IsRequired()
-                .HasColumnName("Type")
+                .HasColumnName("MovementType")
                 .HasColumnType("SMALLINT")
                 .HasMaxLength(120);
 

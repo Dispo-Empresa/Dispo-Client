@@ -13,6 +13,6 @@ namespace Dispo.Service.DTOs.ResponseDTOs
         public eUnitOfMeasurement UnitOfMeasurement { get; set; }
         public eProductType Type { get; set; }
         public long BrandId { get; set; }
-        public long InventoryId { get; set; }
+        public long WarehouseId { get; set; }
     }
 }
