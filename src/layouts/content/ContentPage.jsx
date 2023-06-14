@@ -33,7 +33,6 @@ function ContentPage(props) {
             </label>
           </div>
           <div className="card-buttons">
-            {/*{!collapsed && <DropdownButtons />} */}
             {!collapsed && props.buttons}
             <CollapseButton
               collapsed={collapsed}

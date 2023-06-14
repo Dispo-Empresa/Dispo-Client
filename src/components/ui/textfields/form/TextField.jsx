@@ -27,6 +27,7 @@ function TextField(props) {
           borderColor: props.error && "red",
           width: props.width ?? "300px",
         }}
+        name={props.name}
       />
       {props.error && (
         <span style={{ color: "red", fontSize: "14px" }}>{props.error}</span>

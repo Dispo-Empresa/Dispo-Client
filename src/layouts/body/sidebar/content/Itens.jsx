@@ -100,6 +100,12 @@ function SidebarItens(props) {
             prefix="Consultar"
             icon={<GrIcons.GrView className="icon" size={20} />}
           />
+          <MenuItem
+            component={<Link to="/products/moveProduct" />}
+            active={isActivePage("/products/moveProduct")}
+            prefix="Movimentar Produto"
+            icon={<GrIcons.GrCubes className="icon" size={20} />}
+          />
         </SubMenu>
 
         <SubMenu
