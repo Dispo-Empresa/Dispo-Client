@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { MDBDataTableV5 } from "mdbreact";
 
+import { QueryDataButton, EditButton } from "../../ui/buttons/icons/IconButton";
 import Detail from "./Detail";
 import TypeOptions from "../../../data/constants/ModalTypes";
 import ModalDialog from "../modal/ModalDialog";
-import { QueryDataButton, EditButton } from "../../ui/buttons/icons/IconButton";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./styles.css";

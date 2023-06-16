@@ -1,19 +1,14 @@
-import ProductDetails from "../../../pages/products/views/details/ProductDetails";
-import BrandDetails from "../../../pages/brands/views/details/BrandDetails";
-import ProviderDetails from "../../../pages/providers/views/details/ProviderDetails";
+import ProductDetails from "../../../pages/products/query/details/ProductDetails";
+import ProviderDetails from "../../../pages/supliers/query/details/ProviderDetails";
 
 function Detail(props) {
-  const path = window.location.pathname.replace("/visualization", "");
+  const path = window.location.pathname.replace("/registration", "");
 
   const modal = () => {
     switch (path) {
       case "/products":
         return (
           <ProductDetails modalType={props.modalType} productId={props.rowId} />
-        );
-      case "/brands":
-        return (
-          <BrandDetails modalType={props.modalType} brandId={props.rowId} />
         );
       case "/providers":
         return (

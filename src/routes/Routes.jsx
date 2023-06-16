@@ -6,26 +6,16 @@ import SignUpCard from "../pages/login/signup/SignUpCard";
 import ForgotPasswordCard from "../pages/login/forgot-password/ForgotPasswordCard";
 import EmailCodeCard from "../pages/login/forgot-password/email-code/EmailCodeCard";
 import ResetPasswordCard from "../pages/login/forgot-password/reset-password/ResetPasswordCard";
-
 import DashboardCard from "../pages/dashboard/DashboardCard";
-
 import ProfileCard from "../pages/profile/ProfileCard";
-
-import ProductRegistrationCard from "../pages/products/registration/ProductFormCard";
-import ProductVisualizationCard from "../pages/products/views/ProductListCard";
-
-import BrandFormCard from "../pages/brands/registration/BrandFormCard";
-import BrandListCard from "../pages/brands/views/BrandListCard";
-
+import ProductCard from "../pages/products/ProductCard";
 import MovimentCard from "../pages/stock/moviments/MovimentCard";
-
-import ProviderRegistrationCard from "../pages/providers/registration/ProviderFormCard";
-import ProviderList from "../pages/providers/views/ProviderListCard";
-
+import SuplierCard from "../pages/supliers/SuplierCard";
 import BodyLayout from "../layouts/body/BodyLayout";
 import PrivateRoute from "./PrivateRoute";
-
+import SettingsCard from "../pages/settings/SettingsCard";
 import ButtonScroll from "../components/ui/buttons/scroll/ButtonScroll";
+import NotFound from "../pages/not-found/NotFound";
 
 function RouteController(props) {
   const [isSomeLogin, setIsSomeLogin] = useState(true);
@@ -33,7 +23,8 @@ function RouteController(props) {
   useEffect(() => {
     setIsSomeLogin(
       window.location.pathname.includes("/login") ||
-        window.location.pathname === "/"
+        window.location.pathname === "/" ||
+        window.location.pathname === "/404"
     );
   });
 
@@ -50,6 +41,14 @@ function RoutesConfiguration() {
   return (
     <Router>
       <Routes>
+        <Route
+          path="/404"
+          element={
+            <RouteController>
+              <NotFound />
+            </RouteController>
+          }
+        />
         <Route
           path="/"
           element={
@@ -118,31 +117,7 @@ function RoutesConfiguration() {
           path="/products/registration"
           element={
             <RouteController>
-              <ProductRegistrationCard />
-            </RouteController>
-          }
-        />
-        <Route
-          path="/products/visualization"
-          element={
-            <RouteController>
-              <ProductVisualizationCard />
-            </RouteController>
-          }
-        />
-        <Route
-          path="/brands/registration"
-          element={
-            <RouteController>
-              <BrandFormCard />
-            </RouteController>
-          }
-        />
-        <Route
-          path="/brands/visualization"
-          element={
-            <RouteController>
-              <BrandListCard />
+              <ProductCard />
             </RouteController>
           }
         />
@@ -158,15 +133,15 @@ function RoutesConfiguration() {
           path="/providers/registration"
           element={
             <RouteController>
-              <ProviderRegistrationCard />
+              <SuplierCard />
             </RouteController>
           }
         />
         <Route
-          path="/providers/visualization"
+          path="/configuracoes"
           element={
             <RouteController>
-              <ProviderList />
+              <SettingsCard />
             </RouteController>
           }
         />

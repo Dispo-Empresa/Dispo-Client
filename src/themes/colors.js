@@ -20,6 +20,12 @@ export const COLORS = {
     //#009EF7
 
     //#F63644
+
+    //#161C23
+
+    //#0E1217
+
+    //#029DBE
 }
 
 export const BACKGROUNDS = {

@@ -1,17 +1,14 @@
-export function cnpjChange(e) {
-    let data = e.target.value.replace(/\D/g, "");
-    if (data.length > 11) {
-      let cnpj = `${data.substr(0, 2)}.${data.substr(2, 3)}.${data.substr(
-        5,
-        3
-      )}/`;
-      if (data.length > 12) {
-        cnpj += `${data.substr(8, 4)}-${data.substr(12, 2)}`;
-      } else {
-        cnpj += data.substr(8);
-      }
-      data = cnpj;
-    } 
-  
-    return data;
-  }
+function cnpjFormater(cnpj) {
+
+  cnpj = cnpj.replace(/\D/g, '');
+  cnpj = cnpj.slice(0, 14);
+
+  cnpj = cnpj.replace(/^(\d{2})(\d)/, '$1.$2');
+  cnpj = cnpj.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+  cnpj = cnpj.replace(/\.(\d{3})(\d)/, '.$1/$2');
+  cnpj = cnpj.replace(/(\d{4})(\d)/, '$1-$2');
+
+  return cnpj;
+}
+
+export { cnpjFormater };

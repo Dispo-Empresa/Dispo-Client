@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import { getToken } from "../services/api/authToken";
+
 function useFetch(url) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -8,7 +10,7 @@ function useFetch(url) {
   const config = {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      Authorization: `Bearer ${getToken()}`,
     },
   };
 

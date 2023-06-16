@@ -1,12 +1,6 @@
 import axios from "axios"
 
-const apiConfig = axios.create({
-  baseURL: "https://localhost:7153/api/v1/",
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem("accessToken")}`
-  }
-});
+import { getToken } from "../../services/api/authToken";
 
 const callApi = async (endpoint, method, data = null) => {
   
@@ -15,9 +9,16 @@ const callApi = async (endpoint, method, data = null) => {
     method: method,
     data: data
   };
+
+  const apiConfig = axios.create({
+    baseURL: "https://localhost:7153/api/v1/",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`
+    }
+  });
   
   try {
-
     const response = await apiConfig(config);
 
     if (!response.data) {

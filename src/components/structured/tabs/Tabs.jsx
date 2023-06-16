@@ -1,10 +1,16 @@
-import { MDBTabs, MDBTabsItem, MDBTabsLink, MDBTabsContent, MDBTabsPane } from 'mdb-react-ui-kit';
+import {
+  MDBTabs,
+  MDBTabsItem,
+  MDBTabsLink,
+  MDBTabsContent,
+  MDBTabsPane,
+} from "mdb-react-ui-kit";
 
-import React, { useState } from 'react';
+import { useState } from "react";
 
-import "./styles.css"
+import "./styles.css";
 
-function Tabs({ tabs  }) {
+function Tabs({ tabs }) {
   const [activeTab, setActiveTab] = useState(1);
 
   const handleClick = (id) => {
@@ -13,24 +19,26 @@ function Tabs({ tabs  }) {
 
   return (
     <div>
-      <MDBTabs justify className='mb-3'> 
-          {tabs.map((tab) => (
-            <MDBTabsItem>
-              <MDBTabsLink key={tab.id} active={tab.id === activeTab} onClick={() => handleClick(tab.id)}>
-                {tab.title}
-              </MDBTabsLink>
-            </MDBTabsItem>
-          ))}
-        </MDBTabs>
-        <MDBTabsContent>
-          {tabs.map((tab) => (
-            <MDBTabsPane show={tab.id === activeTab}>
-              <div className="content-tabs">
-                {tab.content}
-              </div>
-            </MDBTabsPane>
-          ))}
-        </MDBTabsContent>
+      <MDBTabs justify className="mb-3">
+        {tabs.map((tab) => (
+          <MDBTabsItem>
+            <MDBTabsLink
+              key={tab.id}
+              active={tab.id === activeTab}
+              onClick={() => handleClick(tab.id)}
+            >
+              {tab.title}
+            </MDBTabsLink>
+          </MDBTabsItem>
+        ))}
+      </MDBTabs>
+      <MDBTabsContent>
+        {tabs.map((tab) => (
+          <MDBTabsPane show={tab.id === activeTab}>
+            <div className="content-tabs">{tab.content}</div>
+          </MDBTabsPane>
+        ))}
+      </MDBTabsContent>
     </div>
   );
 }

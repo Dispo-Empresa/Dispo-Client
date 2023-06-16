@@ -7,7 +7,6 @@ import { Typography } from "@mui/material";
 import TextField from "../../../components/ui/textfields/form/TextField";
 import Button from "../../../components/ui/buttons/classic/Button";
 import { COLORS } from "../../../themes/colors";
-import { setLocalStorage } from "../../../data/storage/browser/local";
 
 export default function ForgotPassword() {
   //const [emailRequest, setEmailRequest] = useState("");

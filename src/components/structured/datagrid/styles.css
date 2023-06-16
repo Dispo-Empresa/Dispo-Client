@@ -19,6 +19,7 @@
 
 .datatable-container {
   font-size: 15px;
+  margin-top: 2%;
 }
 
 .datatable-container ::-webkit-scrollbar {

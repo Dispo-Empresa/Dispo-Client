@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { MDBContainer, MDBRow } from "mdb-react-ui-kit";
 
-import useAlert from "../../../hooks/useAlert";
+import useAlert from "../../../hooks/alert/useAlert";
 import AlertMessagePanel from "../../../components/structured/alert/panel/AlertPanel";
 import { SaveButton } from "../../../components/ui/buttons/icons/IconButton";
 

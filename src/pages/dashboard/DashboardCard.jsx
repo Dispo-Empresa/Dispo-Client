@@ -1,5 +1,3 @@
-import React from "react";
-
 import logo from "../../assets/img/logo/DispoLogo.png";
 import ContentPage from "../../layouts/content/ContentPage";
 
