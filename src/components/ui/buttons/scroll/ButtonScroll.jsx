@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { FaArrowCircleUp } from "react-icons/fa";
+import { useState } from "react";
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import styled from "styled-components";
 
 function ScrollButton() {
@@ -37,9 +37,9 @@ function ScrollButton() {
 
   return (
     <Button>
-      <FaArrowCircleUp
+      <ArrowCircleUpIcon
         onClick={scrollToTop}
-        style={{ display: visible ? "inline" : "none" }}
+        style={{ display: visible ? "inline" : "none", fontSize: "60px" }}
       />
     </Button>
   );

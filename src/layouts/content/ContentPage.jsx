@@ -13,7 +13,8 @@ function ContentPage(props) {
     <Card
       style={{
         height: collapsed && "75px",
-        minHeight: !collapsed && "750px",
+        minHeight: !collapsed && "350px",
+        marginBottom: "32px",
         width: "100%",
         borderRadius: "10px",
         boxShadow: "0px 0px 0px",

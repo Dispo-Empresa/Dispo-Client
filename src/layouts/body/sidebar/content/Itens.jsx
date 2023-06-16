@@ -1,11 +1,13 @@
-import * as GrIcons from "react-icons/gr";
-import { CiLogout } from "react-icons/ci";
-import * as FaIcons from "react-icons/fa";
+import DehazeIcon from "@mui/icons-material/Dehaze";
+import AddIcon from "@mui/icons-material/Add";
+import WarehouseIcon from "@mui/icons-material/Warehouse";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import StorefrontIcon from "@mui/icons-material/Storefront";
+import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 
-import { removeCookie } from "../../../../data/storage/browser/cookies";
-import { removeLocalStorage } from "../../../../data/storage/browser/local";
 import { COLORS } from "../../../../themes/colors";
 
 import "./styles.css";
@@ -15,13 +17,6 @@ function SidebarItens(props) {
     return window.location.pathname === path;
   };
 
-  const onLogout = () => {
-    removeCookie("emailSignin", "/");
-    removeCookie("passwordSignin", "/");
-
-    removeLocalStorage("accessToken");
-  };
-
   return (
     <div>
       <Menu
@@ -29,9 +24,7 @@ function SidebarItens(props) {
           button: ({ level, active }) => {
             if (level === 0 || level === 1) {
               return {
-                backgroundColor: active
-                  ? COLORS.PrimaryColor
-                  : COLORS.SecondColor,
+                backgroundColor: active ? "#029DBE" : "#161C23",
                 height: "55px",
                 fontSize: "14px",
                 fontFamily: "Open Sans,sans-serif",
@@ -39,7 +32,7 @@ function SidebarItens(props) {
                 color: COLORS.DetailsColor,
                 overflow: "hidden",
                 "&:hover": {
-                  backgroundColor: COLORS.PrimaryColor,
+                  backgroundColor: "#0E1217",
                   color: COLORS.DetailsColor,
                 },
               };
@@ -48,10 +41,10 @@ function SidebarItens(props) {
         }}
       >
         <MenuItem
-          icon={<FaIcons.FaBars className="toggler" size={25} />}
+          icon={<DehazeIcon />}
           onClick={props.onToggleNav}
           style={{
-            backgroundColor: "#08317D",
+            backgroundColor: "#0E1217",
             height: "60px",
             position: "fixed",
             zIndex: "999",
@@ -68,104 +61,31 @@ function SidebarItens(props) {
           component={<Link to="/dashboard" />}
           active={isActivePage("/dashboard")}
           prefix="Dashboard"
-          icon={<GrIcons.GrProjects className="icon" size={20} />}
+          icon={<DashboardIcon />}
           style={{ marginTop: "66px" }}
         />
 
-        <SubMenu
-          label="Estoque"
-          icon={<GrIcons.GrUpdate className="icon" size={20} />}
-        >
+        <SubMenu label="Estoque" icon={<WarehouseIcon />}>
           <MenuItem
             component={<Link to="/stock/moviments" />}
             active={isActivePage("/stock/moviments")}
             prefix="Movimentações"
-            icon={<GrIcons.GrCubes className="icon" size={20} />}
+            icon={<SyncAltIcon />}
           />
         </SubMenu>
 
-        <SubMenu
-          label="Produtos"
-          icon={<GrIcons.GrBasket className="icon" size={20} />}
-        >
+        <SubMenu label="Cadastros" icon={<AddIcon />}>
           <MenuItem
             component={<Link to="/products/registration" />}
             active={isActivePage("/products/registration")}
-            prefix="Cadastrar"
-            icon={<GrIcons.GrAdd className="icon" size={20} />}
+            prefix="Produtos"
+            icon={<StorefrontIcon />}
           />
-          <MenuItem
-            component={<Link to="/products/visualization" />}
-            active={isActivePage("/products/visualization")}
-            prefix="Consultar"
-            icon={<GrIcons.GrView className="icon" size={20} />}
-          />
-          <MenuItem
-            component={<Link to="/products/moveProduct" />}
-            active={isActivePage("/products/moveProduct")}
-            prefix="Movimentar Produto"
-            icon={<GrIcons.GrCubes className="icon" size={20} />}
-          />
-        </SubMenu>
-
-        <SubMenu
-          label="Marcas"
-          icon={<GrIcons.GrTag className="icon" size={20} />}
-        >
-          <MenuItem
-            component={<Link to="/brands/registration" />}
-            active={isActivePage("/brands/registration")}
-            prefix="Cadastrar"
-            icon={<GrIcons.GrAdd className="icon" size={20} />}
-          />
-          <MenuItem
-            component={<Link to="/brands/visualization" />}
-            active={isActivePage("/brands/visualization")}
-            prefix="Consultar"
-            icon={<GrIcons.GrView className="icon" size={20} />}
-          />
-        </SubMenu>
-
-        <SubMenu
-          label="Fornecedores"
-          icon={<GrIcons.GrBus className="icon" size={20} />}
-        >
           <MenuItem
             component={<Link to="/providers/registration" />}
             active={isActivePage("/providers/registration")}
-            prefix="Cadastrar"
-            icon={<GrIcons.GrAdd className="icon" size={20} />}
-          />
-          <MenuItem
-            component={<Link to="/providers/visualization" />}
-            active={isActivePage("/providers/visualization")}
-            prefix="Consultar"
-            icon={<GrIcons.GrView className="icon" size={20} />}
-          />
-        </SubMenu>
-
-        <SubMenu
-          label="Configurações"
-          icon={<GrIcons.GrPerformance className="icon" size={20} />}
-        >
-          <MenuItem
-            component={<Link to="/Profile" />}
-            active={isActivePage("/Profile")}
-            prefix="Profile"
-            icon={<GrIcons.GrUser className="icon" size={20} />}
-          />
-          <MenuItem
-            component={<Link to="/adm" />}
-            active={isActivePage("/adm")}
-            prefix="ADM"
-            icon={<GrIcons.GrUser className="icon" size={20} />}
-          />
-          <MenuItem
-            className="menu-item"
-            component={<Link to="/login/signin" />}
-            onClick={onLogout}
-            prefix="Sair"
-            icon={<CiLogout style={{ fontSize: "25px" }} />}
+            prefix="Fornecedores"
+            icon={<LocalShippingIcon />}
           />
         </SubMenu>
       </Menu>

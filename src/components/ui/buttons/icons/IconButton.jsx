@@ -1,7 +1,10 @@
 import { Button, Tooltip } from "@mui/material";
-import { FiSave, FiSearch, FiChevronsUp, FiChevronsDown } from "react-icons/fi";
-import { RiMoreFill } from "react-icons/ri";
-import { SlPencil } from "react-icons/sl";
+import SaveIcon from "@mui/icons-material/Save";
+import SearchIcon from "@mui/icons-material/Search";
+import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
+import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import EditIcon from "@mui/icons-material/Edit";
 
 import { COLORS } from "../../../../themes/colors";
 
@@ -19,9 +22,9 @@ function CollapseButton(props) {
         }}
       >
         {props.collapsed ? (
-          <FiChevronsDown className="form-icons" />
+          <KeyboardDoubleArrowUpIcon />
         ) : (
-          <FiChevronsUp className="form-icons" />
+          <KeyboardDoubleArrowDownIcon />
         )}
       </Button>
     </Tooltip>
@@ -39,7 +42,7 @@ function SaveButton(props) {
           color: COLORS.DetailsColor,
         }}
       >
-        <FiSave className="form-icons" />
+        <SaveIcon />
       </Button>
     </Tooltip>
   );
@@ -56,7 +59,7 @@ function QueryDataButton(props) {
           color: COLORS.DetailsColor,
         }}
       >
-        <FiSearch className="form-icons" />
+        <SearchIcon />
       </Button>
     </Tooltip>
   );
@@ -73,7 +76,7 @@ function EditButton(props) {
           color: COLORS.DetailsColor,
         }}
       >
-        <SlPencil className="form-icons" />
+        <EditIcon />
       </Button>
     </div>
   );
@@ -92,7 +95,7 @@ function MoreButton(props) {
             color: COLORS.DetailsColor,
           }}
         >
-          <RiMoreFill className="form-icons" />
+          <MoreHorizIcon />
         </Button>
       </Tooltip>
     </div>

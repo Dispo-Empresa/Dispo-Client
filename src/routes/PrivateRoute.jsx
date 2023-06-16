@@ -1,10 +1,12 @@
 import { Navigate } from "react-router-dom";
 
+import { isAuthenticated } from "../services/api/authToken";
+
 const PrivateRoute = ({ children }) => {
-  const authenticated = localStorage.getItem("accessToken");
+  const authenticated = isAuthenticated();
 
   if (!authenticated) {
-    return <Navigate to="/" />;
+    return <Navigate to="/404" />;
   }
 
   return <div>{children}</div>;

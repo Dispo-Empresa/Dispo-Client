@@ -2,7 +2,7 @@ import { MDBCol } from "mdb-react-ui-kit";
 import { useState } from "react";
 
 import ContentPage from "../../../layouts/content/ContentPage";
-import useAlertScheme from "../../../hooks/useAlertScheme";
+import useAlertScheme from "../../../hooks/alert/useAlertScheme";
 import TextField from "../../../components/ui/textfields/form/TextField";
 import TextArea from "../../../components/ui/textfields/form/TextArea";
 import { Stepper, Step } from "../../../components/structured/stepper/Stepper";

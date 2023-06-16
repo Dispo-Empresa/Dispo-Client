@@ -13,7 +13,7 @@
     margin-right: 20px;
 }
 
-.buttons-prev {
+.button-stepper {
     color: #6C757D;
     background-color: transparent;
     z-index: 999;
@@ -22,10 +22,11 @@
     opacity: 0.5;
     width: 80px;
     min-height: 300px;
+    border-radius: 5px;
 }
 
-.buttons-prev:hover {
+.button-stepper:hover {
     opacity: 0.3;
-    background-color: #000;
+    background-color: #6C757D;
     color: white;
 }

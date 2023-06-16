@@ -6,7 +6,6 @@ import { Typography } from "@mui/material";
 import TextField from "../../../../components/ui/textfields/form/TextField";
 import Button from "../../../../components/ui/buttons/classic/Button";
 import { COLORS } from "../../../../themes/colors";
-import { getLocalStorage } from "../../../../data/storage/browser/local";
 
 function EmailCodeResetPassword() {
   //const [codeN1, setcodeN1] = useState("");

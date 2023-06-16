@@ -1,8 +1,8 @@
 import { useState } from "react";
-import * as Multistep from "react-form-stepper";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { Button } from "reactstrap";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import StepWizard from "react-step-wizard";
+import * as Multistep from "react-form-stepper";
 
 import { COLORS } from "../../../themes/colors";
 import RegisterPanel from "../../../layouts/panel/register-panel/RegisterPanel";
@@ -26,7 +26,7 @@ function Stepper(props) {
         connectorStateColors
         styleConfig={{
           completedBgColor: "#4EB254",
-          activeBgColor: COLORS.SecondColor,
+          activeBgColor: "#029DBE",
         }}
         connectorStyleConfig={{
           activeColor: COLORS.SecondColor,
@@ -65,15 +65,15 @@ function StepLayout(props) {
   return (
     <div className="multistep-container">
       {props.currentStep > 1 && (
-        <Button onClick={handleBack} className="buttons-prev">
-          <FiChevronLeft size={50} />
-        </Button>
+        <button onClick={handleBack} className="button-stepper">
+          <ArrowBackIosNewIcon style={{ fontSize: "50px" }} />
+        </button>
       )}
       <div className="multistep-content">{props.children}</div>
       {props.currentStep < props.totalSteps && (
-        <Button onClick={handleNext} className="buttons-prev">
-          <FiChevronRight size={50} />
-        </Button>
+        <button onClick={handleNext} className="button-stepper">
+          <ArrowForwardIosIcon style={{ fontSize: "50px" }} />
+        </button>
       )}
     </div>
   );

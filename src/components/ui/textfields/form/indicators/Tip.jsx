@@ -1,12 +1,17 @@
-import { FaRegQuestionCircle } from "react-icons/fa";
+import HelpIcon from "@mui/icons-material/Help";
 
 function Tip(props) {
   return (
     <i
       title={props.message}
-      style={{ color: "#0C9ABE", fontSize: "14px", marginLeft: "10px" }}
+      style={{
+        color: "#0C9ABE",
+        marginLeft: "8px",
+        fontWeight: "bold",
+        cursor: "pointer",
+      }}
     >
-      <FaRegQuestionCircle />
+      <HelpIcon style={{ fontSize: "13px" }} />
     </i>
   );
 }
