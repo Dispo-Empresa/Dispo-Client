@@ -5,7 +5,7 @@ import useAlert from "../../../hooks/alert/useAlert";
 import AlertMessagePanel from "../../../components/structured/alert/panel/AlertPanel";
 import { SaveButton } from "../../../components/ui/buttons/icons/IconButton";
 
-function RegisterPanel({ title, alertPanel, children, onSave }) {
+function RegisterPanel({ title, alertPanel, children, onSave, buttons, hideSaveButton }) {
   const [alertType, alertTitle, alertMessage, openAlert, closeAlert] =
     useAlert();
 
@@ -49,7 +49,8 @@ function RegisterPanel({ title, alertPanel, children, onSave }) {
             gap: "10px",
           }}
         >
-          <SaveButton onClick={onSave} />
+          {buttons}
+          {hideSaveButton ? "" : <SaveButton onClick={onSave} />}
         </div>
         <hr style={{ marginBottom: "50px", width: "100%" }} />
         <MDBRow className="g-5">
