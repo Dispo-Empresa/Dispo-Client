@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Dispo.Commom;
+using Dispo.Domain.DTOs.RequestDTOs;
 using Dispo.Domain.Entities;
 using Dispo.Domain.Enums;
 using Dispo.Domain.Exceptions;
+using Dispo.Domain.Factories.ProductMovimentation;
 using Dispo.Infrastructure.Repositories.DTO_s;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.DTOs.RequestDTOs;
@@ -15,8 +17,8 @@ namespace Dispo.Service.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
-        private readonly IMapper _mapper;
         private readonly IBrandRepository _brandRepository;
+        private readonly IMapper _mapper;
 
         public ProductService(IProductRepository productRepository, IMapper mapper, IBrandRepository brandRepository)
         {
@@ -25,6 +27,7 @@ namespace Dispo.Service.Services
             _brandRepository = brandRepository;
         }
 
+        #region Public Methods
         public ProductResponseDto CreateProduct(ProductRequestDto productModel)
         {
             if (_productRepository.GetProductIdByName(productModel.Name).IsIdValid())
@@ -37,11 +40,11 @@ namespace Dispo.Service.Services
                 {
                     Name = productModel.Name,
                     Code = BuildProductSKUCode(productModel.Name, productModel.Type),
-                    BrandId = productModel.brandId,
+                    BrandId = productModel.BrandId,
                     UnitOfMeasurement = EnumHelper.ConvertToEnum(productModel.UnitOfMeasurement, eUnitOfMeasurement.Others),
                     UnitPrice = 0,//productModel.UnitPrice,
                     Color = EnumHelper.ConvertToEnum(productModel.Color, eColor.Other),
-                    InventoryId = 1,
+                    WarehouseId = productModel.WarehouseId,
                     Type = EnumHelper.ConvertToEnum(productModel.Type, eProductType.Others),
                     Description = productModel.Description
                 };
@@ -78,5 +81,12 @@ namespace Dispo.Service.Services
 
             return productSKUCode;
         }
+
+        public async Task<bool> ExistsByIdAsync(long productId)
+        {
+            return await _productRepository.ExistsByIdAsync(productId);
+        }
+
+        #endregion
     }
 }

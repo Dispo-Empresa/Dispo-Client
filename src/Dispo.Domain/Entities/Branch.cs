@@ -2,13 +2,13 @@
 {
     public class Branch : Base
     {
-        public string Name { get; set; }
-        public string Cnpj { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Cnpj { get; set; } = string.Empty;
 
         public long LocationId { get; set; }
         public Location Location { get; set; }
 
-        public Inventory Inventory { get; set; } // Avaliar se precisa mesmo
+        public Warehouse Warehouse { get; set; } // Avaliar se precisa mesmo
 
         public ICollection<User> Employees { get; set; }
 

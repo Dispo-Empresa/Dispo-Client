@@ -26,6 +26,7 @@ namespace Dispo.Infrastructure.Context
         public DbSet<UserBusiness> UserBusinesses { get; set; }
         public DbSet<ProductProvider> ProductProviders { get; set; }
         public DbSet<UserMovement> UserMovements { get; set; }
+        public DbSet<ProductWarehouseQuantity> ProductWarehouseQuantities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,6 +41,8 @@ namespace Dispo.Infrastructure.Context
             modelBuilder.ApplyConfiguration(new UserMovementMapping());
             modelBuilder.ApplyConfiguration(new ProductProviderMapping());
             modelBuilder.ApplyConfiguration(new BrandMapping());
+            modelBuilder.ApplyConfiguration(new WarehouseMapping());
+            modelBuilder.ApplyConfiguration(new ProductWarehouseQuantityMapping());
 
             base.OnModelCreating(modelBuilder);
         }

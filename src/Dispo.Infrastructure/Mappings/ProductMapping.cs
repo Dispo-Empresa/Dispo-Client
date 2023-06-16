@@ -61,6 +61,9 @@ namespace Dispo.Infrastructure.Mappings
 
             builder.HasMany(a => a.Movements)
                    .WithOne(b => b.Product);
+
+            builder.HasMany(a => a.Movements)
+                   .WithOne(b => b.Product);
         }
     }
 }

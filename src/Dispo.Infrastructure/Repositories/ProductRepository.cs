@@ -3,6 +3,7 @@ using Dispo.Domain.Entities;
 using Dispo.Infrastructure.Context;
 using Dispo.Infrastructure.Repositories.DTO_s;
 using Dispo.Infrastructure.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dispo.Infrastructure.Repositories
 {

@@ -13,7 +13,7 @@ namespace Dispo.Domain.Validators
                 .NotEmpty()
                 .WithMessage("A data da movimentação não pode ser vazia");
 
-            RuleFor(x => x.Type)
+            RuleFor(x => x.MovementType)
                  .NotNull()
                  .WithMessage("O tipo da movimentação não pode ser nulo");
 
