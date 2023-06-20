@@ -7,7 +7,7 @@ function TextField(props) {
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <label>{props.label}</label>
+        <label style={{ fontWeight: 600 }}>{props.label}</label>
         <div style={{ marginLeft: "10px", marginTop: "-15px" }}>
           {props.required && <Required />}
           {props.tipMessage && <Tip message={props.tipMessage} />}

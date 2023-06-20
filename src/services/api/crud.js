@@ -1,4 +1,12 @@
-import callApi from "./api"
+import { callApi, callApiSync } from "./api"
+
+const get = async (endpoint) => {
+    return await callApi(endpoint, 'get');
+}
+
+const getSync = (endpoint) => {
+    return callApiSync(endpoint, 'get');
+}
 
 const post = async (endpoint, data) => {
 
@@ -7,8 +15,7 @@ const post = async (endpoint, data) => {
 
 const put = async (endpoint, id, data) => {
 
-    const response = await callApi(`${endpoint}${id}`, 'put', data);
-    console.log(response);
+    return await callApi(`${endpoint}${id}`, 'put', data);
 };
 
 const remove = async (endpoint, id) => {
@@ -17,4 +24,4 @@ const remove = async (endpoint, id) => {
     console.log(`Record with ID: ${id} deleted.`);
 };
 
-export { post, put, remove };
+export { get, getSync, post, put, remove };

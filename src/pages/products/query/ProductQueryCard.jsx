@@ -20,7 +20,7 @@ function ProductQueryCard() {
   ];
 
   const { data } = useFetch(
-    "https://localhost:7153/api/v1/Products/getAllProductsInfo"
+    "https://localhost:7153/api/v1/Products/getAllProducts"
   );
 
   return (

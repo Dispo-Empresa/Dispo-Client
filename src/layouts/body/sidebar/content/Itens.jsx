@@ -69,7 +69,13 @@ function SidebarItens(props) {
           <MenuItem
             component={<Link to="/stock/moviments" />}
             active={isActivePage("/stock/moviments")}
-            prefix="Movimentações"
+            prefix="Teste Multi Step"
+            icon={<SyncAltIcon />}
+          />
+          <MenuItem
+            component={<Link to="/stock/moveProduct" />}
+            active={isActivePage("/stock/moveProduct")}
+            prefix="Movimentar Produto"
             icon={<SyncAltIcon />}
           />
         </SubMenu>

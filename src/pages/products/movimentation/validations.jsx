@@ -19,9 +19,6 @@ const validateWarehouse = (value) => {
 
 const validateQuantity = (value) => {
   let error = "";
-  if (isNaN(value)) {
-    error = "A quantidade deve ser um número.";
-  }
 
   if (value <= 0) {
     error = "A quantidade deve ser maior que zero.";

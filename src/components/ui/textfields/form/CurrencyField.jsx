@@ -7,7 +7,7 @@ function CurrencyField(props) {
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <label style={{ fontWeight: "bold" }}>{props.label}</label>
+        <label style={{ fontWeight: 600 }}>{props.label}</label>
         <div style={{ marginLeft: "10px", marginTop: "-10px" }}>
           {props.required && <Required />}
           {props.message && <Tip message={props.message} />}

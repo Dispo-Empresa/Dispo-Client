@@ -28,19 +28,27 @@ const callApi = async (endpoint, method, data = null) => {
     return response.data;
 
   } catch (error) {
-    
-    if(error.response && error.response.status === 400){
-
-      console.log(error.response.data.errors);
-    }else if(error.code === "ERR_NETWORK"){
-
-      console.log("Serviço não encontrado ou fora do ar");
-    }else{
-
-      console.log("Erro inesperado: " + error);
-    }
-    
+    console.log(error);
   }
 };
 
-export default callApi;
+const callApiSync = (endpoint, method, data = null) => {
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`
+    }
+  };
+
+  try {
+    const response = axios.get(`https://localhost:7153/api/v1/` + endpoint, config);
+
+    return response;
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export {callApi, callApiSync};
