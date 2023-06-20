@@ -1,7 +1,5 @@
 import { MDBFooter, MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 
-import "./styles.css";
-
 export function Footer() {
   return (
     <MDBFooter className="text-center text-lg-start text-muted">
@@ -26,7 +24,7 @@ export function Footer() {
           height: "40px",
         }}
       >
-        <div className="content-footer">
+        <div style={{ marginTop: "-10px" }}>
           © {new Date().getFullYear()} Copyright - Dispo
         </div>
       </div>

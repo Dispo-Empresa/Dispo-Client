@@ -2,8 +2,8 @@ import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 import Tabs from "../../../../components/structured/tabs/Tabs";
 import useFetch from "../../../../hooks/useFetchApi";
-import TextField from "../../../../components/ui/textfields/views/TextField";
-import { FormView } from "../../../../layouts/panel/view-panel/ViewPanel";
+import { TextField } from "../../../../components/ui/inputs/textfield/TextField";
+import { FormView } from "../../../../layouts/panel/view/ViewPanel";
 
 function ModalView({ providerId }) {
   const { data } = useFetch(

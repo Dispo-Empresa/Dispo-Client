@@ -1,12 +1,3 @@
-import { useState } from "react";
-import { Box } from "@mui/material";
-import { Navigate } from "react-router-dom";
-import { Typography } from "@mui/material";
-
-import TextField from "../../../../components/ui/textfields/form/TextField";
-import Button from "../../../../components/ui/buttons/classic/Button";
-import { COLORS } from "../../../../themes/colors";
-
 function EmailCodeResetPassword() {
   //const [codeN1, setcodeN1] = useState("");
   //const [codeN2, setcodeN2] = useState("");

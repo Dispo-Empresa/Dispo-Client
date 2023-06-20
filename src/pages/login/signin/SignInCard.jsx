@@ -9,8 +9,6 @@ import imagem from "../../../assets/img/visual-inventory-management.png";
 import logoSFundo from "../../../assets/img/logo_sem_fundo.png";
 import useKeyPress from "../../../hooks/useKeyPress";
 
-import LoadingButton from "../../../components/ui/buttons/loading/LoadingButton";
-
 import "./style.css";
 
 function SignIn() {
@@ -91,7 +89,7 @@ function SignIn() {
               </Link>
             </div>
             <div style={{ marginTop: "10%" }}>
-              <LoadingButton
+              <Button
                 onClick={SignIn}
                 title="Login"
                 width="300px"

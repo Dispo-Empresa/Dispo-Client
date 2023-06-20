@@ -1,17 +1,11 @@
 import { MDBContainer, MDBRow } from "mdb-react-ui-kit";
 
+import "./styles.css";
+
 function RegisterPanelMultiStep({ children }) {
   return (
     <MDBContainer fluid className="p-4">
-      <div
-        style={{
-          float: "right",
-          alignItems: "center",
-          justifyContent: "center",
-          display: "flex",
-          gap: "10px",
-        }}
-      ></div>
+      <div className="step-content"></div>
       <MDBRow className="g-5">
         <>{children}</>
       </MDBRow>

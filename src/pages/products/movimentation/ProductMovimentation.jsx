@@ -1,57 +1,61 @@
+import ArchiveIcon from "@mui/icons-material/Archive";
 import { MDBCol } from "mdb-react-ui-kit";
-import { GenericButton } from "../../../components/ui/buttons/icons/IconButton";
-import { SelectWithFilter } from "../../../components/ui/textfields/form/SelectField";
+
 import ButtonGroup from "../../../components/ui/buttons/group/ButtonGroup";
 import ContentPage from "../../../layouts/content/ContentPage";
-import RegisterPanel from "../../../layouts/panel/register-panel/RegisterPanel";
-import TextField from "../../../components/ui/textfields/form/TextField";
+import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
 import useAlertScheme from "../../../hooks/alert/useAlertScheme";
 import useFields from "./useFields";
-import ArchiveIcon from "@mui/icons-material/Archive";
-
-import useFetch from "../../../hooks/useFetchApi";
+import { TextField } from "../../../components/ui/inputs/textfield/TextField";
+import { SelectWithFilter } from "../../../components/ui/inputs/select/SelectField";
+import { GenericButton } from "../../../components/ui/buttons/icons/IconButton";
 import { post } from "../../../services/api/crud";
 
-const ProductMovimentation = () => {
+function ProductMovimentation() {
   const [
     fields,
-    handleExistsRequiredFieldsNotAnswered,
-    handleExistsFieldsWithError,
+    errors,
+    products,
+    handleValidateRequiredFields,
+    handleValidateErrorFields,
+    handleClearFields,
     handleFieldChange,
-    clearState,
-    productError,
-    warehouseError,
-    quantityError,
-    movimentationTypeError,
   ] = useFields();
-  const { data } = useFetch("Products/getProductNamesWithCode");
   const [showAlert, openAlert] = useAlertScheme();
 
   const MoveProduct = async () => {
     var data = {
       productId: fields.product,
-      warehouseId: fields.warehouse,
+      warehouseId: 1,
       quantity: fields.quantity,
       movementType: fields.movimentationType,
     };
 
-    console.log(data);
-
-    if (handleExistsRequiredFieldsNotAnswered()) {
+    if (handleValidateRequiredFields()) {
       openAlert("error", "Existem campos obrigatórios não respondidos.");
       return;
     }
 
-    if (handleExistsFieldsWithError()) {
-      openAlert("error", "Existem campos com erros");
+    const errorFields = handleValidateErrorFields();
+    if (errorFields) {
+      openAlert("error", "Existem campos com erros!", errorFields);
       return;
     }
 
     try {
       let response = await post("Products/moveProduct", data);
 
-      clearState();
+      if (response.response && response.response.status === 400) {
+        openAlert(
+          "error",
+          "Movimentação de Produtos",
+          response.response.data.message
+        );
+        return;
+      }
+
       openAlert("success", "Movimentação de Produtos", response.message);
+      handleClearFields();
     } catch (err) {
       console.log(err);
       openAlert("error", "Movimentação de Produtos", err.message);
@@ -62,13 +66,12 @@ const ProductMovimentation = () => {
     <ContentPage title="Movimentação de Produtos">
       <RegisterPanel
         alertPanel={showAlert}
-        title="Informações da movimentação"
         hideSaveButton={true}
         buttons={
           <ButtonGroup>
             <GenericButton
               title="Movimentar Produto"
-              color="#228DED"
+              color="#009EF7"
               icon={<ArchiveIcon />}
               onClick={MoveProduct}
             />
@@ -81,23 +84,22 @@ const ProductMovimentation = () => {
             label="Tipo de Movimentação"
             options={fields.movimentationTypes}
             value={fields.movimentationType}
+            error={errors.movimentationType}
             onChange={(value) =>
               handleFieldChange("movimentationType", value.target.value)
             }
-            error={movimentationTypeError}
           />
         </MDBCol>
         <MDBCol>
           <SelectWithFilter
             required
             label="Produto"
-            options={data}
+            options={products}
             value={fields.product}
-            onChange={
-              (value) => console.log(value.target)
-              //handleFieldChange("product", value.target.value)
+            error={errors.product}
+            onChange={(value) =>
+              handleFieldChange("product", value.target.value)
             }
-            error={productError}
           />
         </MDBCol>
         <MDBCol>
@@ -106,15 +108,15 @@ const ProductMovimentation = () => {
             type="number"
             label="Quantidade"
             value={fields.quantity}
+            error={errors.quantity}
             onChange={(value) =>
               handleFieldChange("quantity", value.target.value)
             }
-            error={quantityError}
           />
         </MDBCol>
       </RegisterPanel>
     </ContentPage>
   );
-};
+}
 
 export default ProductMovimentation;

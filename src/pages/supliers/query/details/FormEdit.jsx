@@ -2,8 +2,8 @@ import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 import useFetch from "../../../../hooks/useFetchApi";
 import Tabs from "../../../../components/structured/tabs/Tabs";
-import TextField from "../../../../components/ui/textfields/form/TextField";
-import { FormEdit } from "../../../../layouts/panel/view-panel/ViewPanel";
+import { TextField } from "../../../../components/ui/inputs/textfield/TextField";
+import { FormEdit } from "../../../../layouts/panel/view/ViewPanel";
 
 function ModalEdit({ providerId }) {
   const { data } = useFetch(

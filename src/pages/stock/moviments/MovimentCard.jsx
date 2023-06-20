@@ -3,8 +3,8 @@ import { useState } from "react";
 
 import ContentPage from "../../../layouts/content/ContentPage";
 import useAlertScheme from "../../../hooks/alert/useAlertScheme";
-import TextField from "../../../components/ui/textfields/form/TextField";
-import TextArea from "../../../components/ui/textfields/form/TextArea";
+import { TextField } from "../../../components/ui/inputs/textfield/TextField";
+import { TextArea } from "../../../components/ui/inputs/textarea/TextArea";
 import { Stepper, Step } from "../../../components/structured/stepper/Stepper";
 import { useFieldsFirstStep, useFieldsSecondStep } from "./useFields";
 
@@ -174,8 +174,6 @@ function MovimentCard() {
     };
 
     setMoviment(data);
-
-    console.log("Indo para a step: " + e.activeStep);
   };
 
   const RegisterMoviment = () => {

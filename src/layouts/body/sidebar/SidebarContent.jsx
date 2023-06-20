@@ -1,7 +1,7 @@
 import { Sidebar } from "react-pro-sidebar";
 
 import SidebarItens from "./Itens";
-import { COLORS } from "../../../../themes/colors";
+import { COLORS } from "../../../themes/colors";
 
 import "./styles.css";
 

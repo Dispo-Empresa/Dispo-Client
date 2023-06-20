@@ -19,9 +19,7 @@ function ProductQueryCard() {
     { label: "Actions", field: "actions", sort: false, width: 100 },
   ];
 
-  const { data } = useFetch(
-    "https://localhost:7153/api/v1/Products/getAllProducts"
-  );
+  const { data } = useFetch("Products/getAllProducts");
 
   return (
     <ContentPage title="Produtos">

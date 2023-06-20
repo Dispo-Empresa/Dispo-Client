@@ -9,9 +9,7 @@ function SuplierQueryCard() {
     { label: "Actions", field: "actions", sort: false, width: 100 },
   ];
 
-  const { data } = useFetch(
-    "https://localhost:7153/api/v1/Providers/getAllProvidersInfo"
-  );
+  const { data } = useFetch("Providers/getAllProvidersInfo");
 
   return (
     <ContentPage title="Fornecedores">

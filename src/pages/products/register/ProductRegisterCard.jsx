@@ -1,14 +1,14 @@
 import { MDBCol } from "mdb-react-ui-kit";
 
-import RegisterPanel from "../../../layouts/panel/register-panel/RegisterPanel";
+import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
 import useAlertScheme from "../../../hooks/alert/useAlertScheme";
 import ContentPage from "../../../layouts/content/ContentPage";
-import TextField from "../../../components/ui/textfields/form/TextField";
-import CurrencyField from "../../../components/ui/textfields/form/CurrencyField";
-import TextArea from "../../../components/ui/textfields/form/TextArea";
-import ContentDivisor from "../../../layouts/panel/register-panel/ContentDivisor";
+import ContentDivisor from "../../../components/structured/divisor/ContentDivisor";
 import useFields from "./useFields";
-import { SelectWithFilter } from "../../../components/ui/textfields/form/SelectField";
+import { TextField } from "../../../components/ui/inputs/textfield/TextField";
+import { CurrencyField } from "../../../components/ui/inputs/currency/CurrencyField";
+import { TextArea } from "../../../components/ui/inputs/textarea/TextArea";
+import { SelectWithFilter } from "../../../components/ui/inputs/select/SelectField";
 
 const cities = [
   { id: 1, label: "New York" },

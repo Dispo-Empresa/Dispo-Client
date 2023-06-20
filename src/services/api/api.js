@@ -21,6 +21,8 @@ const callApi = async (endpoint, method, data = null) => {
   try {
     const response = await apiConfig(config);
 
+    console.log(response);
+
     if (!response.data) {
       throw new Error(`Data fetch error ${response.status}`);
     }
@@ -29,6 +31,7 @@ const callApi = async (endpoint, method, data = null) => {
 
   } catch (error) {
     console.log(error);
+    return error;
   }
 };
 

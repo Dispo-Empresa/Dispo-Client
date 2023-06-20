@@ -5,8 +5,8 @@ import StepWizard from "react-step-wizard";
 import * as Multistep from "react-form-stepper";
 
 import { COLORS } from "../../../themes/colors";
-import RegisterPanel from "../../../layouts/panel/register-panel/RegisterPanel";
-import RegisterPanelMultiStep from "../../../layouts/panel/register-panel/RegisterPanelMultistep";
+import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
+import RegisterPanelMultiStep from "../../../layouts/panel/register/multi-step/RegisterPanelMultistep";
 
 import "./styles.css";
 

@@ -8,7 +8,7 @@ import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 
-import { COLORS } from "../../../../themes/colors";
+import { COLORS } from "../../../themes/colors";
 
 import "./styles.css";
 
@@ -51,10 +51,6 @@ function SidebarItens(props) {
             width: props.open ? "259px" : "79px",
             marginTop: "-19px",
             transition: "width,left,right,300ms",
-            "&:hover": {
-              backgroundColor: COLORS.PrimaryColor,
-              color: COLORS.DetailsColor,
-            },
           }}
         />
         <MenuItem

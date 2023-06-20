@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { get, getSync } from "../services/api/crud";
+import { getSync } from "../services/api/crud";
 
 function useFetch(url) {
   const [data, setData] = useState(null);
