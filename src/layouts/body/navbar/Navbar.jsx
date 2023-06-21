@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { MDBNavbar, MDBContainer, MDBNavbarBrand } from "mdb-react-ui-kit";
-import { IconButton, Menu, Avatar, MenuItem } from "@mui/material";
-import { Button } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
+import { useState } from "react";
+import { MDBNavbar, MDBContainer, MDBNavbarBrand } from "mdb-react-ui-kit";
+import { IconButton, Menu, Avatar, MenuItem } from "@mui/material";
+import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
 import { removeToken } from "../../../services/api/authToken";
@@ -89,24 +89,6 @@ function Navbar() {
             open={openTest}
             onClose={() => setAnchor(null)}
             onClick={() => setAnchor(null)}
-            PaperProps={{
-              elevation: 0,
-              sx: {
-                maxHeight: 300,
-                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                mt: 1,
-                "&:before": {
-                  content: '""',
-                  display: "block",
-                  position: "absolute",
-                  left: 20,
-                  width: 10,
-                  height: 10,
-                  bgcolor: "background.paper",
-                  transform: "translateY(-50%) rotate(45deg)",
-                },
-              },
-            }}
           >
             <MenuItem>
               <label style={{ color: COLORS.PrimaryColor }}>

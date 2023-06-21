@@ -1,0 +1,14 @@
+.title {
+  font-family: sans-serif;
+  font-size: 18px;
+  color: #0c9abe;
+  font-weight: bold;
+}
+
+.buttons {
+  float: right;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: 10px;
+}

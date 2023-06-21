@@ -1,13 +1,3 @@
-import { useState } from "react";
-import { Box } from "@mui/material";
-import { Navigate } from "react-router-dom";
-import { Grid } from "@mui/material";
-import { Typography } from "@mui/material";
-
-import TextField from "../../../components/ui/textfields/form/TextField";
-import Button from "../../../components/ui/buttons/classic/Button";
-import { COLORS } from "../../../themes/colors";
-
 export default function ForgotPassword() {
   //const [emailRequest, setEmailRequest] = useState("");
   //const [goToResetPassword, setGoToResetPassword] = useState(false);

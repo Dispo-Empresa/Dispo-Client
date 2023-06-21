@@ -17,7 +17,7 @@ function ContentPage(props) {
         marginBottom: "32px",
         width: "100%",
         borderRadius: "10px",
-        boxShadow: "0px 0px 0px",
+        boxShadow: "0px 0.2px 0px",
         border: "1px solid #ffff",
       }}
     >

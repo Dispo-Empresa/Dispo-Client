@@ -1,3 +1,4 @@
+import { ReactComponent as Loader } from "./loader.svg";
 import { COLORS } from "../../../../themes/colors";
 
 import "./styles.css";
@@ -5,10 +6,9 @@ import "./styles.css";
 function Button(props) {
   return (
     <button
+      className="classic-button"
       disabled={props.disabled}
       onClick={props.onClick}
-      type="submit"
-      className="classic-button"
       style={{
         backgroundColor: "#029DBE",
         width: props.width,
@@ -18,7 +18,7 @@ function Button(props) {
         fontSize: "18px",
       }}
     >
-      {props.title}
+      {!props.loading ? props.title : <Loader className="spinner" />}
     </button>
   );
 }

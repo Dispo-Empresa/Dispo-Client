@@ -1,0 +1,18 @@
+.container--label {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.container--indicators {
+  margin-top: -10px;
+  margin-left: 10px;
+}
+
+.errors {
+  color: #FF0000;
+  font-size: 13px;
+}

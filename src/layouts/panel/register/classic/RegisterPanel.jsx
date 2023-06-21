@@ -1,11 +1,20 @@
 import { useEffect } from "react";
 import { MDBContainer, MDBRow } from "mdb-react-ui-kit";
 
-import useAlert from "../../../hooks/alert/useAlert";
-import AlertMessagePanel from "../../../components/structured/alert/panel/AlertPanel";
-import { SaveButton } from "../../../components/ui/buttons/icons/IconButton";
+import useAlert from "../../../../hooks/alert/useAlert";
+import AlertMessagePanel from "../../../../components/structured/alert/panel/AlertPanel";
+import { SaveButton } from "../../../../components/ui/buttons/icons/IconButton";
 
-function RegisterPanel({ title, alertPanel, children, onSave, buttons, hideSaveButton }) {
+import "./styles.css";
+
+function RegisterPanel({
+  title,
+  alertPanel,
+  children,
+  onSave,
+  buttons,
+  hideSaveButton,
+}) {
   const [alertType, alertTitle, alertMessage, openAlert, closeAlert] =
     useAlert();
 
@@ -30,25 +39,8 @@ function RegisterPanel({ title, alertPanel, children, onSave, buttons, hideSaveB
             />
           )}
         </div>
-        <label
-          style={{
-            fontFamily: "sans-serif",
-            fontSize: "18px",
-            color: "#0c9abe",
-            fontWeight: "bold",
-          }}
-        >
-          {title}
-        </label>
-        <div
-          style={{
-            float: "right",
-            alignItems: "center",
-            justifyContent: "center",
-            display: "flex",
-            gap: "10px",
-          }}
-        >
+        <label className="title">{title}</label>
+        <div className="buttons">
           {buttons}
           {hideSaveButton ? "" : <SaveButton onClick={onSave} />}
         </div>

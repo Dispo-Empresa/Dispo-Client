@@ -1,17 +1,20 @@
-const validateProduct = (value) => {
-  let error = "";
-  console.log("product", value);
-  if (value <= 0) {
-    error = "O produto deve ser selecionado.";
+const validate = (fieldName, value) => {
+  switch (fieldName) {
+    case "product":
+      return validateProduct(value);
+    case "quantity":
+      return validateQuantity(value);
+    case "movimentationType":
+      return validateMovimentationType(value);
+    default:
+      return "";
   }
-
-  return error;
 };
 
-const validateWarehouse = (value) => {
+const validateProduct = (value) => {
   let error = "";
-  if (value <= 0) {
-    error = "O depósito deve ser selecionado.";
+  if (value === undefined || value <= 0) {
+    error = "O produto deve ser selecionado.";
   }
 
   return error;
@@ -19,10 +22,6 @@ const validateWarehouse = (value) => {
 
 const validateQuantity = (value) => {
   let error = "";
-  if (isNaN(value)) {
-    error = "A quantidade deve ser um número.";
-  }
-
   if (value <= 0) {
     error = "A quantidade deve ser maior que zero.";
   }
@@ -32,16 +31,11 @@ const validateQuantity = (value) => {
 
 const validateMovimentationType = (value) => {
   let error = "";
-  if (value < 0 && value > 1) {
+  if (value === undefined || (value < 0 && value > 1)) {
     error = "O tipo de movimentação deve ser selecionado.";
   }
 
   return error;
 };
 
-export {
-  validateProduct,
-  validateWarehouse,
-  validateQuantity,
-  validateMovimentationType,
-};
+export default validate;

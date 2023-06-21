@@ -14,8 +14,8 @@ import SuplierCard from "../pages/supliers/SuplierCard";
 import BodyLayout from "../layouts/body/BodyLayout";
 import PrivateRoute from "./PrivateRoute";
 import SettingsCard from "../pages/settings/SettingsCard";
-import ButtonScroll from "../components/ui/buttons/scroll/ButtonScroll";
 import NotFound from "../pages/not-found/NotFound";
+import ProductMovimentation from "../pages/products/movimentation/ProductMovimentation";
 
 function RouteController(props) {
   const [isSomeLogin, setIsSomeLogin] = useState(true);
@@ -130,6 +130,14 @@ function RoutesConfiguration() {
           }
         />
         <Route
+          path="/stock/moveProduct"
+          element={
+            <RouteController>
+              <ProductMovimentation />
+            </RouteController>
+          }
+        />
+        <Route
           path="/providers/registration"
           element={
             <RouteController>
@@ -146,7 +154,6 @@ function RoutesConfiguration() {
           }
         />
       </Routes>
-      <ButtonScroll />
     </Router>
   );
 }

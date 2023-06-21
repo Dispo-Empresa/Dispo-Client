@@ -2,10 +2,10 @@ import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 import Tabs from "../../../../components/structured/tabs/Tabs";
 import useFetch from "../../../../hooks/useFetchApi";
-import TextField from "../../../../components/ui/textfields/views/TextField";
-import TextArea from "../../../../components/ui/textfields/form/TextArea";
-import CurrencyField from "../../../../components/ui/textfields/form/CurrencyField";
-import { FormView } from "../../../../layouts/panel/view-panel/ViewPanel";
+import { TextField } from "../../../../components/ui/inputs/textfield/TextField";
+import { TextArea } from "../../../../components/ui/inputs/textarea/TextArea";
+import { CurrencyField } from "../../../../components/ui/inputs/currency/CurrencyField";
+import { FormView } from "../../../../layouts/panel/view/ViewPanel";
 
 function ModalView({ productId }) {
   const { data } = useFetch(

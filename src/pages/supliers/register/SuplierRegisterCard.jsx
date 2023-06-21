@@ -1,10 +1,10 @@
 import { MDBCol } from "mdb-react-ui-kit";
 
 import ContentPage from "../../../layouts/content/ContentPage";
-import RegisterPanel from "../../../layouts/panel/register-panel/RegisterPanel";
+import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
 import useAlertScheme from "../../../hooks/alert/useAlertScheme";
 import useFields from "./useFields";
-import TextField from "../../../components/ui/textfields/form/TextField";
+import { TextField } from "../../../components/ui/inputs/textfield/TextField";
 import { post } from "../../../services/api/crud";
 import { cnpjFormater } from "../../../utils/format/cnpjFormat";
 

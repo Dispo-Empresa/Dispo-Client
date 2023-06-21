@@ -10,6 +10,23 @@ import { COLORS } from "../../../../themes/colors";
 
 import "./styles.css";
 
+function GenericButton(props) {
+  return (
+    <Tooltip title={props.title}>
+      <Button
+        onClick={props.onClick}
+        className="form-button"
+        style={{
+          backgroundColor: props.color ?? COLORS.SecondColor,
+          color: COLORS.DetailsColor,
+        }}
+      >
+        {props.icon ?? props.title}
+      </Button>
+    </Tooltip>
+  );
+}
+
 function CollapseButton(props) {
   return (
     <Tooltip title={props.title}>
@@ -102,4 +119,11 @@ function MoreButton(props) {
   );
 }
 
-export { CollapseButton, SaveButton, QueryDataButton, EditButton, MoreButton };
+export {
+  GenericButton,
+  CollapseButton,
+  SaveButton,
+  QueryDataButton,
+  EditButton,
+  MoreButton,
+};
