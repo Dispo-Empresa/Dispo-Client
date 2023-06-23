@@ -2,30 +2,20 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import SignInCard from "../pages/login/signin/SignInCard";
-import SignUpCard from "../pages/login/signin/SignUpCard";
+import SignUpCard from "../pages/login/signup/SignUpCard";
 import ForgotPasswordCard from "../pages/login/forgot-password/ForgotPasswordCard";
 import EmailCodeCard from "../pages/login/forgot-password/email-code/EmailCodeCard";
 import ResetPasswordCard from "../pages/login/forgot-password/reset-password/ResetPasswordCard";
-
 import DashboardCard from "../pages/dashboard/DashboardCard";
-
 import ProfileCard from "../pages/profile/ProfileCard";
-
-import ProductRegistrationCard from "../pages/products/registration/ProductFormCard";
-import ProductVisualizationCard from "../pages/products/views/ProductListCard";
-
-import BrandFormCard from "../pages/brands/registration/BrandFormCard";
-import BrandListCard from "../pages/brands/views/BrandListCard";
-
+import ProductCard from "../pages/products/ProductCard";
 import MovimentCard from "../pages/stock/moviments/MovimentCard";
-
-import ProviderRegistrationCard from "../pages/providers/registration/ProviderFormCard";
-import ProviderList from "../pages/providers/views/ProviderListCard";
-
+import SuplierCard from "../pages/supliers/SuplierCard";
 import BodyLayout from "../layouts/body/BodyLayout";
 import PrivateRoute from "./PrivateRoute";
-
-import ButtonScroll from "../components/ui/buttons/scroll/ButtonScroll";
+import SettingsCard from "../pages/settings/SettingsCard";
+import NotFound from "../pages/not-found/NotFound";
+import ProductMovimentation from "../pages/products/movimentation/ProductMovimentation";
 
 import PurchaseOrderFormCard from "../pages/purchase-order/registration/PurchaseOrderFormCard"
 
@@ -35,7 +25,8 @@ function RouteController(props) {
   useEffect(() => {
     setIsSomeLogin(
       window.location.pathname.includes("/login") ||
-        window.location.pathname === "/"
+        window.location.pathname === "/" ||
+        window.location.pathname === "/404"
     );
   });
 
@@ -52,6 +43,14 @@ function RoutesConfiguration() {
   return (
     <Router>
       <Routes>
+        <Route
+          path="/404"
+          element={
+            <RouteController>
+              <NotFound />
+            </RouteController>
+          }
+        />
         <Route
           path="/"
           element={
@@ -128,31 +127,7 @@ function RoutesConfiguration() {
           path="/products/registration"
           element={
             <RouteController>
-              <ProductRegistrationCard />
-            </RouteController>
-          }
-        />
-        <Route
-          path="/products/visualization"
-          element={
-            <RouteController>
-              <ProductVisualizationCard />
-            </RouteController>
-          }
-        />
-        <Route
-          path="/brands/registration"
-          element={
-            <RouteController>
-              <BrandFormCard />
-            </RouteController>
-          }
-        />
-        <Route
-          path="/brands/visualization"
-          element={
-            <RouteController>
-              <BrandListCard />
+              <ProductCard />
             </RouteController>
           }
         />
@@ -165,23 +140,30 @@ function RoutesConfiguration() {
           }
         />
         <Route
-          path="/providers/registration"
+          path="/stock/moveProduct"
           element={
             <RouteController>
-              <ProviderRegistrationCard />
+              <ProductMovimentation />
             </RouteController>
           }
         />
         <Route
-          path="/providers/visualization"
+          path="/providers/registration"
           element={
             <RouteController>
-              <ProviderList />
+              <SuplierCard />
+            </RouteController>
+          }
+        />
+        <Route
+          path="/configuracoes"
+          element={
+            <RouteController>
+              <SettingsCard />
             </RouteController>
           }
         />
       </Routes>
-      <ButtonScroll />
     </Router>
   );
 }

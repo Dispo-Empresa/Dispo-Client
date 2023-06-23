@@ -2,7 +2,7 @@ import React from "react";
 import { useProSidebar } from "react-pro-sidebar";
 import { useState } from "react";
 
-import Sidebar from "./sidebar/content/SidebarContent";
+import Sidebar from "./sidebar/SidebarContent";
 import Navbar from "./navbar/Navbar";
 import { Footer } from "./footer/Footer";
 

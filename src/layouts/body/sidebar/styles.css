@@ -1,0 +1,34 @@
+.sidebar {
+  z-index: 1031;
+}
+
+.dasdasd {
+  background-color: #0E1217;
+  height: 60px;
+  position: fixed;
+  z-index: 999;
+  margin-top: -19px;
+  transition: width,left,right,300ms;
+}
+
+.sidebar-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 10px #F1F1F1; 
+  border-radius: 10px;
+}
+ 
+.sidebar-content::-webkit-scrollbar-thumb {
+  background:#C1C1C1; 
+  border-radius: 10px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+  background:#C1C1C1; 
+}
+
+.icon path {
+  stroke: #fff;
+}

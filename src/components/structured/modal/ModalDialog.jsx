@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import IconButton from "@mui/material/IconButton";
-import { VscChromeClose } from "react-icons/vsc";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 import { COLORS } from "../../../themes/colors";
 import {
@@ -31,7 +31,7 @@ function ModalDialog(props) {
             </Box>
             <Box sx={ModalCloseButton}>
               <IconButton sx={CloseButton} onClick={props.onClose}>
-                <VscChromeClose />
+                <CancelIcon />
               </IconButton>
             </Box>
           </Box>

@@ -26,7 +26,6 @@ function CurrencyField(props) {
           fontSize: "15px",
           borderRadius: "5px",
         }}
-        disabled={props.disabled}
       />
       {props.error && (
         <span style={{ color: "red", fontSize: "14px" }}>{props.error}</span>

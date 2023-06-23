@@ -13,9 +13,11 @@ function ContentPage(props) {
     <Card
       style={{
         height: collapsed && "75px",
+        minHeight: !collapsed && "350px",
+        marginBottom: "32px",
         width: "100%",
         borderRadius: "10px",
-        boxShadow: "0px 0px 0px",
+        boxShadow: "0px 0.2px 0px",
         border: "1px solid #ffff",
       }}
     >
@@ -32,7 +34,6 @@ function ContentPage(props) {
             </label>
           </div>
           <div className="card-buttons">
-            {/*{!collapsed && <DropdownButtons />} */}
             {!collapsed && props.buttons}
             <CollapseButton
               collapsed={collapsed}

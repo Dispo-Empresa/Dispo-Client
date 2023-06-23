@@ -1,31 +1,25 @@
 import axios from "axios"
 
-import { getLocalStorage, setLocalStorage, removeLocalStorage } from "../../data/storage/browser/local"
+import { getSessionStorage, setSessionStorage, removeSessionStorage } from "../../data/storage/session";
 
 const setToken = (token) => {
-    if (token){
-      setLocalStorage("accessToken", token);
-      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-    }else{
-      removeLocalStorage("token");
-      delete axios.defaults.headers.common.Authorization;
-    }
+  if (token){
+    setSessionStorage("accessToken", token);
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  }else{
+    removeSessionStorage("accessToken");
+    delete axios.defaults.headers.common.Authorization;
   }
-
-const getToken = () => {
-
-  getLocalStorage("accessToken");
 }
 
-const removeToken = () => {
+const getToken = () => getSessionStorage("accessToken");
 
-  removeLocalStorage("accessToken");
+const removeToken = () => {
+  removeSessionStorage("accessToken");
 }
 
 const isAuthenticated = () => {
-  
-  console.log("testge")
-  return localStorage.getItem("accessToken") && localStorage.getItem("accessToken") !== "";
+return sessionStorage.getItem("accessToken") && sessionStorage.getItem("accessToken") !== "";
 }
 
 export { setToken, getToken, removeToken, isAuthenticated };

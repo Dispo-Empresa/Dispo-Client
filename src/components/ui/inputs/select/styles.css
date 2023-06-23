@@ -1,0 +1,16 @@
+.p-dropdown-filter.p-inputtext.p-component {
+  height: 35px;
+  font-size: 15px;
+  padding: 0.25rem;
+}
+
+.select {
+  width: 300px;
+  height: 35px;
+  font-size: 13px;
+  line-height: 5px;
+}
+
+.p-dropdown-filter-container {
+  border-color: red;
+}

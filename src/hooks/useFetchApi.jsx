@@ -1,32 +1,24 @@
 import { useState, useEffect } from "react";
 
+import { getSync } from "../services/api/crud";
+
 function useFetch(url) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-    },
-  };
-
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(url, config);
-        const jsonData = await response.json();
-        setData(jsonData);
+    getSync(url)
+      .then((response) => {
+        setData(response.data);
         setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setError(error);
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err);
         setLoading(false);
-      }
-    }
-
-    fetchData();
+      });
   }, [url]);
 
   return { data, loading, error };

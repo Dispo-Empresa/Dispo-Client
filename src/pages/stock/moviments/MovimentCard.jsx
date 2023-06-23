@@ -1,102 +1,201 @@
-import Autocomplete from "@mui/material/Autocomplete";
+import { MDBCol } from "mdb-react-ui-kit";
 import { useState } from "react";
-import { Box } from "@material-ui/core";
-import { Typography } from "@mui/material";
 
 import ContentPage from "../../../layouts/content/ContentPage";
-import useFetch from "../../../hooks/useFetchApi";
-import RegisterPanel from "../../../layouts/panel/register-panel/RegisterPanel";
-import { sleep } from "../../../utils/helperFunctions";
-import {
-  FormikStep,
-  FormikStepper,
-} from "../../../components/structured/multi-step/MultiStep";
+import useAlertScheme from "../../../hooks/alert/useAlertScheme";
+import { TextField } from "../../../components/ui/inputs/textfield/TextField";
+import { TextArea } from "../../../components/ui/inputs/textarea/TextArea";
+import { Stepper, Step } from "../../../components/structured/stepper/Stepper";
+import { useFieldsFirstStep, useFieldsSecondStep } from "./useFields";
 
-import { MDBCol, MDBRow } from "mdb-react-ui-kit";
-import TextField from "../../../components/ui/textfields/form/TextField";
-import TextArea from "../../../components/ui/textfields/form/TextArea";
-import useFields from "./useFields";
-import useAlertScheme from "../../../hooks/useAlertScheme";
+const FirstStep = (props) => {
+  const [
+    fields,
+    handleFieldChange,
+    handleExistsRequiredFieldsNotAnswered,
+    handleExistsFieldsWithError,
+    suplierError,
+    quantityError,
+  ] = useFieldsFirstStep();
 
-function MovimentCard() {
-  const [fields, handleFieldChange] = useFields();
-  const [showAlert, openAlert] = useAlertScheme();
+  const handleNextStep = () => {
+    if (handleExistsRequiredFieldsNotAnswered()) {
+      props.alertPanel(
+        "warning",
+        "Existem campos obrigatórios não respondidos"
+      );
+      return;
+    }
 
-  const Register = () => {
-    openAlert("success", "Sucesso", "Registrado com sucesso!");
+    if (handleExistsFieldsWithError()) {
+      props.alertPanel(
+        "warning",
+        "Existem campos com erro, por favor verifique!"
+      );
+      return;
+    }
+
+    props.entityCallback({
+      suplier: fields.suplier,
+      quantity: fields.quantity,
+    });
+    props.alertPanel(null);
+    props.nextStep();
   };
-
-  const StepTwo = () => {
-    return <>Programar aqui dentro</>;
-  };
-
-  const StepThree = () => {
-    return <div>Outra programagem aqui rs rs</div>;
-  };
-
-  // CRIAR UM NOVO PADRAO DE REGISTRO COM O MULTISTEP ??
 
   return (
-    <ContentPage title="Movimentação de Estoque">
-      <FormikStepper
-        initialValues={{}}
-        onSubmit={async () => {
-          await sleep(2000);
-        }}
+    <Step {...props} onNextStep={handleNextStep}>
+      <MDBCol>
+        <TextField
+          required
+          tipMessage="testando"
+          label="Fornecedor"
+          value={fields.suplier}
+          error={suplierError}
+          onChange={(value) => handleFieldChange("suplier", value.target.value)}
+        />
+      </MDBCol>
+      <MDBCol>
+        <TextField
+          required
+          label="Quantidade"
+          type="number"
+          value={fields.quantity}
+          error={quantityError}
+          onChange={(value) =>
+            handleFieldChange("quantity", value.target.value)
+          }
+        />
+      </MDBCol>
+    </Step>
+  );
+};
+
+const SecondStep = (props) => {
+  const [
+    fields,
+    handleFieldChange,
+    handleExistsRequiredFieldsNotAnswered,
+    handleExistsFieldsWithError,
+    productError,
+  ] = useFieldsSecondStep();
+
+  const handleNextStep = () => {
+    if (handleExistsRequiredFieldsNotAnswered()) {
+      props.alertPanel(
+        "warning",
+        "Existem campos obrigatórios não respondidos"
+      );
+      return;
+    }
+
+    if (handleExistsFieldsWithError()) {
+      props.alertPanel(
+        "warning",
+        "Existem campos com erro, por favor verifique!"
+      );
+      return;
+    }
+
+    props.entityCallback({
+      product: fields.product,
+      description: fields.description,
+    });
+    props.alertPanel(null);
+    props.nextStep();
+  };
+
+  return (
+    <Step {...props} onNextStep={handleNextStep}>
+      <MDBCol>
+        <TextField
+          required
+          label="Produto"
+          value={fields.product}
+          error={productError}
+          onChange={(value) => handleFieldChange("product", value.target.value)}
+        />
+      </MDBCol>
+      <MDBCol>
+        <TextArea
+          name="description"
+          label="Descrição"
+          value={fields.description}
+          onChange={(value) =>
+            handleFieldChange("description", value.target.value)
+          }
+        />
+      </MDBCol>
+    </Step>
+  );
+};
+
+const ThirdStep = (props) => {
+  return (
+    <Step {...props}>
+      <div>
+        <h2>Summary moviment detail</h2>
+        <p>Fornecedor: {props.entity.suplier}</p>
+        <p>Quantidade: {props.entity.quantity}</p>
+        <p>Produto: {props.entity.product}</p>
+        <p>Descrição: {props.entity.description}</p>
+      </div>
+    </Step>
+  );
+};
+
+function MovimentCard() {
+  const steps = ["Informações básicas", "Informações avançadas", "Confirmação"];
+  const [movimentOne, setMovimentOne] = useState({});
+  const [movimentTwo, setMovimentTwo] = useState({});
+  const [moviment, setMoviment] = useState({});
+  const [showAlert, openAlert] = useAlertScheme();
+
+  const assignMovimentOne = (val) => {
+    setMovimentOne((moviment) => ({
+      ...moviment,
+      ...val,
+    }));
+  };
+
+  const assignMovimentTwo = (val) => {
+    setMovimentTwo((moviment) => ({
+      ...moviment,
+      ...val,
+    }));
+  };
+
+  const handleStepChange = (e) => {
+    var data = {
+      suplier: movimentOne.suplier,
+      quantity: movimentOne.quantity,
+      product: movimentTwo.product,
+      description: movimentTwo.description,
+    };
+
+    setMoviment(data);
+  };
+
+  const RegisterMoviment = () => {
+    openAlert(
+      "success",
+      "Testando Multistep no cadastro de movimentação",
+      "Movimentação realizada com sucesso!"
+    );
+  };
+
+  return (
+    <ContentPage title="Movimentação de produto">
+      <Stepper
+        steps={steps}
+        alertPanel={showAlert}
+        onSave={RegisterMoviment}
+        onStepChange={handleStepChange}
       >
-        <FormikStep label="Produto">
-          <RegisterPanel onSave={Register} alertPanel={showAlert}>
-            <MDBCol>
-              <TextField
-                required
-                message="Dica do campo"
-                label="Fornecedor"
-                value={fields.suplier}
-                onChange={(value) =>
-                  handleFieldChange("suplier", value.target.value)
-                }
-              />
-            </MDBCol>
-            <MDBCol>
-              <TextField
-                required
-                label="Quantidade"
-                type="number"
-                value={fields.quantity}
-                onChange={(value) =>
-                  handleFieldChange("quantity", value.target.value)
-                }
-              />
-            </MDBCol>
-            <MDBCol>
-              <TextField
-                required
-                label="Produtor"
-                value={fields.product}
-                onChange={(value) =>
-                  handleFieldChange("product", value.target.value)
-                }
-              />
-            </MDBCol>
-            <MDBCol>
-              <TextArea
-                name="description"
-                label="Descrição"
-                value={fields.description}
-                onChange={(value) =>
-                  handleFieldChange("description", value.target.value)
-                }
-              />
-            </MDBCol>
-          </RegisterPanel>
-        </FormikStep>
-        <FormikStep label="Detalhes">
-          <StepTwo />
-        </FormikStep>
-        <FormikStep label="Confirmação">
-          <StepThree />
-        </FormikStep>
-      </FormikStepper>
+        <FirstStep entityCallback={assignMovimentOne} alertPanel={openAlert} />
+        <SecondStep entityCallback={assignMovimentTwo} alertPanel={openAlert} />
+        <ThirdStep entity={moviment} />
+      </Stepper>
     </ContentPage>
   );
 }
