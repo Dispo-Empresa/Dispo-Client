@@ -5,6 +5,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
+import DraftsIcon from '@mui/icons-material/Drafts';
 import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 
@@ -60,6 +61,18 @@ function SidebarItens(props) {
           icon={<DashboardIcon />}
           style={{ marginTop: "66px" }}
         />
+
+       <SubMenu 
+          label="Ordem de compra"
+          icon={<DraftsIcon />}
+          >
+          <MenuItem 
+            component={<Link to="/purchaseOrder/registration"/>}  
+            active={isActivePage("/purchaseOrder/registration")}
+            prefix="Cadastrar"  
+            icon={<AddIcon />}
+          />
+        </SubMenu>
 
         <SubMenu label="Estoque" icon={<WarehouseIcon />}>
           <MenuItem
