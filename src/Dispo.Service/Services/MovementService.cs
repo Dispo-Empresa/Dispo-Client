@@ -74,9 +74,9 @@ namespace Dispo.Service.Services
             var createdMovimentation = await _movementRepository.CreateAsync(new Movement
             {
                 Date = DateTime.UtcNow,
-                ProductId = productMovimentationDto.ProductId,
+                //ProductId = productMovimentationDto.ProductId,
                 Quantity = productMovimentationDto.Quantity,
-                MovementType = productMovimentationDto.MovementType,
+                Type = productMovimentationDto.MovementType,
             });
 
             if (!createdMovimentation)

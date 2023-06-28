@@ -71,7 +71,7 @@ namespace Dispo.Infrastructure.Repositories
                                          Email = s.Email,
                                          FirstName = s.User.FirstName,
                                          LastName = s.User.LastName,
-                                         CpfCnpj = s.User.CpfCnpj,
+                                         CpfCnpj = s.User.Cpf,
                                          Phone = s.User.Phone,
                                          BirthDate = s.User.BirthDate
                                      })

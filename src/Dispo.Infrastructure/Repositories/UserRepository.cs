@@ -15,7 +15,7 @@ namespace Dispo.Infrastructure.Repositories
         }
 
         private Expression<Func<User, bool>> ExpExistsByCpfCnpj(string cpfCnpj)
-            => w => w.CpfCnpj.Equals(cpfCnpj);
+            => w => w.Cpf.Equals(cpfCnpj);
 
         public bool ExistsByCpfCnpj(string cpfCnpj)
             => _dispoContext.Users

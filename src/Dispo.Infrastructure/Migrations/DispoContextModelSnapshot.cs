@@ -42,12 +42,23 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnType("VARCHAR(255)")
                         .HasColumnName("Password");
 
+                    b.Property<long>("RoleId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("BIGINT");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Accounts", (string)null);
                 });
 
-            modelBuilder.Entity("Dispo.Domain.Entities.Branch", b =>
+            modelBuilder.Entity("Dispo.Domain.Entities.Adress", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,103 +66,15 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("Cnpj")
-                        .IsRequired()
-                        .HasMaxLength(18)
-                        .HasColumnType("VARCHAR(18)")
-                        .HasColumnName("Cnpj");
+                    b.Property<string>("AdditionalInfo")
+                        .HasMaxLength(200)
+                        .HasColumnType("VARCHAR(200)")
+                        .HasColumnName("AdditionalInfo");
 
-                    b.Property<long>("LocationId")
-                        .HasColumnType("BIGINT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(220)
-                        .HasColumnType("VARCHAR(70)")
-                        .HasColumnName("Name");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LocationId")
-                        .IsUnique();
-
-                    b.ToTable("Branches", (string)null);
-                });
-
-            modelBuilder.Entity("Dispo.Domain.Entities.Brand", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("BIGINT");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<byte[]>("Logo")
-                        .IsRequired()
-                        .HasColumnType("image")
-                        .HasColumnName("Logo");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR(50)")
-                        .HasColumnName("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Brands", (string)null);
-                });
-
-            modelBuilder.Entity("Dispo.Domain.Entities.Business", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("BIGINT");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Cnpj")
-                        .IsRequired()
-                        .HasMaxLength(14)
-                        .HasColumnType("VARCHAR(14)")
-                        .HasColumnName("Cnpj");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(220)
-                        .HasColumnType("VARCHAR(220)")
-                        .HasColumnName("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Businesses", (string)null);
-                });
-
-            modelBuilder.Entity("Dispo.Domain.Entities.BusinessBilling", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("BusinessId")
-                        .HasColumnType("BIGINT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BusinessId");
-
-                    b.ToTable("BusinessBillings");
-                });
-
-            modelBuilder.Entity("Dispo.Domain.Entities.Location", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("BIGINT");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    b.Property<string>("CEP")
+                        .HasMaxLength(9)
+                        .HasColumnType("VARCHAR(9)")
+                        .HasColumnName("CEP");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -166,7 +89,6 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnName("Country");
 
                     b.Property<string>("District")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("VARCHAR(200)")
                         .HasColumnName("District");
@@ -179,7 +101,61 @@ namespace Dispo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations", (string)null);
+                    b.ToTable("Adresses", (string)null);
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.Company", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AdressId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<string>("Cnpj")
+                        .IsRequired()
+                        .HasMaxLength(18)
+                        .HasColumnType("VARCHAR(18)")
+                        .HasColumnName("Cnpj");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(220)
+                        .HasColumnType("VARCHAR(220)")
+                        .HasColumnName("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdressId")
+                        .IsUnique();
+
+                    b.ToTable("Companies", (string)null);
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.Manufacturer", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIGINT");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<byte[]>("Logo")
+                        .HasColumnType("image")
+                        .HasColumnName("Logo");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR(50)")
+                        .HasColumnName("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Manufacturers", (string)null);
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Movement", b =>
@@ -190,28 +166,78 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long>("AccountId")
+                        .HasColumnType("BIGINT");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2")
                         .HasColumnName("Date");
 
-                    b.Property<short>("MovementType")
+                    b.Property<int>("Quantity")
+                        .HasMaxLength(9999)
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("Quantity");
+
+                    b.Property<short>("Type")
                         .HasMaxLength(120)
                         .HasColumnType("SMALLINT")
-                        .HasColumnName("MovementType");
+                        .HasColumnName("Type");
+
+                    b.Property<long>("WarehouseId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("WarehouseId1")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("WarehouseId");
+
+                    b.HasIndex("WarehouseId1")
+                        .IsUnique()
+                        .HasFilter("[WarehouseId1] IS NOT NULL");
+
+                    b.ToTable("Movements", (string)null);
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.Order", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("VARCHAR(200)")
+                        .HasColumnName("Description");
 
                     b.Property<long>("ProductId")
                         .HasColumnType("BIGINT");
 
-                    b.Property<decimal>("Quantity")
+                    b.Property<long>("PurchaseOrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Quantity")
+                        .HasMaxLength(9999)
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("Quantity");
+
+                    b.Property<decimal>("TotalPrice")
                         .HasMaxLength(120)
                         .HasColumnType("DECIMAL(10, 2)")
-                        .HasColumnName("Quantity");
+                        .HasColumnName("TotalPrice");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Movement", (string)null);
+                    b.HasIndex("PurchaseOrderId");
+
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Product", b =>
@@ -222,8 +248,10 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("BrandId")
-                        .HasColumnType("BIGINT");
+                    b.Property<short>("Category")
+                        .HasMaxLength(120)
+                        .HasColumnType("SMALLINT")
+                        .HasColumnName("Category");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -231,51 +259,57 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnType("VARCHAR(50)")
                         .HasColumnName("Code");
 
-                    b.Property<short>("Color")
-                        .HasMaxLength(120)
-                        .HasColumnType("SMALLINT")
-                        .HasColumnName("Color");
-
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("VARCHAR(500)")
-                        .HasColumnName("Description");
-
-                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(220)
                         .HasColumnType("VARCHAR(220)")
+                        .HasColumnName("Description");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ExpirationDate");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("image")
+                        .HasColumnName("Image");
+
+                    b.Property<DateTime>("ManufacturingDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ManufacturingDate");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("VARCHAR(150)")
                         .HasColumnName("Name");
 
-                    b.Property<short>("Type")
+                    b.Property<long>("ProductDimensionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("PurchasePrice")
                         .HasMaxLength(120)
-                        .HasColumnType("SMALLINT")
-                        .HasColumnName("Type");
+                        .HasColumnType("DECIMAL(10, 2)")
+                        .HasColumnName("PurchasePrice");
+
+                    b.Property<decimal>("SalePrice")
+                        .HasMaxLength(120)
+                        .HasColumnType("DECIMAL(10, 2)")
+                        .HasColumnName("SalePrice");
 
                     b.Property<short>("UnitOfMeasurement")
                         .HasMaxLength(120)
                         .HasColumnType("SMALLINT")
                         .HasColumnName("UnitOfMeasurement");
 
-                    b.Property<decimal>("UnitPrice")
-                        .HasMaxLength(120)
-                        .HasColumnType("DECIMAL(10, 2)")
-                        .HasColumnName("UnitPrice");
-
-                    b.Property<long>("WarehouseId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("BrandId");
-
-                    b.HasIndex("WarehouseId");
+                    b.HasIndex("ProductDimensionId")
+                        .IsUnique();
 
                     b.ToTable("Products", (string)null);
                 });
 
-            modelBuilder.Entity("Dispo.Domain.Entities.ProductProvider", b =>
+            modelBuilder.Entity("Dispo.Domain.Entities.ProductDimension", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -283,19 +317,75 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("ProductId")
+                    b.Property<decimal>("Depth")
+                        .HasMaxLength(120)
+                        .HasColumnType("DECIMAL(10, 2)")
+                        .HasColumnName("Depth");
+
+                    b.Property<decimal>("Height")
+                        .HasMaxLength(120)
+                        .HasColumnType("DECIMAL(10, 2)")
+                        .HasColumnName("Height");
+
+                    b.Property<decimal>("Weight")
+                        .HasMaxLength(120)
+                        .HasColumnType("DECIMAL(10, 2)")
+                        .HasColumnName("Weight");
+
+                    b.Property<decimal>("Width")
+                        .HasMaxLength(120)
+                        .HasColumnType("DECIMAL(10, 2)")
+                        .HasColumnName("Width");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductDimensions", (string)null);
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.ProductManufacturer", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ManufacturerId")
                         .HasColumnType("BIGINT");
 
-                    b.Property<long>("ProviderId")
+                    b.Property<long>("ProductId")
                         .HasColumnType("BIGINT");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ManufacturerId");
+
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("ProviderId");
+                    b.ToTable("ProductManufacturers", (string)null);
+                });
 
-                    b.ToTable("ProductProviders");
+            modelBuilder.Entity("Dispo.Domain.Entities.ProductMovement", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("MovimentId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("BIGINT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovimentId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductMovements", (string)null);
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.ProductWarehouseQuantity", b =>
@@ -321,10 +411,92 @@ namespace Dispo.Infrastructure.Migrations
                     b.HasIndex("ProductId", "WarehouseId")
                         .IsUnique();
 
-                    b.ToTable("ProductWarehouseQuantities");
+                    b.ToTable("ProductWarehouseQuantities", (string)null);
                 });
 
-            modelBuilder.Entity("Dispo.Domain.Entities.Provider", b =>
+            modelBuilder.Entity("Dispo.Domain.Entities.PurchaseOrder", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Date");
+
+                    b.Property<short>("NotificationType")
+                        .HasMaxLength(120)
+                        .HasColumnType("SMALLINT")
+                        .HasColumnName("NotificationType");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("VARCHAR(20)")
+                        .HasColumnName("Number");
+
+                    b.Property<short>("PaymentMethod")
+                        .HasMaxLength(120)
+                        .HasColumnType("SMALLINT")
+                        .HasColumnName("PaymentMethod");
+
+                    b.Property<long>("ShippingId")
+                        .HasColumnType("bigint");
+
+                    b.Property<short>("Status")
+                        .HasMaxLength(120)
+                        .HasColumnType("SMALLINT")
+                        .HasColumnName("Status");
+
+                    b.Property<long>("SupplierId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<long>("WarehouseId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
+
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("PurchaseOrders", (string)null);
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.PurchaseOrderAttachment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<byte[]>("Attatchment")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)")
+                        .HasColumnName("Attatchment");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreationDate");
+
+                    b.Property<DateTime>("ModifieldDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ModifieldDate");
+
+                    b.Property<long>("PurchaseOrderId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PurchaseOrderId");
+
+                    b.ToTable("PurchaseOrderAttachments", (string)null);
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.Role", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -332,11 +504,84 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR(50)")
+                        .HasColumnName("Name");
+
+                    b.Property<short>("Type")
+                        .HasMaxLength(120)
+                        .HasColumnType("SMALLINT")
+                        .HasColumnName("Type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles", (string)null);
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.Shipping", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("EstimatedDeliveryDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Date");
+
+                    b.Property<long>("PurchaseOrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ShippingPrice")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("VARCHAR(200)")
+                        .HasColumnName("Description");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PurchaseOrderId")
+                        .IsUnique();
+
+                    b.ToTable("Shippings", (string)null);
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.Supplier", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIGINT");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AdressId")
+                        .HasColumnType("BIGINT");
+
                     b.Property<string>("Cnpj")
                         .IsRequired()
                         .HasMaxLength(18)
                         .HasColumnType("VARCHAR(18)")
-                        .HasColumnName("CPNJ");
+                        .HasColumnName("Cnpj");
+
+                    b.Property<string>("ContactName")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("VARCHAR(120)")
+                        .HasColumnName("ContactName");
+
+                    b.Property<string>("ContactTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR(50)")
+                        .HasColumnName("ContactTitle");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(220)
+                        .HasColumnType("VARCHAR(220)")
+                        .HasColumnName("Email");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -344,9 +589,18 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnType("VARCHAR(50)")
                         .HasColumnName("Name");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("VARCHAR(16)")
+                        .HasColumnName("Phone");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Providers", (string)null);
+                    b.HasIndex("AdressId")
+                        .IsUnique();
+
+                    b.ToTable("Suppliers", (string)null);
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.User", b =>
@@ -358,20 +612,23 @@ namespace Dispo.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<long>("AccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("AdressId")
                         .HasColumnType("BIGINT");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("BirthDate");
 
-                    b.Property<long>("BranchId")
-                        .HasColumnType("BIGINT");
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("CpfCnpj")
+                    b.Property<string>("Cpf")
                         .IsRequired()
                         .HasMaxLength(18)
                         .HasColumnType("VARCHAR(18)")
-                        .HasColumnName("CpfCnpj");
+                        .HasColumnName("Cpf");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -393,58 +650,12 @@ namespace Dispo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId")
+                    b.HasIndex("AdressId")
                         .IsUnique();
 
-                    b.HasIndex("BranchId");
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Users", (string)null);
-                });
-
-            modelBuilder.Entity("Dispo.Domain.Entities.UserBusiness", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("BusinessId")
-                        .HasColumnType("BIGINT");
-
-                    b.Property<long>("PersonId")
-                        .HasColumnType("BIGINT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BusinessId");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("UserBusinesses");
-                });
-
-            modelBuilder.Entity("Dispo.Domain.Entities.UserMovement", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("BIGINT");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("MovementId")
-                        .HasColumnType("BIGINT");
-
-                    b.Property<long?>("UserId")
-                        .HasColumnType("BIGINT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MovementId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserMovements");
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Warehouse", b =>
@@ -455,86 +666,147 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("BranchId")
+                    b.Property<long>("AdressId")
                         .HasColumnType("BIGINT");
+
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("VARCHAR(60)")
+                        .HasColumnName("Name");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BranchId")
+                    b.HasIndex("AdressId")
                         .IsUnique();
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Warehouses", (string)null);
                 });
 
-            modelBuilder.Entity("Dispo.Domain.Entities.Branch", b =>
+            modelBuilder.Entity("Dispo.Domain.Entities.Account", b =>
                 {
-                    b.HasOne("Dispo.Domain.Entities.Location", "Location")
-                        .WithOne("Branch")
-                        .HasForeignKey("Dispo.Domain.Entities.Branch", "LocationId")
+                    b.HasOne("Dispo.Domain.Entities.Role", "Role")
+                        .WithMany("Accounts")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Location");
+                    b.HasOne("Dispo.Domain.Entities.User", "User")
+                        .WithOne("Account")
+                        .HasForeignKey("Dispo.Domain.Entities.Account", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Dispo.Domain.Entities.BusinessBilling", b =>
+            modelBuilder.Entity("Dispo.Domain.Entities.Company", b =>
                 {
-                    b.HasOne("Dispo.Domain.Entities.Business", "Business")
-                        .WithMany()
-                        .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("Dispo.Domain.Entities.Adress", "Adress")
+                        .WithOne("Company")
+                        .HasForeignKey("Dispo.Domain.Entities.Company", "AdressId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Business");
+                    b.Navigation("Adress");
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Movement", b =>
                 {
-                    b.HasOne("Dispo.Domain.Entities.Product", "Product")
+                    b.HasOne("Dispo.Domain.Entities.Account", "Account")
                         .WithMany("Movements")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Dispo.Domain.Entities.Product", b =>
-                {
-                    b.HasOne("Dispo.Domain.Entities.Brand", "Brand")
-                        .WithMany("Products")
-                        .HasForeignKey("BrandId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Dispo.Domain.Entities.Warehouse", "Warehouse")
-                        .WithMany("Products")
+                        .WithMany("Movements")
                         .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Brand");
+                    b.HasOne("Dispo.Domain.Entities.Warehouse", null)
+                        .WithOne("Movement")
+                        .HasForeignKey("Dispo.Domain.Entities.Movement", "WarehouseId1");
+
+                    b.Navigation("Account");
 
                     b.Navigation("Warehouse");
                 });
 
-            modelBuilder.Entity("Dispo.Domain.Entities.ProductProvider", b =>
+            modelBuilder.Entity("Dispo.Domain.Entities.Order", b =>
                 {
                     b.HasOne("Dispo.Domain.Entities.Product", "Product")
-                        .WithMany("ProductProviders")
+                        .WithMany("Orders")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dispo.Domain.Entities.Provider", "Provider")
-                        .WithMany("ProductProviders")
-                        .HasForeignKey("ProviderId")
+                    b.HasOne("Dispo.Domain.Entities.PurchaseOrder", "PurchaseOrder")
+                        .WithMany("Orders")
+                        .HasForeignKey("PurchaseOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
 
-                    b.Navigation("Provider");
+                    b.Navigation("PurchaseOrder");
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.Product", b =>
+                {
+                    b.HasOne("Dispo.Domain.Entities.ProductDimension", "ProductDimension")
+                        .WithOne("Product")
+                        .HasForeignKey("Dispo.Domain.Entities.Product", "ProductDimensionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ProductDimension");
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.ProductManufacturer", b =>
+                {
+                    b.HasOne("Dispo.Domain.Entities.Manufacturer", "Manufacturer")
+                        .WithMany("ProductManufacturers")
+                        .HasForeignKey("ManufacturerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dispo.Domain.Entities.Product", "Product")
+                        .WithMany("ProductManufacturers")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Manufacturer");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.ProductMovement", b =>
+                {
+                    b.HasOne("Dispo.Domain.Entities.Movement", "Movement")
+                        .WithMany("ProductMoviments")
+                        .HasForeignKey("MovimentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dispo.Domain.Entities.Product", "Product")
+                        .WithMany("ProductMoviments")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movement");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.ProductWarehouseQuantity", b =>
@@ -556,134 +828,188 @@ namespace Dispo.Infrastructure.Migrations
                     b.Navigation("Warehouse");
                 });
 
+            modelBuilder.Entity("Dispo.Domain.Entities.PurchaseOrder", b =>
+                {
+                    b.HasOne("Dispo.Domain.Entities.Supplier", "Supplier")
+                        .WithMany("PurchaseOrders")
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dispo.Domain.Entities.Warehouse", "Warehouse")
+                        .WithMany("PurchaseOrders")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Supplier");
+
+                    b.Navigation("Warehouse");
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.PurchaseOrderAttachment", b =>
+                {
+                    b.HasOne("Dispo.Domain.Entities.PurchaseOrder", "PurchaseOrder")
+                        .WithMany("PurchaseOrderAttachments")
+                        .HasForeignKey("PurchaseOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PurchaseOrder");
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.Shipping", b =>
+                {
+                    b.HasOne("Dispo.Domain.Entities.PurchaseOrder", "PurchaseOrder")
+                        .WithOne("Shipping")
+                        .HasForeignKey("Dispo.Domain.Entities.Shipping", "PurchaseOrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("PurchaseOrder");
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.Supplier", b =>
+                {
+                    b.HasOne("Dispo.Domain.Entities.Adress", "Adress")
+                        .WithOne("Supplier")
+                        .HasForeignKey("Dispo.Domain.Entities.Supplier", "AdressId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Adress");
+                });
+
             modelBuilder.Entity("Dispo.Domain.Entities.User", b =>
                 {
-                    b.HasOne("Dispo.Domain.Entities.Account", "Account")
+                    b.HasOne("Dispo.Domain.Entities.Adress", "Adress")
                         .WithOne("User")
-                        .HasForeignKey("Dispo.Domain.Entities.User", "AccountId")
+                        .HasForeignKey("Dispo.Domain.Entities.User", "AdressId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Dispo.Domain.Entities.Company", "Company")
+                        .WithMany("Users")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dispo.Domain.Entities.Branch", "Branch")
-                        .WithMany("Employees")
-                        .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Adress");
 
-                    b.Navigation("Account");
-
-                    b.Navigation("Branch");
-                });
-
-            modelBuilder.Entity("Dispo.Domain.Entities.UserBusiness", b =>
-                {
-                    b.HasOne("Dispo.Domain.Entities.Business", "Business")
-                        .WithMany("PersonBusinesses")
-                        .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Dispo.Domain.Entities.User", "Person")
-                        .WithMany("UserBusinesses")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Business");
-
-                    b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("Dispo.Domain.Entities.UserMovement", b =>
-                {
-                    b.HasOne("Dispo.Domain.Entities.Movement", "Movement")
-                        .WithMany("UserMovements")
-                        .HasForeignKey("MovementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Dispo.Domain.Entities.User", "User")
-                        .WithMany("UserMovements")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Movement");
-
-                    b.Navigation("User");
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Warehouse", b =>
                 {
-                    b.HasOne("Dispo.Domain.Entities.Branch", "Branch")
+                    b.HasOne("Dispo.Domain.Entities.Adress", "Adress")
                         .WithOne("Warehouse")
-                        .HasForeignKey("Dispo.Domain.Entities.Warehouse", "BranchId")
+                        .HasForeignKey("Dispo.Domain.Entities.Warehouse", "AdressId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Dispo.Domain.Entities.Company", "Company")
+                        .WithMany("Warehouses")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Branch");
+                    b.Navigation("Adress");
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Account", b =>
                 {
-                    b.Navigation("User")
-                        .IsRequired();
+                    b.Navigation("Movements");
                 });
 
-            modelBuilder.Entity("Dispo.Domain.Entities.Branch", b =>
+            modelBuilder.Entity("Dispo.Domain.Entities.Adress", b =>
                 {
-                    b.Navigation("Employees");
+                    b.Navigation("Company")
+                        .IsRequired();
+
+                    b.Navigation("Supplier")
+                        .IsRequired();
+
+                    b.Navigation("User")
+                        .IsRequired();
 
                     b.Navigation("Warehouse")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dispo.Domain.Entities.Brand", b =>
+            modelBuilder.Entity("Dispo.Domain.Entities.Company", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("Users");
+
+                    b.Navigation("Warehouses");
                 });
 
-            modelBuilder.Entity("Dispo.Domain.Entities.Business", b =>
+            modelBuilder.Entity("Dispo.Domain.Entities.Manufacturer", b =>
                 {
-                    b.Navigation("PersonBusinesses");
-                });
-
-            modelBuilder.Entity("Dispo.Domain.Entities.Location", b =>
-                {
-                    b.Navigation("Branch");
+                    b.Navigation("ProductManufacturers");
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Movement", b =>
                 {
-                    b.Navigation("UserMovements");
+                    b.Navigation("ProductMoviments");
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Product", b =>
                 {
-                    b.Navigation("Movements");
+                    b.Navigation("Orders");
 
-                    b.Navigation("ProductProviders");
+                    b.Navigation("ProductManufacturers");
+
+                    b.Navigation("ProductMoviments");
 
                     b.Navigation("ProductWarehouseQuantity")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dispo.Domain.Entities.Provider", b =>
+            modelBuilder.Entity("Dispo.Domain.Entities.ProductDimension", b =>
                 {
-                    b.Navigation("ProductProviders");
+                    b.Navigation("Product")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.PurchaseOrder", b =>
+                {
+                    b.Navigation("Orders");
+
+                    b.Navigation("PurchaseOrderAttachments");
+
+                    b.Navigation("Shipping")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.Role", b =>
+                {
+                    b.Navigation("Accounts");
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.Supplier", b =>
+                {
+                    b.Navigation("PurchaseOrders");
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.User", b =>
                 {
-                    b.Navigation("UserBusinesses");
-
-                    b.Navigation("UserMovements");
+                    b.Navigation("Account")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Warehouse", b =>
                 {
+                    b.Navigation("Movement")
+                        .IsRequired();
+
+                    b.Navigation("Movements");
+
                     b.Navigation("ProductWarehouseQuantity")
                         .IsRequired();
 
-                    b.Navigation("Products");
+                    b.Navigation("PurchaseOrders");
                 });
 #pragma warning restore 612, 618
         }

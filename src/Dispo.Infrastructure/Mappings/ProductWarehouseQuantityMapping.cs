@@ -1,7 +1,6 @@
 ﻿using Dispo.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Reflection.Emit;
 
 namespace Dispo.Infrastructure.Mappings
 {
@@ -9,24 +8,27 @@ namespace Dispo.Infrastructure.Mappings
     {
         public void Configure(EntityTypeBuilder<ProductWarehouseQuantity> builder)
         {
-            builder.HasKey(pi => new { pi.ProductId, pi.WarehouseId });
+            builder.ToTable("ProductWarehouseQuantities");
+
+            builder.HasKey(a => new { a.ProductId, a.WarehouseId });
 
             builder.Property(x => x.Quantity)
-                .IsRequired()
-                .HasColumnName("Quantity")
-                .HasColumnType("DECIMAL(10, 2)");
+                   .IsRequired()
+                   .HasColumnName("Quantity")
+                   .HasColumnType("DECIMAL(10, 2)");
 
-            builder.HasOne(x => x.Product)
-                .WithOne(x => x.ProductWarehouseQuantity)
-                .HasForeignKey<ProductWarehouseQuantity>(pi => pi.ProductId)
-                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(a => a.Product)
+                   .WithOne(b => b.ProductWarehouseQuantity)
+                   .HasForeignKey<ProductWarehouseQuantity>(c => c.ProductId)
+                   .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(x => x.Warehouse)
-                .WithOne(x => x.ProductWarehouseQuantity)
-                .HasForeignKey<ProductWarehouseQuantity>(pi => pi.WarehouseId)
-                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(a => a.Warehouse)
+                   .WithOne(b => b.ProductWarehouseQuantity)
+                   .HasForeignKey<ProductWarehouseQuantity>(c => c.WarehouseId)
+                   .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasIndex(pi => new { pi.ProductId, pi.WarehouseId }).IsUnique();
+            builder.HasIndex(a => new { a.ProductId, a.WarehouseId })
+                   .IsUnique();
         }
     }
 }

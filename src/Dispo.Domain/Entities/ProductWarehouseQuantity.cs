@@ -24,7 +24,9 @@ namespace Dispo.Domain.Entities
         public long ProductId { get; set; }
         public long WarehouseId { get; set; }
         public double Quantity { get; set; }
-        public virtual Product Product { get; set; }
-        public virtual Warehouse Warehouse { get; set; }
+
+
+        public Product Product { get; set; }
+        public Warehouse Warehouse { get; set; }
     }
 }

@@ -13,36 +13,45 @@ namespace Dispo.Infrastructure.Context
         public DispoContext()
         { }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Brand> Brands { get; set; }
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<Branch> Branches { get; set; }
-        public DbSet<Location> Locations { get; set; }
+        public DbSet<Adress> Adresses { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<Movement> Movements { get; set; }
-        public DbSet<Business> Businesses { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<ProductDimension> ProductDimensions { get; set; }
+        public DbSet<ProductManufacturer> ProductManufacturers { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Provider> Providers { get; set; }
-        public DbSet<BusinessBilling> BusinessBillings { get; set; }
-        public DbSet<UserBusiness> UserBusinesses { get; set; }
-        public DbSet<ProductProvider> ProductProviders { get; set; }
-        public DbSet<UserMovement> UserMovements { get; set; }
+        public DbSet<ProductMovement> ProductMovements { get; set; }
         public DbSet<ProductWarehouseQuantity> ProductWarehouseQuantities { get; set; }
+        public DbSet<PurchaseOrderAttachment> PurchaseOrderAttachments { get; set; }
+        public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Shipping> Shippings { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserMapping());
             modelBuilder.ApplyConfiguration(new AccountMapping());
-            modelBuilder.ApplyConfiguration(new ProductMapping());
-            modelBuilder.ApplyConfiguration(new BusinessMapping());
-            modelBuilder.ApplyConfiguration(new LocationMapping());
-            modelBuilder.ApplyConfiguration(new BranchMapping());
+            modelBuilder.ApplyConfiguration(new AdressMapping());
+            modelBuilder.ApplyConfiguration(new CompanyMapping());
+            modelBuilder.ApplyConfiguration(new ManufacturerMapping());
             modelBuilder.ApplyConfiguration(new MovementMapping());
-            modelBuilder.ApplyConfiguration(new ProviderMapping());
-            modelBuilder.ApplyConfiguration(new UserMovementMapping());
-            modelBuilder.ApplyConfiguration(new ProductProviderMapping());
-            modelBuilder.ApplyConfiguration(new BrandMapping());
-            modelBuilder.ApplyConfiguration(new WarehouseMapping());
+            modelBuilder.ApplyConfiguration(new OrderMapping());
+            modelBuilder.ApplyConfiguration(new ProductDimensionMapping());
+            modelBuilder.ApplyConfiguration(new ProductManufacturerMapping());
+            modelBuilder.ApplyConfiguration(new ProductMapping());
+            modelBuilder.ApplyConfiguration(new ProductMovementMapping());
             modelBuilder.ApplyConfiguration(new ProductWarehouseQuantityMapping());
+            modelBuilder.ApplyConfiguration(new PurchaseOrderAttachmentMapping());
+            modelBuilder.ApplyConfiguration(new PurchaseOrderMapping());
+            modelBuilder.ApplyConfiguration(new RoleMapping());
+            modelBuilder.ApplyConfiguration(new ShippingMapping());
+            modelBuilder.ApplyConfiguration(new SupplierMapping());
+            modelBuilder.ApplyConfiguration(new UserMapping());
+            modelBuilder.ApplyConfiguration(new WarehouseMapping());
 
             base.OnModelCreating(modelBuilder);
         }

@@ -26,28 +26,20 @@ namespace Dispo.IoC
         private static void InjectRepositories(IServiceCollection serviceColletion)
         {
             serviceColletion.AddScoped<IAccountRepository, AccountRepository>();
-            serviceColletion.AddScoped<IBranchRepository, BranchRepository>();
-            serviceColletion.AddScoped<ILocationRepository, LocationRepository>();
             serviceColletion.AddScoped<IMovementRepository, MovementRepository>();
             serviceColletion.AddScoped<IProductRepository, ProductRepository>();
-            serviceColletion.AddScoped<IProviderRepository, ProviderRepository>();
             serviceColletion.AddScoped<IUserRepository, UserRepository>();
-            serviceColletion.AddScoped<IBrandRepository, BrandRepository>();
             serviceColletion.AddScoped<IProductWarehouseQuantityRepository, ProductWarehouseQuantityRepository>();
         }
 
         private static void InjectServices(IServiceCollection serviceColletion)
         {
             serviceColletion.AddScoped<IAccountService, AccountService>();
-            serviceColletion.AddScoped<IBranchService, BranchService>();
-            serviceColletion.AddScoped<ILocationService, LocationService>();
             serviceColletion.AddScoped<IMovementService, MovementService>();
             serviceColletion.AddScoped<IProductService, ProductService>();
-            serviceColletion.AddScoped<IProviderService, ProviderService>();
             serviceColletion.AddScoped<IUserService, UserService>();
             serviceColletion.AddScoped<IUserAccountService, UserAccountService>();
             serviceColletion.AddScoped<IPasswordRecoveryService, PasswordRecoveryService>();
-            serviceColletion.AddScoped<IBrandService, BrandService>();
             serviceColletion.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
             serviceColletion.AddScoped<IProductWarehouseQuantityService, ProductWarehouseQuantityService>();
         }

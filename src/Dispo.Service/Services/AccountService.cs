@@ -46,7 +46,7 @@ namespace Dispo.Service.Services
                 LastName = account.User.LastName,
                 BirthDate = account.User == null ? DateTime.MinValue : account.User.BirthDate,
                 Phone = account.User.Phone,
-                CpfCnpj = account.User.CpfCnpj,
+                CpfCnpj = account.User.Cpf,
                 Email = _rijndaelCryptography.Decrypt(account.Email),
             };
         }
@@ -65,7 +65,7 @@ namespace Dispo.Service.Services
                 var user = new User
                 {
                     BirthDate = signUpRequestDto.BirthDate,
-                    CpfCnpj = signUpRequestDto.CpfCnpj,
+                    Cpf = signUpRequestDto.CpfCnpj,
                     FirstName = signUpRequestDto.FirstName,
                     LastName = signUpRequestDto.LastName,
                     Phone = signUpRequestDto.Phone,
@@ -74,7 +74,6 @@ namespace Dispo.Service.Services
                         Email = _rijndaelCryptography.Encrypt(signUpRequestDto.Email),
                         Password = _hasher.Hash(signUpRequestDto.Password),
                     },
-                    BranchId = signUpRequestDto.BranchId,
                 };
 
                 var createdUser = _userRepository.Create(user);
@@ -111,7 +110,7 @@ namespace Dispo.Service.Services
                     throw new Exception("Informações não encontradas para esta conta!");
 
                 userUpdated.BirthDate = userAccountModel.BirthDate;
-                userUpdated.CpfCnpj = userAccountModel.CpfCnpj;
+                userUpdated.Cpf = userAccountModel.CpfCnpj;
                 userUpdated.FirstName = userAccountModel.FirstName;
                 userUpdated.LastName = userAccountModel.LastName;
                 userUpdated.Phone = userAccountModel.Phone;
@@ -128,7 +127,7 @@ namespace Dispo.Service.Services
                 LastName = userInfo.LastName,
                 BirthDate = userInfo.BirthDate,
                 Phone = userInfo.Phone,
-                CpfCnpj = userInfo.CpfCnpj,
+                CpfCnpj = userInfo.Cpf,
             };
         }
     }
