@@ -17,6 +17,8 @@ import SettingsCard from "../pages/settings/SettingsCard";
 import NotFound from "../pages/not-found/NotFound";
 import ProductMovimentation from "../pages/products/movimentation/ProductMovimentation";
 
+import PurchaseOrderFormCard from "../pages/purchase-order/registration/PurchaseOrderFormCard"
+
 function RouteController(props) {
   const [isSomeLogin, setIsSomeLogin] = useState(true);
 
@@ -110,6 +112,14 @@ function RoutesConfiguration() {
           element={
             <RouteController>
               <ProfileCard />
+            </RouteController>
+          }
+        />
+        <Route
+          path="/purchaseOrder/registration"
+          element={
+            <RouteController>
+              <PurchaseOrderFormCard></PurchaseOrderFormCard>
             </RouteController>
           }
         />
