@@ -10,12 +10,13 @@ import DashboardCard from "../pages/dashboard/DashboardCard";
 import ProfileCard from "../pages/profile/ProfileCard";
 import ProductCard from "../pages/products/ProductCard";
 import MovimentCard from "../pages/stock/moviments/MovimentCard";
-import SuplierCard from "../pages/supliers/SuplierCard";
+import SupplierCard from "../pages/supliers/SupplierCard";
 import BodyLayout from "../layouts/body/BodyLayout";
 import PrivateRoute from "./PrivateRoute";
 import SettingsCard from "../pages/settings/SettingsCard";
 import NotFound from "../pages/not-found/NotFound";
-import ProductMovimentation from "../pages/products/movimentation/ProductMovimentation";
+import ProductMovimentation from "../pages/stock/movimentation/ProductMovimentation";
+import ManufacturerCard from "../pages/manufacturers/ManufacturerCard";
 
 import PurchaseOrderFormCard from "../pages/purchase-order/registration/PurchaseOrderFormCard"
 
@@ -119,7 +120,7 @@ function RoutesConfiguration() {
           path="/purchaseOrder/registration"
           element={
             <RouteController>
-              <PurchaseOrderFormCard></PurchaseOrderFormCard>
+              <PurchaseOrderFormCard />
             </RouteController>
           }
         />
@@ -148,10 +149,18 @@ function RoutesConfiguration() {
           }
         />
         <Route
-          path="/providers/registration"
+          path="/manufacturers"
           element={
             <RouteController>
-              <SuplierCard />
+              <ManufacturerCard />
+            </RouteController>
+          }
+        />
+        <Route
+          path="/suppliers"
+          element={
+            <RouteController>
+              <SupplierCard />
             </RouteController>
           }
         />

@@ -2,15 +2,6 @@
   z-index: 1031;
 }
 
-.dasdasd {
-  background-color: #0E1217;
-  height: 60px;
-  position: fixed;
-  z-index: 999;
-  margin-top: -19px;
-  transition: width,left,right,300ms;
-}
-
 .sidebar-content::-webkit-scrollbar {
   width: 8px;
 }
