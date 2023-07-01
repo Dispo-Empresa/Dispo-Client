@@ -13,11 +13,11 @@ function StepTwo(props){
     const products = [
         { value: "Laranja", label: "Laranja"},
         { value: "Carne", label: "Carne"}   
-      ];
+    ];
 
     const supplier =[
-    {value: "Matheus LTDA", label: "Matheus LTDA"},
-    {value: "Teste MEI", label: "Teste MEI"}
+        {value: "Matheus LTDA", label: "Matheus LTDA"},
+        {value: "Teste MEI", label: "Teste MEI"}
     ]
       
     const handleNextStep = () => {

@@ -84,38 +84,34 @@ function QueryDataButton(props) {
 
 function EditButton(props) {
   return (
-    <div>
-      <Button
-        onClick={props.onClick}
-        className="form-button"
-        style={{
-          backgroundColor: "#02AEEC",
-          color: COLORS.DetailsColor,
-        }}
-      >
-        <EditIcon />
-      </Button>
-    </div>
+    <Button
+      onClick={props.onClick}
+      className="form-button"
+      style={{
+        backgroundColor: "#02AEEC",
+        color: COLORS.DetailsColor,
+      }}
+    >
+      <EditIcon />
+    </Button>
   );
 }
 
 function MoreButton(props) {
   return (
-    <div>
-      <Tooltip title="Mais opções">
-        <Button
-          disableElevation
-          onClick={props.onClick}
-          className="form-button"
-          style={{
-            backgroundColor: "#A8A8A8",
-            color: COLORS.DetailsColor,
-          }}
-        >
-          <MoreHorizIcon />
-        </Button>
-      </Tooltip>
-    </div>
+    <Tooltip title="Mais opções">
+      <Button
+        disableElevation
+        onClick={props.onClick}
+        className="form-button"
+        style={{
+          backgroundColor: "#A8A8A8",
+          color: COLORS.DetailsColor,
+        }}
+      >
+        <MoreHorizIcon />
+      </Button>
+    </Tooltip>
   );
 }
 

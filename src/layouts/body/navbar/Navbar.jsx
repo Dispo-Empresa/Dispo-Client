@@ -5,9 +5,13 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import { useState } from "react";
-import { MDBNavbar, MDBContainer, MDBNavbarBrand } from "mdb-react-ui-kit";
+import {
+  MDBNavbar,
+  MDBContainer,
+  MDBNavbarBrand,
+  MDBInputGroup,
+} from "mdb-react-ui-kit";
 import { IconButton, Menu, Avatar, MenuItem } from "@mui/material";
-import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
 import { removeToken } from "../../../services/api/authToken";
@@ -30,27 +34,23 @@ function Navbar() {
 
   return (
     <MDBNavbar className="container-navbar" fixed="top" bgColor="light">
-      <MDBContainer>
-        <MDBNavbarBrand />
-        <MDBNavbarBrand
-          style={{
-            marginTop: "-8px",
-          }}
-        >
+      <MDBContainer fluid>
+        <MDBNavbarBrand></MDBNavbarBrand>
+        <MDBInputGroup tag="form" className="d-flex w-auto mb-3 aateste">
           <IconButton component={Link} to="/configuracoes">
             <Avatar
               sx={{ width: 30, height: 30, backgroundColor: "transparent" }}
             >
               <SettingsIcon
-                sx={{ width: 32, height: 32, color: "#161C23" }}
+                sx={{ width: 28, height: 28, color: "#2C3745" }}
               ></SettingsIcon>
             </Avatar>
           </IconButton>
           <IconButton
             onClick={(e) => setProfileOptionsPosition(e.currentTarget)}
           >
-            <Avatar sx={{ width: 32, height: 32, bgcolor: "#161C23" }}>
-              M
+            <Avatar sx={{ width: 28, height: 28, bgcolor: "#2C3745" }}>
+              <label style={{ fontSize: "15px" }}>M</label>
             </Avatar>
           </IconButton>
           <Menu
@@ -68,7 +68,6 @@ function Navbar() {
               </ListItemIcon>
               <b>Matheus</b>
             </MenuItem>
-            <Divider component="li" />
             <MenuItem component="a" href="/login/signin" onClick={onLogout}>
               <ListItemIcon>
                 <LogoutIcon style={{ color: "#F63644" }} />
@@ -76,13 +75,19 @@ function Navbar() {
               Sair
             </MenuItem>
           </Menu>
-          <Button
-            style={{ fontSize: "13px", marginTop: "3px", color: "#161C23" }}
+          <button
+            type="button"
+            className="classic-button"
+            style={{
+              fontSize: "15px",
+              color: "#2C3745",
+              backgroundColor: "transparent",
+            }}
             onClick={(e) => setAnchor(e.currentTarget)}
           >
             Depósito 1
             <ArrowDropDownIcon />
-          </Button>
+          </button>
           <Menu
             disableScrollLock={true}
             anchorEl={anchorElTest}
@@ -106,7 +111,7 @@ function Navbar() {
               </MenuItem>
             ))}
           </Menu>
-        </MDBNavbarBrand>
+        </MDBInputGroup>
       </MDBContainer>
     </MDBNavbar>
   );

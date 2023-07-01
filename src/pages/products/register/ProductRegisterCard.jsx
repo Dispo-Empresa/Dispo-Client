@@ -5,41 +5,37 @@ import useAlertScheme from "../../../hooks/alert/useAlertScheme";
 import ContentPage from "../../../layouts/content/ContentPage";
 import ContentDivisor from "../../../components/structured/divisor/ContentDivisor";
 import useFields from "./useFields";
+import { ImageField } from "../../../components/ui/inputs/image/ImageField";
 import { TextField } from "../../../components/ui/inputs/textfield/TextField";
 import { CurrencyField } from "../../../components/ui/inputs/currency/CurrencyField";
 import { TextArea } from "../../../components/ui/inputs/textarea/TextArea";
 import { SelectWithFilter } from "../../../components/ui/inputs/select/SelectField";
 
-const cities = [
-  { id: 1, label: "New York" },
-  { id: 2, label: "Rome" },
-  { id: 3, label: "London" },
-];
-
 function ProductRegisterCard() {
   const [
     fields,
-    handleExistsRequiredFieldsNotAnswered,
-    handleExistsFieldsWithError,
+    errors,
+    handleValidateRequiredFields,
+    handleValidateErrorFields,
+    handleClearFields,
     handleFieldChange,
-    nameError,
-    colorError,
   ] = useFields();
 
   const [showAlert, openAlert] = useAlertScheme();
 
   const RegisterProduct = () => {
-    if (handleExistsRequiredFieldsNotAnswered()) {
+    if (handleValidateRequiredFields()) {
       openAlert("error", "Existem campos obrigatórios não respondidos");
       return;
     }
 
-    if (handleExistsFieldsWithError()) {
+    if (handleValidateErrorFields()) {
       openAlert("error", "Existem campos com erro, por favor verifique!");
       return;
     }
 
     openAlert("success", "Sucesso", "Produto registrado com sucesso!");
+    handleClearFields();
   };
 
   return (
@@ -53,70 +49,68 @@ function ProductRegisterCard() {
           <MDBCol>
             <TextField
               required
-              message="Dica do campo"
               label="Nome do produto"
               value={fields.name}
+              error={errors.name}
               onChange={(value) =>
                 handleFieldChange("name", value.target.value)
               }
-              error={nameError}
+            />
+          </MDBCol>
+          <MDBCol>
+            <TextField
+              disabled={true}
+              label="Código"
+              value={fields.code}
+              onChange={(value) =>
+                handleFieldChange("code", value.target.value)
+              }
             />
           </MDBCol>
           <MDBCol>
             <CurrencyField
               required
-              label="Preço unitário"
-              value={fields.unitPrice}
-              onChange={(value) => handleFieldChange("unitPrice", value)}
+              label="Preço de compra"
+              value={fields.purchasePrice}
+              onChange={(value) => handleFieldChange("purchasePrice", value)}
             />
           </MDBCol>
           <MDBCol>
-            <TextField
+            <CurrencyField
               required
-              label="Cor"
-              value={fields.color}
-              placeholder="Ex: #fff"
+              label="Preço de venda"
+              value={fields.salePrice}
+              error={errors.salePrice}
+              onChange={(value) => handleFieldChange("salePrice", value)}
+            />
+          </MDBCol>
+          <MDBCol>
+            <SelectWithFilter
+              required
+              label="Categoria"
+              options={fields.categoryTypes}
+              value={fields.category}
+              error={errors.category}
               onChange={(value) =>
-                handleFieldChange("color", value.target.value)
+                handleFieldChange("category", value.target.value)
               }
-              error={colorError}
             />
           </MDBCol>
           <MDBCol>
             <SelectWithFilter
               required
               label="Unidade de peso"
-              options={cities}
-              value={fields.unitOfMeansurement}
+              options={fields.unitOfMeasurementTypes}
+              value={fields.unitOfMeasurement}
+              error={errors.unitOfMeasurement}
               onChange={(value) =>
-                handleFieldChange("unitOfMeansurement", value.target.value)
-              }
-            />
-          </MDBCol>
-          <MDBCol>
-            <SelectWithFilter
-              required
-              label="Tipo"
-              options={cities}
-              value={fields.type}
-              onChange={(value) =>
-                handleFieldChange("type", value.target.value)
-              }
-            />
-          </MDBCol>
-          <MDBCol>
-            <SelectWithFilter
-              label="Marca"
-              options={cities}
-              value={fields.brandId}
-              onChange={(value) =>
-                handleFieldChange("brandId", value.target.value)
+                handleFieldChange("unitOfMeasurement", value.target.value)
               }
             />
           </MDBCol>
           <MDBCol>
             <TextArea
-              name="description"
+              required
               label="Descrição"
               value={fields.description}
               onChange={(value) =>
@@ -124,18 +118,49 @@ function ProductRegisterCard() {
               }
             />
           </MDBCol>
+          <MDBCol>
+            <ImageField label="Imagem" />
+          </MDBCol>
           <ContentDivisor title="Dimensões do produto" />
           <MDBCol>
-            <TextField label="Peso" />
+            <TextField
+              label="Peso"
+              type="number"
+              value={fields.weight}
+              onChange={(value) =>
+                handleFieldChange("weight", value.target.value)
+              }
+            />
           </MDBCol>
           <MDBCol>
-            <TextField label="Altura" />
+            <TextField
+              label="Altura"
+              type="number"
+              value={fields.height}
+              onChange={(value) =>
+                handleFieldChange("height", value.target.value)
+              }
+            />
           </MDBCol>
           <MDBCol>
-            <TextField label="Largura" />
+            <TextField
+              label="Largura"
+              type="number"
+              value={fields.width}
+              onChange={(value) =>
+                handleFieldChange("width", value.target.value)
+              }
+            />
           </MDBCol>
           <MDBCol>
-            <TextField label="Profundidade" />
+            <TextField
+              label="Profundidade"
+              type="number"
+              value={fields.depth}
+              onChange={(value) =>
+                handleFieldChange("depth", value.target.value)
+              }
+            />
           </MDBCol>
         </RegisterPanel>
       </ContentPage>
