@@ -4,25 +4,14 @@ import ContentPage from "../../../layouts/content/ContentPage";
 
 function ProductQueryCard() {
   const columns = [
+    { label: "Logo", field: "unitPrice", sort: false, width: 100 },
     { label: "Nome", field: "name", sort: false, width: 260 },
-    { label: "Preço unitário", field: "unitPrice", sort: false, width: 100 },
-    { label: "Cor", field: "color", sort: false, width: 100 },
-    { label: "Descrição", field: "description", sort: false, width: 400 },
-    {
-      label: "Unidade de peso",
-      field: "unitOfMeasurement",
-      sort: false,
-      width: 100,
-    },
-    { label: "Marca", field: "brandId", sort: false, width: 100 },
-    { label: "Tipo", field: "type", sort: false, width: 100 },
-    { label: "Actions", field: "actions", sort: false, width: 100 },
   ];
 
   //const { data } = useFetch("Products/getAllProducts");
 
   return (
-    <ContentPage title="Produtos">
+    <ContentPage title="Fabricantes">
       <Datatable
         //data={data}
         columns={columns}

@@ -5,7 +5,9 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
-import DraftsIcon from '@mui/icons-material/Drafts';
+import DraftsIcon from "@mui/icons-material/Drafts";
+import ShortcutIcon from "@mui/icons-material/Shortcut";
+import BusinessIcon from "@mui/icons-material/Business";
 import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 
@@ -46,11 +48,11 @@ function SidebarItens(props) {
           onClick={props.onToggleNav}
           style={{
             backgroundColor: "#0E1217",
-            height: "60px",
+            height: "55px",
             position: "fixed",
             zIndex: "999",
-            width: props.open ? "259px" : "79px",
-            marginTop: "-19px",
+            width: props.open ? "249px" : "79px",
+            marginTop: "-18px",
             transition: "width,left,right,300ms",
           }}
         />
@@ -62,14 +64,11 @@ function SidebarItens(props) {
           style={{ marginTop: "66px" }}
         />
 
-       <SubMenu 
-          label="Ordem de compra"
-          icon={<DraftsIcon />}
-          >
-          <MenuItem 
-            component={<Link to="/purchaseOrder/registration"/>}  
+        <SubMenu label="Ordem de compra" icon={<DraftsIcon />}>
+          <MenuItem
+            component={<Link to="/purchaseOrder/registration" />}
             active={isActivePage("/purchaseOrder/registration")}
-            prefix="Cadastrar"  
+            prefix="Cadastrar"
             icon={<AddIcon />}
           />
         </SubMenu>
@@ -89,16 +88,22 @@ function SidebarItens(props) {
           />
         </SubMenu>
 
-        <SubMenu label="Cadastros" icon={<AddIcon />}>
+        <SubMenu label="Atalhos" icon={<ShortcutIcon />}>
           <MenuItem
-            component={<Link to="/products/registration" />}
-            active={isActivePage("/products/registration")}
+            component={<Link to="/products" />}
+            active={isActivePage("/products")}
             prefix="Produtos"
             icon={<StorefrontIcon />}
           />
           <MenuItem
-            component={<Link to="/providers/registration" />}
-            active={isActivePage("/providers/registration")}
+            component={<Link to="/manufacturers" />}
+            active={isActivePage("/manufacturers")}
+            prefix="Fabricantes"
+            icon={<BusinessIcon />}
+          />
+          <MenuItem
+            component={<Link to="/suppliers" />}
+            active={isActivePage("/suppliers")}
             prefix="Fornecedores"
             icon={<LocalShippingIcon />}
           />

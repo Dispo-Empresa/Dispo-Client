@@ -10,7 +10,7 @@ function TextField(props) {
         <label className="label">{props.label}</label>
         <div className="container--indicators">
           {props.required && <RequiredIcon />}
-          {props.tipMessage && <TipIcon message={props.tipMessage} />}
+          {props.tip && <TipIcon message={props.tip} />}
         </div>
       </div>
       <input

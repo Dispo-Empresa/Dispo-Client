@@ -9,12 +9,12 @@ function SuplierQueryCard() {
     { label: "Actions", field: "actions", sort: false, width: 100 },
   ];
 
-  const { data } = useFetch("Providers/getAllProvidersInfo");
+  //const { data } = useFetch("Providers/getAllProvidersInfo");
 
   return (
     <ContentPage title="Fornecedores">
       <DataTable
-        data={data}
+        //data={data}
         columns={columns}
         rowsPerPageOptions={[10, 20, 30]}
         rowsPerPage={10}
