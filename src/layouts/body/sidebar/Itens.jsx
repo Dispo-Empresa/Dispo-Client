@@ -8,6 +8,8 @@ import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import DraftsIcon from "@mui/icons-material/Drafts";
 import ShortcutIcon from "@mui/icons-material/Shortcut";
 import BusinessIcon from "@mui/icons-material/Business";
+import DraftsIcon from '@mui/icons-material/Drafts';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 
@@ -70,6 +72,12 @@ function SidebarItens(props) {
             active={isActivePage("/purchaseOrder/registration")}
             prefix="Cadastrar"
             icon={<AddIcon />}
+          />
+          <MenuItem 
+            component={<Link to="/purchaseOrder/attachment"/>}  
+            active={isActivePage("/purchaseOrder/attachment")}
+            prefix="Anexos"  
+            icon={<AttachFileIcon />}
           />
         </SubMenu>
 
