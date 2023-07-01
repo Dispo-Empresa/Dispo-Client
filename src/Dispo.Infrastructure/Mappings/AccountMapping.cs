@@ -13,25 +13,31 @@ namespace Dispo.Infrastructure.Mappings
             builder.HasKey("Id");
 
             builder.Property(x => x.Id)
-                .UseIdentityColumn()
-                .HasColumnType("BIGINT")
-                .ValueGeneratedOnAdd();
+                   .UseIdentityColumn()
+                   .HasColumnType("BIGINT")
+                   .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Email)
-                .IsRequired()
-                .HasColumnName("Email")
-                .HasColumnType("VARCHAR(220)")
-                .HasMaxLength(220);
+                   .IsRequired()
+                   .HasColumnName("Email")
+                   .HasColumnType("VARCHAR(220)")
+                   .HasMaxLength(220);
 
             builder.Property(x => x.Password)
-                .IsRequired()
-                .HasColumnName("Password")
-                .HasColumnType("VARCHAR(255)")
-                .HasMaxLength(255);
+                   .IsRequired()
+                   .HasColumnName("Password")
+                   .HasColumnType("VARCHAR(255)")
+                   .HasMaxLength(255);
+
+            builder.HasOne(a => a.Role)
+                   .WithMany(b => b.Accounts)
+                   .HasForeignKey(c => c.RoleId)
+                   .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(a => a.User)
-                .WithOne(b => b.Account)
-                .HasForeignKey<User>(b => b.AccountId);
+                   .WithOne(b => b.Account)
+                   .HasForeignKey<User>(b => b.AccountId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

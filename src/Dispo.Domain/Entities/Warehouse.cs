@@ -1,16 +1,17 @@
-﻿namespace Dispo.Domain.Entities
+﻿    namespace Dispo.Domain.Entities
 {
     public class Warehouse : Base
     {
-        public long BranchId { get; set; }
-        public virtual Branch Branch { get; set; }
-        public virtual ProductWarehouseQuantity ProductWarehouseQuantity { get; set; }
+        public string Name { get; set; }
+        public long CompanyId { get; set; }
+        public long AdressId { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
 
-        public override void Validate()
-        {
-            throw new NotImplementedException();
-        }
+        public Company Company { get; set; }
+        public Adress Adress { get; set; }
+        public ProductWarehouseQuantity ProductWarehouseQuantity { get; set; }
+        public Movement Movement { get; set; }
+        public IList<Movement> Movements { get; set; }
+        public IList<PurchaseOrder> PurchaseOrders { get; set; }
     }
 }

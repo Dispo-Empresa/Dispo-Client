@@ -28,7 +28,7 @@ namespace Dispo.Service.Services
                     throw new Exception("Informações não encontradas para esta conta!");
 
                 userUpdated.BirthDate = userAccountModel.BirthDate;
-                userUpdated.CpfCnpj = userAccountModel.CpfCnpj;
+                userUpdated.Cpf = userAccountModel.CpfCnpj;
                 userUpdated.FirstName = userAccountModel.FirstName;
                 userUpdated.LastName = userAccountModel.LastName;
                 userUpdated.Phone = userAccountModel.Phone;
@@ -45,7 +45,7 @@ namespace Dispo.Service.Services
                 LastName = userInfo.LastName,
                 BirthDate = userInfo.BirthDate,
                 Phone = userInfo.Phone,
-                CpfCnpj = userInfo.CpfCnpj,
+                CpfCnpj = userInfo.Cpf,
             };
         }
     }

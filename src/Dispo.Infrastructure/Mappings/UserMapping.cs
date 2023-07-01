@@ -13,42 +13,52 @@ namespace Dispo.Infrastructure.Mappings
             builder.HasKey("Id");
 
             builder.Property(x => x.Id)
-                .UseIdentityColumn()
-                .HasColumnType("BIGINT")
-                .ValueGeneratedOnAdd();
+                   .UseIdentityColumn()
+                   .HasColumnType("BIGINT")
+                   .ValueGeneratedOnAdd();
 
             builder.Property(x => x.FirstName)
-                .IsRequired()
-                .HasColumnName("FirstName")
-                .HasColumnType("VARCHAR(60)")
-                .HasMaxLength(60);
+                   .IsRequired()
+                   .HasColumnName("FirstName")
+                   .HasColumnType("VARCHAR(60)")
+                   .HasMaxLength(60);
 
             builder.Property(x => x.LastName)
-                .IsRequired()
-                .HasColumnName("LastName")
-                .HasColumnType("VARCHAR(60)")
-                .HasMaxLength(60);
+                   .IsRequired()
+                   .HasColumnName("LastName")
+                   .HasColumnType("VARCHAR(60)")
+                   .HasMaxLength(60);
 
-            builder.Property(x => x.CpfCnpj)
-                .IsRequired()
-                .HasColumnName("CpfCnpj")
-                .HasColumnType("VARCHAR(18)")
-                .HasMaxLength(18);
+            builder.Property(x => x.Cpf)
+                   .IsRequired()
+                   .HasColumnName("Cpf")
+                   .HasColumnType("VARCHAR(18)")
+                   .HasMaxLength(18);
 
             builder.Property(x => x.Phone)
-                .IsRequired()
-                .HasColumnName("Phone")
-                .HasColumnType("VARCHAR(16)")
-                .HasMaxLength(16);
+                   .IsRequired()
+                   .HasColumnName("Phone")
+                   .HasColumnType("VARCHAR(16)")
+                   .HasMaxLength(16);
 
             builder.Property(x => x.BirthDate)
-                .IsRequired()
-                .HasColumnName("BirthDate")
-                .HasColumnType("datetime2");
+                   .HasColumnName("BirthDate")
+                   .HasColumnType("datetime2");
 
-            builder.HasOne(a => a.Branch)
-                   .WithMany(b => b.Employees)
-                   .IsRequired();
+            builder.HasOne(a => a.Account)
+                   .WithOne(b => b.User)
+                   .HasForeignKey<Account>(c => c.UserId)
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(a => a.Company)
+                   .WithMany(b => b.Users)
+                   .HasForeignKey(c => c.CompanyId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(a => a.Adress)
+                   .WithOne(b => b.User)
+                   .HasForeignKey<User>(c => c.AdressId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

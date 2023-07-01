@@ -12,7 +12,7 @@ namespace Dispo.Domain.Entities
         public long Id { get; set; }
         public IReadOnlyCollection<string> Errors => _errors;
 
-        public abstract void Validate();
+        //public abstract void Validate();
 
         public void AddErrors(IEnumerable<ValidationFailure> errors)
         {

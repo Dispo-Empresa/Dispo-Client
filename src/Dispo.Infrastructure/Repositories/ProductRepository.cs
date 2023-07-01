@@ -20,6 +20,7 @@ namespace Dispo.Infrastructure.Repositories
             => _dispoContext.Products
                             .Select(s => new ProductNameWithCode
                             {
+                                Id = s.Id,
                                 Name = s.Name,
                                 Code = s.Code
                             })

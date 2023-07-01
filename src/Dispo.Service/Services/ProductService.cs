@@ -17,14 +17,12 @@ namespace Dispo.Service.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
-        private readonly IBrandRepository _brandRepository;
         private readonly IMapper _mapper;
 
-        public ProductService(IProductRepository productRepository, IMapper mapper, IBrandRepository brandRepository)
+        public ProductService(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
             _mapper = mapper;
-            _brandRepository = brandRepository;
         }
 
         #region Public Methods
@@ -40,12 +38,9 @@ namespace Dispo.Service.Services
                 {
                     Name = productModel.Name,
                     Code = BuildProductSKUCode(productModel.Name, productModel.Type),
-                    BrandId = productModel.BrandId,
                     UnitOfMeasurement = EnumHelper.ConvertToEnum(productModel.UnitOfMeasurement, eUnitOfMeasurement.Others),
-                    UnitPrice = 0,//productModel.UnitPrice,
-                    Color = EnumHelper.ConvertToEnum(productModel.Color, eColor.Other),
-                    WarehouseId = productModel.WarehouseId,
-                    Type = EnumHelper.ConvertToEnum(productModel.Type, eProductType.Others),
+                    SalePrice = 0,
+                    Category = EnumHelper.ConvertToEnum(productModel.Type, eProductCategory.Others),
                     Description = productModel.Description
                 };
 

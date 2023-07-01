@@ -12,9 +12,21 @@ namespace Dispo.Infrastructure.Mappings
 
             builder.HasKey("Id");
 
-            builder.HasOne(a => a.Branch)
+            builder.Property(x => x.Name)
+                   .IsRequired()
+                   .HasColumnName("Name")
+                   .HasColumnType("VARCHAR(60)")
+                   .HasMaxLength(60);
+
+            builder.HasOne(a => a.Company)
+                   .WithMany(b => b.Warehouses)
+                   .HasForeignKey(c => c.CompanyId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(a => a.Adress)
                    .WithOne(b => b.Warehouse)
-                   .HasForeignKey<Warehouse>(b => b.BranchId);
+                   .HasForeignKey<Warehouse>(c => c.AdressId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
