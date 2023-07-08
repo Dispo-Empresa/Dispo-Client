@@ -14,7 +14,9 @@ namespace Dispo.Infrastructure.Context
         { }
 
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<Adress> Adresses { get; set; }
+        public DbSet<Address> Adresses { get; set; }
+        public DbSet<Batch> Batches { get; set; }
+        public DbSet<BatchMovement> BatchMovements { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<Movement> Movements { get; set; }
@@ -22,8 +24,6 @@ namespace Dispo.Infrastructure.Context
         public DbSet<ProductDimension> ProductDimensions { get; set; }
         public DbSet<ProductManufacturer> ProductManufacturers { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductMovement> ProductMovements { get; set; }
-        public DbSet<ProductWarehouseQuantity> ProductWarehouseQuantities { get; set; }
         public DbSet<PurchaseOrderAttachment> PurchaseOrderAttachments { get; set; }
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -36,6 +36,8 @@ namespace Dispo.Infrastructure.Context
         {
             modelBuilder.ApplyConfiguration(new AccountMapping());
             modelBuilder.ApplyConfiguration(new AdressMapping());
+            modelBuilder.ApplyConfiguration(new BatchMapping());
+            modelBuilder.ApplyConfiguration(new BatchMovementMapping());
             modelBuilder.ApplyConfiguration(new CompanyMapping());
             modelBuilder.ApplyConfiguration(new ManufacturerMapping());
             modelBuilder.ApplyConfiguration(new MovementMapping());
@@ -43,8 +45,6 @@ namespace Dispo.Infrastructure.Context
             modelBuilder.ApplyConfiguration(new ProductDimensionMapping());
             modelBuilder.ApplyConfiguration(new ProductManufacturerMapping());
             modelBuilder.ApplyConfiguration(new ProductMapping());
-            modelBuilder.ApplyConfiguration(new ProductMovementMapping());
-            modelBuilder.ApplyConfiguration(new ProductWarehouseQuantityMapping());
             modelBuilder.ApplyConfiguration(new PurchaseOrderAttachmentMapping());
             modelBuilder.ApplyConfiguration(new PurchaseOrderMapping());
             modelBuilder.ApplyConfiguration(new RoleMapping());

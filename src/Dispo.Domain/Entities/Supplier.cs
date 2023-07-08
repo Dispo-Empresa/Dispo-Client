@@ -2,6 +2,7 @@
 {
     public class Supplier : Base
     {
+        public bool Ativo { get; set; }
         public string Name { get; set; }
         public string ContactName { get; set; }
         public string ContactTitle { get; set; }
@@ -11,7 +12,7 @@
         public long AdressId { get; set; }
 
 
-        public Adress Adress { get; set; }
+        public Address Adress { get; set; }
         public IList<PurchaseOrder> PurchaseOrders { get; set; }
     }
 }

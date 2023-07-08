@@ -10,10 +10,12 @@ namespace Dispo.Service.Services
     public class UserAccountService : IUserAccountService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public UserAccountService(IUserRepository userRepository)
+        public UserAccountService(IUserRepository userRepository, IAccountRepository accountRepository)
         {
             _userRepository = userRepository;
+            _accountRepository = accountRepository;
         }
 
         public UserAccountResponseDto UpdateUserAccountInfo(UserAccountResponseDto userAccountModel)
@@ -22,7 +24,7 @@ namespace Dispo.Service.Services
 
             using (var tc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var userUpdated = _userRepository.GetUserByAccountId(userAccountModel.Id);
+                var userUpdated = new User(); //_accountRepository. _userRepository.GetUserByAccountId(userAccountModel.Id);
 
                 if (userUpdated == null)
                     throw new Exception("Informações não encontradas para esta conta!");

@@ -4,6 +4,7 @@ namespace Dispo.Domain.Entities
 {
     public class Product : Base
     {
+        public bool Ativo { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public byte[] Image { get; set; }
@@ -12,15 +13,12 @@ namespace Dispo.Domain.Entities
         public decimal SalePrice { get; set; }
         public eProductCategory Category { get; set; }
         public eUnitOfMeasurement UnitOfMeasurement { get; set; }
-        public DateTime ManufacturingDate { get; set; }
-        public DateTime ExpirationDate { get; set; }
         public long ProductDimensionId { get; set; }
 
 
         public ProductDimension ProductDimension { get; set; }
-        public ProductWarehouseQuantity ProductWarehouseQuantity { get; set; }
+        public Batch Batch { get; set; }
         public IList<ProductManufacturer> ProductManufacturers { get; set; }
-        public IList<ProductMovement> ProductMoviments { get; set; }
         public IList<Order> Orders { get; set; }
     }
 }

@@ -10,12 +10,22 @@ namespace Dispo.Infrastructure.Mappings
         {
             builder.ToTable("Manufacturers");
 
-            builder.HasKey("Id");
+            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
                    .UseIdentityColumn()
                    .HasColumnType("BIGINT")
                    .ValueGeneratedOnAdd();
+
+            builder.Property(x => x.Id)
+                   .UseIdentityColumn()
+                   .HasColumnType("BIGINT")
+                   .ValueGeneratedOnAdd();
+
+            builder.Property(x => x.Ativo)
+                   .IsRequired()
+                   .HasColumnName("Ativo")
+                   .HasDefaultValue(true);
 
             builder.Property(x => x.Name)
                    .IsRequired()

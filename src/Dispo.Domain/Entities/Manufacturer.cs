@@ -2,6 +2,7 @@
 {
     public class Manufacturer : Base
     {
+        public bool Ativo { get; set; }
         public string Name { get; set; }
         public byte[] Logo { get; set; }
 

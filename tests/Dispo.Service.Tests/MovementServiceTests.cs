@@ -15,7 +15,6 @@ namespace Dispo.Service.Tests
         private MovementService _sut;
         private Mock<IMovementRepository> _movementRepositoryMock;
         private Mock<IProductService> _productServiceMock;
-        private Mock<IProductWarehouseQuantityService> _productWarehouseQuantityServiceMock;
         private Mock<ILogger<MovementService>> _loggerMock;
 
         [SetUp]
@@ -23,10 +22,9 @@ namespace Dispo.Service.Tests
         {
             _movementRepositoryMock = new Mock<IMovementRepository>();
             _productServiceMock = new Mock<IProductService>();
-            _productWarehouseQuantityServiceMock = new Mock<IProductWarehouseQuantityService>();
             _loggerMock = new Mock<ILogger<MovementService>>();
 
-            _sut = new MovementService(_movementRepositoryMock.Object, _productServiceMock.Object, _productWarehouseQuantityServiceMock.Object, _loggerMock.Object);
+            _sut = new MovementService(_movementRepositoryMock.Object, _productServiceMock.Object, _loggerMock.Object);
         }
 
         [Test]
@@ -41,14 +39,13 @@ namespace Dispo.Service.Tests
             _movementRepositoryMock.Setup(s => s.CreateAsync(It.IsAny<Movement>()))
                 .ReturnsAsync(true);
 
-            _productWarehouseQuantityServiceMock.Setup(s => s.UpdateProductWarehouseQuantityAsync(It.IsAny<ProductMovimentationDto>()))
-                .ReturnsAsync(true);
+            //_productWarehouseQuantityServiceMock.Setup(s => s.UpdateProductWarehouseQuantityAsync(It.IsAny<ProductMovimentationDto>())).ReturnsAsync(true);
 
             // Act
             await _sut.MoveProductAsync(productMovimentationDto);
 
             // Assert
-            _productWarehouseQuantityServiceMock.Verify(v => v.UpdateProductWarehouseQuantityAsync(productMovimentationDto), Times.Once);
+            //_productWarehouseQuantityServiceMock.Verify(v => v.UpdateProductWarehouseQuantityAsync(productMovimentationDto), Times.Once);
         }
 
         [Test]
@@ -65,7 +62,7 @@ namespace Dispo.Service.Tests
 
             // Assert
             Assert.That(result.Message, Is.EqualTo(string.Format("Produto com o Id {0} não foi encontrado.", productMovimentationDto.ProductId)));
-            _productWarehouseQuantityServiceMock.Verify(v => v.UpdateProductWarehouseQuantityAsync(productMovimentationDto), Times.Never);
+            //_productWarehouseQuantityServiceMock.Verify(v => v.UpdateProductWarehouseQuantityAsync(productMovimentationDto), Times.Never);
         }
 
         [Test]
@@ -85,7 +82,7 @@ namespace Dispo.Service.Tests
 
             // Assert
             Assert.That(result.Message, Is.EqualTo("Movimentação não pode ser criada."));
-            _productWarehouseQuantityServiceMock.Verify(v => v.UpdateProductWarehouseQuantityAsync(productMovimentationDto), Times.Never);
+            //_productWarehouseQuantityServiceMock.Verify(v => v.UpdateProductWarehouseQuantityAsync(productMovimentationDto), Times.Never);
         }
 
         [Test]
@@ -100,15 +97,14 @@ namespace Dispo.Service.Tests
             _movementRepositoryMock.Setup(s => s.CreateAsync(It.IsAny<Movement>()))
                 .ReturnsAsync(true);
 
-            _productWarehouseQuantityServiceMock.Setup(s => s.UpdateProductWarehouseQuantityAsync(It.IsAny<ProductMovimentationDto>()))
-                .ReturnsAsync(false);
+            //_productWarehouseQuantityServiceMock.Setup(s => s.UpdateProductWarehouseQuantityAsync(It.IsAny<ProductMovimentationDto>())).ReturnsAsync(false);
 
             // Act
             var result = Assert.ThrowsAsync<UnhandledException>(async () => await _sut.MoveProductAsync(productMovimentationDto));
 
             // Assert
             Assert.That(result.Message, Is.EqualTo("Quantidade não pode ser atualizada."));
-            _productWarehouseQuantityServiceMock.Verify(v => v.UpdateProductWarehouseQuantityAsync(productMovimentationDto), Times.Once);
+            //_productWarehouseQuantityServiceMock.Verify(v => v.UpdateProductWarehouseQuantityAsync(productMovimentationDto), Times.Once);
         }
     }
 }

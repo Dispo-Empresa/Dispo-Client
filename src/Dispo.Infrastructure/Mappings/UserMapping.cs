@@ -10,7 +10,17 @@ namespace Dispo.Infrastructure.Mappings
         {
             builder.ToTable("Users");
 
-            builder.HasKey("Id");
+            builder.HasKey(x => x.Id);
+
+            builder.Property(x => x.Id)
+                   .UseIdentityColumn()
+                   .HasColumnType("BIGINT")
+                   .ValueGeneratedOnAdd();
+
+            builder.Property(x => x.Ativo)
+                   .IsRequired()
+                   .HasColumnName("Ativo")
+                   .HasDefaultValue(true);
 
             builder.Property(x => x.Id)
                    .UseIdentityColumn()
@@ -44,11 +54,6 @@ namespace Dispo.Infrastructure.Mappings
             builder.Property(x => x.BirthDate)
                    .HasColumnName("BirthDate")
                    .HasColumnType("datetime2");
-
-            builder.HasOne(a => a.Account)
-                   .WithOne(b => b.User)
-                   .HasForeignKey<Account>(c => c.UserId)
-                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(a => a.Company)
                    .WithMany(b => b.Users)

@@ -30,6 +30,12 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<bool>("Ativo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnName("Ativo");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(220)
@@ -58,7 +64,7 @@ namespace Dispo.Infrastructure.Migrations
                     b.ToTable("Accounts", (string)null);
                 });
 
-            modelBuilder.Entity("Dispo.Domain.Entities.Adress", b =>
+            modelBuilder.Entity("Dispo.Domain.Entities.Address", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -101,19 +107,96 @@ namespace Dispo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Adresses", (string)null);
+                    b.ToTable("Addresses", (string)null);
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.Batch", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIGINT");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ExpirationDate");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("VARCHAR(100)")
+                        .HasColumnName("Key");
+
+                    b.Property<DateTime>("ManufacturingDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ManufacturingDate");
+
+                    b.Property<long>("OrderId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<int>("ProductQuantity")
+                        .HasMaxLength(9999)
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("ProductQuantity");
+
+                    b.Property<int>("QuantityPerBatch")
+                        .HasMaxLength(9999)
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("QuantityPerBatch");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.ToTable("Batches", (string)null);
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.BatchMovement", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIGINT");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("BatchId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<long>("MovementId")
+                        .HasColumnType("BIGINT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BatchId");
+
+                    b.HasIndex("MovementId");
+
+                    b.ToTable("BatchMovements", (string)null);
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Company", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<long>("AdressId")
                         .HasColumnType("BIGINT");
+
+                    b.Property<bool>("Ativo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnName("Ativo");
 
                     b.Property<string>("Cnpj")
                         .IsRequired()
@@ -142,6 +225,12 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnType("BIGINT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("Ativo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnName("Ativo");
 
                     b.Property<byte[]>("Logo")
                         .HasColumnType("image")
@@ -184,10 +273,10 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnName("Type");
 
                     b.Property<long>("WarehouseId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     b.Property<long?>("WarehouseId1")
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     b.HasKey("Id");
 
@@ -206,7 +295,7 @@ namespace Dispo.Infrastructure.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
@@ -215,11 +304,11 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnType("VARCHAR(200)")
                         .HasColumnName("Description");
 
-                    b.Property<long>("ProductId")
+                    b.Property<long?>("ProductId")
                         .HasColumnType("BIGINT");
 
                     b.Property<long>("PurchaseOrderId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     b.Property<int>("Quantity")
                         .HasMaxLength(9999)
@@ -248,6 +337,12 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<bool>("Ativo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnName("Ativo");
+
                     b.Property<short>("Category")
                         .HasMaxLength(120)
                         .HasColumnType("SMALLINT")
@@ -265,17 +360,9 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnType("VARCHAR(220)")
                         .HasColumnName("Description");
 
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("ExpirationDate");
-
                     b.Property<byte[]>("Image")
                         .HasColumnType("image")
                         .HasColumnName("Image");
-
-                    b.Property<DateTime>("ManufacturingDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("ManufacturingDate");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -284,7 +371,7 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnName("Name");
 
                     b.Property<long>("ProductDimensionId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     b.Property<decimal>("PurchasePrice")
                         .HasMaxLength(120)
@@ -313,7 +400,7 @@ namespace Dispo.Infrastructure.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
@@ -346,7 +433,7 @@ namespace Dispo.Infrastructure.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
@@ -365,60 +452,11 @@ namespace Dispo.Infrastructure.Migrations
                     b.ToTable("ProductManufacturers", (string)null);
                 });
 
-            modelBuilder.Entity("Dispo.Domain.Entities.ProductMovement", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("MovimentId")
-                        .HasColumnType("BIGINT");
-
-                    b.Property<long>("ProductId")
-                        .HasColumnType("BIGINT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MovimentId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductMovements", (string)null);
-                });
-
-            modelBuilder.Entity("Dispo.Domain.Entities.ProductWarehouseQuantity", b =>
-                {
-                    b.Property<long>("ProductId")
-                        .HasColumnType("BIGINT");
-
-                    b.Property<long>("WarehouseId")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("DECIMAL(10, 2)")
-                        .HasColumnName("Quantity");
-
-                    b.HasKey("ProductId", "WarehouseId");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
-                    b.HasIndex("WarehouseId")
-                        .IsUnique();
-
-                    b.HasIndex("ProductId", "WarehouseId")
-                        .IsUnique();
-
-                    b.ToTable("ProductWarehouseQuantities", (string)null);
-                });
-
             modelBuilder.Entity("Dispo.Domain.Entities.PurchaseOrder", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
@@ -454,7 +492,7 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnType("BIGINT");
 
                     b.Property<long>("WarehouseId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     b.HasKey("Id");
 
@@ -469,7 +507,7 @@ namespace Dispo.Infrastructure.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
@@ -487,7 +525,7 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnName("ModifieldDate");
 
                     b.Property<long>("PurchaseOrderId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     b.HasKey("Id");
 
@@ -523,7 +561,7 @@ namespace Dispo.Infrastructure.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
@@ -532,7 +570,7 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnName("Date");
 
                     b.Property<long>("PurchaseOrderId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     b.Property<string>("ShippingPrice")
                         .IsRequired()
@@ -558,6 +596,12 @@ namespace Dispo.Infrastructure.Migrations
 
                     b.Property<long>("AdressId")
                         .HasColumnType("BIGINT");
+
+                    b.Property<bool>("Ativo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnName("Ativo");
 
                     b.Property<string>("Cnpj")
                         .IsRequired()
@@ -611,18 +655,21 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("AccountId")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("AdressId")
                         .HasColumnType("BIGINT");
+
+                    b.Property<bool>("Ativo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnName("Ativo");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("BirthDate");
 
                     b.Property<long>("CompanyId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
@@ -662,15 +709,21 @@ namespace Dispo.Infrastructure.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<long>("AdressId")
                         .HasColumnType("BIGINT");
 
+                    b.Property<bool>("Ativo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnName("Ativo");
+
                     b.Property<long>("CompanyId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -707,9 +760,47 @@ namespace Dispo.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Dispo.Domain.Entities.Batch", b =>
+                {
+                    b.HasOne("Dispo.Domain.Entities.Order", "Order")
+                        .WithMany("Batches")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dispo.Domain.Entities.Product", "Product")
+                        .WithOne("Batch")
+                        .HasForeignKey("Dispo.Domain.Entities.Batch", "ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.BatchMovement", b =>
+                {
+                    b.HasOne("Dispo.Domain.Entities.Batch", "Batch")
+                        .WithMany("BatchMovements")
+                        .HasForeignKey("BatchId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Dispo.Domain.Entities.Movement", "Movement")
+                        .WithMany("BatchMovements")
+                        .HasForeignKey("MovementId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Batch");
+
+                    b.Navigation("Movement");
+                });
+
             modelBuilder.Entity("Dispo.Domain.Entities.Company", b =>
                 {
-                    b.HasOne("Dispo.Domain.Entities.Adress", "Adress")
+                    b.HasOne("Dispo.Domain.Entities.Address", "Adress")
                         .WithOne("Company")
                         .HasForeignKey("Dispo.Domain.Entities.Company", "AdressId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -743,19 +834,15 @@ namespace Dispo.Infrastructure.Migrations
 
             modelBuilder.Entity("Dispo.Domain.Entities.Order", b =>
                 {
-                    b.HasOne("Dispo.Domain.Entities.Product", "Product")
+                    b.HasOne("Dispo.Domain.Entities.Product", null)
                         .WithMany("Orders")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.HasOne("Dispo.Domain.Entities.PurchaseOrder", "PurchaseOrder")
                         .WithMany("Orders")
                         .HasForeignKey("PurchaseOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Product");
 
                     b.Navigation("PurchaseOrder");
                 });
@@ -788,44 +875,6 @@ namespace Dispo.Infrastructure.Migrations
                     b.Navigation("Manufacturer");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Dispo.Domain.Entities.ProductMovement", b =>
-                {
-                    b.HasOne("Dispo.Domain.Entities.Movement", "Movement")
-                        .WithMany("ProductMoviments")
-                        .HasForeignKey("MovimentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Dispo.Domain.Entities.Product", "Product")
-                        .WithMany("ProductMoviments")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Movement");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Dispo.Domain.Entities.ProductWarehouseQuantity", b =>
-                {
-                    b.HasOne("Dispo.Domain.Entities.Product", "Product")
-                        .WithOne("ProductWarehouseQuantity")
-                        .HasForeignKey("Dispo.Domain.Entities.ProductWarehouseQuantity", "ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Dispo.Domain.Entities.Warehouse", "Warehouse")
-                        .WithOne("ProductWarehouseQuantity")
-                        .HasForeignKey("Dispo.Domain.Entities.ProductWarehouseQuantity", "WarehouseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.PurchaseOrder", b =>
@@ -871,7 +920,7 @@ namespace Dispo.Infrastructure.Migrations
 
             modelBuilder.Entity("Dispo.Domain.Entities.Supplier", b =>
                 {
-                    b.HasOne("Dispo.Domain.Entities.Adress", "Adress")
+                    b.HasOne("Dispo.Domain.Entities.Address", "Adress")
                         .WithOne("Supplier")
                         .HasForeignKey("Dispo.Domain.Entities.Supplier", "AdressId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -882,7 +931,7 @@ namespace Dispo.Infrastructure.Migrations
 
             modelBuilder.Entity("Dispo.Domain.Entities.User", b =>
                 {
-                    b.HasOne("Dispo.Domain.Entities.Adress", "Adress")
+                    b.HasOne("Dispo.Domain.Entities.Address", "Adress")
                         .WithOne("User")
                         .HasForeignKey("Dispo.Domain.Entities.User", "AdressId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -901,7 +950,7 @@ namespace Dispo.Infrastructure.Migrations
 
             modelBuilder.Entity("Dispo.Domain.Entities.Warehouse", b =>
                 {
-                    b.HasOne("Dispo.Domain.Entities.Adress", "Adress")
+                    b.HasOne("Dispo.Domain.Entities.Address", "Adress")
                         .WithOne("Warehouse")
                         .HasForeignKey("Dispo.Domain.Entities.Warehouse", "AdressId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -923,7 +972,7 @@ namespace Dispo.Infrastructure.Migrations
                     b.Navigation("Movements");
                 });
 
-            modelBuilder.Entity("Dispo.Domain.Entities.Adress", b =>
+            modelBuilder.Entity("Dispo.Domain.Entities.Address", b =>
                 {
                     b.Navigation("Company")
                         .IsRequired();
@@ -936,6 +985,11 @@ namespace Dispo.Infrastructure.Migrations
 
                     b.Navigation("Warehouse")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.Batch", b =>
+                {
+                    b.Navigation("BatchMovements");
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Company", b =>
@@ -952,19 +1006,22 @@ namespace Dispo.Infrastructure.Migrations
 
             modelBuilder.Entity("Dispo.Domain.Entities.Movement", b =>
                 {
-                    b.Navigation("ProductMoviments");
+                    b.Navigation("BatchMovements");
+                });
+
+            modelBuilder.Entity("Dispo.Domain.Entities.Order", b =>
+                {
+                    b.Navigation("Batches");
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Product", b =>
                 {
+                    b.Navigation("Batch")
+                        .IsRequired();
+
                     b.Navigation("Orders");
 
                     b.Navigation("ProductManufacturers");
-
-                    b.Navigation("ProductMoviments");
-
-                    b.Navigation("ProductWarehouseQuantity")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.ProductDimension", b =>
@@ -1005,9 +1062,6 @@ namespace Dispo.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Movements");
-
-                    b.Navigation("ProductWarehouseQuantity")
-                        .IsRequired();
 
                     b.Navigation("PurchaseOrders");
                 });
