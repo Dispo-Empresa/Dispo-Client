@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dispo.Infrastructure.Mappings
 {
-    public class AdressMapping : IEntityTypeConfiguration<Adress>
+    public class AdressMapping : IEntityTypeConfiguration<Address>
     {
-        public void Configure(EntityTypeBuilder<Adress> builder)
+        public void Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.ToTable("Adresses");
+            builder.ToTable("Addresses");
 
-            builder.HasKey("Id");
+            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
                    .UseIdentityColumn()

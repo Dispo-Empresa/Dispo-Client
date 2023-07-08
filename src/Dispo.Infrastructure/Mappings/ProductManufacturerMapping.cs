@@ -10,7 +10,12 @@ namespace Dispo.Infrastructure.Mappings
         {
             builder.ToTable("ProductManufacturers");
 
-            builder.HasKey("Id");
+            builder.HasKey(x => x.Id);
+
+            builder.Property(x => x.Id)
+                   .UseIdentityColumn()
+                   .HasColumnType("BIGINT")
+                   .ValueGeneratedOnAdd();
 
             builder.HasOne(a => a.Product)
                    .WithMany(b => b.ProductManufacturers)

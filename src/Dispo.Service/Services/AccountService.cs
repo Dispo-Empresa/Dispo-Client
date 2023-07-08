@@ -31,8 +31,8 @@ namespace Dispo.Service.Services
 
         public UserAccountResponseDto GetUserWithAccountByEmailAndPassword(string email, string password)
         {
-            var encryptedEmail = _rijndaelCryptography.Encrypt(email);
-            var hashedPassword = _hasher.Hash(password);
+            var encryptedEmail = email;//_rijndaelCryptography.Encrypt(email);
+            var hashedPassword = password;//_hasher.Hash(password);
 
             var account = _accountRepository.GetUserWithAccountByEmailAndPassword(encryptedEmail, hashedPassword);
 
@@ -47,7 +47,7 @@ namespace Dispo.Service.Services
                 BirthDate = account.User == null ? DateTime.MinValue : account.User.BirthDate,
                 Phone = account.User.Phone,
                 CpfCnpj = account.User.Cpf,
-                Email = _rijndaelCryptography.Decrypt(account.Email),
+                Email = account.Email, //rijndaelCryptography.Decrypt(account.Email),
             };
         }
 
@@ -104,7 +104,7 @@ namespace Dispo.Service.Services
 
             using (var tc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var userUpdated = _userRepository.GetUserByAccountId(userAccountModel.Id);
+                var userUpdated = new User(); //_userRepository.GetUserByAccountId(userAccountModel.Id);
 
                 if (userUpdated == null)
                     throw new Exception("Informações não encontradas para esta conta!");

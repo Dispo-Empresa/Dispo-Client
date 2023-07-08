@@ -10,12 +10,17 @@ namespace Dispo.Infrastructure.Mappings
         {
             builder.ToTable("Accounts");
 
-            builder.HasKey("Id");
+            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
                    .UseIdentityColumn()
                    .HasColumnType("BIGINT")
                    .ValueGeneratedOnAdd();
+
+            builder.Property(x => x.Ativo)
+                   .IsRequired()
+                   .HasColumnName("Ativo")
+                   .HasDefaultValue(true);
 
             builder.Property(x => x.Email)
                    .IsRequired()
@@ -36,7 +41,7 @@ namespace Dispo.Infrastructure.Mappings
 
             builder.HasOne(a => a.User)
                    .WithOne(b => b.Account)
-                   .HasForeignKey<User>(b => b.AccountId)
+                   .HasForeignKey<Account>(b => b.UserId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

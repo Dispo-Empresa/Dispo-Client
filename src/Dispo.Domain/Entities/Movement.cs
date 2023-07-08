@@ -13,6 +13,6 @@ namespace Dispo.Domain.Entities
 
         public Warehouse Warehouse { get; set; }
         public Account Account { get; set; }
-        public IList<ProductMovement> ProductMoviments { get; set; }
+        public IList<BatchMovement> BatchMovements { get; set; }
     }
 }

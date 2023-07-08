@@ -10,7 +10,12 @@ namespace Dispo.Infrastructure.Mappings
         {
             builder.ToTable("ProductDimensions");
 
-            builder.HasKey("Id");
+            builder.HasKey(x => x.Id);
+
+            builder.Property(x => x.Id)
+                   .UseIdentityColumn()
+                   .HasColumnType("BIGINT")
+                   .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Weight)
                    .HasColumnName("Weight")
