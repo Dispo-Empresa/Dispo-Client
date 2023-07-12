@@ -12,14 +12,12 @@ namespace Dispo.Service.Services
     {
         private readonly IMovementRepository _movementRepository;
         private readonly IProductService _productService;
-        private readonly IProductWarehouseQuantityService _productWarehouseQuantityService;
         private readonly ILogger<MovementService> _logger;
 
-        public MovementService(IMovementRepository movementRepository, IProductService productService, IProductWarehouseQuantityService productWarehouseQuantityService, ILogger<MovementService> logger)
+        public MovementService(IMovementRepository movementRepository, IProductService productService, ILogger<MovementService> logger)
         {
             _movementRepository = movementRepository;
             _productService = productService;
-            _productWarehouseQuantityService = productWarehouseQuantityService;
             _logger = logger;
         }
 
@@ -94,12 +92,12 @@ namespace Dispo.Service.Services
         /// <exception cref="UnhandledException"></exception>
         private async Task UpdateProductWarehouseQuantityAsync(ProductMovimentationDto productMovimentationDto)
         {
-            var updatedQuantity = await _productWarehouseQuantityService.UpdateProductWarehouseQuantityAsync(productMovimentationDto);
-            if (!updatedQuantity)
-            {
-                _logger.LogError("Quantidade não pode ser atualizada.");
-                throw new UnhandledException("Quantidade não pode ser atualizada.");
-            }
+            //var updatedQuantity = await _productWarehouseQuantityService.UpdateProductWarehouseQuantityAsync(productMovimentationDto);
+            //if (!updatedQuantity)
+            //{
+            //    _logger.LogError("Quantidade não pode ser atualizada.");
+            //    throw new UnhandledException("Quantidade não pode ser atualizada.");
+            //}
         }
     }
 }

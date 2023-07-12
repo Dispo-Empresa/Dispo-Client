@@ -10,7 +10,7 @@ namespace Dispo.Infrastructure.Mappings
         {
             builder.ToTable("Roles");
 
-            builder.HasKey("Id");
+            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
                    .UseIdentityColumn()

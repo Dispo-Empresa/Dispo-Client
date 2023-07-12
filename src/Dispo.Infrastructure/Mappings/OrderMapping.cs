@@ -10,7 +10,12 @@ namespace Dispo.Infrastructure.Mappings
         {
             builder.ToTable("Orders");
 
-            builder.HasKey("Id");
+            builder.HasKey(x => x.Id);
+
+            builder.Property(x => x.Id)
+                   .UseIdentityColumn()
+                   .HasColumnType("BIGINT")
+                   .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Description)
                    .IsRequired(false)
@@ -29,11 +34,6 @@ namespace Dispo.Infrastructure.Mappings
                    .HasColumnName("TotalPrice")
                    .HasColumnType("DECIMAL(10, 2)")
                    .HasMaxLength(120);
-
-            builder.HasOne(a => a.Product)
-                   .WithMany(b => b.Orders)
-                   .HasForeignKey(c => c.ProductId)
-                   .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(a => a.PurchaseOrder)
                    .WithMany(b => b.Orders)

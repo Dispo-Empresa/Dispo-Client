@@ -1,6 +1,6 @@
 ﻿namespace Dispo.Domain.Entities
 {
-    public class Adress : Base
+    public class Address : Base
     {
         public long Id { get; set; }
         public string Country { get; set; }

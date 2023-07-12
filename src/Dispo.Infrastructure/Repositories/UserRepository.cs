@@ -20,9 +20,5 @@ namespace Dispo.Infrastructure.Repositories
         public bool ExistsByCpfCnpj(string cpfCnpj)
             => _dispoContext.Users
                             .Any(ExpExistsByCpfCnpj(cpfCnpj));
-
-        public User? GetUserByAccountId(long accountId)
-            => _dispoContext.Users
-                            .FirstOrDefault(x => x.AccountId == accountId);
     }
 }
