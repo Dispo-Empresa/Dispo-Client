@@ -37,7 +37,7 @@ namespace Dispo.Service.Services
             var account = _accountRepository.GetUserWithAccountByEmailAndPassword(encryptedEmail, hashedPassword);
 
             if (account == null || account.User == null)
-                throw new NotFoundedException("Conta ou Usuário não encontrado");
+                throw new NotFoundException("Conta ou Usuário não encontrado");
 
             return new UserAccountResponseDto
             {

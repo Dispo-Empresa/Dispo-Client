@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
 {
-    [Route("/api/v1/[controller]")]
+    [Route("/api/v1/forgot-password")]
     [ApiController]
     public class ForgotPasswordController : ControllerBase
     {
@@ -23,7 +23,7 @@ namespace Dispo.API.Controllers
         }
 
         [HttpPost]
-        [Route("sendResetPasswordCode")]
+        [Route("send-recovery-token")]
         [AllowAnonymous]
         public IActionResult SendEmailCodeResetPassword([FromBody] string emailTo)
         {
@@ -48,7 +48,7 @@ namespace Dispo.API.Controllers
         }
 
         [HttpPost]
-        [Route("emailCodeChecker")]
+        [Route("validate-recovery-token")]
         [AllowAnonymous]
         public IActionResult VerifyEmailCode([FromBody] VerifyEmailCodeRequestDto verifyEmailCodeRequestDto)
         {
@@ -69,7 +69,7 @@ namespace Dispo.API.Controllers
         }
 
         [HttpPost]
-        [Route("resetPassword")]
+        [Route("reset-password")]
         [AllowAnonymous]
         public IActionResult ResetPassword([FromBody] ResetPasswordRequestDto resetPasswordRequestDto)
         {

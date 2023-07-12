@@ -4,6 +4,6 @@ namespace Dispo.Service.Services.Interfaces
 {
     public interface IUserAccountService
     {
-        UserAccountResponseDto UpdateUserAccountInfo(UserAccountResponseDto userAccountModel);
+        UserAccountResponseDto UpdateUserAccountInfo(long id, UserAccountResponseDto userAccountModel);
     }
 }

@@ -2,7 +2,8 @@
 {
     public class SignInResponseDto
     {
-        public UserAccountResponseDto? userAccountResponseDto { get; set; }
-        public TokenResponseDto? tokenResponseDto { get; set; }
+        public UserAccountResponseDto? UserAccountResponseDto { get; set; }
+        public TokenResponseDto? TokenResponseDto { get; set; }
+        public string Token { get; set; }
     }
 }

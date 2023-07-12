@@ -61,7 +61,7 @@ namespace Dispo.Service.Tests
                 .ReturnsAsync(false);
 
             // Act
-            var result = Assert.ThrowsAsync<NotFoundedException>(async () => await _sut.MoveProductAsync(productMovimentationDto));
+            var result = Assert.ThrowsAsync<NotFoundException>(async () => await _sut.MoveProductAsync(productMovimentationDto));
 
             // Assert
             Assert.That(result.Message, Is.EqualTo(string.Format("Produto com o Id {0} não foi encontrado.", productMovimentationDto.ProductId)));

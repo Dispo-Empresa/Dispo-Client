@@ -10,7 +10,9 @@ using Dispo.Service.Services.PasswordRecovery;
 using Dispo.Service.Services.PasswordRecovery.Interfaces;
 using Dispo.Service.Token;
 using Dispo.Service.Token.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Dispo.IoC
 {
@@ -42,6 +44,7 @@ namespace Dispo.IoC
             serviceColletion.AddScoped<IPasswordRecoveryService, PasswordRecoveryService>();
             serviceColletion.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
             serviceColletion.AddScoped<IProductWarehouseQuantityService, ProductWarehouseQuantityService>();
+            serviceColletion.AddScoped<IUserResolverService, UserResolverService>();
         }
 
         private static void InjectGenerics(IServiceCollection serviceColletion)
@@ -50,6 +53,8 @@ namespace Dispo.IoC
             serviceColletion.AddScoped<ICacheManager, CacheManager>();
             serviceColletion.AddScoped<IEmailSenderPublisher, EmailSenderPublisher>();
             serviceColletion.AddSingleton(MappingProfile.CreateMappingProfile().CreateMapper());
+            serviceColletion.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            serviceColletion.AddMemoryCache();
         }
     }
 }

@@ -17,31 +17,25 @@ namespace Dispo.Service.Token
             _configuration = configuration;
         }
 
-        public TokenResponseDto GenerateSigninToken(long accountId)
+        public string GenerateJwtToken(long id)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
-
-            var tokenDescriptor = new SecurityTokenDescriptor()
+            var symmetricKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? string.Empty));
+            var claims = new[]
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, accountId.ToString())
-                    //new Claim(ClaimTypes.Role, roleId)
-                }),
-                Expires = DateTime.UtcNow.AddHours(int.Parse(_configuration["Jwt:HoursToExpire"])),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                new Claim(ClaimTypes.NameIdentifier, id.ToString())
             };
 
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return new TokenResponseDto()
-            {
-                Token = tokenHandler.WriteToken(token),
-                TokenExpirationTime = 1,
-                UserId = accountId
-            };
+            return tokenHandler.WriteToken(token);
         }
     }
 }

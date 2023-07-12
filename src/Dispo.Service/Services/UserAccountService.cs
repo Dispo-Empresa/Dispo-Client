@@ -16,13 +16,13 @@ namespace Dispo.Service.Services
             _userRepository = userRepository;
         }
 
-        public UserAccountResponseDto UpdateUserAccountInfo(UserAccountResponseDto userAccountModel)
+        public UserAccountResponseDto UpdateUserAccountInfo(long id, UserAccountResponseDto userAccountModel)
         {
             User? userInfo = null;
 
             using (var tc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var userUpdated = _userRepository.GetUserByAccountId(userAccountModel.Id);
+                var userUpdated = _userRepository.GetUserByAccountId(id);
 
                 if (userUpdated == null)
                     throw new Exception("Informações não encontradas para esta conta!");
@@ -40,7 +40,7 @@ namespace Dispo.Service.Services
 
             return new UserAccountResponseDto()
             {
-                Id = userInfo.Id.ToLong(),
+                Id = id,
                 FirstName = userInfo.FirstName,
                 LastName = userInfo.LastName,
                 BirthDate = userInfo.BirthDate,
