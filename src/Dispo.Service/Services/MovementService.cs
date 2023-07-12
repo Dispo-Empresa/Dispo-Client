@@ -26,7 +26,7 @@ namespace Dispo.Service.Services
         /// </summary>
         /// <param name="productMovimentationDto"></param>
         /// <returns></returns>
-        /// <exception cref="NotFoundedException"></exception>
+        /// <exception cref="NotFoundException"></exception>
         /// <exception cref="UnhandledException"></exception>
         public async Task MoveProductAsync(ProductMovimentationDto productMovimentationDto)
         {
@@ -50,14 +50,14 @@ namespace Dispo.Service.Services
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        /// <exception cref="NotFoundedException"></exception>
+        /// <exception cref="NotFoundException"></exception>
         private async Task ValidateProductExistenceAsync(long productId)
         {
             var productExists = await _productService.ExistsByIdAsync(productId);
             if (!productExists)
             {
                 _logger.LogError("Produto com o Id {P} não foi encontrado.", productId);
-                throw new NotFoundedException($"Produto com o Id {productId} não foi encontrado.");
+                throw new NotFoundException($"Produto com o Id {productId} não foi encontrado.");
             }
         }
 

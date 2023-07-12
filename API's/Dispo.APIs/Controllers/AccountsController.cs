@@ -1,31 +1,34 @@
 ﻿using Dispo.API.ResponseBuilder;
 using Dispo.Commom;
 using Dispo.Infrastructure.Repositories.Interfaces;
+using Dispo.Service.Services.Interfaces;
 using EscNet.Cryptography.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
 {
-    [Route("/api/v1/[controller]")]
+    [Route("/api/v1/accounts")]
     [ApiController]
     public class AccountsController : ControllerBase
     {
-        private readonly IAccountRepository _accountRepository;
-        private readonly IRijndaelCryptography _rijndaelCryptography;
+        private readonly IAccountRepository accountRepository;
+        private readonly IRijndaelCryptography rijndaelCryptography;
+        private readonly IUserResolverService userResolverService;
 
-        public AccountsController(IAccountRepository accountRepository, IRijndaelCryptography rijndaelCryptography)
+        public AccountsController(IAccountRepository accountRepository, IRijndaelCryptography rijndaelCryptography, IUserResolverService userResolverService)
         {
-            _accountRepository = accountRepository;
-            _rijndaelCryptography = rijndaelCryptography;
+            this.accountRepository = accountRepository;
+            this.rijndaelCryptography = rijndaelCryptography;
+            this.userResolverService = userResolverService;
         }
 
-        [HttpPost]
-        [Route("getAccountIdByEmail")]
+        [HttpGet]
+        [Route("get-id")]
         [Authorize]
         public IActionResult GetAccountIdByEmail([FromBody] string email)
         {
-            var accountId = _accountRepository.GetAccountIdByEmail(_rijndaelCryptography.Encrypt(email));
+            var accountId = accountRepository.GetAccountIdByEmail(rijndaelCryptography.Encrypt(email));
 
             if (accountId.IsIdValid())
             {

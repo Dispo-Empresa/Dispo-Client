@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
 {
-    [Route("/api/v1/[controller]")]
+    [Route("/api/v1/products")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -26,9 +26,8 @@ namespace Dispo.API.Controllers
         }
 
         [HttpPost]
-        [Route("register")]
         [Authorize]
-        public IActionResult CreateProduct([FromBody] ProductRequestDto productRequestDto)
+        public IActionResult Create([FromBody] ProductRequestDto productRequestDto)
         {
             try
             {
@@ -57,7 +56,7 @@ namespace Dispo.API.Controllers
         }
 
         [HttpGet]
-        [Route("getProductNamesWithCode")]
+        [Route("get-names-with-code")]
         [Authorize]
         public IActionResult GetProductNamesWithCode()
         {
@@ -74,9 +73,8 @@ namespace Dispo.API.Controllers
         }
 
         [HttpGet]
-        [Route("getAllProducts")]
         [Authorize]
-        public IActionResult GetAllProducts()
+        public IActionResult Get()
         {
             try
             {
@@ -92,13 +90,13 @@ namespace Dispo.API.Controllers
         }
 
         [HttpGet]
-        [Route("getProductById/{productId}")]
+        [Route("{id}")]
         [Authorize]
-        public IActionResult GetProductById(long productId)
+        public IActionResult Get(long id)
         {
             try
             {
-                var product = _productRepository.GetById(productId);
+                var product = _productRepository.GetById(id);
 
                 return Ok(product);
             }
@@ -115,7 +113,7 @@ namespace Dispo.API.Controllers
         /// <param name="productMovimentationDto"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("moveProduct")]
+        [Route("move")]
         [Authorize]
         public async Task<IActionResult> MoveProduct([FromBody] ProductMovimentationDto productMovimentationDto)
         {

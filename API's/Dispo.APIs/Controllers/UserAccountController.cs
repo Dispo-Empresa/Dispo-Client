@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
 {
-    [Route("/api/v1/[controller]")]
+    [Route("/api/v1/user-account")]
     [ApiController]
     public class UserAccountController : ControllerBase
     {
@@ -23,15 +23,13 @@ namespace Dispo.API.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpPut]
-        [Route("updateUserAccountInfo/{accountId}")]
+        [HttpPut("{id}")]
         [Authorize]
-        public IActionResult UpdateUserAccountInfo(int accountId, [FromBody] UserAccountResponseDto userAccountModel)
+        public IActionResult UpdateUserAccountInfo(long accountId, [FromBody] UserAccountResponseDto userAccountModel)
         {
             try
             {
-                userAccountModel.Id = accountId;
-                var response = _userAccountService.UpdateUserAccountInfo(userAccountModel);
+                var response = _userAccountService.UpdateUserAccountInfo(accountId, userAccountModel);
 
                 return Ok(new ResponseModelBuilder().WithMessage("Dados atualizados com sucesso!")
                                                     .WithSuccess(true)
@@ -50,13 +48,13 @@ namespace Dispo.API.Controllers
         }
 
         [HttpGet]
-        [Route("getAllUserInfo/{accountId}")]
+        [Route("{id}")]
         [Authorize]
-        public IActionResult GetAllUserInfo(int accountId)
+        public IActionResult GetAllUserInfo(long id)
         {
             try
             {
-                var userAccountInfo = _accountRepository.GetUserInfoResponseDto(accountId);
+                var userAccountInfo = _accountRepository.GetUserInfoResponseDto(id);
 
                 return Ok(new ResponseModelBuilder().WithSuccess(true)
                                                     .WithData(userAccountInfo)

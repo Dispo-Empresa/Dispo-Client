@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Dispo.Infrastructure\Dispo.Infrastructure.csproj" />
     <ProjectReference Include="..\Dispo.Service\Dispo.Service.csproj" />
   </ItemGroup>

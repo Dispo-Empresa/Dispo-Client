@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dispo.API.Controllers
 {
-    [Route("/api/v1/[controller]")]
+    [Route("/api/v1/auth")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -30,19 +30,19 @@ namespace Dispo.API.Controllers
             try
             {
                 var userAccountModelCretated = _accountService.GetUserWithAccountByEmailAndPassword(signInRequestDto.Email, signInRequestDto.Password);
-                var generatedToken = _tokenGenerator.GenerateSigninToken(userAccountModelCretated.Id);
+                var generatedToken = _tokenGenerator.GenerateJwtToken(userAccountModelCretated.Id);
 
                 return Ok(new ResponseModelBuilder().WithMessage("User exists!")
                                                     .WithSuccess(true)
                                                     .WithData(new SignInResponseDto()
                                                     {
-                                                        userAccountResponseDto = userAccountModelCretated,
-                                                        tokenResponseDto = generatedToken
+                                                        UserAccountResponseDto = userAccountModelCretated,
+                                                        Token = generatedToken
                                                     })
                                                     .Build());
 
             }
-            catch (NotFoundedException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(new ResponseModelBuilder().WithMessage(ex.Message)
                                                           .Build());
