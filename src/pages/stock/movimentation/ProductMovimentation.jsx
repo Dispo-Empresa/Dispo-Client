@@ -9,7 +9,7 @@ import useFields from "./useFields";
 import { TextField } from "../../../components/ui/inputs/textfield/TextField";
 import { SelectWithFilter } from "../../../components/ui/inputs/select/SelectField";
 import { GenericButton } from "../../../components/ui/buttons/icons/IconButton";
-import { post } from "../../../services/api/crud";
+import { post } from "../../../services/methods";
 
 function ProductMovimentation() {
   const [

@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 
-import { isAuthenticated } from "../services/api/authToken";
+import { isAuthenticated } from "../services/authToken";
 
 const PrivateRoute = ({ children }) => {
   const authenticated = isAuthenticated();
