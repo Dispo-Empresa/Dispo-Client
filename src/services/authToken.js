@@ -1,6 +1,6 @@
 import axios from "axios"
 
-import { getSessionStorage, setSessionStorage, removeSessionStorage } from "../../data/storage/session";
+import { getSessionStorage, setSessionStorage, removeSessionStorage } from "../data/storage/session";
 
 const setToken = (token) => {
   if (token){

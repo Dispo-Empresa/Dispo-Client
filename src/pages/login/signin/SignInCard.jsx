@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Link } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
-import { setToken } from "../../../services/api/authToken";
-import { post } from "../../../services/api/crud";
+import { setToken } from "../../../services/authToken";
+import { post } from "../../../services/methods";
+import { ENDPOINTS } from "../../../data/constants/endpoints";
 import Button from "../../../components/ui/buttons/classic/Button";
 import imagem from "../../../assets/img/visual-inventory-management.png";
 import logoSFundo from "../../../assets/img/logo_sem_fundo.png";
@@ -12,8 +13,8 @@ import useKeyPress from "../../../hooks/useKeyPress";
 import "./style.css";
 
 function SignIn() {
-  const [emailRequest, setEmailRequest] = useState("matheustexte123@gmail.com");
-  const [passwordRequest, setpasswordRequest] = useState("debora14");
+  const [emailRequest, setEmailRequest] = useState("gestorTeste@gmail.com");
+  const [passwordRequest, setpasswordRequest] = useState("senhateste123");
   const [goToHomePage, setgoToHomePage] = useState(false);
   const [loading, setLoading] = useState(false);
   useKeyPress("Enter", handleKeyPress);
@@ -30,10 +31,14 @@ function SignIn() {
 
     try {
       setLoading(true);
-      var response = await post("Auth/signin", data);
 
-      setToken(response.data.tokenResponseDto.token);
-      setgoToHomePage(true);
+      var response = await post(ENDPOINTS.auth.signIn, data);
+
+      if (response.success) {
+        setToken(response.data.token);
+        setgoToHomePage(true);
+      }
+
       setLoading(false);
     } catch (err) {
       console.log(err);

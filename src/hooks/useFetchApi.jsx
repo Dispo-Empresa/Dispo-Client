@@ -1,16 +1,38 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
 
-import { getSync } from "../services/api/crud";
+import { getToken } from "../services/authToken";
+import { LOCALHOST } from "../data/constants/endpoints";
+import { API_RESPONSE, joinParameters } from "./helper";
 
-function useFetch(url) {
+function useFetch(endpoint, parameters) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`,
+    },
+  };
+
+  endpoint = joinParameters(endpoint, parameters);
+
   useEffect(() => {
-    getSync(url)
+    axios
+      .get(LOCALHOST + endpoint, config)
       .then((response) => {
-        setData(response.data);
+        setData(
+          API_RESPONSE(
+            response.data.data,
+            "",
+            response.data.message,
+            response.data.success,
+            response.data.alertType,
+            response.status
+          )
+        );
         setLoading(false);
         console.log(response.data);
       })
@@ -19,7 +41,7 @@ function useFetch(url) {
         setError(err);
         setLoading(false);
       });
-  }, [url]);
+  }, [endpoint]);
 
   return { data, loading, error };
 }

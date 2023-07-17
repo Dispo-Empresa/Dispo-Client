@@ -6,13 +6,10 @@ const initialState = {
   name: "",
   description: "",
   image: "",
-  code: "",
   purchasePrice: "",
   salePrice: "",
   category: "",
   unitOfMeasurement: "",
-  //manufacturingDate: "",
-  //expirationDate: "",
 
   // dimension
 

@@ -14,7 +14,7 @@ import {
 import { IconButton, Menu, Avatar, MenuItem } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import { removeToken } from "../../../services/api/authToken";
+import { removeToken } from "../../../services/authToken";
 import { COLORS } from "../../../themes/colors";
 
 import "./styles.css";

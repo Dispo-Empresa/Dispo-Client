@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
 import validate from "./validations";
-import { getSync } from "../../../services/api/crud";
+import useFetch from "../../../hooks/useFetchApi";
+import { ENDPOINTS } from "../../../data/constants/endpoints";
+import { getSync } from "../../../services/methods";
 
 const initialState = {
   movimentationType: "",
@@ -21,18 +23,13 @@ function useFields() {
     quantity: "",
   });
   const [products, setProducts] = useState([]);
+  const { data } = useFetch(ENDPOINTS.products.getProductNamesWithCode);
   const requiredFields = ["movimentationType", "product", "quantity"];
 
   const GetProducts = () => {
-    getSync("Products/getProductNamesWithCode")
-      .then((response) => {
-        setProducts(
-          response.data.map((item) => ({ value: item.id, label: item.name }))
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setProducts(
+      data.data.map((item) => ({ value: item.id, label: item.name }))
+    );
   };
   useEffect(GetProducts, [setProducts]);
 
