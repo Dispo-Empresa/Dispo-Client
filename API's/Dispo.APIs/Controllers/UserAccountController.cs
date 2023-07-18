@@ -25,7 +25,7 @@ namespace Dispo.API.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public IActionResult UpdateUserAccountInfo(long accountId, [FromBody] UserAccountResponseDto userAccountModel)
+        public IActionResult UpdateUserAccountInfo([FromRoute] long accountId, [FromBody] UserAccountResponseDto userAccountModel)
         {
             try
             {
@@ -48,9 +48,9 @@ namespace Dispo.API.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("id={id}")]
         [Authorize]
-        public IActionResult GetAllUserInfo(long id)
+        public IActionResult GetAllUserInfo([FromRoute] long id)
         {
             try
             {

@@ -24,7 +24,7 @@ namespace Dispo.Service.Services
 
             using (var tc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var userUpdated = _userRepository.GetUserByAccountId(id);
+                var userUpdated = new User(); //_userRepository.GetUserByAccountId(id);
                 if (userUpdated is null)
                     throw new Exception("Informações não encontradas para esta conta!");
 

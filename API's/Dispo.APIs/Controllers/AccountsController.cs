@@ -26,7 +26,7 @@ namespace Dispo.API.Controllers
         [HttpGet]
         [Route("get-id")]
         [Authorize]
-        public IActionResult GetAccountIdByEmail([FromBody] string email)
+        public IActionResult GetAccountIdByEmail([FromRoute] string email)
         {
             var accountId = accountRepository.GetAccountIdByEmail(rijndaelCryptography.Encrypt(email));
 
