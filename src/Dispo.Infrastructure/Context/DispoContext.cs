@@ -1,4 +1,5 @@
-﻿using Dispo.Domain.Entities;
+﻿using Dispo.Domain;
+using Dispo.Domain.Entities;
 using Dispo.Infrastructure.Mappings;
 using Microsoft.EntityFrameworkCore;
 
@@ -53,7 +54,16 @@ namespace Dispo.Infrastructure.Context
             modelBuilder.ApplyConfiguration(new UserMapping());
             modelBuilder.ApplyConfiguration(new WarehouseMapping());
 
+            CreateRoles(modelBuilder);
+
             base.OnModelCreating(modelBuilder);
+        }
+
+        private void CreateRoles(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Role>().HasData(new Role() { Id = 5, Name = "Gerente", Key = Domain.Roles.Manager }, 
+                                                new Role() { Id = 6, Name = "Gerente de compras", Key = Domain.Roles.PurchasingManager }, 
+                                                new Role() { Id = 7, Name = "Operador de depósito", Key = Domain.Roles.WarehouseOperator });
         }
     }
 }

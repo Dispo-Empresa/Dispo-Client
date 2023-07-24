@@ -43,12 +43,10 @@ namespace Dispo.Infrastructure.Repositories
                                 .Any(ExpBySignInModel(email, password));
         }
 
-        public Account? GetUserWithAccountByEmailAndPassword(string email, string password)
-        {
-            return _dispoContext.Accounts
-                                .Include(x => x.User)
-                                .FirstOrDefault(ExpBySignInModel(email, password));
-        }
+        public Account? GetAccountByEmailAndPassword(string email, string password)
+            => _dispoContext.Accounts
+                            .Include(x => x.Role)
+                            .FirstOrDefault(ExpBySignInModel(email, password));
 
         public void ResetPassword(Account account, string newPassword)
         {
@@ -76,5 +74,15 @@ namespace Dispo.Infrastructure.Repositories
                                          BirthDate = s.User.BirthDate
                                      })
                                      .SingleOrDefault() ?? new UserInfoResponseDto();
+
+        public string GetUserNameByAccountId(long id)
+            => _dispoContext.Accounts.Where(x => x.Id == id)
+                                     .Select(s => s.User.FirstName)
+                                     .FirstOrDefault() ?? string.Empty;
+
+        public string GetRoleKeyByAccountId(long id)
+            => _dispoContext.Accounts.Where(x => x.Id == id)
+                                     .Select(s => s.Role.Key)
+                                     .FirstOrDefault() ?? string.Empty;
     }
 }

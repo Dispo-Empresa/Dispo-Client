@@ -2,8 +2,9 @@
 {
     public class SignInResponseDto
     {
-        public UserAccountResponseDto? UserAccountResponseDto { get; set; }
-        public TokenResponseDto? TokenResponseDto { get; set; }
-        public string Token { get; set; }
+        public long AccountId { get; set; }
+        public string UserName { get; set; }
+        public string Role { get; set; }
+        public TokenInfoDto? TokenInfo { get; set; }
     }
 }

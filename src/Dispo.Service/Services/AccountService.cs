@@ -29,25 +29,21 @@ namespace Dispo.Service.Services
             _mapper = mapper;
         }
 
-        public UserAccountResponseDto GetUserWithAccountByEmailAndPassword(string email, string password)
+        public SignInResponseDto AuthenticateByEmailAndPassword(string email, string password)
         {
             var encryptedEmail = email;//_rijndaelCryptography.Encrypt(email);
             var hashedPassword = password;//_hasher.Hash(password);
 
-            var account = _accountRepository.GetUserWithAccountByEmailAndPassword(encryptedEmail, hashedPassword);
+            var loggedAccount = _accountRepository.GetAccountByEmailAndPassword(encryptedEmail, hashedPassword);
 
-            if (account == null || account.User == null)
-                throw new NotFoundException("Conta ou Usuário não encontrado");
+            if (loggedAccount == null)
+                throw new NotFoundException("Conta não encontrada");
 
-            return new UserAccountResponseDto
+            return new SignInResponseDto()
             {
-                Id = account.Id.ToLong(),
-                FirstName = account.User.FirstName,
-                LastName = account.User.LastName,
-                BirthDate = account.User == null ? DateTime.MinValue : account.User.BirthDate,
-                Phone = account.User.Phone,
-                CpfCnpj = account.User.Cpf,
-                Email = account.Email, //rijndaelCryptography.Decrypt(account.Email),
+                AccountId = loggedAccount.Id,
+                UserName = loggedAccount.User != null ? loggedAccount.User.FirstName : string.Empty,
+                Role = loggedAccount.Role.Key,
             };
         }
 
