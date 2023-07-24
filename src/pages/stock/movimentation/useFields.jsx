@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import validate from "./validations";
 import useFetch from "../../../hooks/useFetchApi";
 import { ENDPOINTS } from "../../../data/constants/endpoints";
-import { getSync } from "../../../services/methods";
 
 const initialState = {
   movimentationType: "",

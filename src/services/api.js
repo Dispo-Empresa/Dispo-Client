@@ -1,7 +1,7 @@
 import axios from "axios"
 
 import { getToken } from "./authToken";
-import { LOCALHOST } from "../data/constants/endpoints";
+import { LOCALHOST } from "../utils/constants/endpoints";
 import { API_RESPONSE } from "./helper";
 
 const BASE_URL = LOCALHOST;
@@ -34,7 +34,7 @@ const callApi = async (endpoint, method, data = null) => {
       response.status
     );
 
-  } catch (error) {
+  } catch (error) { // precisa validar error.errors caso tenha
 
     if (error.response) {
 

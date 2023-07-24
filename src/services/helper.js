@@ -12,6 +12,10 @@ const API_RESPONSE = (dataParam = null, titleParam = '', messageParam = '', succ
 
 function joinParameters(endpoint, parameters){
 
+    if(parameters == null || parameters === undefined){
+      return endpoint;
+    }
+
     var lastIndex = endpoint.lastIndexOf("/");
         if (lastIndex !== -1) {
           endpoint = endpoint.substring(0, lastIndex + 1);

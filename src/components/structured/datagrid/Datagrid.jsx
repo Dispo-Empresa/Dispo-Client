@@ -3,7 +3,7 @@ import { MDBDataTableV5 } from "mdbreact";
 
 import { QueryDataButton, EditButton } from "../../ui/buttons/icons/IconButton";
 import Detail from "./Detail";
-import TypeOptions from "../../../data/constants/ModalTypes";
+import { modalTypeOptions } from "../../../utils/constants/constants";
 import ModalDialog from "../modal/ModalDialog";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -20,14 +20,14 @@ function Datagrid(props) {
       setItemId(row.id);
       setItemName(row.name ?? undefined);
       setShowModal(true);
-      setModalType(TypeOptions.ViewModal);
+      setModalType(modalTypeOptions.ViewModal);
     }
 
     function onEditView() {
       setItemId(row.id);
       setItemName(row.name ?? undefined);
       setShowModal(true);
-      setModalType(TypeOptions.EditModal);
+      setModalType(modalTypeOptions.EditModal);
     }
 
     return {
