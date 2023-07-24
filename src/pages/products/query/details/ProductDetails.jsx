@@ -1,9 +1,9 @@
 import ModalView from "./FormView";
 import ModalEdit from "./FormEdit";
-import TypeOptions from "../../../../data/constants/ModalTypes";
+import { modalTypeOptions } from "../../../../utils/constants/constants";
 
 function ProductDetails(props) {
-  return props.modalType && props.modalType === TypeOptions.ViewModal ? (
+  return props.modalType && props.modalType === modalTypeOptions.ViewModal ? (
     <ModalView productId={props.productId} />
   ) : (
     <ModalEdit productId={props.productId} />

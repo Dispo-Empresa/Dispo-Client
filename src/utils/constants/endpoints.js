@@ -3,18 +3,14 @@ const LOCALHOST = "https://localhost:7153/api/v1/";
 
 const ENDPOINTS = {
 
-  teste: {
-    getAll: "teste/getAll",
-    getId: "teste/{id}",
-    getParameters: "teste/id={id}&outroParametro={outroParametro}",
-    getPost: "teste",
-    getPut: "teste/{id}",
-    getRemove: "teste/{id}",
-  },
-
   auth: {
     signIn: "auth/signin",
     signUp: "auth/signup"
+  },
+
+  adm: {
+    GetRoles: "adm/getRoles",
+    createEmployee: "adm/createEmployee",
   },
   
   forgotPassword: {

@@ -36,14 +36,16 @@ function Navbar() {
     <MDBNavbar className="container-navbar" fixed="top" bgColor="light">
       <MDBContainer fluid>
         <MDBNavbarBrand></MDBNavbarBrand>
-        <MDBInputGroup tag="form" className="d-flex w-auto mb-3 aateste">
-          <IconButton component={Link} to="/configuracoes">
+        <MDBInputGroup className="d-flex w-auto mb-3 aateste">
+          <IconButton
+            component={Link}
+            to="/configuracoes"
+            style={{ borderRadius: "0%" }}
+          >
             <Avatar
               sx={{ width: 30, height: 30, backgroundColor: "transparent" }}
             >
-              <SettingsIcon
-                sx={{ width: 28, height: 28, color: "#2C3745" }}
-              ></SettingsIcon>
+              <SettingsIcon sx={{ width: 28, height: 28, color: "#2C3745" }} />
             </Avatar>
           </IconButton>
           <IconButton

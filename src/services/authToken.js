@@ -1,6 +1,7 @@
 import axios from "axios"
+import jwt_decode from "jwt-decode";
 
-import { getSessionStorage, setSessionStorage, removeSessionStorage } from "../data/storage/session";
+import { getSessionStorage, setSessionStorage, removeSessionStorage } from "../data/session";
 
 const setToken = (token) => {
   if (token){
@@ -14,12 +15,12 @@ const setToken = (token) => {
 
 const getToken = () => getSessionStorage("accessToken");
 
-const removeToken = () => {
-  removeSessionStorage("accessToken");
-}
+const removeToken = () => removeSessionStorage("accessToken");
 
-const isAuthenticated = () => {
-return sessionStorage.getItem("accessToken") && sessionStorage.getItem("accessToken") !== "";
-}
+const getRole = () => jwt_decode(getSessionStorage("accessToken")).role;
 
-export { setToken, getToken, removeToken, isAuthenticated };
+const getAccountId = () => jwt_decode(getSessionStorage("accessToken")).accountId;
+
+const isAuthenticated = () => sessionStorage.getItem("accessToken") && sessionStorage.getItem("accessToken") !== "";
+
+export { setToken, getToken, removeToken, getRole, getAccountId, isAuthenticated };

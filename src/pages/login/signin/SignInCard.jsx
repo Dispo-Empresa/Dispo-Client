@@ -3,7 +3,7 @@ import { Link } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
 import { setToken } from "../../../services/authToken";
-import { post } from "../../../services/methods";
+import { post } from "../../../services/httpMethods";
 import { ENDPOINTS } from "../../../data/constants/endpoints";
 import Button from "../../../components/ui/buttons/classic/Button";
 import imagem from "../../../assets/img/visual-inventory-management.png";
@@ -35,13 +35,12 @@ function SignIn() {
       var response = await post(ENDPOINTS.auth.signIn, data);
 
       if (response.success) {
-        setToken(response.data.token);
+        setToken(response.data.tokenInfo.token);
         setgoToHomePage(true);
       }
-
-      setLoading(false);
     } catch (err) {
       console.log(err);
+    } finally {
       setLoading(false);
     }
   };

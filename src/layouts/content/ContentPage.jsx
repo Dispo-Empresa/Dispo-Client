@@ -41,7 +41,7 @@ function ContentPage(props) {
             />
           </div>
         </div>
-        {!collapsed && <hr />}
+        {collapsed || (!props.dividerOff && <hr />)}
         <div className="content-children">{props.children}</div>
       </CardContent>
     </Card>

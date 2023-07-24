@@ -19,7 +19,7 @@ function Tabs({ tabs }) {
 
   return (
     <div>
-      <MDBTabs justify className="mb-3">
+      <MDBTabs className="mb-3 container-tabs">
         {tabs.map((tab) => (
           <MDBTabsItem>
             <MDBTabsLink
