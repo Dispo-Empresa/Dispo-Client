@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Dispo.Commom;
-using Dispo.Domain.DTOs.RequestDTOs;
+using Dispo.Domain.DTOs;
 using Dispo.Domain.Entities;
 using Dispo.Domain.Enums;
 using Dispo.Domain.Exceptions;
-using Dispo.Domain.Factories.ProductMovimentation;
-using Dispo.Infrastructure.Repositories.DTO_s;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.DTOs.RequestDTOs;
 using Dispo.Service.DTOs.ResponseDTOs;
@@ -37,7 +35,6 @@ namespace Dispo.Service.Services
                 var product = new Product()
                 {
                     Name = productModel.Name,
-                    Code = BuildProductSKUCode(productModel.Name, productModel.Type),
                     UnitOfMeasurement = EnumHelper.ConvertToEnum(productModel.UnitOfMeasurement, eUnitOfMeasurement.Others),
                     SalePrice = 0,
                     Category = EnumHelper.ConvertToEnum(productModel.Type, eProductCategory.Others),
@@ -69,10 +66,10 @@ namespace Dispo.Service.Services
 
             productSKUCode = productSKUCode.ToUpper();
 
-            if (_productRepository.GetProductIdByCode(productSKUCode).IsIdValid())
-            {
-                // Ja existe o código
-            }
+            //if (_productRepository.GetProductIdByCode(productSKUCode).IsIdValid())
+            //{
+            //    // Ja existe o código
+            //}
 
             return productSKUCode;
         }

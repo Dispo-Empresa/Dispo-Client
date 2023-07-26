@@ -1,9 +1,9 @@
 ﻿using Dispo.Commom;
+using Dispo.Domain.DTO_s;
+using Dispo.Domain.DTOs;
 using Dispo.Domain.Entities;
 using Dispo.Infrastructure.Context;
-using Dispo.Infrastructure.Repositories.DTO_s;
 using Dispo.Infrastructure.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dispo.Infrastructure.Repositories
 {
@@ -22,7 +22,6 @@ namespace Dispo.Infrastructure.Repositories
                             {
                                 Id = s.Id,
                                 Name = s.Name,
-                                Code = s.Code
                             })
                             .Distinct()
                             .ToList();
@@ -34,11 +33,16 @@ namespace Dispo.Infrastructure.Repositories
                             .SingleOrDefault()
                             .ToLong();
 
-        public long GetProductIdByCode(string productCode)
+        public IEnumerable<ProductInfoDto> GetProductInfoDto()
             => _dispoContext.Products
-                            .Where(x => x.Code == productCode)
-                            .Select(s => s.Id)
-                            .SingleOrDefault()
-                            .ToLong();
+                            .Select(s => new ProductInfoDto()
+                            {
+                                Name = s.Name,
+                                PurchasePrice = s.PurchasePrice,
+                                SalePrice = s.SalePrice,
+                                Category = s.Category,
+                                UnitOfMeasurement = s.UnitOfMeasurement,
+                            })
+                            .ToList();
     }
 }

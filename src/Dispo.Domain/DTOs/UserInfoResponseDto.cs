@@ -1,4 +1,4 @@
-﻿namespace Dispo.Infrastructure.Repositories.DTO_s
+﻿namespace Dispo.Domain.DTOs
 {
     public class UserInfoResponseDto
     {

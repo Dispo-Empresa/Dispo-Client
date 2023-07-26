@@ -39,12 +39,6 @@ namespace Dispo.Infrastructure.Mappings
                    .HasColumnName("Image")
                    .HasColumnType("image");
 
-            builder.Property(x => x.Code)
-                   .IsRequired()
-                   .HasColumnName("Code")
-                   .HasColumnType("VARCHAR(50)")
-                   .HasMaxLength(50);
-
             builder.Property(x => x.PurchasePrice)
                    .HasColumnName("PurchasePrice")
                    .HasColumnType("DECIMAL(10, 2)")

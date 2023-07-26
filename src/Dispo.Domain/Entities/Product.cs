@@ -8,7 +8,6 @@ namespace Dispo.Domain.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public byte[] Image { get; set; }
-        public string Code { get; set; }
         public decimal PurchasePrice { get; set; }
         public decimal SalePrice { get; set; }
         public eProductCategory Category { get; set; }
