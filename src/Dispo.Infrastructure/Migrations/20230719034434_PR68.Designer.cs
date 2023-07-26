@@ -4,6 +4,7 @@ using Dispo.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dispo.Infrastructure.Migrations
 {
     [DbContext(typeof(DispoContext))]
-    partial class DispoContextModelSnapshot : ModelSnapshot
+    [Migration("20230719034434_PR68")]
+    partial class PR68
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +54,7 @@ namespace Dispo.Infrastructure.Migrations
                     b.Property<long>("RoleId")
                         .HasColumnType("BIGINT");
 
-                    b.Property<long?>("UserId")
+                    b.Property<long>("UserId")
                         .HasColumnType("BIGINT");
 
                     b.HasKey("Id");
@@ -59,8 +62,7 @@ namespace Dispo.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Accounts", (string)null);
                 });
@@ -543,41 +545,19 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR(50)")
-                        .HasColumnName("Key");
-
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("VARCHAR(50)")
                         .HasColumnName("Name");
 
+                    b.Property<short>("Type")
+                        .HasMaxLength(120)
+                        .HasColumnType("SMALLINT")
+                        .HasColumnName("Type");
+
                     b.HasKey("Id");
 
                     b.ToTable("Roles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 5L,
-                            Key = "manager",
-                            Name = "Gerente"
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            Key = "purchasingManager",
-                            Name = "Gerente de compras"
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            Key = "warehouseOperator",
-                            Name = "Operador de depósito"
-                        });
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Shipping", b =>

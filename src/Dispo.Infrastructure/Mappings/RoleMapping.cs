@@ -18,16 +18,14 @@ namespace Dispo.Infrastructure.Mappings
                    .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Name)
-                   .IsRequired(false)
                    .HasColumnName("Name")
                    .HasColumnType("VARCHAR(50)")
                    .HasMaxLength(50);
 
-            builder.Property(x => x.Type)
-                   .IsRequired()
-                   .HasColumnName("Type")
-                   .HasColumnType("SMALLINT")
-                   .HasMaxLength(120);
+            builder.Property(x => x.Key)
+                   .HasColumnName("Key")
+                   .HasColumnType("VARCHAR(50)")
+                   .HasMaxLength(50);
         }
     }
 }

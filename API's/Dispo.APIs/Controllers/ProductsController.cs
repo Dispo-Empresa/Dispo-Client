@@ -74,7 +74,7 @@ namespace Dispo.API.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
             try
             {

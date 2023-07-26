@@ -34,6 +34,9 @@ namespace Dispo.Infrastructure.Mappings
                    .HasColumnType("VARCHAR(255)")
                    .HasMaxLength(255);
 
+            builder.Property(x => x.UserId)
+                   .IsRequired(false);
+
             builder.HasOne(a => a.Role)
                    .WithMany(b => b.Accounts)
                    .HasForeignKey(c => c.RoleId)

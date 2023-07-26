@@ -1,6 +1,4 @@
-﻿using Dispo.Domain.Entities;
-
-namespace Dispo.Commom
+﻿namespace Dispo.Commom
 {
     public static class IDHelper
     {
@@ -11,11 +9,5 @@ namespace Dispo.Commom
 
         public static bool IsIdInvalid(this long id)
             => id < 1;
-
-        public static bool IsIdValid(this Base obj)
-            => obj.Id.IsIdValid();
-
-        public static bool IsIdInvalid(this Base obj)
-            => obj.Id.IsIdInvalid();
     }
 }

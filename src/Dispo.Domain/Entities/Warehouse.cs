@@ -13,5 +13,6 @@
         public Movement Movement { get; set; }
         public IList<Movement> Movements { get; set; }
         public IList<PurchaseOrder> PurchaseOrders { get; set; }
+        public IList<WarehouseAccount> WarehouseAccounts { get; set; }
     }
 }

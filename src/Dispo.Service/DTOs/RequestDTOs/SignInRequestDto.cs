@@ -1,15 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Dispo.Service.DTOs.RequestDTOs
+﻿namespace Dispo.Service.DTOs.RequestDTOs
 {
     public class SignInRequestDto
     {
-        [Required(ErrorMessage = "O email não pode ser vázio.")]
-        [RegularExpression(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", 
-                  ErrorMessage = "O email é inválido")]
-        public string Email { get; set; } = string.Empty;
-
-        [Required(ErrorMessage = "A senha não pode ser vázio.")]
-        public string Password { get; set; } = string.Empty;
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

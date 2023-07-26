@@ -4,7 +4,6 @@ namespace Dispo.Service.Token.Interfaces
 {
     public interface ITokenGenerator
     {
-        //TokenResponseDto GenerateJwtToken(long accountId);
-        string GenerateJwtToken(long id);
+        TokenInfoDto GenerateJwtToken(long id);
     }
 }

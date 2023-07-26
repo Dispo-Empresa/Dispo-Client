@@ -5,7 +5,7 @@ namespace Dispo.Service.Services.Interfaces
 {
     public interface IAccountService
     {
-        UserAccountResponseDto GetUserWithAccountByEmailAndPassword(string email, string password);
+        SignInResponseDto AuthenticateByEmailAndPassword(string email, string password);
 
         UserResponseDto CreateAccountAndUser(SignUpRequestDto signUpModel);
 
