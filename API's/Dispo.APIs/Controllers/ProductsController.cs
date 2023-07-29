@@ -78,9 +78,13 @@ namespace Dispo.API.Controllers
         {
             try
             {
-                var products = _productRepository.GetAllAsNoTracking();
+                var products = _productRepository.GetProductInfoDto();
 
-                return Ok(products);
+                return Ok(new ResponseModelBuilder().WithMessage("Movimentação de produto realizada com sucesso.")
+                                                    .WithSuccess(true)
+                                                    .WithData(products)
+                                                    .WithAlert(AlertType.Success)
+                                                    .Build());
             }
             catch (Exception ex)
             {

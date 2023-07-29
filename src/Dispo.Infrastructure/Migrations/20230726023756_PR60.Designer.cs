@@ -4,6 +4,7 @@ using Dispo.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dispo.Infrastructure.Migrations
 {
     [DbContext(typeof(DispoContext))]
-    partial class DispoContextModelSnapshot : ModelSnapshot
+    [Migration("20230726023756_PR60")]
+    partial class PR60
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -365,7 +368,7 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnType("VARCHAR(150)")
                         .HasColumnName("Name");
 
-                    b.Property<long?>("ProductDimensionId")
+                    b.Property<long>("ProductDimensionId")
                         .HasColumnType("BIGINT");
 
                     b.Property<decimal>("PurchasePrice")
@@ -386,8 +389,7 @@ namespace Dispo.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProductDimensionId")
-                        .IsUnique()
-                        .HasFilter("[ProductDimensionId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Products", (string)null);
                 });

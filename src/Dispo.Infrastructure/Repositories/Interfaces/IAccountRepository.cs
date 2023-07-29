@@ -1,5 +1,5 @@
-﻿using Dispo.Domain.Entities;
-using Dispo.Infrastructure.Repositories.DTO_s;
+﻿using Dispo.Domain.DTOs;
+using Dispo.Domain.Entities;
 
 namespace Dispo.Infrastructure.Repositories.Interfaces
 {

@@ -1,6 +1,6 @@
-﻿namespace Dispo.Commom
+﻿namespace Dispo.Commom.Extensions
 {
-    public class EnumHelper
+    public class EnumExtension
     {
         public static T ConvertToEnum<T>(string value, T defaultValue) where T : struct, IConvertible
         {
