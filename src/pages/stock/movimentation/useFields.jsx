@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import validate from "./validations";
 import useFetch from "../../../hooks/useFetchApi";
-import { ENDPOINTS } from "../../../data/constants/endpoints";
+import { ENDPOINTS } from "../../../utils/constants/endpoints";
 
 const initialState = {
   movimentationType: "",
