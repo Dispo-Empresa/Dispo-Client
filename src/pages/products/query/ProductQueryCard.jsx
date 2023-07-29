@@ -49,8 +49,8 @@ function ProductQueryCard() {
         data={data}
         loading={loading}
         //customButtons={customButtons}
-        setSelectedProducts={setSelectedProducts}
-        selectedProducts={selectedProducts}
+        setSelectedItens={setSelectedProducts}
+        selectedItens={selectedProducts}
         onDeleteButton={deleteTest}
         onViewButton={viewTest}
       />
