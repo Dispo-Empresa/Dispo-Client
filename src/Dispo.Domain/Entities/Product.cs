@@ -12,7 +12,7 @@ namespace Dispo.Domain.Entities
         public decimal SalePrice { get; set; }
         public eProductCategory Category { get; set; }
         public eUnitOfMeasurement UnitOfMeasurement { get; set; }
-        public long ProductDimensionId { get; set; }
+        public long? ProductDimensionId { get; set; }
 
 
         public ProductDimension ProductDimension { get; set; }

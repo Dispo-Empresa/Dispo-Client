@@ -1,5 +1,5 @@
 ﻿using Dispo.APIs.ResponseBuilder;
-using Dispo.Commom;
+using Dispo.Commom.Extensions;
 
 namespace Dispo.API.ResponseBuilder
 {
@@ -30,7 +30,7 @@ namespace Dispo.API.ResponseBuilder
 
         public ResponseModelBuilder WithAlert(AlertType type)
         {
-            _alertType = EnumHelper.ConvertToString(type).ToLower();
+            _alertType = EnumExtension.ConvertToString(type).ToLower();
             return this;
         }
 

@@ -61,7 +61,7 @@ namespace Dispo.Infrastructure.Context
 
         private void CreateRoles(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Role>().HasData(new Role() { Id = 5, Name = "Gerente", Key = Domain.Roles.Manager }, 
+            modelBuilder.Entity<Role>().HasData(new Role() { Id = 5, Name = "Gerente", Key = Domain.Roles.Manager },
                                                 new Role() { Id = 6, Name = "Gerente de compras", Key = Domain.Roles.PurchasingManager }, 
                                                 new Role() { Id = 7, Name = "Operador de depósito", Key = Domain.Roles.WarehouseOperator });
         }

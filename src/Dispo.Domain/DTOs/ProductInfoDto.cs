@@ -1,13 +1,12 @@
-﻿using Dispo.Domain.Enums;
-
-namespace Dispo.Domain.DTO_s
+﻿namespace Dispo.Domain.DTO_s
 {
-    public class ProductInfoDto
+    public class ProductInfoDatatableDto
     {
+        public long Id { get; set; }
         public string Name { get; set; }
-        public decimal PurchasePrice { get; set; }
-        public decimal SalePrice { get; set; }
-        public eUnitOfMeasurement UnitOfMeasurement { get; set; }
-        public eProductCategory Category { get; set; }
+        public string PurchasePrice { get; set; }
+        public string SalePrice { get; set; }
+        public string UnitOfMeasurement { get; set; }
+        public string Category { get; set; }
     }
 }

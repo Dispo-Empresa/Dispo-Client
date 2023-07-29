@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Dispo.Commom;
+using Dispo.Commom.Extensions;
 using Dispo.Domain.DTOs;
 using Dispo.Domain.Entities;
 using Dispo.Domain.Enums;
@@ -35,9 +36,9 @@ namespace Dispo.Service.Services
                 var product = new Product()
                 {
                     Name = productModel.Name,
-                    UnitOfMeasurement = EnumHelper.ConvertToEnum(productModel.UnitOfMeasurement, eUnitOfMeasurement.Others),
+                    UnitOfMeasurement = EnumExtension.ConvertToEnum(productModel.UnitOfMeasurement, eUnitOfMeasurement.Others),
                     SalePrice = 0,
-                    Category = EnumHelper.ConvertToEnum(productModel.Type, eProductCategory.Others),
+                    Category = EnumExtension.ConvertToEnum(productModel.Type, eProductCategory.Others),
                     Description = productModel.Description
                 };
 

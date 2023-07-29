@@ -62,6 +62,9 @@ namespace Dispo.Infrastructure.Mappings
                    .HasColumnType("SMALLINT")
                    .HasMaxLength(120);
 
+            builder.Property(x => x.ProductDimensionId)
+                   .IsRequired(false);
+
             builder.HasOne(a => a.ProductDimension)
                    .WithOne(b => b.Product)
                    .HasForeignKey<Product>(c => c.ProductDimensionId)

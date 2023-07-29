@@ -1,4 +1,5 @@
 ﻿using Dispo.Commom;
+using Dispo.Commom.Extensions;
 using Dispo.Domain.DTO_s;
 using Dispo.Domain.DTOs;
 using Dispo.Domain.Entities;
@@ -33,15 +34,16 @@ namespace Dispo.Infrastructure.Repositories
                             .SingleOrDefault()
                             .ToLong();
 
-        public IEnumerable<ProductInfoDto> GetProductInfoDto()
+        public IEnumerable<ProductInfoDatatableDto> GetProductInfoDto()
             => _dispoContext.Products
-                            .Select(s => new ProductInfoDto()
+                            .Select(s => new ProductInfoDatatableDto()
                             {
+                                Id = s.Id,
                                 Name = s.Name,
-                                PurchasePrice = s.PurchasePrice,
-                                SalePrice = s.SalePrice,
-                                Category = s.Category,
-                                UnitOfMeasurement = s.UnitOfMeasurement,
+                                PurchasePrice = s.PurchasePrice.ConverterParaReal(),
+                                SalePrice = s.SalePrice.ConverterParaReal(),
+                                Category = EnumExtension.ConvertToString(s.Category),
+                                UnitOfMeasurement = EnumExtension.ConvertToString(s.UnitOfMeasurement),
                             })
                             .ToList();
     }

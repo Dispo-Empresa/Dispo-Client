@@ -8,7 +8,7 @@ namespace Dispo.Infrastructure.Repositories.Interfaces
     {
         IEnumerable<ProductNameWithCode> GetAllProductNamesWithCode();
         long GetProductIdByName(string productName);
-        IEnumerable<ProductInfoDto> GetProductInfoDto();
+        IEnumerable<ProductInfoDatatableDto> GetProductInfoDto();
 
     }
 }
