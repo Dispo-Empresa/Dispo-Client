@@ -5,6 +5,7 @@ import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import { COLORS } from "../../../../themes/colors";
 
@@ -70,7 +71,7 @@ function QueryDataButton(props) {
     <Tooltip title={props.title}>
       <Button
         onClick={props.onClick}
-        className="form-button"
+        className="datatable-button"
         style={{
           backgroundColor: "#228DED",
           color: COLORS.DetailsColor,
@@ -115,6 +116,21 @@ function MoreButton(props) {
   );
 }
 
+function DeleteButton(props) {
+  return (
+    <Button
+      onClick={props.onClick}
+      className="datatable-button"
+      style={{
+        backgroundColor: "#f64e60",
+        color: COLORS.DetailsColor,
+      }}
+    >
+      <DeleteIcon fontSize="small" />
+    </Button>
+  );
+}
+
 export {
   GenericButton,
   CollapseButton,
@@ -122,4 +138,5 @@ export {
   QueryDataButton,
   EditButton,
   MoreButton,
+  DeleteButton,
 };

@@ -5,3 +5,9 @@
     border: 1px solid transparent;
     font-weight: bold;
 }
+
+.datatable-button {
+    width: 40px;
+    height: 28px;
+    border-radius: 5px;
+}

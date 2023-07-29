@@ -1,33 +1,58 @@
+import React, { useState } from "react";
+
 import useFetch from "../../../hooks/useFetchApi";
-import Datatable from "../../../components/structured/datagrid/Datagrid";
+import Datatable from "../../../components/structured/datatable/Datatable";
 import ContentPage from "../../../layouts/content/ContentPage";
+import ButtonGroup from "../../../components/ui/buttons/group/ButtonGroup";
+import { ENDPOINTS } from "../../../utils/constants/endpoints";
+import { QueryDataButton } from "../../../components/ui/buttons/icons/IconButton";
 
 function ProductQueryCard() {
+  const [selectedProducts, setSelectedProducts] = useState(null);
+  const { data, loading } = useFetch(ENDPOINTS.products.getAll);
+
   const columns = [
-    { label: "Nome", field: "name", sort: false, width: 260 },
-    { label: "Preço unitário", field: "unitPrice", sort: false, width: 100 },
-    { label: "Cor", field: "color", sort: false, width: 100 },
-    { label: "Descrição", field: "description", sort: false, width: 400 },
-    {
-      label: "Unidade de peso",
-      field: "unitOfMeasurement",
-      sort: false,
-      width: 100,
-    },
-    { label: "Marca", field: "brandId", sort: false, width: 100 },
-    { label: "Tipo", field: "type", sort: false, width: 100 },
-    { label: "Actions", field: "actions", sort: false, width: 100 },
+    { field: "name", header: "Nome", minWidth: "350px" },
+    { field: "purchasePrice", header: "Preço de compra" },
+    { field: "salePrice", header: "Preço de venda" },
+    { field: "category", header: "Categoria" },
+    { field: "unitOfMeasurement", header: "Unidade de Peso" },
   ];
 
-  //const { data } = useFetch("Products/getAllProducts");
+  const customButtons = (row) => {
+    return (
+      <ButtonGroup>
+        <QueryDataButton
+          onClick={() => {
+            alert(row.id);
+          }}
+        />
+      </ButtonGroup>
+    );
+  };
+
+  const deleteTest = (row) => {
+    alert("Deletando: " + row.id);
+  };
+
+  const viewTest = (row) => {
+    alert("Vendo: " + row.id);
+  };
 
   return (
     <ContentPage title="Produtos">
       <Datatable
-        //data={data}
+        noDataMessage="Produtos não encontrados"
+        showCheckbox
+        rowsPerPage={[5, 10, 25]}
         columns={columns}
-        rowsPerPageOptions={[10, 20, 30]}
-        rowsPerPage={10}
+        data={data}
+        loading={loading}
+        //customButtons={customButtons}
+        setSelectedProducts={setSelectedProducts}
+        selectedProducts={selectedProducts}
+        onDeleteButton={deleteTest}
+        onViewButton={viewTest}
       />
     </ContentPage>
   );

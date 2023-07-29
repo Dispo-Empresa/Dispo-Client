@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 
 import { setToken } from "../../../services/authToken";
 import { post } from "../../../services/httpMethods";
-import { ENDPOINTS } from "../../../data/constants/endpoints";
+import { ENDPOINTS } from "../../../utils/constants/endpoints";
 import Button from "../../../components/ui/buttons/classic/Button";
 import imagem from "../../../assets/img/visual-inventory-management.png";
 import logoSFundo from "../../../assets/img/logo_sem_fundo.png";
