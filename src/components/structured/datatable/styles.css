@@ -1,0 +1,69 @@
+.p-checkbox .p-checkbox-box.p-highlight {
+    border-color: #029DBE;
+    background: #029DBE;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+border-color: #029DBE;
+background: #029DBE;
+color: #fff;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+border-color: #029DBE;
+box-shadow: 0 0 0 1px #029DBE;
+}
+
+.p-datatable .p-datatable-tbody > tr.p-highlight {
+color: #029DBE;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+border-color: #029DBE;
+}
+
+
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background: #029DBE;
+  border-color: #029DBE;
+  color: #fff;
+}
+
+.p-paginator .p-dropdown {
+  height: 36px;
+  font-size: 12px;
+  padding: 4px 8px;
+  min-width: auto;
+  align-items: center;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page {
+  height: 35px;
+  min-width: 35px;
+}
+
+.p-paginator .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  padding: 8px 35px;
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  color: #029DBE;
+}
+
+.p-paginator .p-dropdown:not(.p-disabled).p-focus {
+  border-color: #029DBE;
+  box-shadow: 0 0 0 1px #029DBE;
+}
+
+.p-paginator .p-dropdown:not(.p-disabled):hover {
+  border-color: #029DBE;
+}
+
+.p-paginator .p-datatable .p-datatable-tbody > tr > td {
+  border: 3px solid #fff;
+}
+
+.p-paginator .p-paginator-first, .p-paginator .p-paginator-prev, .p-paginator .p-paginator-next, .p-paginator .p-paginator-last {
+  height: 35px;
+}

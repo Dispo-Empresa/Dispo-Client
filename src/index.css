@@ -6,3 +6,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #EDEDED;
 }
+
+.p-link:focus {
+  box-shadow: 0 0 0 1px #029DBE;
+}

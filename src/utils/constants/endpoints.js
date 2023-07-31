@@ -9,8 +9,9 @@ const ENDPOINTS = {
   },
 
   adm: {
-    GetRoles: "adm/getRoles",
+    getRoles: "adm/getRoles",
     createEmployee: "adm/createEmployee",
+    employees: "adm/employees"
   },
   
   forgotPassword: {
@@ -35,7 +36,7 @@ const ENDPOINTS = {
     getProductNamesWithCode: "products/get-names-with-code",
   },
 
-  movementations: {
+  movements: {
     moveProduct: "products/move"
   }
 };

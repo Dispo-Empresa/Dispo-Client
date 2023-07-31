@@ -7,22 +7,23 @@ function useFetch(endpoint, parameters) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await get(endpoint, parameters);
-        setData(response);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await get(endpoint, parameters);
+      setData(response);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, [endpoint]);
 
-  return { data, loading, error };
+  return { data, loading, error, refetch: fetchData };
 }
 
 export default useFetch;

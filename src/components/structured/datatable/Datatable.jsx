@@ -48,12 +48,16 @@ function Datatable({
     <DataTable
       size="small"
       paginatorLeft={
-        <label>
-          <b>Selecionadas:</b>&nbsp;
-          {selectedItens == null ? 0 : selectedItens.length}
-        </label>
+        showCheckbox ? (
+          <label>
+            <b>Selecionadas:</b>&nbsp;
+            {selectedItens == null ? 0 : selectedItens.length}
+          </label>
+        ) : (
+          <></>
+        )
       }
-      selectionMode={!rowClick ? "checkbox" : null}
+      selectionMode={!rowClick && showCheckbox ? "checkbox" : null}
       resizableColumns
       showGridlines
       scrollable

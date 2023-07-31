@@ -1,9 +1,3 @@
-const modalTypeOptions = {
-
-    ViewModal: "view",
-    EditModal: "edit"
-};
-
 const roles = {
 
     Manager: "manager",
@@ -11,4 +5,10 @@ const roles = {
     WarehouseOperator: "warehouseOperator"
 };
 
-export { modalTypeOptions, roles };
+const browserStorageKeys = {
+
+    Token: "accessToken",
+    LastAccessedUrl: "lastAccessedUrl"
+};
+
+export { roles, browserStorageKeys };
