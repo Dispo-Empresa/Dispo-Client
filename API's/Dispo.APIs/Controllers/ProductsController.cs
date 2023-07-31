@@ -1,6 +1,6 @@
 ﻿using Dispo.API.ResponseBuilder;
+using Dispo.APIs;
 using Dispo.APIs.ResponseBuilder;
-using Dispo.Domain.DTOs.RequestDTOs;
 using Dispo.Domain.Exceptions;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.DTOs.RequestDTOs;
@@ -12,21 +12,19 @@ namespace Dispo.API.Controllers
 {
     [Route("/api/v1/products")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    [Authorize]
+    public class ProductsController : DispoBaseController
     {
         private readonly IProductService _productService;
         private readonly IProductRepository _productRepository;
-        private readonly IMovementService _movementService;
 
-        public ProductsController(IProductService productService, IProductRepository productRepository, IMovementService movementService)
+        public ProductsController(ILogger<ProductsController> logger, IProductService productService, IProductRepository productRepository) : base(logger)
         {
             _productService = productService;
             _productRepository = productRepository;
-            _movementService = movementService;
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult Create([FromBody] ProductRequestDto productRequestDto)
         {
             try
@@ -57,7 +55,6 @@ namespace Dispo.API.Controllers
 
         [HttpGet]
         [Route("get-names-with-code")]
-        [Authorize]
         public IActionResult GetProductNamesWithCode()
         {
             try
@@ -73,7 +70,6 @@ namespace Dispo.API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult GetAll()
         {
             try
@@ -95,7 +91,6 @@ namespace Dispo.API.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        [Authorize]
         public IActionResult Get(long id)
         {
             try
@@ -108,33 +103,6 @@ namespace Dispo.API.Controllers
             {
 
                 throw;
-            }
-        }
-
-        /// <summary>
-        /// Realiza a movimentação de um produto.
-        /// </summary>
-        /// <param name="productMovimentationDto"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("move")]
-        [Authorize]
-        public async Task<IActionResult> MoveProduct([FromBody] ProductMovimentationDto productMovimentationDto)
-        {
-            try
-            {
-                productMovimentationDto.Validate();
-                await _movementService.MoveProductAsync(productMovimentationDto);
-
-                return Ok(new ResponseModelBuilder().WithMessage("Movimentação de produto realizada com sucesso.")
-                                                    .WithSuccess(true)
-                                                    .Build());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new ResponseModelBuilder().WithMessage(ex.Message)
-                                                            .WithSuccess(false)
-                                                            .Build());
             }
         }
     }

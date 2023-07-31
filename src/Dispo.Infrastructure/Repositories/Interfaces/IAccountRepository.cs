@@ -13,5 +13,6 @@ namespace Dispo.Infrastructure.Repositories.Interfaces
         UserInfoResponseDto GetUserInfoResponseDto(long id);
         string GetUserNameByAccountId(long id);
         string GetRoleKeyByAccountId(long id);
+        IList<AccountUserInfoDto> GetAccountsUserInfo();
     }
 }

@@ -84,5 +84,19 @@ namespace Dispo.Infrastructure.Repositories
             => _dispoContext.Accounts.Where(x => x.Id == id)
                                      .Select(s => s.Role.Key)
                                      .FirstOrDefault() ?? string.Empty;
+
+        public IList<AccountUserInfoDto> GetAccountsUserInfo()
+            => _dispoContext.Accounts.Where(x => x.Ativo == true)
+                                                 //.Include(x => x.User)
+                                                 .Select(x => new AccountUserInfoDto()
+                                                 {
+                                                     AccountId = x.Id,
+                                                     Email = x.Email,
+                                                     RoleName = x.RoleId.ToString(),
+                                                     //FullName = x.UserId.IsIdValid() ? $"{x.User.FirstName} {x.User.LastName}" : string.Empty,
+                                                     //Phone = x.UserId.IsIdValid() ? x.User.Phone : string.Empty,
+
+                                                 })
+                                                 .ToList();
     }
 }
