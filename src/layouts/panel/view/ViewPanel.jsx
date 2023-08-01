@@ -1,24 +1,23 @@
-import { MDBContainer } from "mdb-react-ui-kit";
-
-import { SaveButton } from "../../../components/ui/buttons/icons/IconButton";
+import {
+  RefreshButton,
+  ExportButton,
+} from "../../../components/ui/buttons/icons/IconButton";
 
 import "./styles.css";
 
-export function FormView(props) {
+function ViewPanel({ title, buttons, children, onExportButton, refreshData }) {
   return (
-    <MDBContainer>
-      <div className="form-content">{props.children}</div>
-    </MDBContainer>
+    <div>
+      <label className="title">{title}</label>
+      <div className="buttons">
+        {buttons}
+        {refreshData && <RefreshButton onClick={refreshData} />}
+        {onExportButton && <ExportButton />}
+      </div>
+      <hr style={{ marginBottom: "50px", width: "100%" }} />
+      <>{children}</>
+    </div>
   );
 }
 
-export function FormEdit(props) {
-  return (
-    <MDBContainer fluid style={{ width: props.width }}>
-      <div className="form-header">
-        <SaveButton onClick={props.onSave} />
-      </div>
-      <div className="form-content">{props.children}</div>
-    </MDBContainer>
-  );
-}
+export default ViewPanel;

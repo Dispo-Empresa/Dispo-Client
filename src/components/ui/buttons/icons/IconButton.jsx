@@ -6,7 +6,9 @@ import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrow
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import RefreshIcon from "@mui/icons-material/Refresh";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
 import { COLORS } from "../../../../themes/colors";
 
 import "./styles.css";
@@ -131,6 +133,36 @@ function DeleteButton(props) {
   );
 }
 
+function RefreshButton(props) {
+  return (
+    <Button
+      onClick={props.onClick}
+      className="form-button"
+      style={{
+        backgroundColor: "#02AEEC",
+        color: COLORS.DetailsColor,
+      }}
+    >
+      <RefreshIcon />
+    </Button>
+  );
+}
+
+function ExportButton(props) {
+  return (
+    <Button
+      onClick={props.onClick}
+      className="form-button"
+      style={{
+        backgroundColor: "#299C66",
+        color: COLORS.DetailsColor,
+      }}
+    >
+      <FontAwesomeIcon icon={faFileExcel} size="lg" />
+    </Button>
+  );
+}
+
 export {
   GenericButton,
   CollapseButton,
@@ -139,4 +171,6 @@ export {
   EditButton,
   MoreButton,
   DeleteButton,
+  RefreshButton,
+  ExportButton,
 };

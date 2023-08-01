@@ -22,6 +22,7 @@ function SelectWithFilter(props) {
         </div>
       </div>
       <Dropdown
+        emptyFilterMessage="Nenhum resultado encontrado"
         showFilterClear
         value={props.value}
         onChange={props.onChange}
@@ -30,6 +31,7 @@ function SelectWithFilter(props) {
         filter
         showClear={!props.required}
         className={props.error ? "p-invalid select" : "small-dropdown select"}
+        style={{ width: "300px" }}
       />
       <div>{props.error && <span className="errors">{props.error}</span>}</div>
     </div>

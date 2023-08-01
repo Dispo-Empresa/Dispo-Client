@@ -34,7 +34,11 @@ const callApi = async (endpoint, method, data = null) => {
       response.status
     );
 
-  } catch (error) { // precisa validar error.errors caso tenha
+  } catch (error) {
+
+    if(error.response.status === 401){
+      window.location.replace("/login/signin");
+    }
 
     if (error.response) {
 

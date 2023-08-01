@@ -8,8 +8,6 @@ import {
   DeleteButton,
 } from "../../ui/buttons/icons/IconButton";
 
-import "./styles.css";
-
 function Datatable({
   rowClick,
   noDataMessage,
@@ -19,8 +17,8 @@ function Datatable({
   data,
   loading,
   customButtons,
-  selectedProducts,
-  setSelectedProducts,
+  selectedItens,
+  setSelectedItens,
   onDeleteButton,
   onViewButton,
 }) {
@@ -50,24 +48,31 @@ function Datatable({
     <DataTable
       size="small"
       paginatorLeft={
-        <label>
-          <b>Selecionadas:</b>&nbsp;
-          {selectedProducts == null ? 0 : selectedProducts.length}
-        </label>
+        showCheckbox ? (
+          <label>
+            <b>Selecionadas:</b>&nbsp;
+            {selectedItens == null ? 0 : selectedItens.length}
+          </label>
+        ) : (
+          <></>
+        )
       }
-      selectionMode={!rowClick ? "checkbox" : null}
+      selectionMode={!rowClick && showCheckbox ? "checkbox" : null}
       resizableColumns
       showGridlines
       scrollable
       value={data && data.data}
-      selection={selectedProducts}
-      onSelectionChange={(e) => setSelectedProducts(e.value)}
+      selection={selectedItens}
+      onSelectionChange={(e) => setSelectedItens(e.value)}
       paginator
       rows={rowsPerPage != null ? rowsPerPage[0] : 5}
       rowsPerPageOptions={rowsPerPage}
       loading={loading}
       emptyMessage={noDataMessage ?? "Nenhum resultado encontrado"}
-      tableStyle={{ maxWidth: "100%", overflowX: "auto" }}
+      tableStyle={{
+        maxWidth: "100%",
+        overflowX: "auto",
+      }}
     >
       {showCheckbox ? (
         <Column

@@ -4,6 +4,7 @@ import useFetch from "../../../hooks/useFetchApi";
 import Datatable from "../../../components/structured/datatable/Datatable";
 import ContentPage from "../../../layouts/content/ContentPage";
 import ButtonGroup from "../../../components/ui/buttons/group/ButtonGroup";
+import ViewPanel from "../../../layouts/panel/view/ViewPanel";
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
 import { QueryDataButton } from "../../../components/ui/buttons/icons/IconButton";
 
@@ -41,19 +42,21 @@ function ProductQueryCard() {
 
   return (
     <ContentPage title="Produtos">
-      <Datatable
-        noDataMessage="Produtos não encontrados"
-        showCheckbox
-        rowsPerPage={[5, 10, 25]}
-        columns={columns}
-        data={data}
-        loading={loading}
-        //customButtons={customButtons}
-        setSelectedProducts={setSelectedProducts}
-        selectedProducts={selectedProducts}
-        onDeleteButton={deleteTest}
-        onViewButton={viewTest}
-      />
+      <ViewPanel>
+        <Datatable
+          noDataMessage="Produtos não encontrados"
+          showCheckbox
+          rowsPerPage={[5, 10, 25]}
+          columns={columns}
+          data={data}
+          loading={loading}
+          //customButtons={customButtons}
+          setSelectedItens={setSelectedProducts}
+          selectedItens={selectedProducts}
+          onDeleteButton={deleteTest}
+          onViewButton={viewTest}
+        />
+      </ViewPanel>
     </ContentPage>
   );
 }

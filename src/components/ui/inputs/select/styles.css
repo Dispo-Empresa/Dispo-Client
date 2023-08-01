@@ -1,16 +1,20 @@
-.p-dropdown-filter.p-inputtext.p-component {
-  height: 35px;
-  font-size: 15px;
-  padding: 0.25rem;
+.p-dropdown {
+  height: 37px;
+  padding: 4px 8px;
+  min-width: auto;
+  align-items: center;
 }
 
-.select {
-  width: 300px;
-  height: 35px;
-  font-size: 13px;
-  line-height: 5px;
+.p-dropdown:not(.p-disabled).p-focus {
+  border-color: #86B7FE;
+  box-shadow: 0 0 0 1px #86B7FE;
 }
 
-.p-dropdown-filter-container {
-  border-color: red;
+.p-dropdown-panel .p-dropdown-header .p-dropdown-filter {
+  height: 37px;
+  padding: 4px 8px;
+  min-width: auto;
+  align-items: center;
+  border-color: #86B7FE;
+  box-shadow: 0 0 0 1px #86B7FE;
 }

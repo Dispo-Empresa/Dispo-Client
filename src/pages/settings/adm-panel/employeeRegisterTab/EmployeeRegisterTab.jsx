@@ -1,17 +1,25 @@
 import { MDBCol } from "mdb-react-ui-kit";
 
-import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
+import RegisterPanel from "../../../../layouts/panel/register/classic/RegisterPanel";
 import useFields from "./useFields";
-import useAlertScheme from "../../../hooks/alert/useAlertScheme";
-import RadioButtons from "../../../components/ui/inputs/radio/RadioButtons";
-import { TextField } from "../../../components/ui/inputs/textfield/TextField";
-import { SelectMulti } from "../../../components/ui/inputs/select/SelectField";
-import { post } from "../../../services/httpMethods";
-import { ENDPOINTS } from "../../../utils/constants/endpoints";
+import useAlertScheme from "../../../../hooks/alert/useAlertScheme";
+import RadioButtons from "../../../../components/ui/inputs/radio/RadioButtons";
+import { TextField } from "../../../../components/ui/inputs/textfield/TextField";
+import { SelectMulti } from "../../../../components/ui/inputs/select/SelectField";
+import { post } from "../../../../services/httpMethods";
+import { ENDPOINTS } from "../../../../utils/constants/endpoints";
 
-function UserRegisterTab() {
-  const [fields, errors, roles, handleFieldChange, handleWarehouseChange] =
-    useFields();
+function EmployeeRegisterTab() {
+  const [
+    fields,
+    errors,
+    roles,
+    handleValidateRequiredFields,
+    handleValidateErrorFields,
+    handleClearFields,
+    handleFieldChange,
+    handleWarehouseChange,
+  ] = useFields();
   const [showAlert, openAlert] = useAlertScheme();
 
   const RegisterUser = async () => {
@@ -22,11 +30,23 @@ function UserRegisterTab() {
     };
 
     try {
+      if (handleValidateRequiredFields()) {
+        openAlert("error", "Existem campos obrigatórios não respondidos");
+        return;
+      }
+
+      if (handleValidateErrorFields()) {
+        openAlert("error", "Existem campos com erro, por favor verifique!");
+        return;
+      }
+
       var response = await post(ENDPOINTS.adm.createEmployee, data);
 
       openAlert(response.alertType, "Sucesso", response.message);
     } catch (error) {
       openAlert(error.alertType, "Erro", error.message);
+    } finally {
+      handleClearFields();
     }
   };
 
@@ -57,6 +77,7 @@ function UserRegisterTab() {
       </MDBCol>
       <MDBCol>
         <SelectMulti
+          required
           label="Depósitos"
           options={fields.warehousesOptions}
           onChange={handleWarehouseChange}
@@ -65,6 +86,7 @@ function UserRegisterTab() {
       <MDBCol>
         {roles && (
           <RadioButtons
+            required
             label="Cargo"
             align="vertical"
             options={roles.data.map((role) => ({
@@ -79,4 +101,4 @@ function UserRegisterTab() {
   );
 }
 
-export default UserRegisterTab;
+export default EmployeeRegisterTab;
