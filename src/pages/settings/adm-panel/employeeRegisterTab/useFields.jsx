@@ -1,36 +1,28 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
+import useFetch from "../../../../hooks/useFetchApi";
 import validate from "./validations";
-import useFetch from "../../../hooks/useFetchApi";
-import { ENDPOINTS } from "../../../utils/constants/endpoints";
+import { ENDPOINTS } from "../../../../utils/constants/endpoints";
 
 const initialState = {
-  movimentationType: "",
-  product: "",
-  quantity: "",
-  movimentationTypes: [
-    { value: 0, label: "Entrada" },
-    { value: 1, label: "Saída" },
+  email: "",
+  warehouses: [],
+  role: -1,
+
+  warehousesOptions: [
+    { value: 1, label: "Depósito 1" },
+    { value: 13, label: "Depósito 2" },
+    { value: 7, label: "Depósito 3" },
   ],
 };
 
 function useFields() {
   const [fields, setFields] = useState(initialState);
   const [errors, setErrors] = useState({
-    movimentationType: "",
-    product: "",
-    quantity: "",
+    email: "",
   });
-  const [products, setProducts] = useState([]);
-  const { data } = useFetch(ENDPOINTS.products.getProductNamesWithCode);
-  const requiredFields = ["movimentationType", "product", "quantity"];
-
-  const GetProducts = () => {
-    setProducts(
-      data.data.map((item) => ({ value: item.id, label: item.name }))
-    );
-  };
-  useEffect(GetProducts, [setProducts]);
+  const requiredFields = ["email", "warehouses", "roles"];
+  const { data: roles } = useFetch(ENDPOINTS.adm.getRoles);
 
   const handleValidateRequiredFields = () => {
     return requiredFields.filter((field) => fields[field] === "").length > 0;
@@ -56,14 +48,20 @@ function useFields() {
     }));
   };
 
+  const handleWarehouseChange = (selected) => {
+    const selectedWarehouses = selected.map((option) => option.value);
+    handleFieldChange("warehouses", selectedWarehouses);
+  };
+
   return [
     fields,
     errors,
-    products,
+    roles,
     handleValidateRequiredFields,
     handleValidateErrorFields,
     handleClearFields,
     handleFieldChange,
+    handleWarehouseChange,
   ];
 }
 

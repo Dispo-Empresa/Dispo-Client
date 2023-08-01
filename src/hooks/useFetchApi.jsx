@@ -1,27 +1,29 @@
 import { useState, useEffect } from "react";
 
-import { getSync } from "../services/api/crud";
+import { get } from "../services/httpMethods";
 
-function useFetch(url) {
+function useFetch(endpoint, parameters) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    getSync(url)
-      .then((response) => {
-        setData(response.data);
-        setLoading(false);
-        console.log(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError(err);
-        setLoading(false);
-      });
-  }, [url]);
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await get(endpoint, parameters);
+      setData(response);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  return { data, loading, error };
+  useEffect(() => {
+    fetchData();
+  }, [endpoint]);
+
+  return { data, loading, error, refetch: fetchData };
 }
 
 export default useFetch;

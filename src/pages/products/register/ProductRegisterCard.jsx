@@ -23,7 +23,7 @@ function ProductRegisterCard() {
 
   const [showAlert, openAlert] = useAlertScheme();
 
-  const RegisterProduct = () => {
+  const RegisterProduct = async () => {
     if (handleValidateRequiredFields()) {
       openAlert("error", "Existem campos obrigatórios não respondidos");
       return;
@@ -54,16 +54,6 @@ function ProductRegisterCard() {
               error={errors.name}
               onChange={(value) =>
                 handleFieldChange("name", value.target.value)
-              }
-            />
-          </MDBCol>
-          <MDBCol>
-            <TextField
-              disabled={true}
-              label="Código"
-              value={fields.code}
-              onChange={(value) =>
-                handleFieldChange("code", value.target.value)
               }
             />
           </MDBCol>
@@ -119,7 +109,7 @@ function ProductRegisterCard() {
             />
           </MDBCol>
           <MDBCol>
-            <ImageField label="Imagem" />
+            <ImageField required label="Imagem" />
           </MDBCol>
           <ContentDivisor title="Dimensões do produto" />
           <MDBCol>

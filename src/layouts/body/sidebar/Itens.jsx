@@ -12,6 +12,11 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 
+import {
+  isRoleManager,
+  isRolePurchasingManager,
+  isRoleWarehouseOperator,
+} from "../../../services/role-auth";
 import { COLORS } from "../../../themes/colors";
 
 import "./styles.css";
@@ -65,35 +70,39 @@ function SidebarItens(props) {
           style={{ marginTop: "66px" }}
         />
 
-        <SubMenu label="Ordem de compra" icon={<DraftsIcon />}>
-          <MenuItem
-            component={<Link to="/purchaseOrder/registration" />}
-            active={isActivePage("/purchaseOrder/registration")}
-            prefix="Cadastrar"
-            icon={<AddIcon />}
-          />
-          <MenuItem 
-            component={<Link to="/purchaseOrder/attachment"/>}  
-            active={isActivePage("/purchaseOrder/attachment")}
-            prefix="Anexos"  
-            icon={<AttachFileIcon />}
-          />
-        </SubMenu>
+        {(isRolePurchasingManager() || isRoleManager()) && (
+          <SubMenu label="Ordem de compra" icon={<DraftsIcon />}>
+            <MenuItem
+              component={<Link to="/purchaseOrder/registration" />}
+              active={isActivePage("/purchaseOrder/registration")}
+              prefix="Cadastrar"
+              icon={<AddIcon />}
+            />
+            <MenuItem
+              component={<Link to="/purchaseOrder/attachment" />}
+              active={isActivePage("/purchaseOrder/attachment")}
+              prefix="Anexos"
+              icon={<AttachFileIcon />}
+            />
+          </SubMenu>
+        )}
 
-        <SubMenu label="Estoque" icon={<WarehouseIcon />}>
-          <MenuItem
-            component={<Link to="/stock/moviments" />}
-            active={isActivePage("/stock/moviments")}
-            prefix="Teste Multi Step"
-            icon={<SyncAltIcon />}
-          />
-          <MenuItem
-            component={<Link to="/stock/moveProduct" />}
-            active={isActivePage("/stock/moveProduct")}
-            prefix="Movimentar Produto"
-            icon={<SyncAltIcon />}
-          />
-        </SubMenu>
+        {(isRoleWarehouseOperator() || isRoleManager()) && (
+          <SubMenu label="Estoque" icon={<WarehouseIcon />}>
+            <MenuItem
+              component={<Link to="/stock/moviments" />}
+              active={isActivePage("/stock/moviments")}
+              prefix="Teste Multi Step"
+              icon={<SyncAltIcon />}
+            />
+            <MenuItem
+              component={<Link to="/stock/moveProduct" />}
+              active={isActivePage("/stock/moveProduct")}
+              prefix="Movimentar Produto"
+              icon={<SyncAltIcon />}
+            />
+          </SubMenu>
+        )}
 
         <SubMenu label="Atalhos" icon={<ShortcutIcon />}>
           <MenuItem

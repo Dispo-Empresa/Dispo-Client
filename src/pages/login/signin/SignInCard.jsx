@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Link } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
-import { setToken } from "../../../services/api/authToken";
-import { post } from "../../../services/api/crud";
+import { setToken } from "../../../services/authToken";
+import { post } from "../../../services/httpMethods";
+import { ENDPOINTS } from "../../../utils/constants/endpoints";
+import { getLocalStorage } from "../../../data/local";
+import { browserStorageKeys } from "../../../utils/constants/constants";
 import Button from "../../../components/ui/buttons/classic/Button";
 import imagem from "../../../assets/img/visual-inventory-management.png";
 import logoSFundo from "../../../assets/img/logo_sem_fundo.png";
@@ -12,14 +15,20 @@ import useKeyPress from "../../../hooks/useKeyPress";
 import "./style.css";
 
 function SignIn() {
-  const [emailRequest, setEmailRequest] = useState("matheustexte123@gmail.com");
-  const [passwordRequest, setpasswordRequest] = useState("debora14");
+  const [emailRequest, setEmailRequest] = useState("gestorTeste@gmail.com");
+  const [passwordRequest, setpasswordRequest] = useState("senhateste123");
   const [goToHomePage, setgoToHomePage] = useState(false);
   const [loading, setLoading] = useState(false);
   useKeyPress("Enter", handleKeyPress);
 
   if (goToHomePage) {
-    return <Navigate to="/dashboard" />;
+    var lastAccessedUrl = getLocalStorage(browserStorageKeys.LastAccessedUrl);
+
+    return lastAccessedUrl ? (
+      <Navigate to={lastAccessedUrl} />
+    ) : (
+      <Navigate to="/dashboard" />
+    );
   }
 
   const SignIn = async () => {
@@ -30,13 +39,16 @@ function SignIn() {
 
     try {
       setLoading(true);
-      var response = await post("Auth/signin", data);
 
-      setToken(response.data.tokenResponseDto.token);
-      setgoToHomePage(true);
-      setLoading(false);
+      var response = await post(ENDPOINTS.auth.signIn, data);
+
+      if (response.success) {
+        setToken(response.data.tokenInfo.token);
+        setgoToHomePage(true);
+      }
     } catch (err) {
       console.log(err);
+    } finally {
       setLoading(false);
     }
   };

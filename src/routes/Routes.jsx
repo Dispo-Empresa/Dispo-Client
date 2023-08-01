@@ -1,11 +1,8 @@
-import { useState, useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import SignInCard from "../pages/login/signin/SignInCard";
-import SignUpCard from "../pages/login/signup/SignUpCard";
-import ForgotPasswordCard from "../pages/login/forgot-password/ForgotPasswordCard";
-import EmailCodeCard from "../pages/login/forgot-password/email-code/EmailCodeCard";
-import ResetPasswordCard from "../pages/login/forgot-password/reset-password/ResetPasswordCard";
 import DashboardCard from "../pages/dashboard/DashboardCard";
 import ProfileCard from "../pages/profile/ProfileCard";
 import ProductCard from "../pages/products/ProductCard";
@@ -17,25 +14,21 @@ import SettingsCard from "../pages/settings/SettingsCard";
 import NotFound from "../pages/not-found/NotFound";
 import ProductMovimentation from "../pages/stock/movimentation/ProductMovimentation";
 import ManufacturerCard from "../pages/manufacturers/ManufacturerCard";
+import PurchaseOrderFormCard from "../pages/purchase-order/register/PurchaseOrderFormCard";
+import { roles } from "../utils/constants/constants";
 
-import PurchaseOrderFormCard from "../pages/purchase-order/registration/PurchaseOrderFormCard"
+function RouteController({ children, allowedRoles }) {
+  if (
+    window.location.pathname.includes("/login") ||
+    window.location.pathname === "/" ||
+    window.location.pathname === "/404"
+  ) {
+    return children;
+  }
 
-function RouteController(props) {
-  const [isSomeLogin, setIsSomeLogin] = useState(true);
-
-  useEffect(() => {
-    setIsSomeLogin(
-      window.location.pathname.includes("/login") ||
-        window.location.pathname === "/" ||
-        window.location.pathname === "/404"
-    );
-  });
-
-  return isSomeLogin ? (
-    props.children
-  ) : (
-    //<PrivateRoute>
-      <BodyLayout>{props.children}</BodyLayout>
+  return (
+    //<PrivateRoute roles={allowedRoles}>
+      <BodyLayout>{children}</BodyLayout>
     //</PrivateRoute>
   );
 }
@@ -59,44 +52,12 @@ function RoutesConfiguration() {
               <SignInCard />
             </RouteController>
           }
-        />      
+        />
         <Route
           path="/login/signin"
           element={
             <RouteController>
               <SignInCard />
-            </RouteController>
-          }
-        />
-        <Route
-          path="/login/signup"
-          element={
-            <RouteController>
-              <SignUpCard />
-            </RouteController>
-          }
-        />
-        <Route
-          path="/login/forgotmypassword"
-          element={
-            <RouteController>
-              <ForgotPasswordCard />
-            </RouteController>
-          }
-        />
-        <Route
-          path="/login/emailCodeResetPassword/:accountId"
-          element={
-            <RouteController>
-              <EmailCodeCard />
-            </RouteController>
-          }
-        />
-        <Route
-          path="/login/resetPassword/:accountId"
-          element={
-            <RouteController>
-              <ResetPasswordCard />
             </RouteController>
           }
         />
@@ -119,13 +80,15 @@ function RoutesConfiguration() {
         <Route
           path="/purchaseOrder/registration"
           element={
-            <RouteController>
-              <PurchaseOrderFormCard></PurchaseOrderFormCard>
+            <RouteController
+              allowedRoles={[roles.Manager, roles.PurchasingManager]}
+            >
+              <PurchaseOrderFormCard />
             </RouteController>
           }
         />
         <Route
-          path="/products/registration"
+          path="/products"
           element={
             <RouteController>
               <ProductCard />
@@ -135,7 +98,9 @@ function RoutesConfiguration() {
         <Route
           path="/stock/moviments"
           element={
-            <RouteController>
+            <RouteController
+              allowedRoles={[roles.Manager, roles.WarehouseOperator]}
+            >
               <MovimentCard />
             </RouteController>
           }
@@ -143,7 +108,9 @@ function RoutesConfiguration() {
         <Route
           path="/stock/moveProduct"
           element={
-            <RouteController>
+            <RouteController
+              allowedRoles={[roles.Manager, roles.WarehouseOperator]}
+            >
               <ProductMovimentation />
             </RouteController>
           }

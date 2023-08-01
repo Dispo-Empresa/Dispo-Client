@@ -9,7 +9,8 @@ import useFields from "./useFields";
 import { TextField } from "../../../components/ui/inputs/textfield/TextField";
 import { SelectWithFilter } from "../../../components/ui/inputs/select/SelectField";
 import { GenericButton } from "../../../components/ui/buttons/icons/IconButton";
-import { post } from "../../../services/api/crud";
+import { post } from "../../../services/httpMethods";
+import { ENDPOINTS } from "../../../utils/constants/endpoints";
 
 function ProductMovimentation() {
   const [
@@ -43,7 +44,7 @@ function ProductMovimentation() {
     }
 
     try {
-      let response = await post("Products/moveProduct", data);
+      let response = await post(ENDPOINTS.movements.moveProduct, data);
 
       if (response.response && response.response.status === 400) {
         openAlert(

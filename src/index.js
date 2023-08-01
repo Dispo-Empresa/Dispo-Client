@@ -3,7 +3,13 @@ import ReactDOM from "react-dom";
 
 import App from './App'
 
-import './index.css';
+import "primereact/resources/themes/tailwind-light/theme.css";
+//import "primereact/resources/themes/fluent-light/theme.css";
+//import "primereact/resources/themes/lara-light-blue/theme.css";
+//import "primereact/resources/themes/saga-blue/theme.css";
+import "./index.css";
+import "./components/structured/datatable/styles.css";
+import "./components/ui/inputs/select/styles.css";
 
 const rootElement = document.getElementById("root");
 

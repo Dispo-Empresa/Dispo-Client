@@ -15,8 +15,8 @@ function ContentPage(props) {
         height: collapsed && "75px",
         minHeight: !collapsed && "350px",
         marginBottom: "32px",
-        width: "100%",
         borderRadius: "10px",
+        maxWidth: "100%",
         boxShadow: "0px 0.2px 0px",
         border: "1px solid #ffff",
       }}
@@ -41,7 +41,7 @@ function ContentPage(props) {
             />
           </div>
         </div>
-        {!collapsed && <hr />}
+        {collapsed || (!props.dividerOff && <hr />)}
         <div className="content-children">{props.children}</div>
       </CardContent>
     </Card>

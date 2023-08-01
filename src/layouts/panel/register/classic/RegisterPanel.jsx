@@ -28,27 +28,25 @@ function RegisterPanel({
 
   return (
     <div>
-      <MDBContainer fluid className="p-4">
-        <div>
-          {alertType && alertTitle && (
-            <AlertMessagePanel
-              type={alertType}
-              title={alertTitle}
-              message={alertMessage}
-              onClose={alertPanel && alertPanel.onClose}
-            />
-          )}
-        </div>
-        <label className="title">{title}</label>
-        <div className="buttons">
-          {buttons}
-          {hideSaveButton ? "" : <SaveButton onClick={onSave} />}
-        </div>
-        <hr style={{ marginBottom: "50px", width: "100%" }} />
-        <MDBRow className="g-5">
-          <>{children}</>
-        </MDBRow>
-      </MDBContainer>
+      <div>
+        {alertType && alertTitle && (
+          <AlertMessagePanel
+            type={alertType}
+            title={alertTitle}
+            message={alertMessage}
+            onClose={alertPanel && alertPanel.onClose}
+          />
+        )}
+      </div>
+      <label className="title">{title}</label>
+      <div className="buttons">
+        {buttons}
+        {hideSaveButton ? "" : <SaveButton onClick={onSave} />}
+      </div>
+      <hr style={{ marginBottom: "50px", width: "100%" }} />
+      <MDBRow className="g-5">
+        <>{children}</>
+      </MDBRow>
     </div>
   );
 }
