@@ -13,20 +13,14 @@ function PurchaseOrder(){
   const [showAlert, openAlert] = useAlertScheme();
   const [order, setPurchaseOrder] = useState([]);
   const [purchaseOne, setPurchaseOne] = useState({});
-  const [purchaseTwo, setPurchaseTwo] = useState({});
+  const [purchaseTwo, setPurchaseTwo] = useState([]);
 
   const handleStepChange = () => {
     var data = {
       orderNumber:        purchaseOne.orderNumber,
       creationDate:       purchaseOne.creationDate,
       notificationType:   purchaseOne.notificationType,
-      product:            purchaseTwo.product,
-      quantity:           purchaseTwo.quantity,
-      supplier:           purchaseTwo.supplier,
-      description:        purchaseTwo.description,
-      totalPurchaseValue: purchaseTwo.totalPurchaseValue,
-      shipping:           purchaseTwo.shipping,
-      DeliveryTimeFrame:  purchaseTwo.DeliveryTimeFrame
+      supplier:           purchaseOne.supplier
     };
 
     setPurchaseOrder(data);
@@ -40,10 +34,7 @@ function PurchaseOrder(){
   };
 
   const assignPuchaseTwo = (val) => {
-    setPurchaseTwo((purchase) => ({
-      ...purchase,
-      ...val,
-    }));
+    setPurchaseTwo(val);
   };
 
   const RegisterPurchaseOrder = () => {
@@ -64,7 +55,7 @@ function PurchaseOrder(){
       >
          <StepOne entityCallback={assignPuchaseOne} alertPanel={openAlert} />
          <StepTwo entityCallback={assignPuchaseTwo} alertPanel={openAlert} />
-         <StepThree entity={order} />
+         <StepThree entity={order} order={purchaseTwo}/>
       </Stepper>
     </ContentPage>
   );

@@ -1,23 +1,37 @@
+import React from 'react';
+import './stylesStepThree.css';
+
+import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
 import { Step } from "../../../components/structured/stepper/Stepper";
 
 const StepThree = (props) => {
-    return (
-      <Step {...props}>
-        <div>
-          <h2>Detalhes da ordem de compra</h2>
+  return (
+    <Step {...props}>
+      <RegisterPanel title="Detalhes da ordem de compra" hideSaveButton={true}> 
+        <div className="grayBackground"> 
+          <h3>Fornecedor: {props.entity.supplier}</h3>
           <p>Número da ordem: {props.entity.orderNumber}</p>
           <p>Data de criação: {props.entity.creationDate}</p>
           <p>Tipo de notificação: {props.entity.notificationType}</p>
-          <p>Fornecedor: {props.entity.supplier}</p>
-          <p>Produto: {props.entity.product}</p>
-          <p>Quantidade: {props.entity.quantity}</p>
-          <p>Valor total: {props.entity.totalPurchaseValue}</p>
-          <p>Frete: {props.entity.shipping}</p>
-          <p>Tempo de entrega: {props.entity.DeliveryTimeFrame}</p>
-          <p>Descrição: {props.entity.description}</p>
+        </div>    
+      </RegisterPanel>
+
+      <RegisterPanel title="Informações do pedido" hideSaveButton={true}>
+        <div className="orderInfoWrapper">
+          {props.order.map((item, index) => (
+            <div key={index} className="orderInfo grayBackground"> 
+              <h3>Produto: {item.product}</h3>
+              <p>Quantidade: {item.quantity}</p>
+              <p>Valor total: R${item.totalPurchaseValue}</p>
+              <p>Frete: R${item.shipping}</p>
+              <p>Tempo de entrega: {item.DeliveryTimeFrame}</p>
+              <p>Descrição do produto: {item.description}</p>
+            </div>
+          ))}
         </div>
-      </Step>
-    );
+      </RegisterPanel>
+    </Step>
+  );
 };
 
 export default StepThree;

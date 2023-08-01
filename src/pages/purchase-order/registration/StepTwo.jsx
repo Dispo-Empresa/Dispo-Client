@@ -1,5 +1,8 @@
 import { MDBCol } from "mdb-react-ui-kit";
 
+import Datagrid from "../../../components/structured/datagrid/Datagrid";   
+import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
+
 import { TextArea } from "../../../components/ui/inputs/textarea/TextArea";
 import { CurrencyField}  from "../../../components/ui/inputs/currency/CurrencyField";
 import { UseFieldsStepTwo } from "./UseFields";
@@ -8,18 +11,24 @@ import { TextField } from "../../../components/ui/inputs/textfield/TextField";
 import { SelectWithFilter } from "../../../components/ui/inputs/select/SelectField";
 
 function StepTwo(props){
-    const [fields, handleFieldChange, handleExistsRequiredFieldsNotAnswered] = UseFieldsStepTwo();
+    const [fields, order, setOrder, handleFieldChange, handleExistsRequiredFieldsNotAnswered, handleExistsDuplicateFields] = UseFieldsStepTwo();
 
     const products = [
         { value: "Laranja", label: "Laranja"},
-        { value: "Carne", label: "Carne"}   
+        { value: "Carne", label: "Carne"},
+        { value: "Batata", label: "Batata"},
+        { value: "Coca-Cola", label: "Coca-Cola"}
     ];
 
-    const supplier =[
-        {value: "Matheus LTDA", label: "Matheus LTDA"},
-        {value: "Teste MEI", label: "Teste MEI"}
-    ]
-      
+    const columns = [
+        { label: "Produto", field: "product", sort: false, width: 260 },
+        { label: "Quantidade", field: "quantity", sort: false, width: 260 },
+        { label: "Valor total", field: "totalPurchaseValue", sort: false, width: 260 },
+        { label: "Frete", field: "shipping", sort: false, width: 260 },
+        { label: "Tempo de entrega", field: "DeliveryTimeFrame", sort: false, width: 260 },
+        { label: "Descrição", field: "description", sort: false, width: 260 },
+    ];
+
     const handleNextStep = () => {
         if (handleExistsRequiredFieldsNotAnswered()) {
           props.alertPanel(
@@ -29,32 +38,36 @@ function StepTwo(props){
           return;
         }
   
-        props.entityCallback({
-            supplier: fields.supplier,
-            product: fields.product,
-            quantity: fields.quantity,
-            totalPurchaseValue: fields.quantity,
-            shipping: fields.quantity,
-            DeliveryTimeFrame: fields.quantity,
-            description: fields.quantity,
-        });
+        props.entityCallback(order);
   
         props.alertPanel(null);
         props.nextStep();
-      };
+    };
+
+    const onSave = () => {
+        if (handleExistsRequiredFieldsNotAnswered()) {
+            props.alertPanel(
+              "warning",
+              "Existem campos obrigatórios não respondidos."
+            );
+            return;
+        }
+
+        if (handleExistsDuplicateFields(order, fields)) {
+            props.alertPanel(
+                "warning",
+                "Esse produto já está inserido na ordem de compra."
+            );
+            return;
+        }
+
+        setOrder([...order, fields]);           
+        props.entityCallback(order);
+        props.alertPanel(null);
+    }
 
     return (
         <Step {...props} onNextStep={handleNextStep}>
-            <MDBCol>
-                <SelectWithFilter
-                    required
-                    name="supplier"
-                    label="Fornecedor"
-                    options={supplier}
-                    value={fields.supplier}
-                    onChange={(value) => handleFieldChange("supplier", value.target.value)}
-                />
-            </MDBCol>
             <MDBCol>
                 <SelectWithFilter
                     required
@@ -104,14 +117,20 @@ function StepTwo(props){
                     onChange={(value) => handleFieldChange("DeliveryTimeFrame", value.target.value)}
                 />
             </MDBCol>  
-            <MDBCol>
-                <TextArea
-                    name="description"
-                    label="Descrição"
-                    value={fields.description}
-                    onChange={(value) => handleFieldChange("description", value.target.value)}
-                />
-            </MDBCol>
+           
+            <TextArea
+                name="description"
+                label="Descrição"
+                value={fields.description}
+                onChange={(value) => handleFieldChange("description", value.target.value)}
+            />
+            
+            <RegisterPanel title="Produtos cadastrados" onSave={onSave}>
+                <MDBCol>
+                    <Datagrid columns={columns} data={order}>
+                    </Datagrid>     
+                </MDBCol>
+            </RegisterPanel>          
         </Step>
     );
 }

@@ -13,6 +13,11 @@ function StepOne(props){
       { value: "Whatsapp", label: "Whatsapp" }
     ];
 
+    const supplier =[
+      {value: "Matheus LTDA", label: "Matheus LTDA"},
+      {value: "Teste MEI", label: "Teste MEI"}
+  ]
+
     const handleNextStep = () => {
       if (handleExistsRequiredFieldsNotAnswered()) {
         props.alertPanel(
@@ -25,7 +30,8 @@ function StepOne(props){
       props.entityCallback({
         orderNumber: fields.orderNumber,
         creationDate: fields.creationDate,
-        notificationType: fields.notificationType
+        notificationType: fields.notificationType,
+        supplier: fields.supplier
       });
 
       props.alertPanel(null);
@@ -43,6 +49,16 @@ function StepOne(props){
                 value={fields.orderNumber}
                 onChange={(value) => handleFieldChange("orderNumber", value.target.value)}
               />
+          </MDBCol>
+          <MDBCol>
+                <SelectWithFilter
+                    required
+                    name="supplier"
+                    label="Fornecedor"
+                    options={supplier}
+                    value={fields.supplier}
+                    onChange={(value) => handleFieldChange("supplier", value.target.value)}
+                />
           </MDBCol>
           <MDBCol>
               <TextField
