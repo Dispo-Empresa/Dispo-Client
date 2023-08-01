@@ -10,6 +10,7 @@ namespace Dispo.API.Controllers
 {
     [Route("/api/v1/accounts")]
     [ApiController]
+    [Authorize]
     public class AccountsController : ControllerBase
     {
         private readonly IAccountRepository accountRepository;
@@ -25,7 +26,6 @@ namespace Dispo.API.Controllers
 
         [HttpGet]
         [Route("get-id")]
-        [Authorize]
         public IActionResult GetAccountIdByEmail([FromRoute] string email)
         {
             var accountId = accountRepository.GetAccountIdByEmail(rijndaelCryptography.Encrypt(email));

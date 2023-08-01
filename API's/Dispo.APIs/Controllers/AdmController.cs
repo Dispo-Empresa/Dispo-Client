@@ -16,11 +16,13 @@ namespace Dispo.APIs.Controllers
     {
         public readonly IAdmService _admService;
         public readonly IRoleRepository _roleRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public AdmController(ILogger<AdmController> logger, IAdmService admService, IRoleRepository roleRepository) : base(logger)
+        public AdmController(ILogger<AdmController> logger, IAdmService admService, IRoleRepository roleRepository, IAccountRepository accountRepository) : base(logger)
         {
             _admService = admService;
             _roleRepository = roleRepository;
+            _accountRepository = accountRepository;
         }
 
         [HttpGet]
@@ -54,6 +56,28 @@ namespace Dispo.APIs.Controllers
                 _admService.CreateEmployee(createEmployeeRequestDto);
 
                 return Ok(new ResponseModelBuilder().WithMessage("Funcionário criado com sucesso.")
+                                                    .WithSuccess(true)
+                                                    .WithAlert(AlertType.Success)
+                                                    .Build());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseModelBuilder().WithMessage(ex.Message)
+                                                            .WithSuccess(false)
+                                                            .WithAlert(AlertType.Error)
+                                                            .Build());
+            }
+        }
+
+        [HttpGet]
+        [Route("employees")]
+        public IActionResult GetEmployees()
+        {
+            try
+            {
+                var employeesAccountInfo = _accountRepository.GetAccountsUserInfo();
+
+                return Ok(new ResponseModelBuilder().WithData(employeesAccountInfo)
                                                     .WithSuccess(true)
                                                     .WithAlert(AlertType.Success)
                                                     .Build());

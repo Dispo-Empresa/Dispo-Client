@@ -11,6 +11,7 @@ namespace Dispo.API.Controllers
 {
     [Route("/api/v1/forgot-password")]
     [ApiController]
+    [AllowAnonymous]
     public class ForgotPasswordController : ControllerBase
     {
         private readonly IAccountService _accountService;
@@ -24,7 +25,6 @@ namespace Dispo.API.Controllers
 
         [HttpPost]
         [Route("send-recovery-token")]
-        [AllowAnonymous]
         public IActionResult SendEmailCodeResetPassword([FromBody] string emailTo)
         {
             try
@@ -49,7 +49,6 @@ namespace Dispo.API.Controllers
 
         [HttpPost]
         [Route("validate-recovery-token")]
-        [AllowAnonymous]
         public IActionResult VerifyEmailCode([FromBody] VerifyEmailCodeRequestDto verifyEmailCodeRequestDto)
         {
             try
@@ -70,7 +69,6 @@ namespace Dispo.API.Controllers
 
         [HttpPost]
         [Route("reset-password")]
-        [AllowAnonymous]
         public IActionResult ResetPassword([FromBody] ResetPasswordRequestDto resetPasswordRequestDto)
         {
             try

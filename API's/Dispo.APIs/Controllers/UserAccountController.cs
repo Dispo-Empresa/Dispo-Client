@@ -10,6 +10,7 @@ namespace Dispo.API.Controllers
 {
     [Route("/api/v1/user-account")]
     [ApiController]
+    [Authorize]
     public class UserAccountController : ControllerBase
     {
         private readonly IUserAccountService _userAccountService;
@@ -24,7 +25,6 @@ namespace Dispo.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
         public IActionResult UpdateUserAccountInfo([FromRoute] long accountId, [FromBody] UserAccountResponseDto userAccountModel)
         {
             try
@@ -49,7 +49,6 @@ namespace Dispo.API.Controllers
 
         [HttpGet]
         [Route("id={id}")]
-        [Authorize]
         public IActionResult GetAllUserInfo([FromRoute] long id)
         {
             try
