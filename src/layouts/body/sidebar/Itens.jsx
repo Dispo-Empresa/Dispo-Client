@@ -8,7 +8,7 @@ import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import DraftsIcon from "@mui/icons-material/Drafts";
 import ShortcutIcon from "@mui/icons-material/Shortcut";
 import BusinessIcon from "@mui/icons-material/Business";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 

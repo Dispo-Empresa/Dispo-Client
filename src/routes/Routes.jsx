@@ -28,9 +28,9 @@ function RouteController({ children, allowedRoles }) {
   }
 
   return (
-    <PrivateRoute roles={allowedRoles}>
+    //<PrivateRoute roles={allowedRoles}>
       <BodyLayout>{children}</BodyLayout>
-    </PrivateRoute>
+    //</PrivateRoute>
   );
 }
 
