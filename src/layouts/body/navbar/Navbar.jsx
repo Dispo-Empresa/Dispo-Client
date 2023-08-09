@@ -4,7 +4,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   MDBNavbar,
   MDBContainer,
@@ -15,11 +15,40 @@ import { IconButton, Menu, Avatar, MenuItem } from "@mui/material";
 import { Link } from "react-router-dom";
 
 import { removeToken } from "../../../services/authToken";
-import { COLORS } from "../../../themes/colors";
 
 import "./styles.css";
+import useFields from "./useFields";
+import { post } from "../../../services/httpMethods";
+import { ENDPOINTS } from "../../../utils/constants/endpoints";
 
 function Navbar() {
+  const [selectedWarehouse, changeSelectedWarehouse] = useState({
+    value: -1,
+    label: "",
+  });
+
+  const handleChangeWarehouse = async (e) => {
+    await post(
+      ENDPOINTS.userAccount.changeWarehouse,
+      parseInt(e.getAttribute("data-value"))
+    );
+    removeToken();
+  };
+
+  const setCurrentWarehouse = (warehouses) => {
+    if (warehouses.length <= 0 || selectedWarehouse.value != -1) return;
+    let current = warehouses.find((warehouse) => {
+      if (warehouse.current) {
+        return warehouse;
+      }
+    });
+
+    changeSelectedWarehouse({
+      value: current.value,
+      label: current.label,
+    });
+  };
+
   const [anchorEl, setProfileOptionsPosition] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -30,7 +59,8 @@ function Navbar() {
     removeToken();
   };
 
-  const options = ["Depósito 1", "Depósito 2", "Depósito 3", "Depósito 4"];
+  const [warehouses] = useFields();
+  setCurrentWarehouse(warehouses);
 
   return (
     <MDBNavbar className="container-navbar" fixed="top" bgColor="light">
@@ -87,7 +117,7 @@ function Navbar() {
             }}
             onClick={(e) => setAnchor(e.currentTarget)}
           >
-            Depósito 1
+            {selectedWarehouse.label}
             <ArrowDropDownIcon />
           </button>
           <Menu
@@ -97,19 +127,22 @@ function Navbar() {
             onClose={() => setAnchor(null)}
             onClick={() => setAnchor(null)}
           >
-            <MenuItem>
-              <label style={{ color: COLORS.PrimaryColor }}>
-                Acesso aos depósitos
-              </label>
+            <MenuItem component="a" href="/warehouses">
+              Acesso aos depósitos
             </MenuItem>
             <Divider component="li" />
-            {options.map((option) => (
+            {warehouses.map((option) => (
               <MenuItem
-                key={option}
-                selected={option === "Depósito 1"}
-                onClick={() => setAnchor(null)}
+                key={option.value}
+                value={option.value}
+                name={option.label}
+                selected={option}
+                data-value={option.value}
+                component="a"
+                href="/login/signin"
+                onClick={(e) => handleChangeWarehouse(e.currentTarget)}
               >
-                {option}
+                {option.label}
               </MenuItem>
             ))}
           </Menu>

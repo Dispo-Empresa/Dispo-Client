@@ -8,12 +8,12 @@ import { SaveButton } from "../../../../components/ui/buttons/icons/IconButton";
 import "./styles.css";
 
 function RegisterPanel({
-  title,
-  alertPanel,
-  children,
   onSave,
   onSubmit,
+  title,
+  alertPanel,
   loading,
+  children,
   buttons,
   hideSaveButton,
 }) {
@@ -30,6 +30,29 @@ function RegisterPanel({
 
   return (
     <div>
+      <form onSubmit={onSubmit}>
+        <div>
+          {alertType && alertTitle && (
+            <AlertMessagePanel
+              type={alertType}
+              title={alertTitle}
+              message={alertMessage}
+              onClose={alertPanel && alertPanel.onClose}
+            />
+          )}
+        </div>
+        <label className="title">{title}</label>
+        <div className="buttons">
+          {buttons}
+          {hideSaveButton ? (
+            ""
+          ) : (
+            <SaveButton type="submit" onClick={onSave} loading={loading} />
+          )}
+        </div>
+        <hr style={{ marginBottom: "50px", width: "100%" }} />
+        <MDBRow className="g-5">{children}</MDBRow>
+      </form>
       <form onSubmit={onSubmit}>
         <div>
           {alertType && alertTitle && (
