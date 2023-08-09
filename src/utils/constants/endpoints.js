@@ -25,8 +25,9 @@ const ENDPOINTS = {
   },
 
   userAccount: {
-    updateUserAccountInfo: "user-account/{id}",
-    getAllUserInfo: "user-account/id={id}",
+    updateUserAccountInfo: "user/{id}",
+    getAllUserInfo: "user/id={id}",
+    changeWarehouse: "user/change-warehouse"
   },
 
   products: {
@@ -38,7 +39,17 @@ const ENDPOINTS = {
 
   movements: {
     moveProduct: "products/move"
-  }
+  },
+
+  warehouses: {
+    getWithAdressByUser: "warehouse/get-with-address-by-user",
+    getWithAdress: "warehouse/get-with-address",
+    create: "warehouse",
+  },
+
+  addresses: {
+    getFormattedAddresses: "address/get-formatted-addresses"
+  },
 };
 
 export { LOCALHOST, ENDPOINTS };

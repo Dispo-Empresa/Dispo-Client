@@ -16,6 +16,8 @@ import ProductMovimentation from "../pages/stock/movimentation/ProductMovimentat
 import ManufacturerCard from "../pages/manufacturers/ManufacturerCard";
 import PurchaseOrderFormCard from "../pages/purchase-order/register/PurchaseOrderFormCard";
 import { roles } from "../utils/constants/constants";
+import WarehouseRegisterCard from "../pages/warehouses/register/WarehouseRegisterCard";
+import WarehouseCard from "../pages/warehouses/WarehouseCard";
 
 function RouteController({ children, allowedRoles }) {
   if (
@@ -136,6 +138,16 @@ function RoutesConfiguration() {
           element={
             <RouteController>
               <SettingsCard />
+            </RouteController>
+          }
+        />
+        <Route
+          path="/warehouses"
+          element={
+            <RouteController
+              // allowedRoles={[roles.Manager, roles.WarehouseOperator, roles.PurchasingManager]}
+            >
+              <WarehouseCard />
             </RouteController>
           }
         />

@@ -55,6 +55,7 @@ function SaveButton(props) {
   return (
     <Tooltip title={props.title}>
       <Button
+        type={props.type}
         onClick={props.onClick}
         className="form-button"
         style={{
