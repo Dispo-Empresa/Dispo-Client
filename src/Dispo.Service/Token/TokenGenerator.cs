@@ -1,6 +1,6 @@
 ﻿using Dispo.Domain;
+using Dispo.Domain.DTOs.Response;
 using Dispo.Infrastructure.Repositories.Interfaces;
-using Dispo.Service.DTOs.ResponseDTOs;
 using Dispo.Service.Token.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;

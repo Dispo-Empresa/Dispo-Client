@@ -1,14 +1,17 @@
-﻿namespace Dispo.Service.DTOs.RequestDTOs
+﻿using System.Text.Json.Serialization;
+
+namespace Dispo.Domain.DTOs.Response
 {
-    public class SignUpRequestDto
+    public class UserAccountResponseDto
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
+        [JsonIgnore]
+        public long Id { get; set; }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CpfCnpj { get; set; }
         public string Phone { get; set; }
         public DateTime BirthDate { get; set; }
-        public long BranchId { get; set; }
+        public string Email { get; set; }
     }
 }

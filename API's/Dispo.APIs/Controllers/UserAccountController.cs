@@ -1,7 +1,7 @@
 ﻿using Dispo.API.ResponseBuilder;
 using Dispo.APIs.ResponseBuilder;
+using Dispo.Domain.DTOs.Response;
 using Dispo.Infrastructure.Repositories.Interfaces;
-using Dispo.Service.DTOs.ResponseDTOs;
 using Dispo.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

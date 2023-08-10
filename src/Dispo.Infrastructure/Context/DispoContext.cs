@@ -15,7 +15,7 @@ namespace Dispo.Infrastructure.Context
         { }
 
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<Address> Adresses { get; set; }
+        public DbSet<Address> Addresses { get; set; }
         public DbSet<Batch> Batches { get; set; }
         public DbSet<BatchMovement> BatchMovements { get; set; }
         public DbSet<Company> Companies { get; set; }
@@ -36,7 +36,7 @@ namespace Dispo.Infrastructure.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AccountMapping());
-            modelBuilder.ApplyConfiguration(new AdressMapping());
+            modelBuilder.ApplyConfiguration(new AddressMapping());
             modelBuilder.ApplyConfiguration(new BatchMapping());
             modelBuilder.ApplyConfiguration(new BatchMovementMapping());
             modelBuilder.ApplyConfiguration(new CompanyMapping());

@@ -1,4 +1,4 @@
-﻿namespace Dispo.Service.DTOs.RequestDTOs
+﻿namespace Dispo.Domain.DTOs.Request
 {
     public class SignInRequestDto
     {

@@ -1,4 +1,4 @@
-﻿namespace Dispo.Service.DTOs.ResponseDTOs
+﻿namespace Dispo.Domain.DTOs.Response
 {
     public class SignInResponseDto
     {

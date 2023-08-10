@@ -1,18 +1,15 @@
-﻿namespace Dispo.Domain.Entities
+﻿using Dispo.Domain.Entities;
+
+namespace Dispo.Domain.DTOs.Request
 {
-    public class Supplier : Base
+    public class SupplierRequestDto
     {
-        public bool Ativo { get; set; }
         public string Name { get; set; }
         public string ContactName { get; set; }
         public string ContactTitle { get; set; }
         public string Cnpj { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public long AddressId { get; set; }
-
-
-        public Address Address { get; set; }
-        public IList<PurchaseOrder> PurchaseOrders { get; set; }
+        public AddressRequestDto Address { get; set; }
     }
 }

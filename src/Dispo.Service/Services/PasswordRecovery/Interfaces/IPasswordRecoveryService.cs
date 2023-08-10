@@ -1,4 +1,4 @@
-﻿using Dispo.Service.DTOs.PluginDTOs.RequestsDTOs;
+﻿using Dispo.Domain.DTOs.Plugin;
 
 namespace Dispo.Service.Services.PasswordRecovery.Interfaces
 {

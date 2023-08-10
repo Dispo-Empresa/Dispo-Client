@@ -1,12 +1,11 @@
 ﻿using Dispo.Domain.DTOs;
-using Dispo.Service.DTOs.RequestDTOs;
-using Dispo.Service.DTOs.ResponseDTOs;
+using Dispo.Domain.DTOs.Request;
 
 namespace Dispo.Service.Services.Interfaces
 {
     public interface IProductService
     {
-        ProductResponseDto CreateProduct(ProductRequestDto productModel);
+        long CreateProduct(ProductRequestDto productModel);
 
         IEnumerable<ProductNameWithCode> GetProductNamesWithCode();
 

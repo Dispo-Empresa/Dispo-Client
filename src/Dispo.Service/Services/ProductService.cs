@@ -2,12 +2,11 @@
 using Dispo.Commom;
 using Dispo.Commom.Extensions;
 using Dispo.Domain.DTOs;
+using Dispo.Domain.DTOs.Request;
 using Dispo.Domain.Entities;
 using Dispo.Domain.Enums;
 using Dispo.Domain.Exceptions;
 using Dispo.Infrastructure.Repositories.Interfaces;
-using Dispo.Service.DTOs.RequestDTOs;
-using Dispo.Service.DTOs.ResponseDTOs;
 using Dispo.Service.Services.Interfaces;
 using System.Transactions;
 
@@ -25,30 +24,30 @@ namespace Dispo.Service.Services
         }
 
         #region Public Methods
-        public ProductResponseDto CreateProduct(ProductRequestDto productModel)
+        public long CreateProduct(ProductRequestDto productModel)
         {
             if (_productRepository.GetProductIdByName(productModel.Name).IsIdValid())
                 throw new AlreadyExistsException("Já existe o produto informado");
 
-            ProductResponseDto productDto;
+            long productCreatedId = IDHelper.INVALID_ID;
             using (var tc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 var product = new Product()
                 {
                     Name = productModel.Name,
-                    UnitOfMeasurement = EnumExtension.ConvertToEnum(productModel.UnitOfMeasurement, eUnitOfMeasurement.Others),
+                    UnitOfMeasurement = productModel.UnitOfMeasurement,
                     SalePrice = 0,
-                    Category = EnumExtension.ConvertToEnum(productModel.Type, eProductCategory.Others),
+                    Category = productModel.Category,
                     Description = productModel.Description
                 };
 
                 var productCreated = _productRepository.Create(product);
                 tc.Complete();
 
-                productDto = _mapper.Map<ProductResponseDto>(product);
+                productCreatedId = product.Id;
             }
 
-            return productDto;
+            return productCreatedId;
         }
 
         public IEnumerable<ProductNameWithCode> GetProductNamesWithCode()

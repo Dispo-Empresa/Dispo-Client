@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dispo.Infrastructure.Mappings
 {
-    public class AdressMapping : IEntityTypeConfiguration<Address>
+    public class AddressMapping : IEntityTypeConfiguration<Address>
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {

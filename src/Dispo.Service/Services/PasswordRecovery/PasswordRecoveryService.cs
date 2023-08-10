@@ -1,8 +1,7 @@
-﻿using Dispo.Domain.Exceptions;
+﻿using Dispo.Domain.DTOs.Plugin;
+using Dispo.Domain.Exceptions;
 using Dispo.Domain.Queues.Publishers.Interfaces;
 using Dispo.Service.Cache.Interfaces;
-using Dispo.Service.DTOs.PluginDTOs;
-using Dispo.Service.DTOs.PluginDTOs.RequestsDTOs;
 using Dispo.Service.Services.Interfaces;
 using Dispo.Service.Services.PasswordRecovery.Interfaces;
 using Microsoft.Extensions.Configuration;

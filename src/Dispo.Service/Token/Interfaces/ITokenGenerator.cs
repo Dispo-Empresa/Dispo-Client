@@ -1,4 +1,4 @@
-﻿using Dispo.Service.DTOs.ResponseDTOs;
+﻿using Dispo.Domain.DTOs.Response;
 
 namespace Dispo.Service.Token.Interfaces
 {

@@ -1,8 +1,8 @@
 ﻿using Dispo.API.ResponseBuilder;
 using Dispo.APIs;
+using Dispo.Domain.DTOs.Request;
+using Dispo.Domain.DTOs.Response;
 using Dispo.Domain.Exceptions;
-using Dispo.Service.DTOs.RequestDTOs;
-using Dispo.Service.DTOs.ResponseDTOs;
 using Dispo.Service.Services.Interfaces;
 using Dispo.Service.Token.Interfaces;
 using Microsoft.AspNetCore.Authorization;

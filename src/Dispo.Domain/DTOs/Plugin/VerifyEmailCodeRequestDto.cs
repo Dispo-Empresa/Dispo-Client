@@ -1,4 +1,4 @@
-﻿namespace Dispo.Service.DTOs.PluginDTOs.RequestsDTOs
+﻿namespace Dispo.Domain.DTOs.Plugin
 {
     public class VerifyEmailCodeRequestDto
     {

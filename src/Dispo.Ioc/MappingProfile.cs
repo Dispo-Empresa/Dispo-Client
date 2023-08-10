@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Dispo.Domain.DTOs.Response;
 using Dispo.Domain.Entities;
-using Dispo.Service.DTOs.ResponseDTOs;
 
 namespace Dispo.IoC
 {
@@ -9,7 +9,6 @@ namespace Dispo.IoC
         public MappingProfile()
         {
             CreateMap<User, UserResponseDto>();
-            CreateMap<Product, ProductResponseDto>();
         }
 
         public static MapperConfiguration CreateMappingProfile()

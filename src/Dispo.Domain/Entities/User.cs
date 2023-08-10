@@ -9,10 +9,10 @@
         public string Phone { get; set; }
         public DateTime BirthDate { get; set; }
         public long CompanyId { get; set; }
-        public long AdressId { get; set; }
+        public long AddressId { get; set; }
 
         public Account Account { get; set; }
         public Company Company { get; set; }
-        public Address Adress { get; set; }
+        public Address Address { get; set; }
     }
 }

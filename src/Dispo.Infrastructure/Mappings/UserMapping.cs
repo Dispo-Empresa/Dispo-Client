@@ -60,9 +60,9 @@ namespace Dispo.Infrastructure.Mappings
                    .HasForeignKey(c => c.CompanyId)
                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(a => a.Adress)
+            builder.HasOne(a => a.Address)
                    .WithOne(b => b.User)
-                   .HasForeignKey<User>(c => c.AdressId)
+                   .HasForeignKey<User>(c => c.AddressId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

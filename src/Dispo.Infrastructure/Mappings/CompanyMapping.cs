@@ -34,9 +34,9 @@ namespace Dispo.Infrastructure.Mappings
                    .HasColumnType("VARCHAR(18)")
                    .HasMaxLength(18);
 
-            builder.HasOne(a => a.Adress)
+            builder.HasOne(a => a.Address)
                    .WithOne(b => b.Company)
-                   .HasForeignKey<Company>(c => c.AdressId)
+                   .HasForeignKey<Company>(c => c.AddressId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }
