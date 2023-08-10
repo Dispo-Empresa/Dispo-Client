@@ -7,11 +7,12 @@ import DashboardCard from "../pages/dashboard/DashboardCard";
 import ProfileCard from "../pages/profile/ProfileCard";
 import ProductCard from "../pages/products/ProductCard";
 import MovimentCard from "../pages/stock/moviments/MovimentCard";
-import SupplierCard from "../pages/supliers/SupplierCard";
+import SupplierCard from "../pages/suppliers/SupplierCard";
 import BodyLayout from "../layouts/body/BodyLayout";
 import PrivateRoute from "./PrivateRoute";
 import SettingsCard from "../pages/settings/SettingsCard";
 import NotFound from "../pages/not-found/NotFound";
+import NotAuthorized from "../pages/not-found/NotAuthorized";
 import ProductMovimentation from "../pages/stock/movimentation/ProductMovimentation";
 import ManufacturerCard from "../pages/manufacturers/ManufacturerCard";
 import PurchaseOrderFormCard from "../pages/purchase-order/register/PurchaseOrderFormCard";
@@ -42,6 +43,14 @@ function RoutesConfiguration() {
           element={
             <RouteController>
               <NotFound />
+            </RouteController>
+          }
+        />
+        <Route
+          path="/401"
+          element={
+            <RouteController>
+              <NotAuthorized />
             </RouteController>
           }
         />

@@ -32,13 +32,23 @@ const ENDPOINTS = {
   products: {
     get: "products/get/{id}",
     getAll: "products",
-    createProduct: "products/create",
+    createProduct: "products",
     getProductNamesWithCode: "products/get-names-with-code",
   },
 
   movements: {
     moveProduct: "products/move"
-  }
+  },
+
+  manufacturers: {
+    getAll: "manufacturers",
+    createManufacturer: "manufacturers"
+  },
+
+  suppliers: {
+    getAll: "suppliers",
+    createSupplier: "suppliers"
+  },
 };
 
 export { LOCALHOST, ENDPOINTS };

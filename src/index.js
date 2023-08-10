@@ -10,6 +10,8 @@ import "primereact/resources/themes/tailwind-light/theme.css";
 import "./index.css";
 import "./components/structured/datatable/styles.css";
 import "./components/ui/inputs/select/styles.css";
+import "./components/ui/inputs/radio/styles.css";
+import "./components/ui/inputs/currency/styles.css";
 
 const rootElement = document.getElementById("root");
 

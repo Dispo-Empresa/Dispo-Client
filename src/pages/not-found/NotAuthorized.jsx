@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 
 import logo from "../../assets/img/logo_sem_fundo.png";
 
-function NotFound() {
+function NotAuthorized() {
   return (
     <Box
       sx={{
@@ -17,8 +17,10 @@ function NotFound() {
       <Container maxWidth="md">
         <Grid container spacing={2}>
           <Grid xs={6}>
-            <Typography variant="h1">404</Typography>
-            <Typography variant="h6">Servidor indisponível</Typography>
+            <Typography variant="h1">401</Typography>
+            <Typography variant="h6">
+              Página não existe ou o usuário não tem autorização
+            </Typography>
             <Button
               variant="contained"
               style={{ marginTop: "5%" }}
@@ -42,4 +44,4 @@ function NotFound() {
   );
 }
 
-export default NotFound;
+export default NotAuthorized;
