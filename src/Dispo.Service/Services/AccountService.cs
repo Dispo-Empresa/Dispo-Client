@@ -8,25 +8,39 @@ using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.Services.Interfaces;
 using EscNet.Cryptography.Interfaces;
 using EscNet.Hashers.Interfaces.Algorithms;
+using Microsoft.Extensions.Caching.Memory;
 using System.Transactions;
 
 namespace Dispo.Service.Services
 {
     public class AccountService : IAccountService
     {
+        private readonly IMemoryCache _memoryCache;
         private readonly IAccountRepository _accountRepository;
         private readonly IUserRepository _userRepository;
         private readonly IArgon2IdHasher _hasher;
         private readonly IRijndaelCryptography _rijndaelCryptography;
         private readonly IMapper _mapper;
+        private readonly IWarehouseRepository _warehouseRepository;
 
-        public AccountService(IAccountRepository accountRepository, IUserRepository userRepository, IArgon2IdHasher hasher, IRijndaelCryptography rijndaelCryptography, IMapper mapper)
+        public AccountService(IMemoryCache memoryCache, IAccountRepository accountRepository, IUserRepository userRepository, IArgon2IdHasher hasher, IRijndaelCryptography rijndaelCryptography, IMapper mapper, IWarehouseRepository warehouseRepository)
         {
+            _memoryCache = memoryCache;
             _accountRepository = accountRepository;
             _userRepository = userRepository;
             _hasher = hasher;
             _rijndaelCryptography = rijndaelCryptography;
             _mapper = mapper;
+            _warehouseRepository = warehouseRepository;
+        }
+
+        public async Task<Account?> GetByIdAsyncFromCache(long id)
+        {
+            return await _memoryCache.GetOrCreateAsync(id, async entry =>
+            {
+                entry.AbsoluteExpiration = DateTime.UtcNow.AddMinutes(10);
+                return await _accountRepository.GetByIdAsync(id);
+            });
         }
 
         public SignInResponseDto AuthenticateByEmailAndPassword(string email, string password)
@@ -42,8 +56,7 @@ namespace Dispo.Service.Services
             return new SignInResponseDto()
             {
                 AccountId = loggedAccount.Id,
-                UserName = loggedAccount.User != null ? loggedAccount.User.FirstName : string.Empty,
-                Role = loggedAccount.Role.Key,
+                CurrentWarehouseId = loggedAccount.CurrentWarehouseId ?? _warehouseRepository.GetAllAsNoTracking().First().Id,
             };
         }
 
@@ -125,6 +138,27 @@ namespace Dispo.Service.Services
                 Phone = userInfo.Phone,
                 CpfCnpj = userInfo.Cpf,
             };
+        }
+
+        public void LinkWarehouses(List<long> warehouseIds, long userId)
+        {
+            var user = _accountRepository.GetWithWarehousesById(userId) ?? throw new NotFoundException("Esse usuário não existe.");
+            foreach (var warehouseId in warehouseIds)
+            {
+                if (user.WarehouseAccounts.Any(w => w.WarehouseId == warehouseId && w.AccountId == userId))
+                    continue;
+
+                user.WarehouseAccounts.Add(new WarehouseAccount(warehouseId, userId));
+            }
+
+            _accountRepository.Update(user);
+        }
+
+        public void ChangeWarehouse(long userId, long warehouseId)
+        {
+            var user = _accountRepository.GetById(userId) ?? throw new NotFoundException("Esse usuário não existe.");
+            user.CurrentWarehouseId = warehouseId;
+            _accountRepository.Update(user);
         }
     }
 }

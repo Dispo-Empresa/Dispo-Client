@@ -14,25 +14,30 @@ namespace Dispo.Service.Token
     {
         private readonly IConfiguration _configuration;
         private readonly IAccountRepository _accountRepository;
+        private readonly IWarehouseRepository _warehouseRepository;
 
-        public TokenGenerator(IConfiguration configuration, IAccountRepository accountRepository)
+        public TokenGenerator(IConfiguration configuration, IAccountRepository accountRepository, IWarehouseRepository warehouseRepository)
         {
             _configuration = configuration;
             _accountRepository = accountRepository;
+            _warehouseRepository = warehouseRepository;
         }
 
-        public TokenInfoDto GenerateJwtToken(long id)
+        public TokenInfoDto GenerateJwtToken(long id, long currentWarehouseId)
         {
             var accountId = id.ToString();
             var userName = _accountRepository.GetUserNameByAccountId(id);
             var accountRole = _accountRepository.GetRoleKeyByAccountId(id);
+            var warehouseName = _warehouseRepository.GetNameById(currentWarehouseId);
 
             var symmetricKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? string.Empty));
             var claims = new[]
             {
-                new Claim(CustomClaimTypes.AccountId, accountId),
                 new Claim(ClaimTypes.Name, userName),
-                new Claim(ClaimTypes.Role, accountRole)
+                new Claim(ClaimTypes.Role, accountRole),
+                new Claim(CustomClaimTypes.AccountId, accountId),
+                new Claim(CustomClaimTypes.CurrentWarehouseName, warehouseName),
+                new Claim(CustomClaimTypes.CurrentWarehouseId, currentWarehouseId.ToString()),
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -49,7 +54,7 @@ namespace Dispo.Service.Token
             {
                 Token = tokenHandler.WriteToken(token),
                 TokenExpirationTime = tokenDescriptor.Expires
-        };
+            };
         }
     }
 }

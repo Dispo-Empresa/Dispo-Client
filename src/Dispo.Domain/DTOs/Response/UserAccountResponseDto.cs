@@ -13,5 +13,6 @@ namespace Dispo.Domain.DTOs.Response
         public string Phone { get; set; }
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }
+        public long? CurrentWarehouseId { get; set; }
     }
 }

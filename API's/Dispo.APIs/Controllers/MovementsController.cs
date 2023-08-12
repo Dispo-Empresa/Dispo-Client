@@ -10,11 +10,11 @@ namespace Dispo.APIs.Controllers
     [Route("/api/v1/movements")]
     [ApiController]
     [Authorize(Roles = Roles.WarehouseOperator)]
-    public class MovementsController : DispoBaseController
+    public class MovementsController : ControllerBase
     {
         private readonly IMovementService _movementService;
 
-        public MovementsController(ILogger<MovementsController> logger, IMovementService movementService) : base(logger)
+        public MovementsController(IMovementService movementService)
         {
             _movementService = movementService;
         }

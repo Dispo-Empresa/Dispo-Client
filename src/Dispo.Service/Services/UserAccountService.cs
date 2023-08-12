@@ -1,5 +1,4 @@
-﻿using Dispo.Commom;
-using Dispo.Domain.DTOs.Response;
+﻿using Dispo.Domain.DTOs.Response;
 using Dispo.Domain.Entities;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.Services.Interfaces;
@@ -24,7 +23,7 @@ namespace Dispo.Service.Services
 
             using (var tc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var userUpdated = new User(); //_userRepository.GetUserByAccountId(id);
+                var userUpdated = _userRepository.GetByExpression(w => w.Id == userAccountModel.Id).FirstOrDefault();
                 if (userUpdated is null)
                     throw new Exception("Informações não encontradas para esta conta!");
 

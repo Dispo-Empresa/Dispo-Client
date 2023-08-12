@@ -12,13 +12,13 @@ namespace Dispo.APIs.Controllers
     [Route("api/v1/adm")]
     [ApiController]
     [Authorize(Roles = Roles.Manager)]
-    public class AdmController : DispoBaseController
+    public class AdmController : ControllerBase
     {
         public readonly IAdmService _admService;
         public readonly IRoleRepository _roleRepository;
         private readonly IAccountRepository _accountRepository;
 
-        public AdmController(ILogger<AdmController> logger, IAdmService admService, IRoleRepository roleRepository, IAccountRepository accountRepository) : base(logger)
+        public AdmController(IAdmService admService, IRoleRepository roleRepository, IAccountRepository accountRepository)
         {
             _admService = admService;
             _roleRepository = roleRepository;

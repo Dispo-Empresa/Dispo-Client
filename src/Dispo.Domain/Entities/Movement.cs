@@ -10,7 +10,6 @@ namespace Dispo.Domain.Entities
         public long WarehouseId { get; set; }
         public long AccountId { get; set; }
 
-
         public Warehouse Warehouse { get; set; }
         public Account Account { get; set; }
         public IList<BatchMovement> BatchMovements { get; set; }

@@ -1,7 +1,6 @@
 ﻿using Dispo.API.ResponseBuilder;
 using Dispo.APIs;
 using Dispo.Domain.DTOs.Request;
-using Dispo.Domain.DTOs.Response;
 using Dispo.Domain.Exceptions;
 using Dispo.Service.Services.Interfaces;
 using Dispo.Service.Token.Interfaces;
@@ -13,12 +12,12 @@ namespace Dispo.API.Controllers
     [Route("/api/v1/auth")]
     [ApiController]
     [AllowAnonymous]
-    public class AuthController : DispoBaseController
+    public class AuthController : ControllerBase
     {
         private readonly IAccountService _accountService;
         private readonly ITokenGenerator _tokenGenerator;
 
-        public AuthController(ILogger<AuthController> logger, IAccountService accountService, ITokenGenerator tokenGenerator) : base(logger)
+        public AuthController(IAccountService accountService, ITokenGenerator tokenGenerator)
         {
             _accountService = accountService;
             _tokenGenerator = tokenGenerator;
@@ -30,18 +29,12 @@ namespace Dispo.API.Controllers
         {
             try
             {
-                var userAccountModelCretated = _accountService.AuthenticateByEmailAndPassword(signInRequestDto.Email, signInRequestDto.Password);
-                var generatedToken = _tokenGenerator.GenerateJwtToken(userAccountModelCretated.AccountId);
+                var infoAccount = _accountService.AuthenticateByEmailAndPassword(signInRequestDto.Email, signInRequestDto.Password);
+                var generatedToken = _tokenGenerator.GenerateJwtToken(infoAccount.AccountId, infoAccount.CurrentWarehouseId);
 
                 return Ok(new ResponseModelBuilder().WithMessage("User exists!")
                                                     .WithSuccess(true)
-                                                    .WithData(new SignInResponseDto()
-                                                    {
-                                                        AccountId = userAccountModelCretated.AccountId,
-                                                        UserName = userAccountModelCretated.UserName,
-                                                        Role = userAccountModelCretated.Role,
-                                                        TokenInfo = generatedToken
-                                                    })
+                                                    .WithData(generatedToken)
                                                     .Build());
             }
             catch (NotFoundException ex)

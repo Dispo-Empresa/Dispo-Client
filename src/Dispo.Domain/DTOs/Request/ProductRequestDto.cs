@@ -16,6 +16,5 @@ namespace Dispo.Domain.DTOs.Request
         public double? Height { get; set; }
         public double? Width { get; set; }
         public double? Depth { get; set; }
-
     }
 }

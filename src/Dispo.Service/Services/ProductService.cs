@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Dispo.Commom;
-using Dispo.Commom.Extensions;
 using Dispo.Domain.DTOs;
 using Dispo.Domain.DTOs.Request;
 using Dispo.Domain.Entities;
-using Dispo.Domain.Enums;
 using Dispo.Domain.Exceptions;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.Services.Interfaces;
@@ -24,6 +22,7 @@ namespace Dispo.Service.Services
         }
 
         #region Public Methods
+
         public long CreateProduct(ProductRequestDto productModel)
         {
             if (_productRepository.GetProductIdByName(productModel.Name).IsIdValid())
@@ -79,6 +78,6 @@ namespace Dispo.Service.Services
             return await _productRepository.ExistsByIdAsync(productId);
         }
 
-        #endregion
+        #endregion Public Methods
     }
 }

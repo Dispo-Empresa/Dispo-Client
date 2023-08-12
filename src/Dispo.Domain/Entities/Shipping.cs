@@ -6,7 +6,6 @@
         public DateTime EstimatedDeliveryDate { get; set; }
         public long PurchaseOrderId { get; set; }
 
-
         public PurchaseOrder PurchaseOrder { get; set; }
     }
 }

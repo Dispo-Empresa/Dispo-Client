@@ -1,4 +1,4 @@
-﻿    using Dispo.Domain.Entities;
+﻿using Dispo.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

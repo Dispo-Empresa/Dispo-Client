@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dispo.Commom", "..\..\src\D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dispo.APIs", "Dispo.APIs.csproj", "{93D6A512-CBE8-4D2B-88A1-3D3614A37895}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dispo.Service.Tests", "..\..\tests\Dispo.Service.Tests\Dispo.Service.Tests.csproj", "{66471ADE-F82D-4F30-A3EB-7EDF3659A7DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dispo.Service.Tests", "..\..\tests\Dispo.Service.Tests\Dispo.Service.Tests.csproj", "{66471ADE-F82D-4F30-A3EB-7EDF3659A7DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

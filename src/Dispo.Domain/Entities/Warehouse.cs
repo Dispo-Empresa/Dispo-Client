@@ -1,4 +1,4 @@
-﻿    namespace Dispo.Domain.Entities
+﻿namespace Dispo.Domain.Entities
 {
     public class Warehouse : Base
     {
@@ -6,7 +6,6 @@
         public string Name { get; set; }
         public long CompanyId { get; set; }
         public long AddressId { get; set; }
-
 
         public Company Company { get; set; }
         public Address Address { get; set; }

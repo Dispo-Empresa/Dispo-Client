@@ -1,6 +1,7 @@
 ﻿using Dispo.Domain.Entities;
 using Dispo.Infrastructure.Context;
 using Dispo.Infrastructure.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Dispo.Infrastructure.Repositories
