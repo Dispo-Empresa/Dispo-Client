@@ -1,4 +1,4 @@
-import { ReactComponent as Loader } from "./loader.svg";
+import { ReactComponent as Loader } from "../loader.svg";
 import { COLORS } from "../../../../themes/colors";
 
 import "./styles.css";

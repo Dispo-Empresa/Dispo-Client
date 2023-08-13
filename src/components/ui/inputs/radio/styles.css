@@ -1,0 +1,17 @@
+.p-radiobutton .p-radiobutton-box.p-highlight {
+    border-color: #029DBE;
+    background: #029DBE;
+}
+
+.p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+    border-color: #029DBE;
+    background: #029DBE;
+}
+
+.p-radiobutton:not(.p-radiobutton-disabled) .p-radiobutton-box.p-focus  {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #029DBE, 0 1px 2px 0 #fff;
+}
+
+.p-radiobutton .p-radiobutton-box:not(.p-disabled).p-focus {
+    border-color: #029DBE;
+}

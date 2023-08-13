@@ -21,6 +21,17 @@ const getRole = () => jwt_decode(getSessionStorage("accessToken")).role;
 
 const getAccountId = () => jwt_decode(getSessionStorage("accessToken")).accountId;
 
-const isAuthenticated = () => sessionStorage.getItem("accessToken") && sessionStorage.getItem("accessToken") !== "";
+const isAuthenticated = () =>{
+  if( getSessionStorage("accessToken") && getSessionStorage("accessToken") !== ""){
+    try{
+      var isValidToken = jwt_decode(getSessionStorage("accessToken"));
+      return isValidToken !== null && isValidToken !== undefined;
+    } catch {
+      return false;
+    }
+  }else{
+    return false;
+  }
+};
 
 export { setToken, getToken, removeToken, getRole, getAccountId, isAuthenticated };

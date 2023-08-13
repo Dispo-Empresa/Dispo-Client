@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { MDBContainer, MDBRow } from "mdb-react-ui-kit";
+import { MDBRow } from "mdb-react-ui-kit";
 
 import useAlert from "../../../../hooks/alert/useAlert";
 import AlertMessagePanel from "../../../../components/structured/alert/panel/AlertPanel";
@@ -12,6 +12,8 @@ function RegisterPanel({
   alertPanel,
   children,
   onSave,
+  onSubmit,
+  loading,
   buttons,
   hideSaveButton,
 }) {
@@ -28,25 +30,29 @@ function RegisterPanel({
 
   return (
     <div>
-      <div>
-        {alertType && alertTitle && (
-          <AlertMessagePanel
-            type={alertType}
-            title={alertTitle}
-            message={alertMessage}
-            onClose={alertPanel && alertPanel.onClose}
-          />
-        )}
-      </div>
-      <label className="title">{title}</label>
-      <div className="buttons">
-        {buttons}
-        {hideSaveButton ? "" : <SaveButton onClick={onSave} />}
-      </div>
-      <hr style={{ marginBottom: "50px", width: "100%" }} />
-      <MDBRow className="g-5">
-        <>{children}</>
-      </MDBRow>
+      <form onSubmit={onSubmit}>
+        <div>
+          {alertType && alertTitle && (
+            <AlertMessagePanel
+              type={alertType}
+              title={alertTitle}
+              message={alertMessage}
+              onClose={alertPanel && alertPanel.onClose}
+            />
+          )}
+        </div>
+        <label className="title">{title}</label>
+        <div className="buttons">
+          {buttons}
+          {hideSaveButton ? (
+            ""
+          ) : (
+            <SaveButton type="submit" onClick={onSave} loading={loading} />
+          )}
+        </div>
+        <hr style={{ marginBottom: "50px", width: "100%" }} />
+        <MDBRow className="g-5">{children}</MDBRow>
+      </form>
     </div>
   );
 }

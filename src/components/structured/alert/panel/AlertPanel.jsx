@@ -63,7 +63,7 @@ function AlertMessagePanel({ type, title, message, onClose }) {
   };
 
   return (
-    <Space direction="vertical" style={{ width: "100%", marginBottom: "2%" }}>
+    <Space direction="vertical" style={{ width: "100%" }}>
       <AlertPanel />
     </Space>
   );

@@ -1,3 +1,5 @@
+/* Checkbox */
+
 .p-checkbox .p-checkbox-box.p-highlight {
     border-color: #029DBE;
     background: #029DBE;
@@ -22,7 +24,7 @@ color: #029DBE;
 border-color: #029DBE;
 }
 
-
+/* Paginator */
 
 .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
   background: #029DBE;
@@ -33,9 +35,6 @@ border-color: #029DBE;
 .p-paginator .p-dropdown {
   height: 36px;
   font-size: 12px;
-  padding: 4px 8px;
-  min-width: auto;
-  align-items: center;
 }
 
 .p-paginator .p-paginator-pages .p-paginator-page {
@@ -66,4 +65,38 @@ border-color: #029DBE;
 
 .p-paginator .p-paginator-first, .p-paginator .p-paginator-prev, .p-paginator .p-paginator-next, .p-paginator .p-paginator-last {
   height: 35px;
+}
+
+/* Dialog */
+
+.p-dialog {
+  min-width: 400px;
+}
+
+.p-dialog .p-dialog-footer button {
+  width: 100px;
+  height: 40px;
+}
+
+.p-button {
+  color: #ffffff;
+  background: #F64E60;
+  border: 1px solid #F64E60;
+}
+
+.p-button.p-button-text {
+  color: #029DBE;
+}
+
+.p-button:focus {
+  box-shadow: 0 0 0 2px #ffffffff, 0 0 0 4px #F64E60, 0 1px 2px 0 rgba(0, 0, 0, 0);
+}
+
+.p-button:enabled:hover {
+  background-color: #d13141;
+  border-color: #d13141;
+}
+
+.p-confirm-dialog:hover {
+  background: #F64E60;
 }

@@ -6,11 +6,17 @@ import ContentPage from "../../../layouts/content/ContentPage";
 import ViewPanel from "../../../layouts/panel/view/ViewPanel";
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
 
-function ManufacturerQueryCard() {
-  const [selectedManufacturers, setSelectedManufacturers] = useState(null);
-  const { data, loading, refetch } = useFetch(ENDPOINTS.manufacturers.getAll);
+function SupplierQueryCard() {
+  const [selectedSuppliers, setSelectedSuppliers] = useState(null);
+  const { data, loading, refetch } = useFetch(ENDPOINTS.suppliers.getAll);
 
-  const columns = [{ field: "name", header: "Nome", minWidth: "350px" }];
+  const columns = [
+    { field: "name", header: "Nome", minWidth: "350px" },
+    { field: "contactName", header: "Responsável" },
+    { field: "Cnpj", header: "CNPJ" },
+    { field: "email", header: "Email" },
+    { field: "phone", header: "Phone" },
+  ];
 
   const deleteTest = (row) => {
     alert("Deletando: " + row.id);
@@ -21,17 +27,17 @@ function ManufacturerQueryCard() {
   };
 
   return (
-    <ContentPage title="Fabricantes">
+    <ContentPage title="Fornecedores">
       <ViewPanel refreshData={refetch}>
         <Datatable
-          noDataMessage="Fabricantes não encontrados"
+          noDataMessage="Fornecedores não encontrados"
           showCheckbox
           rowsPerPage={[5, 10, 25]}
           columns={columns}
           data={data}
           loading={loading}
-          setSelectedItens={setSelectedManufacturers}
-          selectedItens={selectedManufacturers}
+          setSelectedItens={setSelectedSuppliers}
+          selectedItens={selectedSuppliers}
           onDeleteButton={deleteTest}
           onViewButton={viewTest}
         />
@@ -40,4 +46,4 @@ function ManufacturerQueryCard() {
   );
 }
 
-export default ManufacturerQueryCard;
+export default SupplierQueryCard;
