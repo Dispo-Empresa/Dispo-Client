@@ -1,6 +1,6 @@
-﻿using Dispo.Domain.Entities;
+﻿using Dispo.Domain.DTOs.Request;
+using Dispo.Domain.Entities;
 using Dispo.Infrastructure.Repositories.Interfaces;
-using Dispo.Service.DTOs.RequestDTOs;
 using Dispo.Service.Services.Interfaces;
 
 namespace Dispo.Service.Services

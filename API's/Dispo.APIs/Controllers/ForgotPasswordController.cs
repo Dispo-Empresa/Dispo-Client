@@ -1,7 +1,7 @@
 ﻿using Dispo.API.ResponseBuilder;
+using Dispo.Domain.DTOs.Plugin;
+using Dispo.Domain.DTOs.Request;
 using Dispo.Domain.Exceptions;
-using Dispo.Service.DTOs.PluginDTOs.RequestsDTOs;
-using Dispo.Service.DTOs.RequestDTOs;
 using Dispo.Service.Services.Interfaces;
 using Dispo.Service.Services.PasswordRecovery.Interfaces;
 using Microsoft.AspNetCore.Authorization;

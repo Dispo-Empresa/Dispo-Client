@@ -1,4 +1,4 @@
-﻿using Dispo.Service.DTOs.RequestDTOs;
+﻿using Dispo.Domain.DTOs.Request;
 
 namespace Dispo.Service.Services.Interfaces
 {

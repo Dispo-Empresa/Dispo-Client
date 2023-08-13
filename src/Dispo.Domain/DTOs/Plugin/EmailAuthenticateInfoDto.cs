@@ -1,4 +1,4 @@
-﻿namespace Dispo.Service.DTOs.PluginDTOs
+﻿namespace Dispo.Domain.DTOs.Plugin
 {
     public class EmailAuthenticateInfoDto
     {

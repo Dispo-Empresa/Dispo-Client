@@ -1,9 +1,9 @@
 ﻿using Dispo.API.ResponseBuilder;
 using Dispo.APIs;
 using Dispo.APIs.ResponseBuilder;
+using Dispo.Domain.DTOs.Request;
 using Dispo.Domain.Exceptions;
 using Dispo.Infrastructure.Repositories.Interfaces;
-using Dispo.Service.DTOs.RequestDTOs;
 using Dispo.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,11 +29,11 @@ namespace Dispo.API.Controllers
         {
             try
             {
-                var productCreated = _productService.CreateProduct(productRequestDto);
+                var productCreatedId = _productService.CreateProduct(productRequestDto);
 
                 return Ok(new ResponseModelBuilder().WithMessage("Produto criado com sucesso!")
                                                     .WithSuccess(true)
-                                                    .WithData(productCreated)
+                                                    .WithData(productCreatedId)
                                                     .WithAlert(AlertType.Success)
                                                     .Build());
             }

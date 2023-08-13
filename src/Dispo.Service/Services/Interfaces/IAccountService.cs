@@ -1,5 +1,5 @@
-﻿using Dispo.Service.DTOs.RequestDTOs;
-using Dispo.Service.DTOs.ResponseDTOs;
+﻿using Dispo.Domain.DTOs.Request;
+using Dispo.Domain.DTOs.Response;
 
 namespace Dispo.Service.Services.Interfaces
 {

@@ -1,7 +1,7 @@
 ﻿using Dispo.Commom;
+using Dispo.Domain.DTOs.Response;
 using Dispo.Domain.Entities;
 using Dispo.Infrastructure.Repositories.Interfaces;
-using Dispo.Service.DTOs.ResponseDTOs;
 using Dispo.Service.Services.Interfaces;
 using System.Transactions;
 
