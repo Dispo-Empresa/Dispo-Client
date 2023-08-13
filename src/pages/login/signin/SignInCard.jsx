@@ -43,7 +43,7 @@ function SignIn() {
       var response = await post(ENDPOINTS.auth.signIn, data);
 
       if (response.success) {
-        setToken(response.data.tokenInfo.token);
+        setToken(response.data.token);
         setgoToHomePage(true);
       }
     } catch (err) {
