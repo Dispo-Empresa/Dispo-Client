@@ -2,11 +2,12 @@ import React, { useRef, useState } from 'react';
 import ContentPage from "../../../layouts/content/ContentPage";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import Datatable from "../../../components/structured/datatable/Datatable";
-import FileInputButton from '../attachment/FileInputButton'; 
+import FileInputButton from '../attachment/FileInputButton';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { styleAttachment } from "../attachment/styles";
+import "../attachment/styles.css"; // Update the path to the correct CSS file
 
 function ContentOrderAttachmentModal() {
+
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const createSpacerDiv = (height) => {
@@ -72,24 +73,18 @@ function ContentOrderAttachmentModal() {
 
   return (
     <div style={{ height: '100%' }}>
-      <div style={styleAttachment.container}>
-        {createSpacerDiv(15)}
-        <div style={styleAttachment.iconContainer}>
-          <UploadFileIcon style={styleAttachment.icon} />
+      <div className="styleAttachment-container">
+        {/* ... */}
+        <div className="styleAttachment-iconContainer">
+          <UploadFileIcon className="styleAttachment-icon" />
         </div>
-        {createSpacerDiv(15)}
-        <p style={styleAttachment.text}>Arraste e solte arquivos aqui ou</p>
+        {/* ... */}
+        <p className="styleAttachment-text">Arraste e solte arquivos aqui ou</p>
         <FileInputButton onFileSelect={handleFileSelect} />
-        {createSpacerDiv(15)}
-      </div> 
-      <ContentPage title ="Arquivos" button ="teste">
-        <Datatable
-          data={data}
-          columns={columns}
-          rowsPerPageOptions={[10, 20, 30]}
-          rowsPerPage={10}
-          noDataComponent={null} 
-        />
+        {/* ... */}
+      </div>
+      <ContentPage title="Arquivos" button="teste">
+        {/* ... */}
       </ContentPage>
     </div>
   );

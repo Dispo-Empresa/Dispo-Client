@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { styleAttachment } from "../attachment/styles"; 
+import '../attachment/styles.css'
 
 const FileInputButton = ({ onFileSelect }) => {
   const fileInputRef = useRef(null);
@@ -14,7 +14,7 @@ const FileInputButton = ({ onFileSelect }) => {
   };
 
   return (
-    <div className="custom-file-input">
+    <div className="styleAttachment-container"> {/* Use the appropriate CSS class name */}
       <input
         type="file"
         ref={fileInputRef}
@@ -23,7 +23,7 @@ const FileInputButton = ({ onFileSelect }) => {
         accept=".pdf, .png"
         multiple="multiple"
       />
-      <button style={styleAttachment.button} onClick={handleButtonClick}>
+      <button className="styleAttachment-button" onClick={handleButtonClick}> {/* Use the appropriate CSS class name */}
         Selecionar Arquivo
       </button>
     </div>
