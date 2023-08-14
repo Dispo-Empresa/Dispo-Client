@@ -1,68 +1,57 @@
+import React, { useState } from "react";
 import ContentPage from "../../../layouts/content/ContentPage";
 import Datatable from "../../../components/structured/datatable/Datatable";
-import AttachFileIcon from '@mui/icons-material/AttachFile';
-import {ContentOrderAttachmentModal} from "./ContentOrderAttachmentModal"
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import { ContentOrderAttachmentModal } from "./ContentOrderAttachmentModal";
 import ModalDialog from "../../../components/structured/modal/ModalDialog";
-import { useState } from "react";
+import getProductsData from "../attachment/Purchase";
 
-
-function PurchaseOrderAttachmentFormCard(){
- 
+function PurchaseOrderAttachmentFormCard() {
   const [showModal, setShowModal] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([]);
 
-    const buttonStyle = {
-        background: `url(${AttachFileIcon}) center / contain no-repeat`,
-        width: '5px',
-        height: '5px',
-        border: 'none',
-        cursor: 'pointer',
-      };
+  const onViewButton = (rowData) => {
+    // Ação ao clicar no botão de visualização (se necessário)
+    console.log("Visualizar", rowData);
+  };
 
-    const data = [
-        {orderNumber: 123, 
-         company: "benner sistema",
-         supplier: "mercado angelone",
-         creationDate: "12/05/2045",
-         attachment: (
-            <button  name="buttonAttachment" style={buttonStyle} onClick={() => setShowModal(true)}>
-              <AttachFileIcon />
-            </button>
-          )
-        },
-        {orderNumber: 123, 
-            company: "benner sistema",
-            supplier: "mercado angelone",
-            creationDate: "12/05/2045",
-            attachment: (
-               <button  name="buttonAttachment" style={buttonStyle}>
-                 <AttachFileIcon />
-               </button>
-             )
-           }
-    ];
+  const onDeleteButton = (rowData) => {
+    // Ação ao clicar no botão de exclusão (se necessário)
+    console.log("Excluir", rowData);
+  };
 
-    const columns = [
-        { label: "Número ordem", field: "orderNumber", sort: false, width: 100 },
-        { label: "Empresa", field: "company", sort: false, width: 250 },
-        { label: "Fornecedor", field: "supplier", sort: false, width: 250 },
-        { label: "Data criação", field: "creationDate", sort: false, width: 100 },
-        { label: "Anexos", field: "attachment", sort: false, width: 100 },
-        { label: "", field: "crud", sort: false, width: 100 }
-    ];
+  const columns = [
+    { field: "orderNumber", header: " Número ordem", sort: false, width: 100 },
+    { field: "company", header: " Empresa", sort: false, width: 250 },
+    { field: "supplier", header: " Fornecedor", sort: false, width: 250 },
+    { field: "creationDate", header: " Data criação", sort: false, width: 100 },
+    { field: "attachment", header: " Anexos", sort: false, width: 100 },
+  ];
 
-    return(
-        <ContentPage title="Anexos de ordem de compra">
-          <ModalDialog title="Modal" open={showModal} onClose={() => setShowModal(false)}>
-            <ContentOrderAttachmentModal/>
-          </ModalDialog>
-            <Datatable
-                data={data}
-                columns={columns}
-                rowsPerPageOptions={[10, 20, 30]}
-                rowsPerPage={10}
-            />
-        </ContentPage>
-    );
+  const data = 
+    {
+      orderNumber: 123,
+      company: "benner sistema",
+      supplier: "mercado angelone",
+      creationDate: "12/05/2045"
+    }
+
+  return (
+    <ContentPage title="Anexos de ordem de compra">
+      <ModalDialog title="Modal" open={showModal} onClose={() => setShowModal(false)}>
+        <ContentOrderAttachmentModal />
+      </ModalDialog>
+      <Datatable
+        showCheckbox
+        columns={columns}
+        data={getProductsData}
+        selectedItems={selectedItems}
+        setSelectedItems={setSelectedItems}
+        onViewButton={onViewButton}
+        onDeleteButton={onDeleteButton}
+      />
+    </ContentPage>
+  );
 }
 
 export default PurchaseOrderAttachmentFormCard;
