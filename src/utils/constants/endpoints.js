@@ -22,12 +22,12 @@ const ENDPOINTS = {
 
   accounts: {
     getAccountIdByEmail: "accounts/get-id",
+    changeWarehouse: "accounts/change-warehouse"
   },
 
   userAccount: {
     updateUserAccountInfo: "user/{id}",
     getAllUserInfo: "user/id={id}",
-    changeWarehouse: "user/change-warehouse"
   },
 
   products: {
@@ -52,9 +52,10 @@ const ENDPOINTS = {
   },
 
   warehouses: {
-    getWithAdressByUser: "warehouse/get-with-address-by-user",
-    getWithAdress: "warehouse/get-with-address",
-    create: "warehouse",
+    getWithAdressByUser: "warehouses/get-with-address-by-user",
+    getWithAdress: "warehouses/get-with-address",
+    create: "warehouses",
+    getAll: "warehouses",
   },
 
   addresses: {

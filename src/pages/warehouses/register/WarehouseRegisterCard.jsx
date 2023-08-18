@@ -4,15 +4,19 @@ import ContentPage from "../../../layouts/content/ContentPage";
 import useAlertScheme from "../../../hooks/alert/useAlertScheme";
 import { TextField } from "../../../components/ui/inputs/textfield/TextField";
 import { SelectWithFilter } from "../../../components/ui/inputs/select/SelectField";
-import useFields from "./useFields";
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
 import { post } from "../../../services/httpMethods";
 import { useFormik } from "formik";
 import { useState } from "react";
 import validate from "./validate";
 import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
+import useFetch from "../../../hooks/useFetchApi";
 
 function WarehouseRegisterCard() {
+  const { data: addresses } = useFetch(
+    ENDPOINTS.addresses.getFormattedAddresses
+  );
+
   const [showAlert, openAlert] = useAlertScheme();
   const [loading, setLoading] = useState(false);
   const formik = useFormik({
@@ -41,12 +45,12 @@ function WarehouseRegisterCard() {
   });
 
   const handleBeforeSubmiting = () => {
-    if (!formik.isValid) {
+    if (formik.errors) {
       openAlert("error", "Existem campos com erro, por favor verifique!");
     }
   };
 
-  const [addresses] = useFields();
+  // cadastrar o endereço como um todo
 
   return (
     <ContentPage title="Cadastro de Depósitos">
@@ -70,7 +74,13 @@ function WarehouseRegisterCard() {
           <SelectWithFilter
             required
             label="Endereço"
-            options={addresses}
+            options={
+              addresses &&
+              addresses.data.map((item) => ({
+                value: item.addressId,
+                label: item.address,
+              }))
+            }
             value={formik.values.address}
             error={formik.errors.address}
             onChange={(e) => formik.setFieldValue("address", e.target.value)}

@@ -10,14 +10,15 @@ function WarehouseQueryCard() {
     { field: "address", header: "Endereço" },
   ];
 
-  const { data, loading, refetch } = useFetch(ENDPOINTS.warehouses.getWithAdress);
+  const { data, loading, refetch } = useFetch(
+    ENDPOINTS.warehouses.getWithAdress
+  );
 
   return (
     <ContentPage title="Depósitos">
       <ViewPanel refreshData={refetch}>
         <Datatable
           noDataMessage="Depósitos não encontrados"
-          showCheckbox
           rowsPerPage={[5, 10, 25]}
           columns={columns}
           data={data}

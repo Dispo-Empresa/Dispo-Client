@@ -59,12 +59,16 @@ const callApi = async (endpoint, method, data = null) => {
 
     } else if (error.response) {
 
+      var errorMessage = (error.response.data.message != null && error.response.data.message !== "") ? error.response.data.message : error.response.data.title;
+      var successMessage = (error.response.data.success != null && error.response.data.success !== "") ? error.response.data.success : error.response.status >= 400 ? false : true;
+      var alertTypeMessage = (error.response.data.alertType != null && error.response.data.alertType !== "") ? error.response.data.alertType : error.response.status >= 400 ? "error" : "warning";
+
       return API_RESPONSE(
         error.response.data,
         `${error.name} ${error.message}`,
-        error.response.data.message ?? error.response.data.title,
-        error.response.data.success ?? error.response.status >= 400 ? false : true,
-        error.response.data.alertType ?? error.response.status >= 400 ? "error" : "warning",
+        errorMessage,
+        successMessage,
+        alertTypeMessage,
         error.response.status
       );
 
