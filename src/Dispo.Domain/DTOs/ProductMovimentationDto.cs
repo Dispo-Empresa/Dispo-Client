@@ -1,8 +1,5 @@
-﻿using Dispo.Domain.Entities;
-using Dispo.Domain.Enums;
+﻿using Dispo.Domain.Enums;
 using Dispo.Domain.Exceptions;
-using Newtonsoft.Json.Linq;
-using System;
 
 namespace Dispo.Domain.DTOs.RequestDTOs
 {

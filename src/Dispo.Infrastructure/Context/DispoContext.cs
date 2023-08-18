@@ -1,5 +1,4 @@
-﻿using Dispo.Domain;
-using Dispo.Domain.Entities;
+﻿using Dispo.Domain.Entities;
 using Dispo.Infrastructure.Mappings;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +31,7 @@ namespace Dispo.Infrastructure.Context
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<WarehouseAccount> WarehouseAccounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -53,6 +53,7 @@ namespace Dispo.Infrastructure.Context
             modelBuilder.ApplyConfiguration(new SupplierMapping());
             modelBuilder.ApplyConfiguration(new UserMapping());
             modelBuilder.ApplyConfiguration(new WarehouseMapping());
+            modelBuilder.ApplyConfiguration(new WarehouseAccountMapping());
 
             CreateRoles(modelBuilder);
 
@@ -62,7 +63,7 @@ namespace Dispo.Infrastructure.Context
         private void CreateRoles(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Role>().HasData(new Role() { Id = 5, Name = "Gerente", Key = Domain.Roles.Manager },
-                                                new Role() { Id = 6, Name = "Gerente de compras", Key = Domain.Roles.PurchasingManager }, 
+                                                new Role() { Id = 6, Name = "Gerente de compras", Key = Domain.Roles.PurchasingManager },
                                                 new Role() { Id = 7, Name = "Operador de depósito", Key = Domain.Roles.WarehouseOperator });
         }
     }

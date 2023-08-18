@@ -1,5 +1,6 @@
 ﻿using Dispo.API.ResponseBuilder;
 using Dispo.Commom;
+using Dispo.Domain.Exceptions;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.Services.Interfaces;
 using EscNet.Cryptography.Interfaces;
@@ -13,22 +14,24 @@ namespace Dispo.API.Controllers
     [Authorize]
     public class AccountsController : ControllerBase
     {
-        private readonly IAccountRepository accountRepository;
-        private readonly IRijndaelCryptography rijndaelCryptography;
-        private readonly IUserResolverService userResolverService;
+        private readonly IAccountRepository _accountRepository;
+        private readonly IRijndaelCryptography _rijndaelCryptography;
+        private readonly IAccountResolverService _accountResolverService;
+        private readonly IAccountService _accountService;
 
-        public AccountsController(IAccountRepository accountRepository, IRijndaelCryptography rijndaelCryptography, IUserResolverService userResolverService)
+        public AccountsController(IAccountRepository accountRepository, IRijndaelCryptography rijndaelCryptography, IAccountResolverService userResolverService, IAccountService accountService)
         {
-            this.accountRepository = accountRepository;
-            this.rijndaelCryptography = rijndaelCryptography;
-            this.userResolverService = userResolverService;
+            _accountRepository = accountRepository;
+            _rijndaelCryptography = rijndaelCryptography;
+            _accountResolverService = userResolverService;
+            _accountService = accountService;
         }
 
         [HttpGet]
         [Route("get-id")]
         public IActionResult GetAccountIdByEmail([FromRoute] string email)
         {
-            var accountId = accountRepository.GetAccountIdByEmail(rijndaelCryptography.Encrypt(email));
+            var accountId = _accountRepository.GetAccountIdByEmail(_rijndaelCryptography.Encrypt(email));
 
             if (accountId.IsIdValid())
             {
@@ -40,6 +43,28 @@ namespace Dispo.API.Controllers
 
             return BadRequest(new ResponseModelBuilder().WithMessage("Account Id not found")
                                                         .Build());
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("change-warehouse")]
+        public IActionResult ChangeWarehouse([FromBody] long warehouseId)
+        {
+            try
+            {
+                var accountId = _accountResolverService.GetLoggedAccountId() ?? throw new NotFoundException("Faça o login no sistema.");
+                _accountService.ChangeWarehouse(accountId, warehouseId);
+
+                return Ok(new ResponseModelBuilder().WithMessage("O depósito foi vinculado ao usuário.")
+                                                    .WithSuccess(true)
+                                                    .Build());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseModelBuilder().WithMessage(ex.Message)
+                                                            .WithSuccess(false)
+                                                            .Build()); ;
+            }
         }
     }
 }

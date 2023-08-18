@@ -36,6 +36,9 @@ namespace Dispo.Infrastructure.Migrations
                         .HasDefaultValue(true)
                         .HasColumnName("Ativo");
 
+                    b.Property<long?>("CurrentWarehouseId")
+                        .HasColumnType("BIGINT");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(220)
@@ -55,6 +58,8 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnType("BIGINT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CurrentWarehouseId");
 
                     b.HasIndex("RoleId");
 
@@ -763,7 +768,7 @@ namespace Dispo.Infrastructure.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
@@ -779,11 +784,15 @@ namespace Dispo.Infrastructure.Migrations
 
                     b.HasIndex("WarehouseId");
 
-                    b.ToTable("WarehouseAccount");
+                    b.ToTable("WarehouseAccounts", (string)null);
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Account", b =>
                 {
+                    b.HasOne("Dispo.Domain.Entities.Warehouse", "CurrentWarehouse")
+                        .WithMany()
+                        .HasForeignKey("CurrentWarehouseId");
+
                     b.HasOne("Dispo.Domain.Entities.Role", "Role")
                         .WithMany("Accounts")
                         .HasForeignKey("RoleId")
@@ -795,6 +804,8 @@ namespace Dispo.Infrastructure.Migrations
                         .HasForeignKey("Dispo.Domain.Entities.Account", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("CurrentWarehouse");
 
                     b.Navigation("Role");
 
@@ -1013,13 +1024,13 @@ namespace Dispo.Infrastructure.Migrations
                     b.HasOne("Dispo.Domain.Entities.Account", "Account")
                         .WithMany("WarehouseAccounts")
                         .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Dispo.Domain.Entities.Warehouse", "Warehouse")
                         .WithMany("WarehouseAccounts")
                         .HasForeignKey("WarehouseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Account");

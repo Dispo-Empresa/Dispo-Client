@@ -7,8 +7,9 @@ namespace Dispo.Infrastructure.Repositories.Interfaces
     public interface IProductRepository : IBaseRepository<Product>
     {
         IEnumerable<ProductNameWithCode> GetAllProductNamesWithCode();
-        long GetProductIdByName(string productName);
-        IEnumerable<ProductInfoDatatableDto> GetProductInfoDto();
 
+        long GetProductIdByName(string productName);
+
+        IEnumerable<ProductInfoDatatableDto> GetProductInfoDto();
     }
 }

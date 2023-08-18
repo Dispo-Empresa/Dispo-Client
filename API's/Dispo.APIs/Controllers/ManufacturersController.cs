@@ -12,12 +12,12 @@ namespace Dispo.APIs.Controllers
     [Route("/api/v1/manufacturers")]
     [ApiController]
     [Authorize]
-    public class ManufacturersController : DispoBaseController
+    public class ManufacturersController : ControllerBase
     {
         private readonly IManufacturerRepository _manufacturerRepository;
         private readonly IManufacturerService _manufacturerService;
 
-        public ManufacturersController(ILogger<ManufacturersController> logger, IManufacturerRepository manufacturerRepository, IManufacturerService manufacturerService) : base(logger)
+        public ManufacturersController(IManufacturerRepository manufacturerRepository, IManufacturerService manufacturerService)
         {
             _manufacturerRepository = manufacturerRepository;
             _manufacturerService = manufacturerService;

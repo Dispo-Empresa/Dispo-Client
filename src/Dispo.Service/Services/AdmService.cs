@@ -35,11 +35,10 @@ namespace Dispo.Service.Services
                     newWarehouseAccount.AccountId = newAccount.Id;
 
                     _houseAccountRepository.Create(newWarehouseAccount);
-                } 
+                }
             }
             catch (Exception ex)
             {
-
             }
         }
     }

@@ -95,8 +95,13 @@ namespace Dispo.Infrastructure.Repositories
                                                      RoleName = x.RoleId.ToString(),
                                                      //FullName = x.UserId.IsIdValid() ? $"{x.User.FirstName} {x.User.LastName}" : string.Empty,
                                                      //Phone = x.UserId.IsIdValid() ? x.User.Phone : string.Empty,
-
                                                  })
                                                  .ToList();
+
+        public Account? GetWithWarehousesById(long id)
+        {
+            return _dispoContext.Accounts.Include(i => i.WarehouseAccounts)
+                                         .FirstOrDefault(w => w.Id == id);
+        }
     }
 }

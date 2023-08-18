@@ -7,8 +7,6 @@
         public DateTime CreationDate { get; set; }
         public DateTime ModifieldDate { get; set; }
 
-
         public PurchaseOrder PurchaseOrder { get; set; }
-
     }
 }

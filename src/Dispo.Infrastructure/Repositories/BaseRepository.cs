@@ -2,6 +2,7 @@
 using Dispo.Infrastructure.Context;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Dispo.Infrastructure.Repositories
 {
@@ -40,6 +41,10 @@ namespace Dispo.Infrastructure.Repositories
             => _dispoContext.Set<T>()
                             .Where(x => x.Id == id)
                             .FirstOrDefault();
+
+        public virtual IEnumerable<T?> GetByExpression(Expression<Func<T, bool>> expression)
+            => _dispoContext.Set<T>()
+                            .Where(expression);
 
         public virtual T Update(T obj)
         {
@@ -105,6 +110,11 @@ namespace Dispo.Infrastructure.Repositories
         public virtual async Task<bool> ExistsByIdAsync(long id)
         {
             return await _dispoContext.Set<T>().AnyAsync(w => w.Id == id);
+        }
+
+        public bool ExistsById(long id)
+        {
+            return _dispoContext.Set<T>().Any(w => w.Id == id);
         }
     }
 }

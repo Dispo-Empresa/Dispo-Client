@@ -1,6 +1,4 @@
-﻿using Dispo.Domain.Enums;
-
-namespace Dispo.Domain.Entities
+﻿namespace Dispo.Domain.Entities
 {
     public class Role : Base
     {

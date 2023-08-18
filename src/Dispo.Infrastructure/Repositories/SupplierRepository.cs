@@ -25,7 +25,6 @@ namespace Dispo.Infrastructure.Repositories
                         Cnpj = s.Cnpj,
                         Email = s.Email,
                         Phone = s.Phone,
-
                     })
                     .ToList();
 

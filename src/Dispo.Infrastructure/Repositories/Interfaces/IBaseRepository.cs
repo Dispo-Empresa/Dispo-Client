@@ -1,4 +1,5 @@
 ﻿using Dispo.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace Dispo.Infrastructure.Repositories.Interfaces
 {
@@ -12,9 +13,13 @@ namespace Dispo.Infrastructure.Repositories.Interfaces
 
         IEnumerable<T?> GetAllAsNoTracking();
 
+        IEnumerable<T?> GetByExpression(Expression<Func<T, bool>> expression);
+
         T Update(T obj);
 
         void Delete(long id);
+
+        bool ExistsById(long id);
 
         Task<bool> CreateAsync(T obj);
 

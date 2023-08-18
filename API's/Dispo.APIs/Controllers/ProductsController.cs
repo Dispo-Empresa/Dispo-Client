@@ -1,5 +1,4 @@
 ﻿using Dispo.API.ResponseBuilder;
-using Dispo.APIs;
 using Dispo.APIs.ResponseBuilder;
 using Dispo.Domain.DTOs.Request;
 using Dispo.Domain.Exceptions;
@@ -13,12 +12,12 @@ namespace Dispo.API.Controllers
     [Route("/api/v1/products")]
     [ApiController]
     [Authorize]
-    public class ProductsController : DispoBaseController
+    public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
         private readonly IProductRepository _productRepository;
 
-        public ProductsController(ILogger<ProductsController> logger, IProductService productService, IProductRepository productRepository) : base(logger)
+        public ProductsController(IProductService productService, IProductRepository productRepository)
         {
             _productService = productService;
             _productRepository = productRepository;
@@ -101,7 +100,6 @@ namespace Dispo.API.Controllers
             }
             catch (Exception ex)
             {
-
                 throw;
             }
         }

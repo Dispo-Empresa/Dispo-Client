@@ -2,10 +2,8 @@
 using Dispo.Domain.DTOs.Request;
 using Dispo.Domain.Entities;
 using Dispo.Domain.Exceptions;
-using Dispo.Infrastructure.Repositories;
 using Dispo.Infrastructure.Repositories.Interfaces;
 using Dispo.Service.Services.Interfaces;
-using System.Net;
 using System.Transactions;
 
 namespace Dispo.Service.Services
@@ -63,7 +61,7 @@ namespace Dispo.Service.Services
                 supplierCreatedId = supplier.Id;
             }
 
-           return supplierCreatedId;
+            return supplierCreatedId;
         }
     }
 }

@@ -13,7 +13,6 @@ namespace Dispo.Domain.Entities
         public long SupplierId { get; set; }
         public long ShippingId { get; set; }
 
-
         public Warehouse Warehouse { get; set; }
         public Supplier Supplier { get; set; }
         public Shipping Shipping { get; set; }

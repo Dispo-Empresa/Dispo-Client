@@ -4,6 +4,5 @@ namespace Dispo.Service.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<User?> GetByIdAsync(long id);
     }
 }

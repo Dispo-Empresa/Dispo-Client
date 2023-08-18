@@ -1,6 +1,4 @@
-﻿using Dispo.Domain.Entities;
-
-namespace Dispo.Domain.DTOs.Request
+﻿namespace Dispo.Domain.DTOs.Request
 {
     public class SupplierRequestDto
     {

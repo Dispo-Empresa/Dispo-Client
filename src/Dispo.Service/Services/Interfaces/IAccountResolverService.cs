@@ -2,8 +2,8 @@
 
 namespace Dispo.Service.Services.Interfaces
 {
-    public interface IUserResolverService
+    public interface IAccountResolverService
     {
-        Task<User?> GetLoggedUser();
+        long? GetLoggedAccountId();
     }
 }

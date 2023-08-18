@@ -1,4 +1,4 @@
-﻿    using Dispo.Domain.Enums;
+﻿using Dispo.Domain.Enums;
 
 namespace Dispo.Domain.Entities
 {
@@ -13,7 +13,6 @@ namespace Dispo.Domain.Entities
         public eProductCategory Category { get; set; }
         public eUnitOfMeasurement UnitOfMeasurement { get; set; }
         public long? ProductDimensionId { get; set; }
-
 
         public ProductDimension ProductDimension { get; set; }
         public Batch Batch { get; set; }

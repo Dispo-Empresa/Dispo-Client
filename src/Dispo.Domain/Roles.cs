@@ -9,7 +9,7 @@
 
         public static bool IsValid(string role)
         {
-            return role == Manager|| role == PurchasingManager || role == WarehouseOperator;
+            return role == Manager || role == PurchasingManager || role == WarehouseOperator;
         }
     }
 }

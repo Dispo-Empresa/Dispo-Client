@@ -7,7 +7,6 @@
         public decimal Width { get; set; }
         public decimal Depth { get; set; }
 
-
         public Product Product { get; set; }
     }
 }

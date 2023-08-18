@@ -12,12 +12,12 @@ namespace Dispo.APIs.Controllers
     [Route("/api/v1/suppliers")]
     [ApiController]
     [Authorize]
-    public class SuppliersController : DispoBaseController
+    public class SuppliersController : ControllerBase
     {
         private readonly ISupplierRepository _supplierRepository;
         private readonly ISupplierService _supplierService;
 
-        public SuppliersController(ILogger<SuppliersController> logger, ISupplierRepository supplierRepository, ISupplierService supplierService) : base(logger)
+        public SuppliersController(ISupplierRepository supplierRepository, ISupplierService supplierService)
         {
             _supplierRepository = supplierRepository;
             _supplierService = supplierService;
