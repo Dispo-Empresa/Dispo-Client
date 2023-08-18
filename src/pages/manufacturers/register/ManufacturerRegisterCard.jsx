@@ -39,7 +39,7 @@ function ManufacturerRegisterCard() {
   });
 
   const handleBeforeSubmiting = () => {
-    if (!formik.isValid) {
+    if (formik.errors) {
       openAlert("error", "Existem campos com erro, por favor verifique!");
       return;
     }

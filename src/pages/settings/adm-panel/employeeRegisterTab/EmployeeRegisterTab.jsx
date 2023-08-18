@@ -11,14 +11,10 @@ import { RadioButtons } from "../../../../components/ui/inputs/radio/RadioButton
 import { ENDPOINTS } from "../../../../utils/constants/endpoints";
 import { post } from "../../../../services/httpMethods";
 
-const warehousesOptions = [
-  { value: 1, label: "Depósito 1" },
-  { value: 13, label: "Depósito 2" },
-  { value: 7, label: "Depósito 3" },
-];
-
 function EmployeeRegisterTab() {
   const { data: roles } = useFetch(ENDPOINTS.adm.getRoles);
+  const { data: warehouses } = useFetch(ENDPOINTS.warehouses.getAll);
+
   const [showAlert, openAlert] = useAlertScheme();
   const formik = useFormik({
     initialValues: {
@@ -87,7 +83,13 @@ function EmployeeRegisterTab() {
           label="Depósitos"
           optionLabel="label"
           width="400px"
-          options={warehousesOptions}
+          options={
+            warehouses &&
+            warehouses.data.map((item) => ({
+              value: item.warehouseId,
+              label: item.name,
+            }))
+          }
           error={formik.errors.warehouses}
           value={formik.values.warehouses}
           onChange={(e) => formik.setFieldValue("warehouses", e.value)}

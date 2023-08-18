@@ -153,9 +153,7 @@ function RoutesConfiguration() {
         <Route
           path="/warehouses"
           element={
-            <RouteController
-              // allowedRoles={[roles.Manager, roles.WarehouseOperator, roles.PurchasingManager]}
-            >
+            <RouteController allowedRoles={[roles.Manager]}>
               <WarehouseCard />
             </RouteController>
           }
