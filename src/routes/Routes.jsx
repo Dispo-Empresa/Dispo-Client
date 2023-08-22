@@ -27,9 +27,9 @@ function RouteController({ children, allowedRoles }) {
   }
 
   return (
-    //<PrivateRoute roles={allowedRoles}>
+    <PrivateRoute roles={allowedRoles}>
       <BodyLayout>{children}</BodyLayout>
-    //</PrivateRoute>
+    </PrivateRoute>
   );
 }
 
@@ -78,7 +78,7 @@ function RoutesConfiguration() {
           }
         />
         <Route
-          path="/purchaseOrder/registration"
+          path="/purchaseOrder/register"
           element={
             <RouteController
               allowedRoles={[roles.Manager, roles.PurchasingManager]}
