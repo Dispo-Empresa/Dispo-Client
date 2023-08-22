@@ -21,6 +21,7 @@ function Datatable({
   setSelectedItens,
   onDeleteButton,
   onViewButton,
+  fromApi
 }) {
   const buttonsTemplate = (rowData) => {
     return (
@@ -61,7 +62,7 @@ function Datatable({
       resizableColumns
       showGridlines
       scrollable
-      value={data && data.data}
+      value={fromApi ? (data && data.data) : data}
       selection={selectedItens}
       onSelectionChange={(e) => setSelectedItens(e.value)}
       paginator
