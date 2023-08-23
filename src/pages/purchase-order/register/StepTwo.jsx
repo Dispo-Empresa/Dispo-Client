@@ -1,4 +1,5 @@
 import { MDBCol } from "mdb-react-ui-kit";
+import React, { useState } from "react";
 
 import Datagrid from "../../../components/structured/datatable/Datatable";   
 import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
@@ -12,6 +13,13 @@ import { SelectWithFilter } from "../../../components/ui/inputs/select/SelectFie
 
 function StepTwo(props){
     const [fields, order, setOrder, handleFieldChange, handleExistsRequiredFieldsNotAnswered, handleExistsDuplicateFields] = UseFieldsStepTwo();
+    const [selectedOrder, setSelectedOrder] = useState(null);
+
+    const deleteRows = (rowToDelete) => {
+        const newOrder = order.filter(row => row !== rowToDelete);
+
+        setOrder(newOrder);
+    };
 
     const products = [
         { value: "Laranja", label: "Laranja"},
@@ -135,6 +143,9 @@ function StepTwo(props){
                         noDataMessage="Nenhum produto cadastrado"
                         showCheckbox
                         fromApi={false}
+                        setSelectedItens={setSelectedOrder}
+                        selectedItens={selectedOrder}
+                        onDeleteButton={deleteRows}
                     >
                     </Datagrid>     
                 </MDBCol>
