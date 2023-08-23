@@ -1,4 +1,6 @@
 import { Button, Tooltip } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
 import SaveIcon from "@mui/icons-material/Save";
 import SearchIcon from "@mui/icons-material/Search";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
@@ -7,8 +9,9 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
+import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
+
+import { ReactComponent as Loader } from "../loader.svg";
 import { COLORS } from "../../../../themes/colors";
 
 import "./styles.css";
@@ -55,6 +58,7 @@ function SaveButton(props) {
   return (
     <Tooltip title={props.title}>
       <Button
+        type={props.type}
         onClick={props.onClick}
         className="form-button"
         style={{
@@ -62,7 +66,7 @@ function SaveButton(props) {
           color: COLORS.DetailsColor,
         }}
       >
-        <SaveIcon />
+        {!props.loading ? <SaveIcon /> : <Loader className="spinner" />}
       </Button>
     </Tooltip>
   );
@@ -133,6 +137,23 @@ function DeleteButton(props) {
   );
 }
 
+function DisableButton(props) {
+  return (
+    <Tooltip title="Desativar">
+      <Button
+        onClick={props.onClick}
+        className="datatable-button"
+        style={{
+          backgroundColor: "#f64e60",
+          color: COLORS.DetailsColor,
+        }}
+      >
+        <DoNotDisturbOnIcon fontSize="small" />
+      </Button>
+    </Tooltip>
+  );
+}
+
 function RefreshButton(props) {
   return (
     <Button
@@ -171,6 +192,7 @@ export {
   EditButton,
   MoreButton,
   DeleteButton,
+  DisableButton,
   RefreshButton,
   ExportButton,
 };

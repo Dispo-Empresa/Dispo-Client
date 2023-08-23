@@ -22,23 +22,45 @@ const ENDPOINTS = {
 
   accounts: {
     getAccountIdByEmail: "accounts/get-id",
+    changeWarehouse: "accounts/change-warehouse"
   },
 
   userAccount: {
-    updateUserAccountInfo: "user-account/{id}",
-    getAllUserInfo: "user-account/id={id}",
+    updateUserAccountInfo: "user/{id}",
+    getAllUserInfo: "user/id={id}",
   },
 
   products: {
     get: "products/get/{id}",
     getAll: "products",
-    createProduct: "products/create",
+    createProduct: "products",
     getProductNamesWithCode: "products/get-names-with-code",
   },
 
   movements: {
     moveProduct: "products/move"
-  }
+  },
+
+  manufacturers: {
+    getAll: "manufacturers",
+    createManufacturer: "manufacturers"
+  },
+
+  suppliers: {
+    getAll: "suppliers",
+    createSupplier: "suppliers"
+  },
+
+  warehouses: {
+    getWithAdressByUser: "warehouses/get-with-address-by-user",
+    getWithAdress: "warehouses/get-with-address",
+    create: "warehouses",
+    getAll: "warehouses",
+  },
+
+  addresses: {
+    getFormattedAddresses: "address/get-formatted-addresses"
+  },
 };
 
 export { LOCALHOST, ENDPOINTS };

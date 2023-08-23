@@ -1,0 +1,14 @@
+.p-inputtext {
+  height: 40px;
+  padding: 4px 8px;
+  min-width: auto;
+}
+
+.p-inputtext:enabled:focus {
+  box-shadow: 0 0 0 1px #86B7FE;
+  border-color: #86B7FE;
+}
+
+.p-inputtext.p-invalid.p-component {
+  border-color: red;
+}

@@ -17,10 +17,25 @@ const getToken = () => getSessionStorage("accessToken");
 
 const removeToken = () => removeSessionStorage("accessToken");
 
+const getUserName = () => jwt_decode(getSessionStorage("accessToken")).unique_name;
+
 const getRole = () => jwt_decode(getSessionStorage("accessToken")).role;
 
 const getAccountId = () => jwt_decode(getSessionStorage("accessToken")).accountId;
 
-const isAuthenticated = () => sessionStorage.getItem("accessToken") && sessionStorage.getItem("accessToken") !== "";
+const getCurrentWarehouseId = () => jwt_decode(getSessionStorage("accessToken")).currentWarehouseName;
 
-export { setToken, getToken, removeToken, getRole, getAccountId, isAuthenticated };
+const isAuthenticated = () =>{
+  if( getSessionStorage("accessToken") && getSessionStorage("accessToken") !== ""){
+    try{
+      var isValidToken = jwt_decode(getSessionStorage("accessToken"));
+      return isValidToken !== null && isValidToken !== undefined;
+    } catch {
+      return false;
+    }
+  }else{
+    return false;
+  }
+};
+
+export { setToken, getToken, removeToken, getUserName, getRole, getAccountId, getCurrentWarehouseId, isAuthenticated };

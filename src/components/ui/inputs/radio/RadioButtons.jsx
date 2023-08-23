@@ -1,7 +1,8 @@
+import React from "react";
+import { RadioButton } from "primereact/radiobutton";
+
 import TipIcon from "../indicators/tip/TipIcon";
 import RequiredIcon from "../indicators/required/RequiredIcon";
-
-import "../styles.css";
 
 function RadioButtons(props) {
   return (
@@ -16,34 +17,33 @@ function RadioButtons(props) {
       <div
         className="form-control"
         style={{
-          display: props.align === "horizontal" ? "flex" : "block",
-          flexDirection: props.align === "horizontal" ? "row" : "column",
           padding: "10px 0px 15px 15px",
+          borderColor: props.error && "red",
+          width: props.width ?? "300px",
         }}
       >
-        {props.options.map((option, index) => (
-          <div
-            key={index}
-            onChange={props.onChange}
-            style={{ marginRight: props.align === "horizontal" ? "15px" : "0" }}
-          >
-            <input
-              type="radio"
-              id={option.label}
-              name="radioGroup"
-              value={option.value}
-            />
-            <label
-              htmlFor={option.label}
-              style={{ paddingLeft: "5px", paddingTop: "10px" }}
-            >
-              {option.label}
-            </label>
-          </div>
-        ))}
+        {props.options.map((option) => {
+          return (
+            <div key={option.value} className="flex align-items-center">
+              <RadioButton
+                inputId={option.value}
+                value={option}
+                onChange={props.onChange}
+                checked={props.value.value === option.value}
+              />
+              <label
+                htmlFor={option.value}
+                style={{ paddingLeft: "5px", paddingTop: "10px" }}
+              >
+                {option.label}
+              </label>
+            </div>
+          );
+        })}
       </div>
+      <div>{props.error && <span className="errors">{props.error}</span>}</div>
     </div>
   );
 }
 
-export default RadioButtons;
+export { RadioButtons };

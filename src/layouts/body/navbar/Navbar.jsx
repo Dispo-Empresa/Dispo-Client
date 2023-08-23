@@ -14,23 +14,37 @@ import {
 import { IconButton, Menu, Avatar, MenuItem } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import { removeToken } from "../../../services/authToken";
-import { COLORS } from "../../../themes/colors";
+import useFetch from "../../../hooks/useFetchApi";
+import {
+  removeToken,
+  getUserName,
+  getCurrentWarehouseId,
+} from "../../../services/authToken";
+import { post } from "../../../services/httpMethods";
+import { ENDPOINTS } from "../../../utils/constants/endpoints";
 
 import "./styles.css";
 
 function Navbar() {
+  const { data: warehousesByAccount } = useFetch(
+    ENDPOINTS.warehouses.getWithAdressByUser
+  );
   const [anchorEl, setProfileOptionsPosition] = useState(null);
-  const open = Boolean(anchorEl);
-
   const [anchorElTest, setAnchor] = useState(null);
+  const open = Boolean(anchorEl);
   const openTest = Boolean(anchorElTest);
+
+  const handleChangeWarehouse = async (e) => {
+    await post(
+      ENDPOINTS.accounts.changeWarehouse,
+      parseInt(e.getAttribute("data-value"))
+    );
+    removeToken();
+  };
 
   const onLogout = () => {
     removeToken();
   };
-
-  const options = ["Depósito 1", "Depósito 2", "Depósito 3", "Depósito 4"];
 
   return (
     <MDBNavbar className="container-navbar" fixed="top" bgColor="light">
@@ -52,7 +66,9 @@ function Navbar() {
             onClick={(e) => setProfileOptionsPosition(e.currentTarget)}
           >
             <Avatar sx={{ width: 28, height: 28, bgcolor: "#2C3745" }}>
-              <label style={{ fontSize: "15px" }}>M</label>
+              <label style={{ fontSize: "15px" }}>
+                {getUserName().charAt(0)}
+              </label>
             </Avatar>
           </IconButton>
           <Menu
@@ -68,7 +84,7 @@ function Navbar() {
               <ListItemIcon>
                 <PersonIcon />
               </ListItemIcon>
-              <b>Matheus</b>
+              <b>{getUserName()}</b>
             </MenuItem>
             <MenuItem component="a" href="/login/signin" onClick={onLogout}>
               <ListItemIcon>
@@ -87,8 +103,8 @@ function Navbar() {
             }}
             onClick={(e) => setAnchor(e.currentTarget)}
           >
-            Depósito 1
-            <ArrowDropDownIcon />
+            {getCurrentWarehouseId()}
+            <ArrowDropDownIcon style={{ marginBottom: "2px" }} />
           </button>
           <Menu
             disableScrollLock={true}
@@ -97,21 +113,25 @@ function Navbar() {
             onClose={() => setAnchor(null)}
             onClick={() => setAnchor(null)}
           >
-            <MenuItem>
-              <label style={{ color: COLORS.PrimaryColor }}>
-                Acesso aos depósitos
-              </label>
+            <MenuItem component="a" href="/warehouses">
+              Acesso aos depósitos
             </MenuItem>
             <Divider component="li" />
-            {options.map((option) => (
-              <MenuItem
-                key={option}
-                selected={option === "Depósito 1"}
-                onClick={() => setAnchor(null)}
-              >
-                {option}
-              </MenuItem>
-            ))}
+            {warehousesByAccount &&
+              warehousesByAccount.data.map((option) => (
+                <MenuItem
+                  key={option.warehouseId}
+                  value={option.warehouseId}
+                  name={option.name}
+                  selected={option}
+                  data-value={option.warehouseId}
+                  component="a"
+                  href="/login/signin"
+                  onClick={(e) => handleChangeWarehouse(e.currentTarget)}
+                >
+                  {option.name}
+                </MenuItem>
+              ))}
           </Menu>
         </MDBInputGroup>
       </MDBContainer>

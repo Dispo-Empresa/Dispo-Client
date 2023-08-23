@@ -1,8 +1,9 @@
+/* Select */
+
 .p-dropdown {
-  height: 37px;
+  height: 40px;
   padding: 4px 8px;
   min-width: auto;
-  align-items: center;
 }
 
 .p-dropdown:not(.p-disabled).p-focus {
@@ -17,4 +18,45 @@
   align-items: center;
   border-color: #86B7FE;
   box-shadow: 0 0 0 1px #86B7FE;
+}
+
+/* MultiSelect */
+
+.p-multiselect {
+  height: 40px;
+  padding: 4px 8px;
+  min-width: auto;
+  align-items: center;
+}
+
+.p-multiselect:not(.p-disabled).p-focus {
+  border-color: #86B7FE;
+  box-shadow: 0 0 0 1px #86B7FE;
+}
+
+.p-multiselect-panel .p-multiselect-header .p-multiselect-filter {
+  height: 37px;
+  padding: 4px 8px;
+  min-width: auto;
+  align-items: center;
+  border-color: #86B7FE;
+  box-shadow: 0 0 0 1px #86B7FE;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item:focus {
+  box-shadow: inset 0 0 0 0.15rem #029DBE;
+  color: #029DBE;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
+  color: #029DBE;
+}
+
+.p-inputwrapper-filled.p-multiselect.p-multiselect-chip .p-multiselect-label {
+  padding: 0.175rem 0rem;
+}
+
+.p-multiselect.p-multiselect-chip .p-multiselect-token {
+  padding: 0.100rem 0.75rem;
+  font-size: 13px;
 }

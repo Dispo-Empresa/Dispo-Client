@@ -10,7 +10,7 @@ import { QueryDataButton } from "../../../components/ui/buttons/icons/IconButton
 
 function ProductQueryCard() {
   const [selectedProducts, setSelectedProducts] = useState(null);
-  const { data, loading } = useFetch(ENDPOINTS.products.getAll);
+  const { data, loading, refetch } = useFetch(ENDPOINTS.products.getAll);
 
   const columns = [
     { field: "name", header: "Nome", minWidth: "350px" },
@@ -42,7 +42,7 @@ function ProductQueryCard() {
 
   return (
     <ContentPage title="Produtos">
-      <ViewPanel>
+      <ViewPanel refreshData={refetch}>
         <Datatable
           noDataMessage="Produtos não encontrados"
           showCheckbox

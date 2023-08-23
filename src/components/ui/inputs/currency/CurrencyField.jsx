@@ -1,8 +1,8 @@
-import CurrencyInput from "react-currency-input-field";
+import { InputNumber } from "primereact/inputnumber";
+import { classNames } from "primereact/utils";
 
 import Tip from "../indicators/tip/TipIcon";
 import Required from "../indicators/required/RequiredIcon";
-
 import "../styles.css";
 
 function CurrencyField(props) {
@@ -15,15 +15,15 @@ function CurrencyField(props) {
           {props.message && <Tip message={props.message} />}
         </div>
       </div>
-      <CurrencyInput
-        className="form-control"
-        decimalsLimit={2}
-        fixedDecimalLength={true}
-        onValueChange={props.onChange}
+      <InputNumber
+        inputClassName={classNames({ "p-invalid": props.error })}
         value={props.value}
-        prefix="R$ "
+        onValueChange={props.onChange}
+        mode="currency"
+        currency="BRL"
+        locale="pt-BR"
         style={{
-          borderColor: props.error && "#FF0000",
+          borderColor: props.error && "red",
           width: "200px",
         }}
       />

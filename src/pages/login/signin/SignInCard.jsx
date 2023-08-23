@@ -15,8 +15,8 @@ import useKeyPress from "../../../hooks/useKeyPress";
 import "./style.css";
 
 function SignIn() {
-  const [emailRequest, setEmailRequest] = useState("gestorTeste@gmail.com");
-  const [passwordRequest, setpasswordRequest] = useState("senhateste123");
+  const [emailRequest, setEmailRequest] = useState("gesto.dois@gmail.com");
+  const [passwordRequest, setpasswordRequest] = useState("alterarsenha");
   const [goToHomePage, setgoToHomePage] = useState(false);
   const [loading, setLoading] = useState(false);
   useKeyPress("Enter", handleKeyPress);
@@ -43,7 +43,7 @@ function SignIn() {
       var response = await post(ENDPOINTS.auth.signIn, data);
 
       if (response.success) {
-        setToken(response.data.tokenInfo.token);
+        setToken(response.data.token);
         setgoToHomePage(true);
       }
     } catch (err) {
