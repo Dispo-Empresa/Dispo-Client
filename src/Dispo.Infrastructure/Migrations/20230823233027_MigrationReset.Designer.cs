@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dispo.Infrastructure.Migrations
 {
     [DbContext(typeof(DispoContext))]
-    [Migration("20230719034434_PR68")]
-    partial class PR68
+    [Migration("20230823233027_MigrationReset")]
+    partial class MigrationReset
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,9 @@ namespace Dispo.Infrastructure.Migrations
                         .HasDefaultValue(true)
                         .HasColumnName("Ativo");
 
+                    b.Property<long?>("CurrentWarehouseId")
+                        .HasColumnType("BIGINT");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(220)
@@ -54,15 +57,18 @@ namespace Dispo.Infrastructure.Migrations
                     b.Property<long>("RoleId")
                         .HasColumnType("BIGINT");
 
-                    b.Property<long>("UserId")
+                    b.Property<long?>("UserId")
                         .HasColumnType("BIGINT");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CurrentWarehouseId");
+
                     b.HasIndex("RoleId");
 
                     b.HasIndex("UserId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Accounts", (string)null);
                 });
@@ -192,7 +198,7 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("AdressId")
+                    b.Property<long>("AddressId")
                         .HasColumnType("BIGINT");
 
                     b.Property<bool>("Ativo")
@@ -215,7 +221,7 @@ namespace Dispo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdressId")
+                    b.HasIndex("AddressId")
                         .IsUnique();
 
                     b.ToTable("Companies", (string)null);
@@ -278,18 +284,11 @@ namespace Dispo.Infrastructure.Migrations
                     b.Property<long>("WarehouseId")
                         .HasColumnType("BIGINT");
 
-                    b.Property<long?>("WarehouseId1")
-                        .HasColumnType("BIGINT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
 
                     b.HasIndex("WarehouseId");
-
-                    b.HasIndex("WarehouseId1")
-                        .IsUnique()
-                        .HasFilter("[WarehouseId1] IS NOT NULL");
 
                     b.ToTable("Movements", (string)null);
                 });
@@ -351,12 +350,6 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnType("SMALLINT")
                         .HasColumnName("Category");
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR(50)")
-                        .HasColumnName("Code");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(220)
@@ -373,7 +366,7 @@ namespace Dispo.Infrastructure.Migrations
                         .HasColumnType("VARCHAR(150)")
                         .HasColumnName("Name");
 
-                    b.Property<long>("ProductDimensionId")
+                    b.Property<long?>("ProductDimensionId")
                         .HasColumnType("BIGINT");
 
                     b.Property<decimal>("PurchasePrice")
@@ -394,7 +387,8 @@ namespace Dispo.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProductDimensionId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[ProductDimensionId] IS NOT NULL");
 
                     b.ToTable("Products", (string)null);
                 });
@@ -545,19 +539,41 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR(50)")
+                        .HasColumnName("Key");
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("VARCHAR(50)")
                         .HasColumnName("Name");
 
-                    b.Property<short>("Type")
-                        .HasMaxLength(120)
-                        .HasColumnType("SMALLINT")
-                        .HasColumnName("Type");
-
                     b.HasKey("Id");
 
                     b.ToTable("Roles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Key = "manager",
+                            Name = "Gerente"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Key = "purchasingManager",
+                            Name = "Gerente de compras"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Key = "warehouseOperator",
+                            Name = "Operador de depósito"
+                        });
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Shipping", b =>
@@ -597,7 +613,7 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("AdressId")
+                    b.Property<long>("AddressId")
                         .HasColumnType("BIGINT");
 
                     b.Property<bool>("Ativo")
@@ -644,7 +660,7 @@ namespace Dispo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdressId")
+                    b.HasIndex("AddressId")
                         .IsUnique();
 
                     b.ToTable("Suppliers", (string)null);
@@ -658,7 +674,7 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("AdressId")
+                    b.Property<long>("AddressId")
                         .HasColumnType("BIGINT");
 
                     b.Property<bool>("Ativo")
@@ -700,7 +716,7 @@ namespace Dispo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdressId")
+                    b.HasIndex("AddressId")
                         .IsUnique();
 
                     b.HasIndex("CompanyId");
@@ -716,7 +732,7 @@ namespace Dispo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("AdressId")
+                    b.Property<long>("AddressId")
                         .HasColumnType("BIGINT");
 
                     b.Property<bool>("Ativo")
@@ -736,7 +752,7 @@ namespace Dispo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdressId")
+                    b.HasIndex("AddressId")
                         .IsUnique();
 
                     b.HasIndex("CompanyId");
@@ -748,7 +764,7 @@ namespace Dispo.Infrastructure.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
@@ -764,11 +780,15 @@ namespace Dispo.Infrastructure.Migrations
 
                     b.HasIndex("WarehouseId");
 
-                    b.ToTable("WarehouseAccount");
+                    b.ToTable("WarehouseAccounts", (string)null);
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Account", b =>
                 {
+                    b.HasOne("Dispo.Domain.Entities.Warehouse", "CurrentWarehouse")
+                        .WithMany()
+                        .HasForeignKey("CurrentWarehouseId");
+
                     b.HasOne("Dispo.Domain.Entities.Role", "Role")
                         .WithMany("Accounts")
                         .HasForeignKey("RoleId")
@@ -780,6 +800,8 @@ namespace Dispo.Infrastructure.Migrations
                         .HasForeignKey("Dispo.Domain.Entities.Account", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("CurrentWarehouse");
 
                     b.Navigation("Role");
 
@@ -826,13 +848,13 @@ namespace Dispo.Infrastructure.Migrations
 
             modelBuilder.Entity("Dispo.Domain.Entities.Company", b =>
                 {
-                    b.HasOne("Dispo.Domain.Entities.Address", "Adress")
+                    b.HasOne("Dispo.Domain.Entities.Address", "Address")
                         .WithOne("Company")
-                        .HasForeignKey("Dispo.Domain.Entities.Company", "AdressId")
+                        .HasForeignKey("Dispo.Domain.Entities.Company", "AddressId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Adress");
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Movement", b =>
@@ -848,10 +870,6 @@ namespace Dispo.Infrastructure.Migrations
                         .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Dispo.Domain.Entities.Warehouse", null)
-                        .WithOne("Movement")
-                        .HasForeignKey("Dispo.Domain.Entities.Movement", "WarehouseId1");
 
                     b.Navigation("Account");
 
@@ -946,20 +964,20 @@ namespace Dispo.Infrastructure.Migrations
 
             modelBuilder.Entity("Dispo.Domain.Entities.Supplier", b =>
                 {
-                    b.HasOne("Dispo.Domain.Entities.Address", "Adress")
+                    b.HasOne("Dispo.Domain.Entities.Address", "Address")
                         .WithOne("Supplier")
-                        .HasForeignKey("Dispo.Domain.Entities.Supplier", "AdressId")
+                        .HasForeignKey("Dispo.Domain.Entities.Supplier", "AddressId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Adress");
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.User", b =>
                 {
-                    b.HasOne("Dispo.Domain.Entities.Address", "Adress")
+                    b.HasOne("Dispo.Domain.Entities.Address", "Address")
                         .WithOne("User")
-                        .HasForeignKey("Dispo.Domain.Entities.User", "AdressId")
+                        .HasForeignKey("Dispo.Domain.Entities.User", "AddressId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -969,16 +987,16 @@ namespace Dispo.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Adress");
+                    b.Navigation("Address");
 
                     b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Dispo.Domain.Entities.Warehouse", b =>
                 {
-                    b.HasOne("Dispo.Domain.Entities.Address", "Adress")
+                    b.HasOne("Dispo.Domain.Entities.Address", "Address")
                         .WithOne("Warehouse")
-                        .HasForeignKey("Dispo.Domain.Entities.Warehouse", "AdressId")
+                        .HasForeignKey("Dispo.Domain.Entities.Warehouse", "AddressId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -988,7 +1006,7 @@ namespace Dispo.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Adress");
+                    b.Navigation("Address");
 
                     b.Navigation("Company");
                 });
@@ -998,13 +1016,13 @@ namespace Dispo.Infrastructure.Migrations
                     b.HasOne("Dispo.Domain.Entities.Account", "Account")
                         .WithMany("WarehouseAccounts")
                         .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Dispo.Domain.Entities.Warehouse", "Warehouse")
                         .WithMany("WarehouseAccounts")
                         .HasForeignKey("WarehouseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Account");
@@ -1105,9 +1123,6 @@ namespace Dispo.Infrastructure.Migrations
 
             modelBuilder.Entity("Dispo.Domain.Entities.Warehouse", b =>
                 {
-                    b.Navigation("Movement")
-                        .IsRequired();
-
                     b.Navigation("Movements");
 
                     b.Navigation("PurchaseOrders");
