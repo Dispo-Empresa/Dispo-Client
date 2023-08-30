@@ -1,11 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
 namespace Dispo.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class PR90 : Migration
+    public partial class MigrationReset : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -65,8 +68,8 @@ namespace Dispo.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "BIGINT", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: true),
-                    Type = table.Column<short>(type: "SMALLINT", maxLength: 120, nullable: false)
+                    Name = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: false),
+                    Key = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,14 +85,14 @@ namespace Dispo.Infrastructure.Migrations
                     Ativo = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     Name = table.Column<string>(type: "VARCHAR(220)", maxLength: 220, nullable: false),
                     Cnpj = table.Column<string>(type: "VARCHAR(18)", maxLength: 18, nullable: false),
-                    AdressId = table.Column<long>(type: "BIGINT", nullable: false)
+                    AddressId = table.Column<long>(type: "BIGINT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Companies_Addresses_AdressId",
-                        column: x => x.AdressId,
+                        name: "FK_Companies_Addresses_AddressId",
+                        column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -108,14 +111,14 @@ namespace Dispo.Infrastructure.Migrations
                     Cnpj = table.Column<string>(type: "VARCHAR(18)", maxLength: 18, nullable: false),
                     Email = table.Column<string>(type: "VARCHAR(220)", maxLength: 220, nullable: false),
                     Phone = table.Column<string>(type: "VARCHAR(16)", maxLength: 16, nullable: false),
-                    AdressId = table.Column<long>(type: "BIGINT", nullable: false)
+                    AddressId = table.Column<long>(type: "BIGINT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Suppliers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Suppliers_Addresses_AdressId",
-                        column: x => x.AdressId,
+                        name: "FK_Suppliers_Addresses_AddressId",
+                        column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -131,12 +134,11 @@ namespace Dispo.Infrastructure.Migrations
                     Name = table.Column<string>(type: "VARCHAR(150)", maxLength: 150, nullable: false),
                     Description = table.Column<string>(type: "VARCHAR(220)", maxLength: 220, nullable: false),
                     Image = table.Column<byte[]>(type: "image", nullable: true),
-                    Code = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: false),
                     PurchasePrice = table.Column<decimal>(type: "DECIMAL(10,2)", maxLength: 120, nullable: false),
                     SalePrice = table.Column<decimal>(type: "DECIMAL(10,2)", maxLength: 120, nullable: false),
                     Category = table.Column<short>(type: "SMALLINT", maxLength: 120, nullable: false),
                     UnitOfMeasurement = table.Column<short>(type: "SMALLINT", maxLength: 120, nullable: false),
-                    ProductDimensionId = table.Column<long>(type: "BIGINT", nullable: false)
+                    ProductDimensionId = table.Column<long>(type: "BIGINT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -162,14 +164,14 @@ namespace Dispo.Infrastructure.Migrations
                     Phone = table.Column<string>(type: "VARCHAR(16)", maxLength: 16, nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CompanyId = table.Column<long>(type: "BIGINT", nullable: false),
-                    AdressId = table.Column<long>(type: "BIGINT", nullable: false)
+                    AddressId = table.Column<long>(type: "BIGINT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Addresses_AdressId",
-                        column: x => x.AdressId,
+                        name: "FK_Users_Addresses_AddressId",
+                        column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -190,14 +192,14 @@ namespace Dispo.Infrastructure.Migrations
                     Ativo = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     Name = table.Column<string>(type: "VARCHAR(60)", maxLength: 60, nullable: false),
                     CompanyId = table.Column<long>(type: "BIGINT", nullable: false),
-                    AdressId = table.Column<long>(type: "BIGINT", nullable: false)
+                    AddressId = table.Column<long>(type: "BIGINT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Warehouses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Warehouses_Addresses_AdressId",
-                        column: x => x.AdressId,
+                        name: "FK_Warehouses_Addresses_AddressId",
+                        column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -245,7 +247,8 @@ namespace Dispo.Infrastructure.Migrations
                     Email = table.Column<string>(type: "VARCHAR(220)", maxLength: 220, nullable: false),
                     Password = table.Column<string>(type: "VARCHAR(255)", maxLength: 255, nullable: false),
                     RoleId = table.Column<long>(type: "BIGINT", nullable: false),
-                    UserId = table.Column<long>(type: "BIGINT", nullable: false)
+                    UserId = table.Column<long>(type: "BIGINT", nullable: true),
+                    CurrentWarehouseId = table.Column<long>(type: "BIGINT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -262,6 +265,11 @@ namespace Dispo.Infrastructure.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Accounts_Warehouses_CurrentWarehouseId",
+                        column: x => x.CurrentWarehouseId,
+                        principalTable: "Warehouses",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -306,8 +314,7 @@ namespace Dispo.Infrastructure.Migrations
                     Type = table.Column<short>(type: "SMALLINT", maxLength: 120, nullable: false),
                     Quantity = table.Column<int>(type: "INTEGER", maxLength: 9999, nullable: false),
                     WarehouseId = table.Column<long>(type: "BIGINT", nullable: false),
-                    AccountId = table.Column<long>(type: "BIGINT", nullable: false),
-                    WarehouseId1 = table.Column<long>(type: "BIGINT", nullable: true)
+                    AccountId = table.Column<long>(type: "BIGINT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -324,9 +331,28 @@ namespace Dispo.Infrastructure.Migrations
                         principalTable: "Warehouses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WarehouseAccounts",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "BIGINT", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AccountId = table.Column<long>(type: "BIGINT", nullable: false),
+                    WarehouseId = table.Column<long>(type: "BIGINT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WarehouseAccounts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Movements_Warehouses_WarehouseId1",
-                        column: x => x.WarehouseId1,
+                        name: "FK_WarehouseAccounts_Accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Accounts",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_WarehouseAccounts_Warehouses_WarehouseId",
+                        column: x => x.WarehouseId,
                         principalTable: "Warehouses",
                         principalColumn: "Id");
                 });
@@ -457,6 +483,21 @@ namespace Dispo.Infrastructure.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Key", "Name" },
+                values: new object[,]
+                {
+                    { 1L, "manager", "Gerente" },
+                    { 2L, "purchasingManager", "Gerente de compras" },
+                    { 3L, "warehouseOperator", "Operador de depósito" }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Accounts_CurrentWarehouseId",
+                table: "Accounts",
+                column: "CurrentWarehouseId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Accounts_RoleId",
                 table: "Accounts",
@@ -466,7 +507,8 @@ namespace Dispo.Infrastructure.Migrations
                 name: "IX_Accounts_UserId",
                 table: "Accounts",
                 column: "UserId",
-                unique: true);
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Batches_OrderId",
@@ -490,9 +532,9 @@ namespace Dispo.Infrastructure.Migrations
                 column: "MovementId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Companies_AdressId",
+                name: "IX_Companies_AddressId",
                 table: "Companies",
-                column: "AdressId",
+                column: "AddressId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -504,13 +546,6 @@ namespace Dispo.Infrastructure.Migrations
                 name: "IX_Movements_WarehouseId",
                 table: "Movements",
                 column: "WarehouseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Movements_WarehouseId1",
-                table: "Movements",
-                column: "WarehouseId1",
-                unique: true,
-                filter: "[WarehouseId1] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_ProductId",
@@ -536,7 +571,8 @@ namespace Dispo.Infrastructure.Migrations
                 name: "IX_Products_ProductDimensionId",
                 table: "Products",
                 column: "ProductDimensionId",
-                unique: true);
+                unique: true,
+                filter: "[ProductDimensionId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PurchaseOrderAttachments_PurchaseOrderId",
@@ -560,15 +596,15 @@ namespace Dispo.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Suppliers_AdressId",
+                name: "IX_Suppliers_AddressId",
                 table: "Suppliers",
-                column: "AdressId",
+                column: "AddressId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_AdressId",
+                name: "IX_Users_AddressId",
                 table: "Users",
-                column: "AdressId",
+                column: "AddressId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -577,9 +613,19 @@ namespace Dispo.Infrastructure.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Warehouses_AdressId",
+                name: "IX_WarehouseAccounts_AccountId",
+                table: "WarehouseAccounts",
+                column: "AccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WarehouseAccounts_WarehouseId",
+                table: "WarehouseAccounts",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Warehouses_AddressId",
                 table: "Warehouses",
-                column: "AdressId",
+                column: "AddressId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -602,6 +648,9 @@ namespace Dispo.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Shippings");
+
+            migrationBuilder.DropTable(
+                name: "WarehouseAccounts");
 
             migrationBuilder.DropTable(
                 name: "Batches");

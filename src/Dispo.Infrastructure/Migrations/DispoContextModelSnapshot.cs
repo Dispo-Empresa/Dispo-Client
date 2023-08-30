@@ -281,18 +281,11 @@ namespace Dispo.Infrastructure.Migrations
                     b.Property<long>("WarehouseId")
                         .HasColumnType("BIGINT");
 
-                    b.Property<long?>("WarehouseId1")
-                        .HasColumnType("BIGINT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
 
                     b.HasIndex("WarehouseId");
-
-                    b.HasIndex("WarehouseId1")
-                        .IsUnique()
-                        .HasFilter("[WarehouseId1] IS NOT NULL");
 
                     b.ToTable("Movements", (string)null);
                 });
@@ -562,19 +555,19 @@ namespace Dispo.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 5L,
+                            Id = 1L,
                             Key = "manager",
                             Name = "Gerente"
                         },
                         new
                         {
-                            Id = 6L,
+                            Id = 2L,
                             Key = "purchasingManager",
                             Name = "Gerente de compras"
                         },
                         new
                         {
-                            Id = 7L,
+                            Id = 3L,
                             Key = "warehouseOperator",
                             Name = "Operador de depósito"
                         });
@@ -875,10 +868,6 @@ namespace Dispo.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dispo.Domain.Entities.Warehouse", null)
-                        .WithOne("Movement")
-                        .HasForeignKey("Dispo.Domain.Entities.Movement", "WarehouseId1");
-
                     b.Navigation("Account");
 
                     b.Navigation("Warehouse");
@@ -1131,9 +1120,6 @@ namespace Dispo.Infrastructure.Migrations
 
             modelBuilder.Entity("Dispo.Domain.Entities.Warehouse", b =>
                 {
-                    b.Navigation("Movement")
-                        .IsRequired();
-
                     b.Navigation("Movements");
 
                     b.Navigation("PurchaseOrders");
