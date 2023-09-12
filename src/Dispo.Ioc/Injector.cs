@@ -37,6 +37,7 @@ namespace Dispo.IoC
             serviceColletion.AddScoped<ISupplierRepository, SupplierRepository>();
             serviceColletion.AddScoped<IWarehouseRepository, WarehouseRepository>();
             serviceColletion.AddScoped<IAddressRepository, AddressRepository>();
+            serviceColletion.AddScoped<IPurchaseOrderAttachmentRepository, PurchaseOrderAttachmentRepository>();
         }
 
         private static void InjectServices(IServiceCollection serviceColletion)
