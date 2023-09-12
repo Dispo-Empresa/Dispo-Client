@@ -1,0 +1,23 @@
+.p-button.p-button-icon-only {
+  padding: 0.45rem 0;
+}
+
+.p-button {
+  background: #029DBE;
+  border: 1px solid #029DBE;
+  height: 38px;
+}
+
+.p-button:focus {
+  box-shadow: 0 0 0 2px #ffffffff, 0 0 0 4px #029DBE, 0 1px 2px 0 rgba(0, 0, 0, 0);
+}
+
+.p-button:enabled:hover {
+  background-color: #029DBE;
+  border-color: #029DBE;
+}
+
+.p-inputtext {
+  font-size: 15px;
+  height: 38px;
+}

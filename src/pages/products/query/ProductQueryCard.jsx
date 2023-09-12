@@ -41,11 +41,12 @@ function ProductQueryCard() {
   };
 
   return (
-    <ContentPage title="Produtos">
+    <ContentPage id="productView" title="Produtos">
       <ViewPanel refreshData={refetch}>
         <Datatable
           noDataMessage="Produtos não encontrados"
           showCheckbox
+          fromApi
           rowsPerPage={[5, 10, 25]}
           columns={columns}
           data={data}

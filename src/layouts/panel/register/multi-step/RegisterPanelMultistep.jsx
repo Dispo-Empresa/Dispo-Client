@@ -1,15 +1,40 @@
-import { MDBContainer, MDBRow } from "mdb-react-ui-kit";
+import { useEffect } from "react";
 
-import "./styles.css";
+import useAlert from "../../../../hooks/alert/useAlert";
+import AlertMessagePanel from "../../../../components/structured/alert/panel/AlertPanel";
 
-function RegisterPanelMultiStep({ children }) {
+import "../classic/styles.css";
+
+function RegisterPanelMultiStep({ children, title, buttons, alertPanel }) {
+  const [alertType, alertTitle, alertMessage, openAlert, closeAlert] =
+    useAlert();
+
+  useEffect(() => {
+    if (alertPanel) {
+      openAlert(alertPanel.type, alertPanel.title, alertPanel.message);
+    } else {
+      closeAlert();
+    }
+  }, [alertType, alertTitle, alertMessage, openAlert, closeAlert, alertPanel]);
+
   return (
-    <MDBContainer fluid className="p-4">
-      <div className="step-content"></div>
-      <MDBRow className="g-5">
-        <>{children}</>
-      </MDBRow>
-    </MDBContainer>
+    <div style={{ width: "100%", marginBottom: "5%" }}>
+      <div>
+        {alertType && alertTitle && (
+          <AlertMessagePanel
+            type={alertType}
+            title={alertTitle}
+            message={alertMessage}
+            onClose={alertPanel && alertPanel.onClose}
+          />
+        )}
+      </div>
+      <div className="buttons" style={{ marginBottom: "5px" }}>
+        {buttons}
+      </div>
+      <hr style={{ marginBottom: "50px", width: "100%" }} />
+      {children}
+    </div>
   );
 }
 

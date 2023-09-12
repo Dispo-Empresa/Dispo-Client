@@ -12,6 +12,8 @@ import "./components/structured/datatable/styles.css";
 import "./components/ui/inputs/select/styles.css";
 import "./components/ui/inputs/radio/styles.css";
 import "./components/ui/inputs/currency/styles.css";
+import "./components/structured/stepper/styles.css";
+import "./components/ui/inputs/date/styles.css";
 
 const rootElement = document.getElementById("root");
 

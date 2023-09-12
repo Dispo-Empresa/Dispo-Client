@@ -1,9 +1,8 @@
 import TipIcon from "../indicators/tip/TipIcon";
 import RequiredIcon from "../indicators/required/RequiredIcon";
+import { Calendar } from "primereact/calendar";
 
-import "../styles.css";
-
-function TextField(props) {
+function Datefield(props) {
   return (
     <div>
       <div className="container--label">
@@ -13,23 +12,21 @@ function TextField(props) {
           {props.tip && <TipIcon message={props.tip} />}
         </div>
       </div>
-      <input
+      <Calendar
+        showIcon
         name={props.name} // Usar apenas no MultiStep
-        type={props.type ?? "text"}
-        className="form-control"
-        value={props.value}
+        dateFormat="dd/mm/yy"
         disabled={props.disabled}
+        value={props.value}
         onChange={props.onChange}
-        onKeyDown={props.onKeyPress}
-        placeholder={props.placeholder}
         style={{
           borderColor: props.error && "red",
-          width: props.width ?? "300px",
+          width: props.width ?? "200px",
         }}
       />
-      {props.error && <span className="errors">{props.error}</span>}
+      <div>{props.error && <span className="errors">{props.error}</span>}</div>
     </div>
   );
 }
 
-export { TextField };
+export { Datefield };

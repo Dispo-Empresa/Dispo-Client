@@ -26,6 +26,7 @@ function ManufacturerQueryCard() {
         <Datatable
           noDataMessage="Fabricantes não encontrados"
           showCheckbox
+          fromApi
           rowsPerPage={[5, 10, 25]}
           columns={columns}
           data={data}

@@ -18,7 +18,7 @@ import useFetch from "../../../hooks/useFetchApi";
 import {
   removeToken,
   getUserName,
-  getCurrentWarehouseId,
+  getCurrentWarehouseName,
 } from "../../../services/authToken";
 import { post } from "../../../services/httpMethods";
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
@@ -103,8 +103,8 @@ function Navbar() {
             }}
             onClick={(e) => setAnchor(e.currentTarget)}
           >
-            {getCurrentWarehouseId()}
-            <ArrowDropDownIcon style={{ marginBottom: "2px" }} />
+            {getCurrentWarehouseName()}
+            <ArrowDropDownIcon />
           </button>
           <Menu
             disableScrollLock={true}

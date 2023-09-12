@@ -29,7 +29,7 @@ function RegisterPanel({
   }, [alertType, alertTitle, alertMessage, openAlert, closeAlert, alertPanel]);
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <form onSubmit={onSubmit}>
         <div>
           {alertType && alertTitle && (

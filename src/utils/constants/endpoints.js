@@ -34,7 +34,8 @@ const ENDPOINTS = {
     get: "products/get/{id}",
     getAll: "products",
     createProduct: "products",
-    getProductNamesWithCode: "products/get-names-with-code",
+    getProductNames: "products/get-names",
+    getPurchaseOrders: "products/getPurchaseOrders"
   },
 
   movements: {
