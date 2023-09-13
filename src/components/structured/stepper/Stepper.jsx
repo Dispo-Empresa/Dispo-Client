@@ -1,12 +1,13 @@
-import { useState } from "react";
+import StepWizard from "react-step-wizard";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import StepWizard from "react-step-wizard";
 import * as Multistep from "react-form-stepper";
+import { useState } from "react";
+import { Steps } from "primereact/steps";
+import { MDBContainer } from "mdb-react-ui-kit";
 
-import { COLORS } from "../../../themes/colors";
-import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
 import RegisterPanelMultiStep from "../../../layouts/panel/register/multi-step/RegisterPanelMultistep";
+import { COLORS } from "../../../themes/colors";
 
 import "./styles.css";
 
@@ -15,41 +16,39 @@ function Stepper(props) {
 
   const handleStepChange = (e) => {
     setActiveStep(e.activeStep - 1);
-    props.onStepChange(e);
   };
+
+  const transformedStepLabels = props.steps.map((label) => ({ label }));
 
   return (
     <div>
-      <Multistep.Stepper
-        style={{ marginTop: "3%" }}
-        activeStep={activeStep}
-        connectorStateColors
-        styleConfig={{
-          completedBgColor: "#4EB254",
-          activeBgColor: "#029DBE",
-        }}
-        connectorStyleConfig={{
-          activeColor: COLORS.SecondColor,
-          completedColor: "#4EB254",
-        }}
-      >
-        {props.steps &&
-          props.steps.map((step) => <Multistep.Step label={step} />)}
-      </Multistep.Stepper>
-      <RegisterPanel alertPanel={props.alertPanel} onSave={props.onSave}>
-        <StepWizard onStepChange={handleStepChange}>
-          {props.children}
-        </StepWizard>
-      </RegisterPanel>
+      {props.model === "prime" ? (
+        <Steps
+          style={{ marginBottom: "3%", marginTop: "4%" }}
+          model={transformedStepLabels}
+          activeIndex={activeStep}
+          readOnly={true}
+        />
+      ) : (
+        <Multistep.Stepper
+          activeStep={activeStep}
+          connectorStateColors
+          style={{ marginBottom: "3%", marginTop: "4%" }}
+          styleConfig={{
+            completedBgColor: "#4EB254",
+            activeBgColor: "#029DBE",
+          }}
+          connectorStyleConfig={{
+            activeColor: COLORS.SecondColor,
+            completedColor: "#4EB254",
+          }}
+        >
+          {props.steps &&
+            props.steps.map((step) => <Multistep.Step label={step} />)}
+        </Multistep.Stepper>
+      )}
+      <StepWizard onStepChange={handleStepChange}>{props.children}</StepWizard>
     </div>
-  );
-}
-
-function Step(props) {
-  return (
-    <StepLayout {...props} nextStep={props.onNextStep}>
-      <RegisterPanelMultiStep>{props.children}</RegisterPanelMultiStep>
-    </StepLayout>
   );
 }
 
@@ -59,24 +58,31 @@ function StepLayout(props) {
   };
 
   const handleNext = () => {
-    props.nextStep();
+    props.onNextStep();
   };
 
   return (
-    <div className="multistep-container">
-      {props.currentStep > 1 && (
-        <button onClick={handleBack} className="button-stepper">
-          <ArrowBackIosNewIcon style={{ fontSize: "50px" }} />
-        </button>
-      )}
-      <div className="multistep-content">{props.children}</div>
-      {props.currentStep < props.totalSteps && (
-        <button onClick={handleNext} className="button-stepper">
-          <ArrowForwardIosIcon style={{ fontSize: "50px" }} />
-        </button>
-      )}
-    </div>
+    <RegisterPanelMultiStep
+      buttons={props.customButtons}
+      alertPanel={props.alertPanel}
+    >
+      <div className="multistep-container">
+        {props.currentStep > 1 && (
+          <button onClick={handleBack} className="button-stepper">
+            <ArrowBackIosNewIcon style={{ fontSize: "50px" }} />
+          </button>
+        )}
+        <div className="multistep-content">
+          <MDBContainer>{props.children}</MDBContainer>
+        </div>
+        {props.currentStep < props.totalSteps && (
+          <button type="submit" onClick={handleNext} className="button-stepper">
+            <ArrowForwardIosIcon style={{ fontSize: "50px" }} />
+          </button>
+        )}
+      </div>
+    </RegisterPanelMultiStep>
   );
 }
 
-export { Stepper, Step };
+export { Stepper, StepLayout };

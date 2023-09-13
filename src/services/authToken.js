@@ -23,7 +23,7 @@ const getRole = () => jwt_decode(getSessionStorage("accessToken")).role;
 
 const getAccountId = () => jwt_decode(getSessionStorage("accessToken")).accountId;
 
-const getCurrentWarehouseId = () => jwt_decode(getSessionStorage("accessToken")).currentWarehouseName;
+const getCurrentWarehouseName = () => jwt_decode(getSessionStorage("accessToken")).currentWarehouseName;
 
 const isAuthenticated = () =>{
   if( getSessionStorage("accessToken") && getSessionStorage("accessToken") !== ""){
@@ -38,4 +38,4 @@ const isAuthenticated = () =>{
   }
 };
 
-export { setToken, getToken, removeToken, getUserName, getRole, getAccountId, getCurrentWarehouseId, isAuthenticated };
+export { setToken, getToken, removeToken, getUserName, getRole, getAccountId, getCurrentWarehouseName, isAuthenticated };

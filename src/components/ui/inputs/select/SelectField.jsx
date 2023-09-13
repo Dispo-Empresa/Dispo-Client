@@ -20,14 +20,15 @@ function SelectWithFilter(props) {
         </div>
       </div>
       <Dropdown
-        emptyFilterMessage="Nenhum resultado encontrado"
+        filter
         showFilterClear
+        emptyFilterMessage="Nenhum resultado encontrado"
+        name={props.name}
         value={props.value}
         optionLabel={props.optionLabel}
         onChange={props.onChange}
         options={props.options}
         placeholder={props.placeholder ?? "Selecione uma opção"}
-        filter
         showClear={!props.required}
         style={{
           borderColor: props.error && "red",

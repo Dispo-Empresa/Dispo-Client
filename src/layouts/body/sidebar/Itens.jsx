@@ -9,6 +9,8 @@ import DraftsIcon from "@mui/icons-material/Drafts";
 import ShortcutIcon from "@mui/icons-material/Shortcut";
 import BusinessIcon from "@mui/icons-material/Business";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+import TurnLeftIcon from "@mui/icons-material/TurnLeft";
+import TurnRightIcon from "@mui/icons-material/TurnRight";
 import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 
@@ -88,18 +90,18 @@ function SidebarItens(props) {
         )}
 
         {(isRoleWarehouseOperator() || isRoleManager()) && (
-          <SubMenu label="Estoque" icon={<WarehouseIcon />}>
+          <SubMenu label="Movimentação" icon={<SyncAltIcon />}>
             <MenuItem
-              component={<Link to="/stock/moviments" />}
-              active={isActivePage("/stock/moviments")}
-              prefix="Teste Multi Step"
-              icon={<SyncAltIcon />}
+              component={<Link to="/moviments/entry" />}
+              active={isActivePage("/moviments/entry")}
+              prefix="Entrada"
+              icon={<TurnRightIcon />}
             />
             <MenuItem
-              component={<Link to="/stock/moveProduct" />}
-              active={isActivePage("/stock/moveProduct")}
-              prefix="Movimentar Produto"
-              icon={<SyncAltIcon />}
+              component={<Link to="/moviments/exit" />}
+              active={isActivePage("/moviments/exit")}
+              prefix="Saída"
+              icon={<TurnLeftIcon />}
             />
           </SubMenu>
         )}

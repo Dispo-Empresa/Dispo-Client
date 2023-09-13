@@ -100,3 +100,9 @@ border-color: #029DBE;
 .p-confirm-dialog:hover {
   background: #F64E60;
 }
+
+/* Stepper */
+
+.p-steps .p-steps-item.p-highlight .p-steps-number {
+  color: #029DBE;
+}

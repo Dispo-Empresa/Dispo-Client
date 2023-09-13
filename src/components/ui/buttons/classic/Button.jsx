@@ -14,11 +14,12 @@ function Button(props) {
         width: props.width,
         height: props.height,
         color: COLORS.DetailsColor,
-        fontWeight: "bold",
-        fontSize: "18px",
       }}
     >
-      {!props.loading ? props.title : <Loader className="spinner" />}
+      <span className="button-icon">{props.icon}</span>
+      <span className="button-text">
+        {!props.loading ? props.title : <Loader className="spinner" />}
+      </span>
     </button>
   );
 }

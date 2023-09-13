@@ -21,6 +21,8 @@ function Datatable({
   setSelectedItens,
   onDeleteButton,
   onViewButton,
+  fromApi,
+  singleSelect,
 }) {
   const buttonsTemplate = (rowData) => {
     const acceptRemove = () => {
@@ -39,11 +41,13 @@ function Datatable({
         {onDeleteButton ? (
           <DisableButton
             onClick={() => {
-              confirmDialog({
-                message: `Deseja desativar o item ${rowData.id}`,
-                title: "Confirmação",
-                onAccept: acceptRemove,
-              });
+              fromApi
+                ? confirmDialog({
+                    message: `Deseja desativar o item ${rowData.id}`,
+                    title: "Confirmação",
+                    onAccept: acceptRemove,
+                  })
+                : acceptRemove();
             }}
           />
         ) : null}
@@ -58,7 +62,7 @@ function Datatable({
       <DataTable
         size="small"
         paginatorLeft={
-          showCheckbox ? (
+          showCheckbox && !singleSelect ? (
             <label>
               <b>Selecionadas:</b>&nbsp;
               {selectedItens == null ? 0 : selectedItens.length}
@@ -71,7 +75,7 @@ function Datatable({
         resizableColumns
         showGridlines
         scrollable
-        value={data && data.data}
+        value={fromApi ? data && data.data : data}
         selection={selectedItens}
         onSelectionChange={(e) => setSelectedItens(e.value)}
         paginator
@@ -87,7 +91,7 @@ function Datatable({
         {showCheckbox ? (
           <Column
             frozen
-            selectionMode="multiple"
+            selectionMode={singleSelect ? "single" : "multiple"}
             headerStyle={{ width: "3rem" }}
           />
         ) : null}

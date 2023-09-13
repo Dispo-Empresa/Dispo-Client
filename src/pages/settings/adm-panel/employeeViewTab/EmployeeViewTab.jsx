@@ -21,6 +21,7 @@ function EmployeeViewTab() {
   return (
     <ViewPanel refreshData={refetch}>
       <Datatable
+        fromApi
         noDataMessage="Colaboradores não encontrados"
         rowsPerPage={[5, 10, 25]}
         columns={columns}

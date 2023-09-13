@@ -32,6 +32,7 @@ function SupplierQueryCard() {
         <Datatable
           noDataMessage="Fornecedores não encontrados"
           showCheckbox
+          fromApi
           rowsPerPage={[5, 10, 25]}
           columns={columns}
           data={data}
