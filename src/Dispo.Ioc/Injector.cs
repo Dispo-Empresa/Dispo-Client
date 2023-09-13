@@ -55,6 +55,7 @@ namespace Dispo.IoC
             serviceColletion.AddScoped<ISupplierService, SupplierService>();
             serviceColletion.AddScoped<IAddressService, AddressService>();
             serviceColletion.AddScoped<IWarehouseService, WarehouseService>();
+            serviceColletion.AddScoped<IPurchaseOrderAttachmentService, PurchaseOrderAttachmentService>();
         }
 
         private static void InjectGenerics(IServiceCollection serviceColletion)
