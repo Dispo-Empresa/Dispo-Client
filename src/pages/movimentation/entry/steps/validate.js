@@ -1,17 +1,20 @@
 import * as Yup from "yup";
 
-const PurchaseOrderStepValidations = () => {
+const validatePurchaseOrderStep = () => {
   return Yup.object().shape({
-    product: Yup.string().required("Escolha o produto")
+    product: Yup.string().required("Campo obrigatório"),
+  });
+};
+
+const validateBatchesStep = () => {
+  return Yup.object().shape({
+    batch: Yup.string().required("Campo obrigatório"),
+    quantityOnBatch: Yup.number().required("Campo obrigatório").positive("Informe uma quantidade válida").integer(),
+    manufacturingDate: Yup.date().required("Campo obrigatório").max(new Date(), "A data de fabricação não pode ser maior que a data atual").when("validatingDate", (validatingDate, schema) => {
+      return schema.max(validatingDate, "A data de fabricação não pode ser maior que a data de validade")
+    }),
+    validatingDate: Yup.date().required("Campo obrigatório"),
   });
 }
 
-const BatchesInfoStepValidations = () => {
-  return Yup.object().shape({
-    //batch: Yup.string().required("Informe o lote"),
-    //quantityOnBatch: Yup.number().required("Informe a quantidade").positive("Informe uma quantidade válida").integer()
-  });
-}
-
-
-export { PurchaseOrderStepValidations, BatchesInfoStepValidations };
+export { validatePurchaseOrderStep, validateBatchesStep };

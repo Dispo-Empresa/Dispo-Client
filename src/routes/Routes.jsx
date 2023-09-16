@@ -12,9 +12,10 @@ import PrivateRoute from "./PrivateRoute";
 import SettingsCard from "../pages/settings/SettingsCard";
 import NotFound from "../pages/not-found/NotFound";
 import NotAuthorized from "../pages/not-found/NotAuthorized";
-import ProductEntryMovimentation from "../pages/movimentation/exit/ProductEntryMovimentation";
+import ProductEntryMovimentation from "../pages/movimentation/entry/ProductEntryMovimentation";
 import ManufacturerCard from "../pages/manufacturers/ManufacturerCard";
 import PurchaseOrderFormCard from "../pages/purchase-order/register/PurchaseOrderFormCard";
+import PurchaseOrderAttachmentFormCard from "../pages/purchase-order/attachment/PurchaseOrderAttachmentFormCard";
 import WarehouseCard from "../pages/warehouses/WarehouseCard";
 import { roles } from "../utils/constants/constants";
 
@@ -87,12 +88,22 @@ function RoutesConfiguration() {
           }
         />
         <Route
-          path="/purchaseOrder/registration"
+          path="/purchaseOrder/register"
           element={
             <RouteController
               allowedRoles={[roles.Manager, roles.PurchasingManager]}
             >
               <PurchaseOrderFormCard />
+            </RouteController>
+          }
+        />
+        <Route
+          path="/purchaseOrder/attachment"
+          element={
+            <RouteController
+              allowedRoles={[roles.Manager, roles.PurchasingManager]}
+            >
+              <PurchaseOrderAttachmentFormCard />
             </RouteController>
           }
         />
