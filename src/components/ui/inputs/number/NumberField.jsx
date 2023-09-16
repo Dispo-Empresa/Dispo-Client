@@ -1,4 +1,5 @@
 import { InputNumber } from "primereact/inputnumber";
+import { classNames } from "primereact/utils";
 
 import TipIcon from "../indicators/tip/TipIcon";
 import RequiredIcon from "../indicators/required/RequiredIcon";
@@ -16,9 +17,12 @@ function NumberField(props) {
         </div>
       </div>
       <InputNumber
-        id="number-input"
+        inputClassName={classNames({ "p-invalid": props.error })}
         value={props.value}
         onValueChange={props.onChange}
+        style={{
+          width: props.width ?? "200px",
+        }}
       />
       <div>{props.error && <span className="errors">{props.error}</span>}</div>
     </div>

@@ -16,7 +16,7 @@ function Button(props) {
         color: COLORS.DetailsColor,
       }}
     >
-      <span className="button-icon">{props.icon}</span>
+      <span>{props.icon}</span>
       <span className="button-text">
         {!props.loading ? props.title : <Loader className="spinner" />}
       </span>

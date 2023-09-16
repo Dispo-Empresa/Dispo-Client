@@ -18,6 +18,7 @@ function WarehouseQueryCard() {
     <ContentPage title="Depósitos">
       <ViewPanel refreshData={refetch}>
         <Datatable
+          fromApi
           noDataMessage="Depósitos não encontrados"
           rowsPerPage={[5, 10, 25]}
           columns={columns}
