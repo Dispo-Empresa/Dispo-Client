@@ -75,8 +75,8 @@ function SidebarItens(props) {
         {(isRolePurchasingManager() || isRoleManager()) && (
           <SubMenu label="Ordem de compra" icon={<DraftsIcon />}>
             <MenuItem
-              component={<Link to="/purchaseOrder/registration" />}
-              active={isActivePage("/purchaseOrder/registration")}
+              component={<Link to="/purchaseOrder/register" />}
+              active={isActivePage("/purchaseOrder/register")}
               prefix="Cadastrar"
               icon={<AddIcon />}
             />
