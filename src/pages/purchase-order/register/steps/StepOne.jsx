@@ -34,8 +34,7 @@ function StepOne(props) {
   const handleNextStep = () => {
     formik.handleSubmit();
 
-    const isFormValid =
-      formik.isValid && Object.keys(formik.touched).length > 0;
+    const isFormValid = formik.isValid && Object.keys(formik.touched).length > 0;
 
     if (isFormValid) {
       props.setPurchaseOrderInfoCallBack({

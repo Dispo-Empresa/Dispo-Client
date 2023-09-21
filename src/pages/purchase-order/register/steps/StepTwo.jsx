@@ -10,7 +10,6 @@ import { SelectWithFilter } from "../../../../components/ui/inputs/select/Select
 import RegisterPanelSimple from "../../../../layouts/panel/register/classic/RegisterPanelSimple";
 import ViewPanel from "../../../../layouts/panel/view/ViewPanel";
 import Datatable from "../../../../components/structured/datatable/Datatable";
-import { SaveButton } from "../../../../components/ui/buttons/icons/IconButton";
 import { NumberField } from "../../../../components/ui/inputs/number/NumberField";
 import Button from "../../../../components/ui/buttons/classic/Button";
 import useAlertScheme from "../../../../hooks/alert/useAlertScheme";
@@ -27,7 +26,7 @@ const columns = [
   { field: "quantity", header: "Quantidade" },
   { field: "totalPurchaseValue", header: "Valor total" },
   { field: "shipping", header: "Frete" },
-  { field: "DeliveryTimeFrame", header: "Tempo de entrega" },
+  { field: "deliveryTimeFrame", header: "Tempo de entrega" },
   { field: "description", header: "Descrição" },
 ];
 
@@ -56,9 +55,14 @@ function StepTwo(props) {
   };
 
   const handleNextStep = () => {
-    props.setOrderInfoCallBack(orders);
+    formik.handleSubmit();
 
-    props.nextStep();
+    const isFormValid = formik.isValid && Object.keys(formik.touched).length > 0;
+
+    if (isFormValid) {
+      props.setOrderInfoCallBack(orders);
+      props.nextStep();
+    }
   };
 
   const onInsertOrder = () => {
@@ -69,16 +73,18 @@ function StepTwo(props) {
       openAlert("warning", "Esse produto já está inserido na ordem de compra.");
       return;
     }
+    console.log(formik);
 
     const newOrder = {
       product: formik.values.product,
       quantity: formik.values.quantity,
+      totalPurchaseValue: formik.values.totalPurchaseValue,
       shipping: formik.values.shipping,
       deliveryTimeFrame: formik.values.deliveryTimeFrame,
       description: formik.values.description,
     };
-
     setOrders([...orders, newOrder]);
+
     openAlert(null);
   };
 
@@ -106,8 +112,7 @@ function StepTwo(props) {
             label="Produto"
             options={products}
             value={formik.values.product}
-            onChange={(value) =>
-              formik.setFieldValue("product", value.target.value)
+            onChange={(value) => formik.setFieldValue("product", value.target.value)
             }
           />
         </MDBCol>
@@ -124,9 +129,7 @@ function StepTwo(props) {
             required
             label="Valor total"
             value={formik.values.totalPurchaseValue}
-            onChange={(value) =>
-              formik.setFieldValue("totalPurchaseValue", value.value)
-            }
+            onChange={(value) => formik.setFieldValue("totalPurchaseValue", value.value)}
           />
         </MDBCol>
         <MDBCol>
@@ -143,8 +146,7 @@ function StepTwo(props) {
             label="Tempo de entrega"
             placeholder="Dias úteis"
             value={formik.values.deliveryTimeFrame}
-            onChange={(value) =>
-              formik.setFieldValue("deliveryTimeFrame", value.value)
+            onChange={(value) => formik.setFieldValue("deliveryTimeFrame", value.value)
             }
           />
         </MDBCol>
@@ -152,8 +154,7 @@ function StepTwo(props) {
         <TextArea
           label="Descrição"
           value={formik.values.description}
-          onChange={(value) =>
-            formik.setFieldValue("description", value.target.value)
+          onChange={(value) => formik.setFieldValue("description", value.target.value)
           }
         />
       </RegisterPanelSimple>
