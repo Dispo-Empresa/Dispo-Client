@@ -14,6 +14,7 @@ import "./components/ui/inputs/radio/styles.css";
 import "./components/ui/inputs/currency/styles.css";
 import "./components/structured/stepper/styles.css";
 import "./components/ui/inputs/date/styles.css";
+import "./pages/movimentation/styles.css";
 
 const rootElement = document.getElementById("root");
 

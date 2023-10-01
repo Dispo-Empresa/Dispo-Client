@@ -13,7 +13,7 @@ function ProductEntryMovimentation() {
   const [batchesRegistered, setBatchesRegistered] = useState(null);
 
   return (
-    <ContentPage title="Movimentação de produto">
+    <ContentPage title="Movimentação de entrada de produto">
       <Stepper model="prime" steps={stepLabels}>
         <PurchaseOrderStep
           setPurchaseOrderCallBack={setPurchaseOrderSelected}

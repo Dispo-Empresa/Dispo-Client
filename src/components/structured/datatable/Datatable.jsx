@@ -19,6 +19,7 @@ function Datatable({
   customButtons,
   selectedItens,
   setSelectedItens,
+  onSelectItensCallback,
   onDeleteButton,
   onViewButton,
   fromApi,
@@ -56,6 +57,11 @@ function Datatable({
     );
   };
 
+  const onSelectItens = (e) => {
+    onSelectItensCallback(e.value);
+    setSelectedItens(e.value);
+  };
+
   return (
     <div>
       <ConfirmDialog />
@@ -77,7 +83,7 @@ function Datatable({
         scrollable
         value={fromApi ? data && data.data : data}
         selection={selectedItens}
-        onSelectionChange={(e) => setSelectedItens(e.value)}
+        onSelectionChange={(e) => onSelectItens(e)}
         paginator
         rows={rowsPerPage != null ? rowsPerPage[0] : 5}
         rowsPerPageOptions={rowsPerPage}

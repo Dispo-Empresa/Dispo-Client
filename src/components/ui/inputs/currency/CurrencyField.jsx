@@ -16,12 +16,13 @@ function CurrencyField(props) {
         </div>
       </div>
       <InputNumber
-        inputClassName={classNames({ "p-invalid": props.error })}
+        disabled={props.disabled}
         value={props.value}
         onValueChange={props.onChange}
         mode="currency"
         currency="BRL"
         locale="pt-BR"
+        inputClassName={classNames({ "p-invalid": props.error })}
         style={{
           borderColor: props.error && "red",
           width: "200px",

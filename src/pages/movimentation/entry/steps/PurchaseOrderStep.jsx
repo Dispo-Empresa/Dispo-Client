@@ -12,7 +12,9 @@ import { StepLayout } from "../../../../components/structured/stepper/Stepper";
 import { validatePurchaseOrderStep } from "./validate";
 
 const PurchaseOrderStep = (props) => {
-  const { data: products } = useFetch(ENDPOINTS.products.getProductNames);
+  const { data: products } = useFetch(
+    ENDPOINTS.products.getWithActivePurschaseOrder
+  );
   const { data: purchaseOrders } = useFetch(
     ENDPOINTS.products.getPurchaseOrders
   );
@@ -109,7 +111,6 @@ const PurchaseOrderStep = (props) => {
             width="500px"
           />
         </MDBCol>
-        <a href="/products#productView">Visualização de produtos</a>
       </RegisterPanelSimple>
       <label
         style={{
@@ -134,7 +135,7 @@ const PurchaseOrderStep = (props) => {
         {noOc ? (
           <div>
             <label>Sem ordem de compra para o produto informado.&nbsp;</label>
-            <a href="/dashboard">Registrar uma ordem de compra.</a>
+            <a href="/purchaseOrder/register">Registrar uma ordem de compra.</a>
           </div>
         ) : (
           <div>

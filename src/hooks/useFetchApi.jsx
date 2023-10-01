@@ -21,7 +21,7 @@ function useFetch(endpoint, parameters) {
 
   useEffect(() => {
     fetchData();
-  }, [endpoint]);
+  }, [endpoint, parameters]);
 
   return { data, loading, error, refetch: fetchData };
 }
