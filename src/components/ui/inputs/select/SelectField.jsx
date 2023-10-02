@@ -22,6 +22,7 @@ function SelectWithFilter(props) {
       <Dropdown
         filter
         showFilterClear
+        emptyMessage={props.emptyMessage ?? "Nenhum resultado encontrado"}
         emptyFilterMessage="Nenhum resultado encontrado"
         name={props.name}
         value={props.value}

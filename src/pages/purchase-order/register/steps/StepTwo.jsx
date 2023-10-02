@@ -1,4 +1,4 @@
-import { MDBCol } from "mdb-react-ui-kit";
+import { MDBCol, MDBRow } from "mdb-react-ui-kit";
 import React, { useState } from "react";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import { useFormik } from "formik";
@@ -148,14 +148,17 @@ function StepTwo(props) {
             }
           />
         </MDBCol>
-
-        <TextArea
-          label="Descrição"
-          value={formik.values.description}
-          onChange={(value) =>
-            formik.setFieldValue("description", value.target.value)
-          }
-        />
+        <MDBRow className="mt-5">
+          <MDBCol>
+            <TextArea
+              label="Descrição"
+              value={formik.values.description}
+              onChange={(value) =>
+                formik.setFieldValue("description", value.target.value)
+              }
+            />
+          </MDBCol>
+        </MDBRow>
       </RegisterPanelSimple>
       <ViewPanel>
         <Datatable

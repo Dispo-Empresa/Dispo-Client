@@ -1,6 +1,7 @@
 import TipIcon from "../indicators/tip/TipIcon";
 import RequiredIcon from "../indicators/required/RequiredIcon";
 import { Calendar } from "primereact/calendar";
+import { classNames } from "primereact/utils";
 
 function Datefield(props) {
   return (
@@ -13,12 +14,14 @@ function Datefield(props) {
         </div>
       </div>
       <Calendar
-        showIcon
+        showIcon={!props.hideIcon}
+        timeOnly={props.timeOnly}
         name={props.name} // Usar apenas no MultiStep
         dateFormat="dd/mm/yy"
         disabled={props.disabled}
         value={props.value}
         onChange={props.onChange}
+        inputClassName={classNames({ "p-invalid": props.error })}
         style={{
           borderColor: props.error && "red",
           width: props.width ?? "200px",

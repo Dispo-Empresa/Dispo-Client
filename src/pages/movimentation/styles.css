@@ -1,0 +1,3 @@
+.p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:focus {
+    box-shadow: 0 0 0 1px #029DBE;
+}

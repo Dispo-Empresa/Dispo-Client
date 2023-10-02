@@ -1,7 +1,7 @@
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import { useState } from "react";
 import { useFormik } from "formik";
-import { MDBCol } from "mdb-react-ui-kit";
+import { MDBCol, MDBRow } from "mdb-react-ui-kit";
 
 import RegisterPanelSimple from "../../../../layouts/panel/register/classic/RegisterPanelSimple";
 import Datatable from "../../../../components/structured/datatable/Datatable";

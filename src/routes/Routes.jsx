@@ -13,6 +13,7 @@ import SettingsCard from "../pages/settings/SettingsCard";
 import NotFound from "../pages/not-found/NotFound";
 import NotAuthorized from "../pages/not-found/NotAuthorized";
 import ProductEntryMovimentation from "../pages/movimentation/entry/ProductEntryMovimentation";
+import ProductExitMovimentation from "../pages/movimentation/exit/ProductExitMovimentation";
 import ManufacturerCard from "../pages/manufacturers/ManufacturerCard";
 import PurchaseOrderFormCard from "../pages/purchase-order/register/PurchaseOrderFormCard";
 import PurchaseOrderAttachmentFormCard from "../pages/purchase-order/attachment/PurchaseOrderAttachmentFormCard";
@@ -122,6 +123,16 @@ function RoutesConfiguration() {
               allowedRoles={[roles.Manager, roles.WarehouseOperator]}
             >
               <ProductEntryMovimentation />
+            </RouteController>
+          }
+        />
+        <Route
+          path="/moviments/exit"
+          element={
+            <RouteController
+              allowedRoles={[roles.Manager, roles.WarehouseOperator]}
+            >
+              <ProductExitMovimentation />
             </RouteController>
           }
         />

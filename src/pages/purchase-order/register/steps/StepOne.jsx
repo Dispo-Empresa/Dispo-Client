@@ -1,4 +1,4 @@
-import { MDBCol } from "mdb-react-ui-kit";
+import { MDBCol, MDBRow } from "mdb-react-ui-kit";
 import { useFormik } from "formik";
 import { StepLayout } from "../../../../components/structured/stepper/Stepper";
 import { SelectWithFilter } from "../../../../components/ui/inputs/select/SelectField";
@@ -52,52 +52,54 @@ function StepOne(props) {
   return (
     <StepLayout {...props} onNextStep={handleNextStep}>
       <RegisterPanelSimple>
-        <MDBCol>
-          <NumberField
-            required
-            label="Número da ordem"
-            value={formik.values.orderNumber}
-            error={formik.errors.orderNumber}
-            onChange={(value) =>
-              formik.setFieldValue("orderNumber", value.target.value)
-            }
-          />
-        </MDBCol>
-        <MDBCol>
-          <SelectWithFilter
-            required
-            label="Fornecedor"
-            options={supplier}
-            value={formik.values.supplier}
-            error={formik.errors.supplier}
-            onChange={(value) =>
-              formik.setFieldValue("supplier", value.target.value)
-            }
-          />
-        </MDBCol>
-        <MDBCol>
-          <Datefield
-            required
-            label="Data de criação"
-            value={formik.values.creationDate}
-            error={formik.errors.creationDate}
-            onChange={(value) =>
-              formik.setFieldValue("creationDate", value.target.value)
-            }
-          />
-        </MDBCol>
-        <MDBCol>
-          <SelectWithFilter
-            required
-            label="Tipo de notificação"
-            options={notification}
-            value={formik.values.notificationType}
-            error={formik.errors.notificationType}
-            onChange={(value) =>
-              formik.setFieldValue("notificationType", value.target.value)
-            }
-          />
-        </MDBCol>
+        <MDBRow>
+          <MDBCol>
+            <NumberField
+              required
+              label="Número da ordem"
+              value={formik.values.orderNumber}
+              error={formik.errors.orderNumber}
+              onChange={(value) =>
+                formik.setFieldValue("orderNumber", value.target.value)
+              }
+            />
+          </MDBCol>
+          <MDBCol>
+            <SelectWithFilter
+              required
+              label="Fornecedor"
+              options={supplier}
+              value={formik.values.supplier}
+              error={formik.errors.supplier}
+              onChange={(value) =>
+                formik.setFieldValue("supplier", value.target.value)
+              }
+            />
+          </MDBCol>
+          <MDBCol>
+            <Datefield
+              required
+              label="Data de criação"
+              value={formik.values.creationDate}
+              error={formik.errors.creationDate}
+              onChange={(value) =>
+                formik.setFieldValue("creationDate", value.target.value)
+              }
+            />
+          </MDBCol>
+          <MDBCol>
+            <SelectWithFilter
+              required
+              label="Tipo de notificação"
+              options={notification}
+              value={formik.values.notificationType}
+              error={formik.errors.notificationType}
+              onChange={(value) =>
+                formik.setFieldValue("notificationType", value.target.value)
+              }
+            />
+          </MDBCol>
+        </MDBRow>
       </RegisterPanelSimple>
     </StepLayout>
   );
