@@ -167,4 +167,104 @@ function Stepper({
   );
 }
 
+//function ProductEntryMovimentation() {
+//  const stepLabels = [
+//    { label: "Ordem de compra" },
+//    { label: "Informação dos lotes" },
+//    { label: "Confirmação" },
+//  ];
+//
+//  const [showAlert, openAlert] = useAlertScheme();
+//
+//  const steps = [
+//    {
+//      component: PurchaseOrderStep,
+//      validationSchema: PurchaseOrderStepValidations,
+//    },
+//    {
+//      component: BatchesInfoStep,
+//      validationSchema: BatchesInfoStepValidations,
+//    },
+//    {
+//      component: ConfirmationStep,
+//    },
+//  ];
+//
+//  const [finalValues, setFinalValues] = useState({});
+//
+//  const initialValues = {
+//    product: "",
+//    batch: "",
+//    manufacturingDate: new Date(),
+//    validatingDate: new Date(),
+//    quantityOnBatch: "",
+//    batches: [],
+//  };
+//
+//  const register = () => {
+//    console.log(finalValues);
+//    openAlert("info", "Testando mensagem de informação");
+//  };
+//
+//  return (
+//    <ContentPage title="Movimentação de produto">
+//      <Stepper
+//        labels={stepLabels}
+//        steps={steps}
+//        initialValues={initialValues}
+//        alertPanel={showAlert}
+//        onSave={register}
+//        setValues={setFinalValues}
+//      />
+//    </ContentPage>
+//  );
+//}
+//
+//const StepTest = ({ errors, values, handleChange }) => {
+//  return (
+//    <div>
+//      <MDBCol>
+//        <TextField
+//          error={!!errors.email}
+//          name="email"
+//          label="Email"
+//          value={values.email}
+//          helperText={errors.email}
+//          onChange={handleChange}
+//          fullWidth
+//        />
+//      </MDBCol>
+//      <MDBCol>
+//        <TextField
+//          name="phone"
+//          label="Phone"
+//          value={values.phone}
+//          onChange={handleChange}
+//          error={!!errors.phone}
+//          helperText={errors.phone}
+//          fullWidth
+//        />
+//      </MDBCol>
+//      <MDBCol>
+//        <TextField
+//          name="addressLine1"
+//          label="Address Line1"
+//          value={values.addressLine1}
+//          onChange={handleChange}
+//          fullWidth
+//        />
+//      </MDBCol>
+//      <MDBCol>
+//        <TextField
+//          name="addressLine2"
+//          label="Address Line2"
+//          value={values.addressLine2}
+//          onChange={handleChange}
+//          fullWidth
+//        />
+//      </MDBCol>
+//    </div>
+//  );
+//};
+
 export default Stepper;

@@ -1,4 +1,4 @@
-import { MDBCol } from "mdb-react-ui-kit";
+import { MDBCol, MDBRow } from "mdb-react-ui-kit";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 

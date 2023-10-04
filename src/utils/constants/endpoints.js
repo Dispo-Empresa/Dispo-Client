@@ -35,11 +35,12 @@ const ENDPOINTS = {
     getAll: "products",
     createProduct: "products",
     getProductNames: "products/get-names",
-    getPurchaseOrders: "products/getPurchaseOrders"
+    getWithActivePurschaseOrder: "products/get-with-active-pursche-orders",
+    getProductsWithSalePrice: "products/get-with-saleprice"
   },
 
   movements: {
-    moveProduct: "products/move"
+    moveProduct: "movements/move"
   },
 
   manufacturers: {
@@ -62,6 +63,10 @@ const ENDPOINTS = {
   addresses: {
     getFormattedAddresses: "address/get-formatted-addresses"
   },
+
+  batches: {
+    getByProduct: "batches/get-by-product/{productId}"
+  }
 };
 
 export { LOCALHOST, ENDPOINTS };

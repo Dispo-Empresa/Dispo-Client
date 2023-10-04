@@ -17,11 +17,12 @@ function NumberField(props) {
         </div>
       </div>
       <InputNumber
+        disabled={props.disabled}
         inputClassName={classNames({ "p-invalid": props.error })}
         value={props.value}
         onValueChange={props.onChange}
         style={{
-          width: props.width ?? "200px",
+          width: props.width ?? "100px",
         }}
       />
       <div>{props.error && <span className="errors">{props.error}</span>}</div>

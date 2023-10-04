@@ -15,8 +15,8 @@ import useKeyPress from "../../../hooks/useKeyPress";
 import "./style.css";
 
 function SignIn() {
-  const [emailRequest, setEmailRequest] = useState("gesto.dois@gmail.com");
-  const [passwordRequest, setpasswordRequest] = useState("alterarsenha");
+  const [emailRequest, setEmailRequest] = useState("gestorTeste@gmail.com");
+  const [passwordRequest, setpasswordRequest] = useState("senhateste123");
   const [goToHomePage, setgoToHomePage] = useState(false);
   const [loading, setLoading] = useState(false);
   useKeyPress("Enter", handleKeyPress);
