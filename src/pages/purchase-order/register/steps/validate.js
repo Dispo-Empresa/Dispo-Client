@@ -5,7 +5,8 @@ const PurchaseOrderStepValidations = () => {
     orderNumber: Yup.string().required("Campo obrigatório"),
     supplier: Yup.string().required("Campo obrigatório"),
     creationDate: Yup.string().required("Campo obrigatório"),
-    notificationType: Yup.string().required("Campo obrigatório")
+    notificationType: Yup.string().required("Campo obrigatório"),
+    paymentMethod: Yup.string().required("Campo obrigatório")
   });
 }
 
