@@ -13,13 +13,14 @@ const StepThree = (props) => {
   const onSave = async () => {
     try {
       setLoading(true); 
+
       var data = 
       {
         number: props.purchaseOrderInfo.orderNumber, 
         creationDate: props.purchaseOrderInfo.creationDate,
         paymentMethod: props.purchaseOrderInfo.paymentMethod, 
         notificationType: props.purchaseOrderInfo.notificationType, 
-        supplierId: props.purchaseOrderInfo.supplierId, 
+        supplierId: props.purchaseOrderInfo.supplier, 
         orders: props.orderInfo, 
       }
       console.log(data);

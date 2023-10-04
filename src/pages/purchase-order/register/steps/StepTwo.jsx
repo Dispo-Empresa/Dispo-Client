@@ -1,4 +1,4 @@
-import { MDBCol, MDBRow } from "mdb-react-ui-kit";
+import { MDBCol } from "mdb-react-ui-kit";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 
@@ -21,16 +21,6 @@ import useAlertScheme from "../../../../hooks/alert/useAlertScheme";
 function StepTwo(props) {
   const { data: products } = useFetch(ENDPOINTS.products.getProductNames);
 
-  console.log("Produto:")
-  console.log(products)
-
-  /*const products = [
-    { value: "Laranja", label: "Laranja" },
-    { value: "Carne", label: "Carne" },
-    { value: "Batata", label: "Batata" },
-    { value: "Coca-Cola", label: "Coca-Cola" },
-  ];*/
-  
   const columns = [
     { field: "product", header: "Produto" },
     { field: "quantity", header: "Quantidade" },
@@ -78,7 +68,6 @@ function StepTwo(props) {
       openAlert("warning", "Esse produto já está inserido na ordem de compra.");
       return;
     }
-    console.log(formik);
 
     const newOrder = {
       description: formik.values.description,
