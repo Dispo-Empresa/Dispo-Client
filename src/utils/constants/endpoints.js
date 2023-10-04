@@ -66,6 +66,10 @@ const ENDPOINTS = {
 
   batches: {
     getByProduct: "batches/get-by-product/{productId}"
+  },
+
+  purchaseorder:{
+    createPurchaseOrder: "purchaseorder"
   }
 };
 
