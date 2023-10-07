@@ -52,7 +52,8 @@ function StepTwo(props) {
   const handleNextStep = () => {
     formik.handleSubmit();
 
-    const isFormValid = formik.isValid && Object.keys(formik.touched).length > 0;
+    const isFormValid =
+      formik.isValid && Object.keys(formik.touched).length > 0;
 
     if (isFormValid) {
       props.setOrderInfoCallBack(orders);
@@ -73,7 +74,7 @@ function StepTwo(props) {
       description: formik.values.description,
       quantity: formik.values.quantity,
       totalPrice: formik.values.totalPrice,
-      product: formik.values.product
+      product: formik.values.product,
     };
     setOrders([...orders, newOrder]);
 
@@ -110,8 +111,7 @@ function StepTwo(props) {
               }))
             }
             value={formik.values.product}
-            onChange={(value) => formik.setFieldValue("product", value.target.value)
-            }
+            onChange={(value) => formik.setFieldValue("product", value.value)}
           />
         </MDBCol>
         <MDBCol>
@@ -127,13 +127,16 @@ function StepTwo(props) {
             required
             label="Valor total"
             value={formik.values.totalPrice}
-            onChange={(value) => formik.setFieldValue("totalPrice", value.value)}
+            onChange={(value) =>
+              formik.setFieldValue("totalPrice", value.value)
+            }
           />
         </MDBCol>
         <TextArea
           label="Descrição"
           value={formik.values.description}
-          onChange={(value) => formik.setFieldValue("description", value.target.value)
+          onChange={(value) =>
+            formik.setFieldValue("description", value.target.value)
           }
         />
       </RegisterPanelSimple>
