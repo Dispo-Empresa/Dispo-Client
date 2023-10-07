@@ -36,7 +36,8 @@ const ENDPOINTS = {
     createProduct: "products",
     getProductNames: "products/get-names",
     getWithActivePurschaseOrder: "products/get-with-active-pursche-orders",
-    getProductsWithSalePrice: "products/get-with-saleprice"
+    getProductsWithSalePrice: "products/get-with-saleprice",
+    getPurchaseOrders: "products/getPurchaseOrders" // teste - apagar
   },
 
   movements: {
@@ -69,7 +70,8 @@ const ENDPOINTS = {
   },
 
   purchaseorder:{
-    createPurchaseOrder: "purchaseorder"
+    createPurchaseOrder: "purchase-orders",
+    getByProduct: "purchase-orders/get-by-product/{productId}"
   }
 };
 

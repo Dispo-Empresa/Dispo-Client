@@ -12,23 +12,24 @@ const StepThree = (props) => {
 
   const onSave = async () => {
     try {
-      setLoading(true); 
+      setLoading(true);
 
-      var data = 
-      {
-        number: props.purchaseOrderInfo.orderNumber, 
+      var data = {
+        number: props.purchaseOrderInfo.orderNumber,
         creationDate: props.purchaseOrderInfo.creationDate,
-        paymentMethod: props.purchaseOrderInfo.paymentMethod, 
-        notificationType: props.purchaseOrderInfo.notificationType, 
-        supplierId: props.purchaseOrderInfo.supplier, 
-        orders: props.orderInfo, 
-      }
+        paymentMethod: props.purchaseOrderInfo.paymentMethod,
+        notificationType: props.purchaseOrderInfo.notificationType,
+        supplierId: props.purchaseOrderInfo.supplier,
+        orders: props.orderInfo,
+      };
       console.log(data);
 
-      var response = await post(ENDPOINTS.purchaseorder.createPurchaseOrder, data);
+      var response = await post(
+        ENDPOINTS.purchaseorder.createPurchaseOrder,
+        data
+      );
 
       if (response.success) {
-        
       }
     } catch (err) {
       console.log(err);
@@ -36,16 +37,16 @@ const StepThree = (props) => {
       setLoading(false);
     }
   };
-  
-    var customButtons = [
-      <Button
-        title="Salvar ordem de compra"
-        width="150px"
-        height="40px"
-        onClick={onSave}
-        icon={<KeyboardDoubleArrowDownIcon />}
-      />,
-    ];
+
+  var customButtons = [
+    <Button
+      title="Salvar ordem de compra"
+      width="150px"
+      height="40px"
+      onClick={onSave}
+      icon={<KeyboardDoubleArrowDownIcon />}
+    />,
+  ];
 
   return (
     <StepLayout {...props} customButtons={customButtons}>
@@ -54,8 +55,12 @@ const StepThree = (props) => {
           <div className="grayBackground">
             <h3>Fornecedor: {props.purchaseOrderInfo.supplier}</h3>
             <p>Número da ordem: {props.purchaseOrderInfo.orderNumber}</p>
-            <p>Data de criação: {props.purchaseOrderInfo.creationDate.toString()}</p>
-            <p>Tipo de notificação: {props.purchaseOrderInfo.notificationType}</p>
+            <p>
+              Data de criação: {props.purchaseOrderInfo.creationDate.toString()}
+            </p>
+            <p>
+              Tipo de notificação: {props.purchaseOrderInfo.notificationType}
+            </p>
             <p>Forma de pagamento: {props.purchaseOrderInfo.paymentMethod}</p>
           </div>
         )}
