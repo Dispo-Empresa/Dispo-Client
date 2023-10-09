@@ -1,6 +1,5 @@
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import AddIcon from "@mui/icons-material/Add";
-import WarehouseIcon from "@mui/icons-material/Warehouse";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import StorefrontIcon from "@mui/icons-material/Storefront";
@@ -11,8 +10,11 @@ import BusinessIcon from "@mui/icons-material/Business";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import TurnLeftIcon from "@mui/icons-material/TurnLeft";
 import TurnRightIcon from "@mui/icons-material/TurnRight";
+import { useEffect, useState } from "react";
 import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
+
+import { getSessionStorage, setSessionStorage } from "../../../data/session";
 
 import {
   isRoleManager,
@@ -24,8 +26,34 @@ import { COLORS } from "../../../themes/colors";
 import "./styles.css";
 
 function SidebarItens(props) {
+  const [menuStates, setMenuStates] = useState({});
+
   const isActivePage = (path) => {
     return window.location.pathname === path;
+  };
+
+  useEffect(() => {
+    const menuStatesJSON = getSessionStorage("menuStates");
+    if (menuStatesJSON) {
+      const parsedMenuStates = JSON.parse(menuStatesJSON);
+      setMenuStates(parsedMenuStates);
+    }
+  }, []);
+
+  const onMenuOpen = (path) => {
+    const updatedMenuStates = { ...menuStates };
+
+    if (path in updatedMenuStates) {
+      updatedMenuStates[path] =
+        updatedMenuStates[path] === "path-open" ? "path-closed" : "path-open";
+    } else {
+      updatedMenuStates[path] = "path-open";
+    }
+
+    setMenuStates(updatedMenuStates);
+
+    const menuStatesJSON = JSON.stringify(updatedMenuStates);
+    setSessionStorage("menuStates", menuStatesJSON);
   };
 
   return (
@@ -73,7 +101,14 @@ function SidebarItens(props) {
         />
 
         {(isRolePurchasingManager() || isRoleManager()) && (
-          <SubMenu label="Ordem de compra" icon={<DraftsIcon />}>
+          <SubMenu
+            label="Ordem de compra"
+            icon={<DraftsIcon />}
+            open={menuStates["purchase-order"] === "path-open"}
+            onOpenChange={() => {
+              onMenuOpen("purchase-order");
+            }}
+          >
             <MenuItem
               component={<Link to="/purchaseOrder/register" />}
               active={isActivePage("/purchaseOrder/register")}
@@ -90,7 +125,14 @@ function SidebarItens(props) {
         )}
 
         {(isRoleWarehouseOperator() || isRoleManager()) && (
-          <SubMenu label="Movimentação" icon={<SyncAltIcon />}>
+          <SubMenu
+            label="Movimentação"
+            icon={<SyncAltIcon />}
+            open={menuStates["batch-movimentation"] === "path-open"}
+            onOpenChange={() => {
+              onMenuOpen("batch-movimentation");
+            }}
+          >
             <MenuItem
               component={<Link to="/moviments/entry" />}
               active={isActivePage("/moviments/entry")}
@@ -106,7 +148,14 @@ function SidebarItens(props) {
           </SubMenu>
         )}
 
-        <SubMenu label="Atalhos" icon={<ShortcutIcon />}>
+        <SubMenu
+          label="Atalhos"
+          icon={<ShortcutIcon />}
+          open={menuStates["shortcuts"] === "path-open"}
+          onOpenChange={() => {
+            onMenuOpen("shortcuts");
+          }}
+        >
           <MenuItem
             component={<Link to="/products" />}
             active={isActivePage("/products")}
