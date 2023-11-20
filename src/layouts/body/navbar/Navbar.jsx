@@ -80,7 +80,7 @@ function Navbar() {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
-            <MenuItem component={Link} to="/profile">
+            <MenuItem component={Link} to="/perfil">
               <ListItemIcon>
                 <PersonIcon />
               </ListItemIcon>
@@ -113,7 +113,7 @@ function Navbar() {
             onClose={() => setAnchor(null)}
             onClick={() => setAnchor(null)}
           >
-            <MenuItem component="a" href="/warehouses">
+            <MenuItem component="a" href="/depositos">
               Acesso aos depósitos
             </MenuItem>
             <Divider component="li" />

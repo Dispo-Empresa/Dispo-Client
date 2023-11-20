@@ -1,3 +1,5 @@
+import { useFormik } from "formik";
+import { useState } from "react";
 import { MDBCol } from "mdb-react-ui-kit";
 
 import ContentPage from "../../../layouts/content/ContentPage";
@@ -6,9 +8,7 @@ import { TextField } from "../../../components/ui/inputs/textfield/TextField";
 import { SelectWithFilter } from "../../../components/ui/inputs/select/SelectField";
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
 import { post } from "../../../services/httpMethods";
-import { useFormik } from "formik";
-import { useState } from "react";
-import validate from "./validate";
+import validateWarehouse from "./validate";
 import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
 import useFetch from "../../../hooks/useFetchApi";
 
@@ -24,7 +24,8 @@ function WarehouseRegisterCard() {
       name: "",
       address: 0,
     },
-    validate,
+    validationSchema: validateWarehouse,
+    validateOnChange: false,
     onSubmit: async (values) => {
       setLoading(true);
 

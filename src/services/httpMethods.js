@@ -13,8 +13,8 @@ const get = async (endpoint, parameters) => {
     return await callApi(endpoint, 'get');
 }
 
-const post = async (endpoint, data) => 
-    await callApi(endpoint, 'post', data);
+const post = async (endpoint, data, contentType) => 
+    await callApi(endpoint, 'post', data, contentType);
 
 const put = async (endpoint, id, data) => {
 

@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import useAlertScheme from "../../../hooks/alert/useAlertScheme";
 import ContentPage from "../../../layouts/content/ContentPage";
 import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
-import validate from "./validate";
+import validateManufacturers from "./validate";
 import { TextField } from "../../../components/ui/inputs/textfield/TextField";
 import { ImageField } from "../../../components/ui/inputs/image/ImageField";
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
@@ -14,21 +14,32 @@ import { post } from "../../../services/httpMethods";
 function ManufacturerRegisterCard() {
   const [showAlert, openAlert] = useAlertScheme();
   const [loading, setLoading] = useState(false);
+  const [manufacturerLogo, setManufacturerLogo] = useState(null);
+
   const formik = useFormik({
     initialValues: {
       name: "",
       logo: null,
     },
-    validate,
+    validationSchema: validateManufacturers,
+    validateOnChange: false,
     onSubmit: async (values) => {
       setLoading(true);
+
+      const formDataValues = new FormData();
+      formDataValues.append("Name", values.name);
+      formDataValues.append("Logo", manufacturerLogo);
+
       var response = await post(
         ENDPOINTS.manufacturers.createManufacturer,
-        values
+        formDataValues,
+        "multipart/form-data"
       );
 
       if (response.success) {
         openAlert(response.alertType, response.message);
+
+        setManufacturerLogo(null);
         formik.resetForm();
       } else {
         openAlert(response.alertType, "Erro", response.message);
@@ -63,7 +74,11 @@ function ManufacturerRegisterCard() {
           />
         </MDBCol>
         <MDBCol>
-          <ImageField label="Logo" />
+          <ImageField
+            label="Logo"
+            value={manufacturerLogo}
+            onChange={setManufacturerLogo}
+          />
         </MDBCol>
       </RegisterPanel>
     </ContentPage>

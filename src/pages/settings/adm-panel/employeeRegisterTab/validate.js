@@ -1,23 +1,11 @@
-/* eslint-disable no-useless-escape */
+import * as Yup from "yup";
 
-const validate = values => {
-  const errors = {};
+const validateEmployee = () => {
+  return Yup.object().shape({
+    email: Yup.string().required("Campo obrigatório").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email inválido"),
+    warehouses: Yup.string().required("Campo obrigatório"),
+    role: Yup.object().required("Campo obrigatório"),
+  });
+}
 
-  if (!values.email) {
-    errors.email = 'Campo obrigatório';
-  } else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(values.email)) {
-    errors.email = "Email inválido";
-  }
-
-  if (!values.warehouses) {
-    errors.warehouses = "Campo obrigatório";
-  }
-
-  if (!values.role) {
-    errors.role = "Campo obrigatório";
-  }
-
-  return errors;
-};
-
-export default validate;
+export default validateEmployee;

@@ -9,13 +9,13 @@ import { browserStorageKeys } from "../utils/constants/constants";
 const BASE_URL = LOCALHOST;
 const TIME_OUT = 10000;
 
-const callApi = async (endpoint, method, data = null) => {
+const callApi = async (endpoint, method, data = null, contentType = "application/json") => {
   
   const apiConfig = axios.create({
     baseURL: BASE_URL,
     timeout: TIME_OUT,
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": contentType,
       Authorization: `Bearer ${getToken()}`
     }
   });

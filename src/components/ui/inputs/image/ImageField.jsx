@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 
 import TipIcon from "../indicators/tip/TipIcon";
@@ -8,7 +8,6 @@ import "../styles.css";
 import "./styles.css";
 
 const ImageField = (props) => {
-  const [file, setFile] = useState();
   const inputRef = useRef(null);
 
   const handleUploadClick = () => {
@@ -19,7 +18,7 @@ const ImageField = (props) => {
     if (!e.target.files) {
       return;
     }
-    setFile(e.target.files[0]);
+    props.onChange(e.target.files[0]);
   };
 
   return (
@@ -32,18 +31,32 @@ const ImageField = (props) => {
         </div>
       </div>
       <div style={{ display: "flex" }}>
-        <button onClick={handleUploadClick} className="file-input">
-          {file ? `${file.name}` : "Selecione uma imagem"}
+        <button
+          type="button"
+          onClick={handleUploadClick}
+          className="file-input"
+        >
+          {props.value
+            ? `${
+                props.value.name.length > 25
+                  ? props.value.name.slice(0, 25 - 3) + "..."
+                  : props.value.name
+              }`
+            : "Selecione uma imagem"}
         </button>
-        {props.required && file ? (
-          <button className="clear-image" onClick={() => setFile(null)}>
+        {
+          <button
+            type="button"
+            className="clear-image"
+            onClick={() => props.onChange(null)}
+          >
             <CloseIcon />
           </button>
-        ) : null}
+        }
       </div>
-
       <input
         type="file"
+        accept="image/*"
         ref={inputRef}
         onChange={handleFileChange}
         style={{ display: "none" }}

@@ -1,3 +1,15 @@
 .p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:focus {
     box-shadow: 0 0 0 1px #029DBE;
 }
+
+
+
+.p-button:enabled:hover, .p-button:not(button):not(a):not(.p-disabled):hover {
+    background-color: #029DBE;
+    border-color: #029DBE;
+}
+
+.p-button.p-fileupload-choose {
+    padding: 0px 20px;
+    border-radius: 5px;
+}

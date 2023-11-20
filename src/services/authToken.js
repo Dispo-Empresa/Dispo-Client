@@ -1,34 +1,34 @@
 import axios from "axios"
 import jwt_decode from "jwt-decode";
 
-import { getSessionStorage, setSessionStorage, removeSessionStorage } from "../data/session";
+import { getCookie, setCookie, removeCookie } from "../data/cookies";
 
 const setToken = (token) => {
   if (token){
-    setSessionStorage("accessToken", token);
+    setCookie("accessToken", token);
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   }else{
-    removeSessionStorage("accessToken");
+    removeCookie("accessToken");
     delete axios.defaults.headers.common.Authorization;
   }
 }
 
-const getToken = () => getSessionStorage("accessToken");
+const getToken = () => getCookie("accessToken");
 
-const removeToken = () => removeSessionStorage("accessToken");
+const removeToken = () => removeCookie("accessToken");
 
-const getUserName = () => jwt_decode(getSessionStorage("accessToken")).unique_name;
+const getUserName = () => jwt_decode(getCookie("accessToken")).unique_name;
 
-const getRole = () => jwt_decode(getSessionStorage("accessToken")).role;
+const getRole = () => jwt_decode(getCookie("accessToken")).role;
 
-const getAccountId = () => jwt_decode(getSessionStorage("accessToken")).accountId;
+const getAccountId = () => jwt_decode(getCookie("accessToken")).accountId;
 
-const getCurrentWarehouseName = () => jwt_decode(getSessionStorage("accessToken")).currentWarehouseName;
+const getCurrentWarehouseName = () => jwt_decode(getCookie("accessToken")).currentWarehouseName;
 
 const isAuthenticated = () =>{
-  if( getSessionStorage("accessToken") && getSessionStorage("accessToken") !== ""){
+  if( getCookie("accessToken") && getCookie("accessToken") !== ""){
     try{
-      var isValidToken = jwt_decode(getSessionStorage("accessToken"));
+      var isValidToken = jwt_decode(getCookie("accessToken"));
       return isValidToken !== null && isValidToken !== undefined;
     } catch {
       return false;

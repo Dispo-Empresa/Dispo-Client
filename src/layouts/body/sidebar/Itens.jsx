@@ -110,14 +110,14 @@ function SidebarItens(props) {
             }}
           >
             <MenuItem
-              component={<Link to="/purchaseOrder/register" />}
-              active={isActivePage("/purchaseOrder/register")}
+              component={<Link to="/ordem-de-compra/cadastrar" />}
+              active={isActivePage("/ordem-de-compra/cadastrar")}
               prefix="Cadastrar"
               icon={<AddIcon />}
             />
             <MenuItem
-              component={<Link to="/purchaseOrder/attachment" />}
-              active={isActivePage("/purchaseOrder/attachment")}
+              component={<Link to="/ordem-de-compra/anexos" />}
+              active={isActivePage("/ordem-de-compra/anexos")}
               prefix="Anexos"
               icon={<AttachFileIcon />}
             />
@@ -134,14 +134,14 @@ function SidebarItens(props) {
             }}
           >
             <MenuItem
-              component={<Link to="/moviments/entry" />}
-              active={isActivePage("/moviments/entry")}
+              component={<Link to="/movimentacoes/entrada" />}
+              active={isActivePage("/movimentacoes/entrada")}
               prefix="Entrada"
               icon={<TurnRightIcon />}
             />
             <MenuItem
-              component={<Link to="/moviments/exit" />}
-              active={isActivePage("/moviments/exit")}
+              component={<Link to="/movimentacoes/saida" />}
+              active={isActivePage("/movimentacoes/saida")}
               prefix="Saída"
               icon={<TurnLeftIcon />}
             />
@@ -157,20 +157,20 @@ function SidebarItens(props) {
           }}
         >
           <MenuItem
-            component={<Link to="/products" />}
-            active={isActivePage("/products")}
+            component={<Link to="/produtos" />}
+            active={isActivePage("/produtos")}
             prefix="Produtos"
             icon={<StorefrontIcon />}
           />
           <MenuItem
-            component={<Link to="/manufacturers" />}
-            active={isActivePage("/manufacturers")}
+            component={<Link to="/fabricantes" />}
+            active={isActivePage("/fabricantes")}
             prefix="Fabricantes"
             icon={<BusinessIcon />}
           />
           <MenuItem
-            component={<Link to="/suppliers" />}
-            active={isActivePage("/suppliers")}
+            component={<Link to="/fornecedores" />}
+            active={isActivePage("/fornecedores")}
             prefix="Fornecedores"
             icon={<LocalShippingIcon />}
           />

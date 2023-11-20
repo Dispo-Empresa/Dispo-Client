@@ -6,7 +6,7 @@ import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel
 import useAlertScheme from "../../../hooks/alert/useAlertScheme";
 import ContentPage from "../../../layouts/content/ContentPage";
 import ContentDivisor from "../../../components/structured/divisor/ContentDivisor";
-import validate from "./validate";
+import validateProducts from "./validate";
 import { ImageField } from "../../../components/ui/inputs/image/ImageField";
 import { TextField } from "../../../components/ui/inputs/textfield/TextField";
 import { CurrencyField } from "../../../components/ui/inputs/currency/CurrencyField";
@@ -42,8 +42,9 @@ const unitOfMeasurementTypes = [
 function ProductRegisterCard() {
   const [showAlert, openAlert] = useAlertScheme();
   const [loading, setLoading] = useState(false);
+  const [productImage, setProductImage] = useState(null);
+
   const formik = useFormik({
-    validateOnChange: false,
     initialValues: {
       name: "",
       description: "",
@@ -59,13 +60,34 @@ function ProductRegisterCard() {
       width: null,
       depth: null,
     },
-    validate,
+    validationSchema: validateProducts,
+    validateOnChange: false,
     onSubmit: async (values) => {
       setLoading(true);
-      var response = await post(ENDPOINTS.products.createProduct, values);
+
+      const formDataValues = new FormData(); // criar um padrão para usar isso de forma mais resumida?
+      formDataValues.append("Name", values.name);
+      formDataValues.append("Description", values.description);
+      formDataValues.append("Image", productImage);
+      formDataValues.append("PurchasePrice", values.purchasePrice);
+      formDataValues.append("SalePrice", values.salePrice);
+      formDataValues.append("Category", values.category);
+      formDataValues.append("UnitOfMeasurement", values.unitOfMeasurement);
+      formDataValues.append("Weight", values.weight ?? 0);
+      formDataValues.append("Height", values.height ?? 0);
+      formDataValues.append("Width", values.width ?? 0);
+      formDataValues.append("Depth", values.depth ?? 0);
+
+      var response = await post(
+        ENDPOINTS.products.createProduct,
+        formDataValues,
+        "multipart/form-data"
+      );
 
       if (response.success) {
         openAlert(response.alertType, response.message);
+
+        setProductImage(null);
         formik.resetForm();
       } else {
         openAlert(response.alertType, "Erro", response.message);
@@ -149,7 +171,11 @@ function ProductRegisterCard() {
           />
         </MDBCol>
         <MDBCol>
-          <ImageField label="Imagem" />
+          <ImageField
+            label="Imagem"
+            value={productImage}
+            onChange={setProductImage}
+          />
         </MDBCol>
         <ContentDivisor title="Dimensões do produto" />
         <MDBCol>

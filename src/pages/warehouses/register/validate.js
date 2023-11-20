@@ -1,15 +1,10 @@
-const validate = values => {
-  const errors = {};
+import * as Yup from "yup";
 
-  if (values.name.length < 3) {
-    errors.name = "O Nome do depósito deve ter mais de 2 caractéres.";
-  }
+const validateWarehouse = () => {
+  return Yup.object().shape({
+    name: Yup.string().required("Campo obrigatório"),
+    address: Yup.string().required("Campo obrigatório")
+  });
+}
 
-  if (values.address < 1) {
-    errors.address = "O Endereço do depósito é inválido.";
-  }
-
-  return errors;
-};
-
-export default validate;
+export default validateWarehouse;
