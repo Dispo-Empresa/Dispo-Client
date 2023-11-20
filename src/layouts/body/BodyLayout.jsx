@@ -7,6 +7,8 @@ import Navbar from "./navbar/Navbar";
 import { Footer } from "./footer/Footer";
 import { getLocalStorage, setLocalStorage } from "../../data/local";
 
+import Navigator from "./Navigator";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
 
@@ -52,6 +54,7 @@ function BodyLayout(props) {
       <Sidebar open={open} onToggleNav={onToggleNav} />
       <Navbar />
       <div className="main">
+        {!props.hideNavigator && <Navigator />}
         {props.children}
         <Footer />
       </div>

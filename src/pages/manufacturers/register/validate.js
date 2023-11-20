@@ -1,11 +1,9 @@
-const validate = values => {
-  const errors = {};
+import * as Yup from "yup";
 
-  if(!values.name){
-    errors.name = "Campo obrigatório"
-  }
+const validateManufacturers = () => {
+  return Yup.object().shape({
+    name: Yup.string().required("Campo obrigatório"),
+  });
+}
 
-  return errors;
-};
-
-export default validate;
+export default validateManufacturers;

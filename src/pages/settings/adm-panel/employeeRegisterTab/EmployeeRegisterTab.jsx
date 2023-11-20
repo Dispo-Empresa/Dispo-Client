@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import useFetch from "../../../../hooks/useFetchApi";
 import RegisterPanel from "../../../../layouts/panel/register/classic/RegisterPanel";
 import useAlertScheme from "../../../../hooks/alert/useAlertScheme";
-import validate from "./validate";
+import validateEmployee from "./validate";
 import { TextField } from "../../../../components/ui/inputs/textfield/TextField";
 import { MultiSelect } from "../../../../components/ui/inputs/select/SelectField";
 import { RadioButtons } from "../../../../components/ui/inputs/radio/RadioButtons";
@@ -22,7 +22,8 @@ function EmployeeRegisterTab() {
       warehouses: "",
       role: "",
     },
-    validate,
+    validationSchema: validateEmployee,
+    validateOnChange: false,
     onSubmit: async (values) => {
       var data = {
         email: values.email,
@@ -98,6 +99,7 @@ function EmployeeRegisterTab() {
       <MDBCol>
         {roles && (
           <RadioButtons
+            required
             label="Cargo"
             error={formik.errors.role}
             options={roles.data.map((role) => ({

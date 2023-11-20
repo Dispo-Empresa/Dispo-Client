@@ -20,18 +20,19 @@ import PurchaseOrderAttachmentFormCard from "../pages/purchase-order/attachment/
 import WarehouseCard from "../pages/warehouses/WarehouseCard";
 import { roles } from "../utils/constants/constants";
 
-function RouteController({ children, allowedRoles }) {
+function RouteController({ children, allowedRoles, hideNavigatorOnRoute }) {
   if (
     window.location.pathname.includes("/login") ||
     window.location.pathname === "/" ||
-    window.location.pathname === "/404"
+    window.location.pathname === "/404" ||
+    window.location.pathname === "/401"
   ) {
     return children;
   }
 
   return (
     <PrivateRoute roles={allowedRoles}>
-      <BodyLayout>{children}</BodyLayout>
+      <BodyLayout hideNavigator={hideNavigatorOnRoute}>{children}</BodyLayout>
     </PrivateRoute>
   );
 }
@@ -81,7 +82,7 @@ function RoutesConfiguration() {
           }
         />
         <Route
-          path="/profile"
+          path="/perfil"
           element={
             <RouteController>
               <ProfileCard />
@@ -89,7 +90,7 @@ function RoutesConfiguration() {
           }
         />
         <Route
-          path="/purchaseOrder/register"
+          path="/ordem-de-compra/cadastrar"
           element={
             <RouteController
               allowedRoles={[roles.Manager, roles.PurchasingManager]}
@@ -99,7 +100,7 @@ function RoutesConfiguration() {
           }
         />
         <Route
-          path="/purchaseOrder/attachment"
+          path="/ordem-de-compra/anexos"
           element={
             <RouteController
               allowedRoles={[roles.Manager, roles.PurchasingManager]}
@@ -109,7 +110,7 @@ function RoutesConfiguration() {
           }
         />
         <Route
-          path="/products"
+          path="/produtos"
           element={
             <RouteController>
               <ProductCard />
@@ -117,7 +118,7 @@ function RoutesConfiguration() {
           }
         />
         <Route
-          path="/moviments/entry"
+          path="/movimentacoes/entrada"
           element={
             <RouteController
               allowedRoles={[roles.Manager, roles.WarehouseOperator]}
@@ -127,7 +128,7 @@ function RoutesConfiguration() {
           }
         />
         <Route
-          path="/moviments/exit"
+          path="/movimentacoes/saida"
           element={
             <RouteController
               allowedRoles={[roles.Manager, roles.WarehouseOperator]}
@@ -137,7 +138,7 @@ function RoutesConfiguration() {
           }
         />
         <Route
-          path="/manufacturers"
+          path="/fabricantes"
           element={
             <RouteController>
               <ManufacturerCard />
@@ -145,7 +146,7 @@ function RoutesConfiguration() {
           }
         />
         <Route
-          path="/suppliers"
+          path="/fornecedores"
           element={
             <RouteController>
               <SupplierCard />
@@ -161,7 +162,7 @@ function RoutesConfiguration() {
           }
         />
         <Route
-          path="/warehouses"
+          path="/depositos"
           element={
             <RouteController allowedRoles={[roles.Manager]}>
               <WarehouseCard />

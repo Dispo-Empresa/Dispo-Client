@@ -6,7 +6,7 @@ import ContentPage from "../../../layouts/content/ContentPage";
 import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
 import useAlertScheme from "../../../hooks/alert/useAlertScheme";
 import ContentDivisor from "../../../components/structured/divisor/ContentDivisor";
-import validate from "./validate";
+import validateSupplier from "./validate";
 import { TextField } from "../../../components/ui/inputs/textfield/TextField";
 import { PhoneField } from "../../../components/ui/inputs/masked/PhoneField";
 import { cnpjFormater } from "../../../utils/format/cnpjFormat";
@@ -35,7 +35,8 @@ function SupplierRegisterCard() {
       cep: "",
       additionalInfo: "",
     },
-    validate,
+    validationSchema: validateSupplier,
+    validateOnChange: false,
     onSubmit: async (values) => {
       setLoading(true);
 

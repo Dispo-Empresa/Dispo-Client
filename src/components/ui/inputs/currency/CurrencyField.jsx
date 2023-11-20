@@ -3,6 +3,7 @@ import { classNames } from "primereact/utils";
 
 import Tip from "../indicators/tip/TipIcon";
 import Required from "../indicators/required/RequiredIcon";
+
 import "../styles.css";
 
 function CurrencyField(props) {

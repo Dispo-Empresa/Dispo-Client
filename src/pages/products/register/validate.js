@@ -1,17 +1,13 @@
-/* eslint-disable no-useless-escape */
+import * as Yup from "yup";
 
-const requiredFields = ["name", "salePrice", "category", "unitOfMeasurement", "description" ];
-
-const validate = values => {
-  const errors = {};
-
-  requiredFields.forEach(field => {
-    if (values[field] === null || values[field] === ""|| values[field] < 0) {
-      errors[field] = "Campo obrigatório";
-    }
+const validateProducts = () => {
+  return Yup.object().shape({
+    name: Yup.string().required("Campo obrigatório"),
+    salePrice: Yup.string().required("Campo obrigatório"),
+    category: Yup.string().required("Campo obrigatório"),
+    unitOfMeasurement: Yup.string().required("Campo obrigatório"),
+    description: Yup.string().required("Campo obrigatório"),
   });
+}
 
-  return errors;
-};
-
-export default validate;
+export default validateProducts;
