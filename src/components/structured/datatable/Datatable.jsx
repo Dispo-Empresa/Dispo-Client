@@ -24,6 +24,7 @@ function Datatable({
   onViewButton,
   fromApi,
   singleSelect,
+  onRowClick
 }) {
   const buttonsTemplate = (rowData) => {
     const acceptRemove = () => {
@@ -66,6 +67,7 @@ function Datatable({
     <div>
       <ConfirmDialog />
       <DataTable
+        onRowClick={onRowClick}
         size="small"
         paginatorLeft={
           showCheckbox && !singleSelect ? (

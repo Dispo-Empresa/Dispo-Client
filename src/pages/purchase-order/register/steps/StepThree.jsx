@@ -24,12 +24,10 @@ const StepThree = (props) => {
       };
       console.log(data);
 
-      var response = await post(
-        ENDPOINTS.purchaseorder.createPurchaseOrder,
-        data
-      );
+      var response = await post(ENDPOINTS.purchaseorder.createPurchaseOrder,data);
 
       if (response.success) {
+        console.log(response.success);
       }
     } catch (err) {
       console.log(err);

@@ -14,6 +14,7 @@ function TextField(props) {
         </div>
       </div>
       <input
+        id={props.id}
         name={props.name} // Usar apenas no MultiStep
         type={props.type ?? "text"}
         className="form-control"

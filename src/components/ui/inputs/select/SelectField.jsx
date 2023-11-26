@@ -20,6 +20,8 @@ function SelectWithFilter(props) {
         </div>
       </div>
       <Dropdown
+        appendTo="self"
+        id={props.id}
         filter
         showFilterClear
         emptyMessage={props.emptyMessage ?? "Nenhum resultado encontrado"}
