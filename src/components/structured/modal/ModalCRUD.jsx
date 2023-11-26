@@ -1,11 +1,12 @@
 import { createRoot } from 'react-dom/client';
 import React, { useEffect, useContext } from 'react';
 
-import ModalDialog from "./ModalDialog";
-import useFetch from "../../../hooks/useFetchApi";
-
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
 import { AbstractFormContext } from "../../ui/context/abstractFormContext";
+
+import ModalDialog from "./ModalDialog";
+import useFetch from "../../../hooks/useFetchApi";
+import RegisterPanel from '../../../layouts/panel/register/classic/RegisterPanel';
 
 function Render(props) 
 {
@@ -42,15 +43,21 @@ function Render(props)
               if (dropDownClick){            
                 dropDownClick.click();
 
-                const dropDownPanel = element.querySelector(".p-dropdown-panel");
-                if (dropDownPanel){
-                  const dropDownWrapper = dropDownPanel.querySelector(".p-dropdown-items-wrapper");
-                  const ul = dropDownWrapper.querySelector(".p-dropdown-items");              
-                  const options = ul.querySelectorAll(".p-dropdown-item");
-                  const optionsArray = [...options];
-                  
-                  optionsArray[value].click();
-                }         
+                setTimeout(() => {
+                  const dropDownPanel = element.querySelector(".p-dropdown-panel");
+              
+                  console.log(dropDownPanel);
+              
+                  if (dropDownPanel) {
+                    const dropDownWrapper = dropDownPanel.querySelector(".p-dropdown-items-wrapper");
+                    const ul = dropDownWrapper.querySelector(".p-dropdown-items");
+                    const options = ul.querySelectorAll(".p-dropdown-item");
+                    const optionsArray = [...options];
+              
+                    console.log(optionsArray[value]);
+                    optionsArray[value].click();
+                  }
+                }, 10);     
               }                      
             } else {
                 const inputElement = element.querySelector('input');
@@ -75,28 +82,50 @@ function ModalCrud(props)
 {
   const { setIsRegister } = useContext(AbstractFormContext);
 
-  useEffect(() => {
-    setIsRegister(false);
-  }, [setIsRegister]); 
+  console.log("ModalCrud crud:", { setIsRegister });
 
   const handleOnCloseModal = () => {
     setIsRegister(true);
     props.setShowModal(false);   
   };
 
-    return(
-        <ModalDialog 
-            title={props.title} 
-            open={props.isOpen} 
-            onClose={handleOnCloseModal}
-        >
-            <Render selectedRowData={props.selectedRowData}>
-                <div id="modalCRUD">
-                    {props.children}
-                </div> 
-            </Render>                     
-        </ModalDialog>               
-    );
+  const handleSetIsRegister = (event) => {
+    event.preventDefault();
+
+    setIsRegister(false);   
+  };
+
+  return(       
+    <ModalDialog 
+      title={props.title} 
+      open={props.isOpen} 
+      onClose={handleOnCloseModal}
+    >
+      <button
+        onClick={handleSetIsRegister}
+        style={{
+          backgroundColor: '#3498db', // Azul claro
+          color: 'white',
+          padding: '10px 20px', // Adicionado espaçamento interno horizontal
+          borderRadius: '8px',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+          cursor: 'pointer',
+          border: 'none',
+          outline: 'none',
+          display: 'block', // Para centralizar
+          margin: 'auto', // Para centralizar
+        }}
+      >
+        Clique aqui para editar os produtos
+      </button>
+
+        <Render selectedRowData={props.selectedRowData}>
+            <div id="modalCRUD">
+                {props.children}
+            </div> 
+        </Render>                           
+    </ModalDialog>                       
+  );
 }
 
 export default ModalCrud;

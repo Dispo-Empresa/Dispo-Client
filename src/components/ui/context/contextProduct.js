@@ -1,16 +1,14 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext } from 'react';
 import { useFormik } from 'formik';
 
 import { post } from "../../../services/httpMethods";
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
+import { AbstractFormContext } from './abstractFormContext';
 
-import useAlertScheme from '../../../hooks/alert/useAlertScheme';
-import validate from "../../../pages/products/register/validate";
+import validateProducts from "../../../pages/products/register/validate";
 
 const ProductContextProvider = ({ children }) => {
-  const [showAlert, openAlert] = useAlertScheme();
-  const [loading, setLoading] = useState(false);
-  const [isNewProduct, setIsNewProduct] = useState(true);
+  const { showAlert, openAlert, loading, setLoading, isNewRegister, setIsRegister } = useContext(AbstractFormContext);
 
   const formik = useFormik({
     validateOnChange: false,
@@ -22,20 +20,16 @@ const ProductContextProvider = ({ children }) => {
       salePrice: null,
       category: null,
       unitOfMeasurement: null,
-
-      // dimension
       weight: "",
       height: "",
       width: "",
       depth: "",
     },
-    validate,
+    validationSchema: validateProducts,
     onSubmit: async (values) => {
-      console.log("Chamou")
-
       setLoading(true);
       var response = null;
-      if (isNewProduct)
+      if (isNewRegister)
         response = await post(ENDPOINTS.products.createProduct, values);
       else
         response = {sucess: true, alertType: "error", message: "Editando produtos :), só que não, falta fazer API"};  
@@ -53,13 +47,13 @@ const ProductContextProvider = ({ children }) => {
 
   const handleBeforeSubmiting = () => {
     if (formik.errors) {
-      //openAlert("error", "Existem campos com erro, por favor verifique!");
-      //  return;
+      openAlert("error", "Existem campos com erro, por favor verifique!");
+      return;
     }
   };
 
   return (
-    <ProductFormikContext.Provider value={{ formik, showAlert, loading, handleBeforeSubmiting, setIsNewProduct }}>
+    <ProductFormikContext.Provider value={{ formik, showAlert, loading, handleBeforeSubmiting, setIsRegister }}>
       {children}
     </ProductFormikContext.Provider>
   );

@@ -12,13 +12,8 @@ function ProductCard() {
           <ProductRegisterCard />
         </ProductContextProvider>
       </AbstractFormContextProvider>
-      
-      <AbstractFormContextProvider>
-        <ProductContextProvider>
-          <ProductQueryCard />
-        </ProductContextProvider>
-      </AbstractFormContextProvider>
-      
+
+      <ProductQueryCard />   
     </div>
   );
 }

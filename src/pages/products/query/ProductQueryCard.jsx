@@ -8,6 +8,8 @@ import ModalCRUD from "../../../components/structured/modal/ModalCRUD";
 import ProductRegisterCard from "../register/ProductRegisterCard";
 
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
+import { AbstractFormContextProvider } from "../../../components/ui/context/abstractFormContext";
+import { ProductContextProvider } from "../../../components/ui/context/contextProduct";
 
 function ProductQueryCard() {
   const [ selectedProducts, setSelectedProducts ] = useState(null);
@@ -31,18 +33,6 @@ function ProductQueryCard() {
     { field: "unitOfMeasurement", header: "Unidade de Peso" },
   ];
 
-  /*const customButtons = (row) => {
-    return (
-      <ButtonGroup>
-        <QueryDataButton
-          onClick={() => {
-            alert(row.id);
-          }}
-        />
-      </ButtonGroup>
-    );
-  };*/
-
   const deleteTest = (row) => {
     alert("Deletando: " + row.id);
   };
@@ -50,6 +40,8 @@ function ProductQueryCard() {
   const viewTest = (row) => {
     alert("Vendo: " + row.id);
   };
+
+  console.log("ProductQueryCard card:");
 
   return (
     <ContentPage id="productView" title="Produtos">
@@ -69,15 +61,20 @@ function ProductQueryCard() {
           onViewButton={viewTest}
           onRowClick={openModal}
         />
-      </ViewPanel>  
-      <ModalCRUD
-        isOpen={isModalOpen}
-        setShowModal={setIsModalOpen}
-        title="Produtos"
-        selectedRowData={selectedRowData}
-      >
-        <ProductRegisterCard></ProductRegisterCard>
-      </ModalCRUD>           
+      </ViewPanel> 
+      
+      <AbstractFormContextProvider>
+        <ProductContextProvider>
+          <ModalCRUD
+            isOpen={isModalOpen}
+            setShowModal={setIsModalOpen}
+            title="Produtos"
+            selectedRowData={selectedRowData}
+          >
+            <ProductRegisterCard></ProductRegisterCard>
+          </ModalCRUD>
+        </ProductContextProvider>
+      </AbstractFormContextProvider>         
     </ContentPage>                
   );
 }

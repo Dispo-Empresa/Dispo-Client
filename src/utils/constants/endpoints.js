@@ -31,7 +31,7 @@ const ENDPOINTS = {
   },
 
   products: {
-    get: "products/get/{id}",
+    get: "products/{id}",
     getAll: "products",
     createProduct: "products",
     getProductNames: "products/get-names",
