@@ -12,17 +12,17 @@ import { CurrencyField } from "../../../components/ui/inputs/currency/CurrencyFi
 import { TextArea } from "../../../components/ui/inputs/textarea/TextArea";
 import { SelectProductCategory, SelectProductUnitOfMeasurement } from "../../../components/ui/inputs/select/SelectProduct";
 import { ProductFormikContext } from "../../../components/ui/context/contextProduct";
-import { AbstractFormContext } from "../../../components/ui/context/abstractFormContext";
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
 
-function ProductRegisterCard({selectedRowData}) {
-  const { formik, showAlert, loading, handleBeforeSubmiting, disableFields } = useContext(ProductFormikContext); //utilizado na edição
-  const { isNewRegister } = useContext(AbstractFormContext); //utilizado na edição
-  const { data } = useFetch(ENDPOINTS.products.get, selectedRowData ? selectedRowData : 0); //utilizado na edição
+function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
+  const { formik, showAlert, loading, handleBeforeSubmiting } = useContext(ProductFormikContext); 
+  const { isNewRegister, setIsNewRegister } = useContext(ProductFormikContext); 
+  const { data } = useFetch(ENDPOINTS.products.get, selectedRowData ? selectedRowData : 0);
+
+  setIsNewRegister(!isEdit);
 
   useEffect(() =>
   {
-    //Aqui preenche o modal com as informações do produto que são pegas pelo endpoint
     if (selectedRowData && data) {
       formik?.setFieldValue("name", data.data.name);
       formik?.setFieldValue("purchasePrice", data.data.purchasePrice);
@@ -36,7 +36,7 @@ function ProductRegisterCard({selectedRowData}) {
       formik?.setFieldValue("depth", data.data.depth);
 
     } 
-  }, [selectedRowData, data, isNewRegister]); //utilizado na edição
+  }, [selectedRowData, data, isNewRegister]); 
 
   return (
     <ContentPage id="productRegister" title="Cadastro de Produto">
@@ -46,6 +46,7 @@ function ProductRegisterCard({selectedRowData}) {
         onSubmit={formik?.handleSubmit}
         onSave={handleBeforeSubmiting}
         loading={loading}
+        hideSaveButton={readOnly}
       >
         <MDBCol>
           <TextField
@@ -55,7 +56,7 @@ function ProductRegisterCard({selectedRowData}) {
             value={formik?.values.name}
             error={formik?.errors.name}
             onChange={(e) => formik?.setFieldValue("name", e.target.value)}
-            disabled={disableFields}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -65,6 +66,7 @@ function ProductRegisterCard({selectedRowData}) {
             value={formik?.values.purchasePrice}
             error={formik?.errors.purchasePrice}
             onChange={(e) => formik?.setFieldValue("purchasePrice", e.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -75,6 +77,7 @@ function ProductRegisterCard({selectedRowData}) {
             value={formik?.values.salePrice}
             error={formik?.errors.salePrice}
             onChange={(e) => formik?.setFieldValue("salePrice", e.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -82,6 +85,7 @@ function ProductRegisterCard({selectedRowData}) {
             value={formik?.values.category}
             error={formik?.errors.category}
             onChange={(e) => formik?.setFieldValue("category", e.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -89,6 +93,7 @@ function ProductRegisterCard({selectedRowData}) {
             value={formik?.values.unitOfMeasurement}
             error={formik?.errors.unitOfMeasurement}
             onChange={(e) => formik?.setFieldValue("unitOfMeasurement", e.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -99,10 +104,11 @@ function ProductRegisterCard({selectedRowData}) {
             value={formik?.values.description}
             error={formik?.errors.description}
             onChange={(e) => formik?.setFieldValue("description", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
-          <ImageField label="Imagem" />
+          <ImageField label="Imagem" disabled={readOnly}/>
         </MDBCol>
         <ContentDivisor title="Dimensões do produto" />
         <MDBCol>
@@ -113,6 +119,7 @@ function ProductRegisterCard({selectedRowData}) {
             value={formik?.values.weight}
             error={formik?.errors.weight}
             onChange={(e) => formik?.setFieldValue("weight", e.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -123,6 +130,7 @@ function ProductRegisterCard({selectedRowData}) {
             value={formik?.values.height}
             error={formik?.errors.height}
             onChange={(e) => formik?.setFieldValue("height", e.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -133,6 +141,7 @@ function ProductRegisterCard({selectedRowData}) {
             value={formik?.values.width}
             error={formik?.errors.width}
             onChange={(e) => formik?.setFieldValue("width", e.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -143,6 +152,7 @@ function ProductRegisterCard({selectedRowData}) {
             value={formik?.values.depth}
             error={formik?.errors.depth}
             onChange={(e) => formik?.setFieldValue("depth", e.value)}
+            disabled={readOnly}
           />
         </MDBCol>
       </RegisterPanel>

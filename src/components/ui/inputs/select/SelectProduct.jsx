@@ -23,6 +23,7 @@ function SelectProductCategory(props){
             value={props.value}
             error={props.error}
             onChange={props.onChange}
+            disabled={props.disabled}
         >
         </SelectWithFilter> 
     );
@@ -47,6 +48,7 @@ function SelectProductUnitOfMeasurement(props){
             value={props.value}
             error={props.error}
             onChange={props.onChange}
+            disabled={props.disabled}
         >
         </SelectWithFilter> 
     );

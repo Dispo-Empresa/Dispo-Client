@@ -8,7 +8,7 @@ import { AbstractFormContext } from './abstractFormContext';
 import validateProducts from "../../../pages/products/register/validate";
 
 const ProductContextProvider = ({ children }) => {
-  const { showAlert, openAlert, loading, setLoading, isNewRegister, setIsRegister, disableFields, setDisableFields } = useContext(AbstractFormContext);
+  const { showAlert, openAlert, loading, setLoading, isNewRegister, setIsNewRegister } = useContext(AbstractFormContext);
 
   const formik = useFormik({
     validateOnChange: false,
@@ -29,6 +29,7 @@ const ProductContextProvider = ({ children }) => {
     onSubmit: async (values) => {
       setLoading(true);
       var response = null;
+      
       if (isNewRegister)
         response = await post(ENDPOINTS.products.createProduct, values);
       else
@@ -53,7 +54,7 @@ const ProductContextProvider = ({ children }) => {
   };
 
   return (
-    <ProductFormikContext.Provider value={{ formik, showAlert, loading, handleBeforeSubmiting, setIsRegister, disableFields, setDisableFields }}>
+    <ProductFormikContext.Provider value={{ formik, showAlert, loading, handleBeforeSubmiting, setIsNewRegister }}>
       {children}
     </ProductFormikContext.Provider>
   );

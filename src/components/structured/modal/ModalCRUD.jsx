@@ -1,6 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import React, { useContext, useEffect } from 'react';
-import { AbstractFormContext } from "../../ui/context/abstractFormContext";
+import React, { useEffect } from 'react';
 
 import ModalDialog from "./ModalDialog";
 
@@ -27,23 +26,8 @@ function Render(props)
 
 function ModalCrud(props)
 {
-  const { setIsRegister, setDisableFields } = useContext(AbstractFormContext);
-
-  useEffect(() => 
-  { 
-    setDisableFields(true);
-  });
-  
   const handleOnCloseModal = () => {
-    setIsRegister(true);
-    setDisableFields(false);
     props.setShowModal(false);   
-  };
-
-  const handleSetIsRegister = (event) => {
-    event.preventDefault();
-    setDisableFields(false);
-    setIsRegister(false);   
   };
 
   return(       
@@ -52,29 +36,11 @@ function ModalCrud(props)
       open={props.isOpen} 
       onClose={handleOnCloseModal}
     >
-      <button
-        onClick={handleSetIsRegister}
-        style={{
-          backgroundColor: '#3498db', // Azul claro
-          color: 'white',
-          padding: '10px 20px', // Adicionado espaçamento interno horizontal
-          borderRadius: '8px',
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-          cursor: 'pointer',
-          border: 'none',
-          outline: 'none',
-          display: 'block', // Para centralizar
-          margin: 'auto', // Para centralizar
-        }}
-      >
-        Clique aqui para editar os registros
-      </button>
-
-        <Render selectedRowData={props.selectedRowData}>
-            <div id="modalCRUD">
-                {props.children}
-            </div> 
-        </Render>                           
+      <Render selectedRowData={props.selectedRowData}>
+          <div id="modalCRUD">
+              {props.children}
+          </div> 
+      </Render>                           
     </ModalDialog>                       
   );
 }

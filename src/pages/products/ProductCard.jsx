@@ -9,7 +9,7 @@ function ProductCard() {
     <div>
       <AbstractFormContextProvider>
         <ProductContextProvider>
-          <ProductRegisterCard />
+          <ProductRegisterCard isEdit={false}/>
         </ProductContextProvider>
       </AbstractFormContextProvider>
 

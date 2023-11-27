@@ -18,10 +18,21 @@ function ProductQueryCard() {
   //Configuração para o modal funcionar{
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
+  const [readOnly, setReadOnly] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
  
-  const openModal = (row) => {   
-    setSelectedRowData(row.data.id);
+  const viewProducts = (row) => {
+    setSelectedRowData(row.id);
     setIsModalOpen(true);
+    setReadOnly(true);
+    setIsEdit(false);
+  };
+
+  const editProducts = (row) => {
+    setSelectedRowData(row.id);
+    setIsModalOpen(true);
+    setReadOnly(false);
+    setIsEdit(true);
   };
   //Fim da configuração}
 
@@ -35,10 +46,6 @@ function ProductQueryCard() {
 
   const deleteTest = (row) => {
     alert("Deletando: " + row.id);
-  };
-
-  const viewTest = (row) => {
-    alert("Vendo: " + row.id);
   };
 
   return (
@@ -56,8 +63,8 @@ function ProductQueryCard() {
           setSelectedItens={setSelectedProducts}
           selectedItens={selectedProducts}
           onDeleteButton={deleteTest}
-          onViewButton={viewTest}
-          onRowClick={openModal}
+          onViewButton={viewProducts}
+          onEditButton={editProducts}
         />
       </ViewPanel> 
       
@@ -68,7 +75,12 @@ function ProductQueryCard() {
             setShowModal={setIsModalOpen}
             title="Produtos"
           >
-            <ProductRegisterCard selectedRowData={selectedRowData}></ProductRegisterCard>
+            <ProductRegisterCard 
+              selectedRowData={selectedRowData}
+              readOnly={readOnly}
+              isEdit={isEdit}
+            >
+            </ProductRegisterCard>
           </ModalCRUD>
         </ProductContextProvider>
       </AbstractFormContextProvider>         

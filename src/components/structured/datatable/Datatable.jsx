@@ -6,6 +6,7 @@ import ButtonGroup from "../../ui/buttons/group/ButtonGroup";
 import {
   QueryDataButton,
   DisableButton,
+  EditButton,
 } from "../../ui/buttons/icons/IconButton";
 
 function Datatable({
@@ -22,6 +23,7 @@ function Datatable({
   onSelectItensCallback,
   onDeleteButton,
   onViewButton,
+  onEditButton,
   fromApi,
   singleSelect,
   onRowClick
@@ -40,6 +42,15 @@ function Datatable({
             }}
           />
         ) : null}
+
+        {onEditButton ? (
+                  <EditButton
+                    onClick={() => {
+                      onEditButton(rowData);
+                    }}
+                  />
+                ) : null}
+
         {onDeleteButton ? (
           <DisableButton
             onClick={() => {

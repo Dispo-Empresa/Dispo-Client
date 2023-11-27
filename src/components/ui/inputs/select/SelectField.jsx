@@ -37,6 +37,7 @@ function SelectWithFilter(props) {
           borderColor: props.error && "red",
           width: props.width ?? "300px",
         }}
+        disabled={props.disabled}
       />
       <div>{props.error && <span className="errors">{props.error}</span>}</div>
     </div>
