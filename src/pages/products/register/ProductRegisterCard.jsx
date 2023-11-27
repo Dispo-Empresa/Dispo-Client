@@ -1,18 +1,42 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MDBCol } from "mdb-react-ui-kit";
 
 import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
 import ContentPage from "../../../layouts/content/ContentPage";
 import ContentDivisor from "../../../components/structured/divisor/ContentDivisor";
+import useFetch from "../../../hooks/useFetchApi";
+
 import { ImageField } from "../../../components/ui/inputs/image/ImageField";
 import { TextField } from "../../../components/ui/inputs/textfield/TextField";
 import { CurrencyField } from "../../../components/ui/inputs/currency/CurrencyField";
 import { TextArea } from "../../../components/ui/inputs/textarea/TextArea";
 import { SelectProductCategory, SelectProductUnitOfMeasurement } from "../../../components/ui/inputs/select/SelectProduct";
 import { ProductFormikContext } from "../../../components/ui/context/contextProduct";
+import { AbstractFormContext } from "../../../components/ui/context/abstractFormContext";
+import { ENDPOINTS } from "../../../utils/constants/endpoints";
 
-function ProductRegisterCard() {
-  const { formik, showAlert, loading, handleBeforeSubmiting } = useContext(ProductFormikContext);
+function ProductRegisterCard({selectedRowData}) {
+  const { formik, showAlert, loading, handleBeforeSubmiting, disableFields } = useContext(ProductFormikContext); //utilizado na edição
+  const { isNewRegister } = useContext(AbstractFormContext); //utilizado na edição
+  const { data } = useFetch(ENDPOINTS.products.get, selectedRowData ? selectedRowData : 0); //utilizado na edição
+
+  useEffect(() =>
+  {
+    //Aqui preenche o modal com as informações do produto que são pegas pelo endpoint
+    if (selectedRowData && data) {
+      formik?.setFieldValue("name", data.data.name);
+      formik?.setFieldValue("purchasePrice", data.data.purchasePrice);
+      formik?.setFieldValue("salePrice", data.data.salePrice);
+      formik?.setFieldValue("category", data.data.category);
+      formik?.setFieldValue("unitOfMeasurement", data.data.unitOfMeasurement);
+      formik?.setFieldValue("description", data.data.description);
+      formik?.setFieldValue("weight", data.data.weight);
+      formik?.setFieldValue("height", data.data.height);
+      formik?.setFieldValue("width", data.data.width);
+      formik?.setFieldValue("depth", data.data.depth);
+
+    } 
+  }, [selectedRowData, data, isNewRegister]); //utilizado na edição
 
   return (
     <ContentPage id="productRegister" title="Cadastro de Produto">
@@ -30,7 +54,8 @@ function ProductRegisterCard() {
             label="Nome do produto"
             value={formik?.values.name}
             error={formik?.errors.name}
-            onChange={(e) => formik.setFieldValue("name", e.target.value)}
+            onChange={(e) => formik?.setFieldValue("name", e.target.value)}
+            disabled={disableFields}
           />
         </MDBCol>
         <MDBCol>

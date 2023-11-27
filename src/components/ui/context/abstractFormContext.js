@@ -7,9 +7,10 @@ const AbstractFormContextProvider = ({ children }) => {
   const [showAlert, openAlert] = useAlertScheme();
   const [loading, setLoading] = useState(false);
   const [isNewRegister, setIsRegister] = useState(true);
+  const [disableFields, setDisableFields] = useState(false);
 
   return (
-    <AbstractFormContext.Provider value={{ showAlert, openAlert, loading, setLoading, isNewRegister, setIsRegister }}>
+    <AbstractFormContext.Provider value={{ showAlert, openAlert, loading, setLoading, isNewRegister, setIsRegister, disableFields, setDisableFields }}>
       {children}
     </AbstractFormContext.Provider>
   );

@@ -41,8 +41,6 @@ function ProductQueryCard() {
     alert("Vendo: " + row.id);
   };
 
-  console.log("ProductQueryCard card:");
-
   return (
     <ContentPage id="productView" title="Produtos">
       <ViewPanel refreshData={refetch}>
@@ -69,9 +67,8 @@ function ProductQueryCard() {
             isOpen={isModalOpen}
             setShowModal={setIsModalOpen}
             title="Produtos"
-            selectedRowData={selectedRowData}
           >
-            <ProductRegisterCard></ProductRegisterCard>
+            <ProductRegisterCard selectedRowData={selectedRowData}></ProductRegisterCard>
           </ModalCRUD>
         </ProductContextProvider>
       </AbstractFormContextProvider>         
