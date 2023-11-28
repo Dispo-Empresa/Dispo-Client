@@ -24,6 +24,7 @@ function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
   useEffect(() =>
   {
     if (selectedRowData && data) {
+      formik?.setFieldValue("id", data.data.id);
       formik?.setFieldValue("name", data.data.name);
       formik?.setFieldValue("purchasePrice", data.data.purchasePrice);
       formik?.setFieldValue("salePrice", data.data.salePrice);
@@ -118,8 +119,8 @@ function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
             type="number"
             value={formik?.values.weight}
             error={formik?.errors.weight}
-            onChange={(e) => formik?.setFieldValue("weight", e.value)}
-            disabled={readOnly}
+            onChange={(e) => formik?.setFieldValue("weight", e.target.value)}
+            disabled={true}
           />
         </MDBCol>
         <MDBCol>
@@ -129,8 +130,8 @@ function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
             type="number"
             value={formik?.values.height}
             error={formik?.errors.height}
-            onChange={(e) => formik?.setFieldValue("height", e.value)}
-            disabled={readOnly}
+            onChange={(e) => formik?.setFieldValue("height", e.target.value)}
+            disabled={true}
           />
         </MDBCol>
         <MDBCol>
@@ -140,8 +141,8 @@ function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
             type="number"
             value={formik?.values.width}
             error={formik?.errors.width}
-            onChange={(e) => formik?.setFieldValue("width", e.value)}
-            disabled={readOnly}
+            onChange={(e) => formik?.setFieldValue("width", e.target.value)}
+            disabled={true}
           />
         </MDBCol>
         <MDBCol>
@@ -151,8 +152,8 @@ function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
             type="number"
             value={formik?.values.depth}
             error={formik?.errors.depth}
-            onChange={(e) => formik?.setFieldValue("depth", e.value)}
-            disabled={readOnly}
+            onChange={(e) => formik?.setFieldValue("depth", e.target.value)}
+            disabled={true}
           />
         </MDBCol>
       </RegisterPanel>

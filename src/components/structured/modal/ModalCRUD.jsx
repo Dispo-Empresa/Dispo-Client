@@ -1,5 +1,7 @@
 import { createRoot } from 'react-dom/client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+
+import { AbstractFormContext } from '../../ui/context/abstractFormContext';
 
 import ModalDialog from "./ModalDialog";
 
@@ -26,7 +28,10 @@ function Render(props)
 
 function ModalCrud(props)
 {
+  const { openAlert } = useContext(AbstractFormContext)
+
   const handleOnCloseModal = () => {
+    openAlert(null);
     props.setShowModal(false);   
   };
 

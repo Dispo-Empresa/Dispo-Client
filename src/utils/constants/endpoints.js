@@ -34,6 +34,7 @@ const ENDPOINTS = {
     get: "products/{id}",
     getAll: "products",
     createProduct: "products",
+    updateProduct: "products/edit",
     getProductNames: "products/get-names",
     getWithActivePurschaseOrder: "products/get-with-active-pursche-orders",
     getProductsWithSalePrice: "products/get-with-saleprice",

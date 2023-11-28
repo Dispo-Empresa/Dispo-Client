@@ -13,6 +13,7 @@ const ProductContextProvider = ({ children }) => {
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
+      id : 0,
       name: "",
       description: "",
       image: null,
@@ -30,14 +31,19 @@ const ProductContextProvider = ({ children }) => {
       setLoading(true);
       var response = null;
       
+      console.log(values);
+
       if (isNewRegister)
         response = await post(ENDPOINTS.products.createProduct, values);
       else
-        response = {sucess: true, alertType: "error", message: "Editando produtos :), só que não, falta fazer API"};  
+        response = await post(ENDPOINTS.products.updateProduct, values); 
       
       if (response.success) {
         openAlert(response.alertType, response.message);
-        formik.resetForm();
+
+        if (isNewRegister)
+          formik.resetForm();
+
       } else {
         openAlert(response.alertType, "Erro", response.message);
       }
