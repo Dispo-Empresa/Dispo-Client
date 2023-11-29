@@ -1,0 +1,85 @@
+.container-email {
+    width: 110%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .container-email h1 {
+    font-size: 1em;
+  }
+  
+  .container-email .form-control {
+    width: 300px;
+    margin: 10px 0;
+  }
+
+
+.container-step2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .step2-title {
+    font-size: 1em;  
+  }
+  
+  .code-input-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .code-input {
+    width: 50px;
+    margin: 2px;
+    background: #ffffff;
+  }
+  
+  .resend-code {
+    margin-top: 10px;
+    font-size: 0.8em;
+    cursor: pointer;
+    color: blue;
+  }
+  
+  .expiry-message {
+    font-size: 1em;
+  }
+
+.container-step3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .step3-inputs {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .password-input {
+    width: 290px;
+    margin-top: -20px;
+    margin-right: 60px;
+  }
+  
+  .confirm-password-input {
+    width: 290px;
+    margin-top: 10px;
+  }
+  
+  .info-text {
+    font-size: 0.8em;
+    text-align: center;
+    margin-top: 80px;
+    max-width: 300px;
+  }
+  
+  .confirm-button {
+    margin-top: 5%;
+  }
+  
+  
+  

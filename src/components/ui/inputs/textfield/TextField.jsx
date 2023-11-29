@@ -22,6 +22,7 @@ function TextField(props) {
         onChange={props.onChange}
         onKeyDown={props.onKeyPress}
         placeholder={props.placeholder}
+        onBlur={props.onBlur}
         style={{
           borderColor: props.error && "red",
           width: props.width ?? "300px",

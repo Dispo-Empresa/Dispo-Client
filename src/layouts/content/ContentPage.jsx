@@ -11,6 +11,7 @@ function ContentPage(props) {
 
   return (
     <Card
+      className={props.className}
       id={props.id}
       style={{
         height: collapsed && "75px",

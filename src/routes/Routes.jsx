@@ -18,6 +18,7 @@ import ManufacturerCard from "../pages/manufacturers/ManufacturerCard";
 import PurchaseOrderFormCard from "../pages/purchase-order/register/PurchaseOrderFormCard";
 import PurchaseOrderAttachmentFormCard from "../pages/purchase-order/attachment/PurchaseOrderAttachmentFormCard";
 import WarehouseCard from "../pages/warehouses/WarehouseCard";
+import ForgotpasswordCard from "../pages/login/forgot-password/ForgotPasswordCard"
 import { roles } from "../utils/constants/constants";
 
 function RouteController({ children, allowedRoles }) {
@@ -61,6 +62,14 @@ function RoutesConfiguration() {
           element={
             <RouteController>
               <SignInCard />
+            </RouteController>
+          }
+        />
+        <Route
+          path="/login/forgotmypassword"
+          element={
+            <RouteController>
+              <ForgotpasswordCard />
             </RouteController>
           }
         />
