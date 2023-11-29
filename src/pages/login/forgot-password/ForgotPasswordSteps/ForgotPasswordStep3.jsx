@@ -80,6 +80,8 @@ function ForgotPasswordStep3(props) {
     return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
   };
 
+  // apagar
+
   const onConfirmar = () => {
     navigate("/login/signin");
   };
