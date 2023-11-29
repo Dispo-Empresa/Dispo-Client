@@ -1,76 +1,49 @@
-import { useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { MDBCol } from "mdb-react-ui-kit";
-import { useFormik } from "formik";
 
-import useAlertScheme from "../../../hooks/alert/useAlertScheme";
-import ContentPage from "../../../layouts/content/ContentPage";
-import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
-import validateManufacturers from "./validate";
 import { TextField } from "../../../components/ui/inputs/textfield/TextField";
 import { ImageField } from "../../../components/ui/inputs/image/ImageField";
+import { ManufacturerFormikContext } from "../../../components/ui/context/manufacturerContext";
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
-import { post } from "../../../services/httpMethods";
 
-function ManufacturerRegisterCard() {
-  const [showAlert, openAlert] = useAlertScheme();
-  const [loading, setLoading] = useState(false);
+import ContentPage from "../../../layouts/content/ContentPage";
+import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
+import useFetch from "../../../hooks/useFetchApi";
+
+function ManufacturerRegisterCard({selectedRowData, readOnly, isEdit}) {
   const [manufacturerLogo, setManufacturerLogo] = useState(null);
 
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      logo: null,
-    },
-    validationSchema: validateManufacturers,
-    validateOnChange: false,
-    onSubmit: async (values) => {
-      setLoading(true);
+  const { formik, showAlert, loading, handleBeforeSubmiting, isNewRegister, setIsNewRegister } = useContext(ManufacturerFormikContext); 
 
-      const formDataValues = new FormData();
-      formDataValues.append("Name", values.name);
-      formDataValues.append("Logo", manufacturerLogo);
+  const { data } = useFetch(ENDPOINTS.manufacturers.get, selectedRowData ? selectedRowData : 0);
 
-      var response = await post(
-        ENDPOINTS.manufacturers.createManufacturer,
-        formDataValues,
-        "multipart/form-data"
-      );
+  setIsNewRegister(!isEdit);
 
-      if (response.success) {
-        openAlert(response.alertType, response.message);
-
-        setManufacturerLogo(null);
-        formik.resetForm();
-      } else {
-        openAlert(response.alertType, "Erro", response.message);
-      }
-
-      setLoading(false);
-    },
-  });
-
-  const handleBeforeSubmiting = () => {
-    if (formik.errors) {
-      openAlert("error", "Existem campos com erro, por favor verifique!");
-      return;
-    }
-  };
+  useEffect(() =>
+  {
+    if (selectedRowData && data) {
+      formik?.setFieldValue("id", data.data.id);
+      formik?.setFieldValue("name", data.data.name);
+    } 
+  }, [selectedRowData, data, isNewRegister]);
 
   return (
     <ContentPage title="Cadastro de Fabricantes">
       <RegisterPanel
         alertPanel={showAlert}
-        onSubmit={formik.handleSubmit}
+        onSubmit={formik?.handleSubmit}
         onSave={handleBeforeSubmiting}
         loading={loading}
+        hideSaveButton={readOnly}
       >
         <MDBCol>
           <TextField
             required
             label="Nome do fabricante"
-            value={formik.values.name}
-            error={formik.errors.name}
-            onChange={(e) => formik.setFieldValue("name", e.target.value)}
+            value={formik?.values.name}
+            error={formik?.errors.name}
+            onChange={(e) => formik?.setFieldValue("name", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -78,6 +51,7 @@ function ManufacturerRegisterCard() {
             label="Logo"
             value={manufacturerLogo}
             onChange={setManufacturerLogo}
+            disabled={readOnly}
           />
         </MDBCol>
       </RegisterPanel>

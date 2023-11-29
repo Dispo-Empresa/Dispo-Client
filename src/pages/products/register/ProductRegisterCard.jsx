@@ -120,7 +120,7 @@ function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
             value={formik?.values.weight}
             error={formik?.errors.weight}
             onChange={(e) => formik?.setFieldValue("weight", e.target.value)}
-            disabled={true}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -131,7 +131,7 @@ function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
             value={formik?.values.height}
             error={formik?.errors.height}
             onChange={(e) => formik?.setFieldValue("height", e.target.value)}
-            disabled={true}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -142,7 +142,7 @@ function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
             value={formik?.values.width}
             error={formik?.errors.width}
             onChange={(e) => formik?.setFieldValue("width", e.target.value)}
-            disabled={true}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -153,7 +153,7 @@ function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
             value={formik?.values.depth}
             error={formik?.errors.depth}
             onChange={(e) => formik?.setFieldValue("depth", e.target.value)}
-            disabled={true}
+            disabled={readOnly}
           />
         </MDBCol>
       </RegisterPanel>

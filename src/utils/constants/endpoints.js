@@ -47,7 +47,9 @@ const ENDPOINTS = {
 
   manufacturers: {
     getAll: "manufacturers",
-    createManufacturer: "manufacturers"
+    get: "manufacturers/{id}",
+    createManufacturer: "manufacturers",
+    updateManufacturer: "manufacturers/edit"
   },
 
   suppliers: {
