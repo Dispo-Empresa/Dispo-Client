@@ -23,9 +23,9 @@ const ManufacturerContextProvider = ({ children }) => {
       var response = null;
 
       if (isNewRegister)
-        response = await post(ENDPOINTS.manufacturers.createManufacturer, values);
+        response = await post(ENDPOINTS.manufacturers.createManufacturer, values, "multipart/form-data");
       else
-        response = await post(ENDPOINTS.manufacturers.updateManufacturer, values); 
+        response = await post(ENDPOINTS.manufacturers.updateManufacturer, values, "multipart/form-data"); 
       
       if (response.success) {
         openAlert(response.alertType, response.message);

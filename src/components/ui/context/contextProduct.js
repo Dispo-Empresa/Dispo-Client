@@ -30,13 +30,11 @@ const ProductContextProvider = ({ children }) => {
     onSubmit: async (values) => {
       setLoading(true);
       var response = null;
-      
-      console.log(values);
 
       if (isNewRegister)
-        response = await post(ENDPOINTS.products.createProduct, values);
+        response = await post(ENDPOINTS.products.createProduct, values, "multipart/form-data");
       else
-        response = await post(ENDPOINTS.products.updateProduct, values); 
+        response = await post(ENDPOINTS.products.updateProduct, values, "multipart/form-data"); 
       
       if (response.success) {
         openAlert(response.alertType, response.message);
