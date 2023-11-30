@@ -6,40 +6,47 @@ function ForgotPasswordStep1(props) {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
 
+  const validateEmail = (input) => {
+    if (!input) {
+      return 'Campo obrigatório';
+    } else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(input)) {
+      return 'Email inválido';
+    }
+    return '';
+  };
+
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
   const handleEmailBlur = () => {
-    // Verificar se o e-mail atende aos critérios desejados, por exemplo, não está vazio
+    // Validar o e-mail
+    const error = validateEmail(email);
+    setEmailError(error);
 
-    if(1 == 1){
-      setEmailError("Email inválido, blabla");
-    }
-
-    if (email.trim() !== '') {
+    if (!error) {
+      // Se não houver erro, avance para o próximo passo
       props.timerInicialized(true);
-      props.nextStep(); // Avançar para o próximo passo
+      props.nextStep();
     }
-    // Adicione outras verificações conforme necessário
   };
 
   return (
     <StepLayout {...props} onNextStep={handleEmailBlur}>
       <div className="container-email">
-      <h1 style={{ fontSize: '1em' }}>
-        Redefina sua senha em apenas 3 etapas!
-      </h1>
-      <TextField
-        type="email"
-        placeholder='E-mail'
-        className="form-control classic"
-        value={email}
-        onChange={handleEmailChange}
-        onBlur={handleEmailBlur}
-        error={emailError}
-      />
-    </div>   
+        <h1 style={{ fontSize: '1em' }}>
+          Redefina sua senha em apenas 3 etapas!
+        </h1>
+        <TextField
+          type="email"
+          placeholder='E-mail'
+          className="form-control classic"
+          value={email}
+          onChange={handleEmailChange}
+          onBlur={handleEmailBlur}
+          error={emailError}
+        />
+      </div>
     </StepLayout>
   );
 }

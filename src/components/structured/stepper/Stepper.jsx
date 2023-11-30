@@ -70,7 +70,7 @@ function StepLayout(props) {
 
       
 
-        {props.currentStep > 1 && !props.hideButtons && (
+        {props.currentStep > 1 && !props.hideButtonsBack && (
           <button onClick={handleBack} className="button-stepper">
             <ArrowBackIosNewIcon style={{ fontSize: "50px" }} />
           </button>
@@ -78,7 +78,7 @@ function StepLayout(props) {
         <div className="multistep-content">
           <MDBContainer>{props.children}</MDBContainer>
         </div>
-        {(props.currentStep < props.totalSteps && !props.hideButtons) && (
+        {(props.currentStep < props.totalSteps && !props.hideButtonsFront) && (
           <button type="submit" onClick={handleNext} className="button-stepper">
             <ArrowForwardIosIcon style={{ fontSize: "50px" }} />
           </button>

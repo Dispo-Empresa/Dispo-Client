@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-import { TextField } from '../../../../components/ui/inputs/textfield/TextField';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Divider } from 'primereact/divider';
-import { Password } from 'primereact/password';
 
+import { PasswordField } from '../../../../components/ui/inputs/passwordfield/PasswordField';
 import { StepLayout } from '../../../../components/structured/stepper/Stepper';
 import Button from "../../../../components/ui/buttons/classic/Button";
 
@@ -20,27 +19,16 @@ function ForgotPasswordStep3(props) {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(300); // 300 segundos = 5 minutos
   const [value, setValue] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  let navigate = useNavigate();
+  
   const [suggestionsCompleted, setSuggestionsCompleted] = useState({
     lowercase: false,
     uppercase: false,
     numeric: false,
     minLength: false
   });
-  let navigate = useNavigate();
 
-  const header = <div className="font-bold mb-3">Escolha uma senha</div>;
-  const footer = (
-    <>
-      <Divider />
-      <p className="mt-2">Sugestões</p>
-      <ul className="pl-2 ml-2 mt-0 line-height-3">
-        <li style={{ textDecoration: suggestionsCompleted.lowercase ? 'line-through' : 'none' }}>Pelo menos uma letra minúscula</li>
-        <li style={{ textDecoration: suggestionsCompleted.uppercase ? 'line-through' : 'none' }}>Pelo menos uma letra maiúscula</li>
-        <li style={{ textDecoration: suggestionsCompleted.numeric ? 'line-through' : 'none' }}>Pelo menos um número</li>
-        <li style={{ textDecoration: suggestionsCompleted.minLength ? 'line-through' : 'none' }}>Mínimo de 8 caracteres</li>
-      </ul>
-    </>
-  );
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -82,25 +70,46 @@ function ForgotPasswordStep3(props) {
 
   // apagar
 
-  const onConfirmar = () => {
-    navigate("/login/signin");
+  const validatePassword = (input, confirmPassword) => {
+    if (!input) {
+      return 'Campo obrigatório';
+    } else if (!/^\S*$/.test(input)) {
+      return 'A senha não pode conter espaços em branco';
+    } else if (!/(?=.*[a-z])/.test(input)) {
+      return 'Pelo menos uma letra minúscula é necessária';
+    } else if (!/(?=.*[A-Z])/.test(input)) {
+      return 'Pelo menos uma letra maiúscula é necessária';
+    } else if (!/(?=.*\d)/.test(input)) {
+      return 'Pelo menos um número é necessário';
+    } else if (input.length < 8) {
+      return 'Mínimo de 8 caracteres é necessário';
+    }else if (password != confirmPassword)
+      return 'As senha precisam ser iguais'
+    return '';
   };
 
+  const onConfirmar = () => {
+    const passwordError = validatePassword(password, confirmPassword);
+    setPasswordError(passwordError);
+
+    if (!passwordError && password === confirmPassword) {
+      navigate("/login/signin");
+    } else {
+      // Adicione lógica para lidar com senhas não coincidentes
+    }
+  };
+
+
   return (
-    <StepLayout {...props}>
+    <StepLayout {...props} hideButtonsBack>
       <div className="container-step3">
         <div className="step3-inputs">
-          <Password
+          <PasswordField
             type={showPassword ? 'text' : 'text'}
-            header={header}
-            weakLabel="Fraca"
-            mediumLabel="Media"
-            strongLabel="Forte"
-            footer={footer}
             toggleMask
             placeholder='Nova Senha'
             style={{
-              marginTop: "-20px",
+              marginTop: "-20px"
             }}
             onChange={(e) => {
               handlePasswordChange(e);
@@ -117,12 +126,10 @@ function ForgotPasswordStep3(props) {
               ),
             }}
           />
-          <Password
+          <PasswordField
             type={showConfirmPassword ? 'text' : 'password'}
             placeholder="Confirmar Senha"
             toggleMask
-            header={header}
-            footer={footer}
             style={{
               marginTop: "10px"
             }}

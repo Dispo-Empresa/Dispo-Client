@@ -67,7 +67,7 @@ function ForgotPasswordStep2(props) {
   const inputRefs = Array.from({ length: 6 }, () => React.createRef());
 
   return (
-    <StepLayout {...props} onNextStep={EmailCodeChecker}>
+    <StepLayout {...props} hideButtonsBack onNextStep={EmailCodeChecker} >
       <div className="container-step2">
         <h1 className="step2-title">
           Código de recuperação enviado para o seu e-mail.
