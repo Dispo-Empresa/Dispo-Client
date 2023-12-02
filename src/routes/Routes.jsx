@@ -15,7 +15,7 @@ import NotAuthorized from "../pages/not-found/NotAuthorized";
 import ProductEntryMovimentation from "../pages/movimentation/entry/ProductEntryMovimentation";
 import ProductExitMovimentation from "../pages/movimentation/exit/ProductExitMovimentation";
 import ManufacturerCard from "../pages/manufacturers/ManufacturerCard";
-import PurchaseOrderFormCard from "../pages/purchase-order/register/PurchaseOrderFormCard";
+import PurchaseOrderCard from "../pages/purchase-order/PurchaseOrderCard";
 import PurchaseOrderAttachmentFormCard from "../pages/purchase-order/attachment/PurchaseOrderAttachmentFormCard";
 import WarehouseCard from "../pages/warehouses/WarehouseCard";
 import { roles } from "../utils/constants/constants";
@@ -95,7 +95,7 @@ function RoutesConfiguration() {
             <RouteController
               allowedRoles={[roles.Manager, roles.PurchasingManager]}
             >
-              <PurchaseOrderFormCard />
+              <PurchaseOrderCard />
             </RouteController>
           }
         />

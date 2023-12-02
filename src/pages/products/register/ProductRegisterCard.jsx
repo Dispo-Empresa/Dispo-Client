@@ -15,8 +15,7 @@ import { ProductFormikContext } from "../../../components/ui/context/contextProd
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
 
 function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
-  const { formik, showAlert, loading, handleBeforeSubmiting } = useContext(ProductFormikContext); 
-  const { isNewRegister, setIsNewRegister } = useContext(ProductFormikContext); 
+  const { formik, showAlert, loading, handleBeforeSubmiting, isNewRegister, setIsNewRegister } = useContext(ProductFormikContext); 
   const { data } = useFetch(ENDPOINTS.products.get, selectedRowData ? selectedRowData : 0);
 
   setIsNewRegister(!isEdit);

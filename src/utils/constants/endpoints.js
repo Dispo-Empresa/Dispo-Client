@@ -54,7 +54,9 @@ const ENDPOINTS = {
 
   suppliers: {
     getAll: "suppliers",
-    createSupplier: "suppliers"
+    get: "suppliers/{id}",
+    createSupplier: "suppliers",
+    updateSupplier: "suppliers/edit"
   },
 
   warehouses: {
@@ -74,7 +76,8 @@ const ENDPOINTS = {
 
   purchaseorder:{
     createPurchaseOrder: "purchase-orders",
-    getByProduct: "purchase-orders/get-by-product/{productId}"
+    getByProduct: "purchase-orders/get-by-product/{productId}",
+    getAll: "purchase-orders"
   }
 };
 
