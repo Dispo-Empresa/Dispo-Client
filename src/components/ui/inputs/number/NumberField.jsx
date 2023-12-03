@@ -19,6 +19,7 @@ function NumberField(props) {
       <InputNumber
         disabled={props.disabled}
         inputClassName={classNames({ "p-invalid": props.error })}
+        className="form-control"
         value={props.value}
         onValueChange={props.onChange}
         style={{

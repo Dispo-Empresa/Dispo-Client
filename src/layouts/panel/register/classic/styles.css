@@ -1,8 +1,14 @@
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
 .title {
   font-family: sans-serif;
   font-size: 18px;
   color: #029DBE;
   font-weight: bold;
+  margin-top: 5px;
 }
 
 .buttons {

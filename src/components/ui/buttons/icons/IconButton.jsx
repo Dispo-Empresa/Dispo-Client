@@ -33,6 +33,23 @@ function GenericButton(props) {
   );
 }
 
+function GenericDatabaseButton(props) {
+  return (
+    <Tooltip title={props.title}>
+      <Button
+        onClick={props.onClick}
+        className="datatable-button"
+        style={{
+          backgroundColor: props.color ?? COLORS.SecondColor,
+          color: COLORS.DetailsColor,
+        }}
+      >
+        {props.icon ?? props.title}
+      </Button>
+    </Tooltip>
+  );
+}
+
 function CollapseButton(props) {
   return (
     <Tooltip title={props.title}>
@@ -45,9 +62,9 @@ function CollapseButton(props) {
         }}
       >
         {props.collapsed ? (
-          <KeyboardDoubleArrowUpIcon />
-        ) : (
           <KeyboardDoubleArrowDownIcon />
+        ) : (
+          <KeyboardDoubleArrowUpIcon />
         )}
       </Button>
     </Tooltip>
@@ -186,6 +203,7 @@ function ExportButton(props) {
 
 export {
   GenericButton,
+  GenericDatabaseButton,
   CollapseButton,
   SaveButton,
   QueryDataButton,

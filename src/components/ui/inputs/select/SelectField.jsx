@@ -34,6 +34,7 @@ function SelectWithFilter(props) {
         style={{
           borderColor: props.error && "red",
           width: props.width ?? "300px",
+          fontSize: "15px",
         }}
       />
       <div>{props.error && <span className="errors">{props.error}</span>}</div>
@@ -63,6 +64,7 @@ function MultiSelect(props) {
         style={{
           borderColor: props.error && "red",
           width: props.width ?? "500px",
+          fontSize: "15px",
         }}
       />
       <div>{props.error && <span className="errors">{props.error}</span>}</div>

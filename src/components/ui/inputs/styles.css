@@ -1,12 +1,12 @@
 .container--label {
   display: flex;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 .label {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .container--indicators {
@@ -17,4 +17,8 @@
 .errors {
   color: #FF0000;
   font-size: 13px;
+}
+
+.form-control {
+  font-size: 15px !important;
 }

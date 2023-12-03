@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ToggleOnIcon from "@mui/icons-material/ToggleOn";
 
 import useFetch from "../../../hooks/useFetchApi";
 import Datatable from "../../../components/structured/datatable/Datatable";
@@ -6,7 +7,7 @@ import ContentPage from "../../../layouts/content/ContentPage";
 import ButtonGroup from "../../../components/ui/buttons/group/ButtonGroup";
 import ViewPanel from "../../../layouts/panel/view/ViewPanel";
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
-import { QueryDataButton } from "../../../components/ui/buttons/icons/IconButton";
+import { GenericDatabaseButton } from "../../../components/ui/buttons/icons/IconButton";
 
 function ProductQueryCard() {
   const [selectedProducts, setSelectedProducts] = useState(null);
@@ -23,10 +24,11 @@ function ProductQueryCard() {
   const customButtons = (row) => {
     return (
       <ButtonGroup>
-        <QueryDataButton
-          onClick={() => {
-            alert(row.id);
-          }}
+        <GenericDatabaseButton
+          color="#4EB254"
+          icon={<ToggleOnIcon />}
+          title="Habilitar ordem de compra automática"
+          onClick={() => {}}
         />
       </ButtonGroup>
     );
@@ -51,7 +53,7 @@ function ProductQueryCard() {
           columns={columns}
           data={data}
           loading={loading}
-          //customButtons={customButtons}
+          customButtons={customButtons}
           setSelectedItens={setSelectedProducts}
           selectedItens={selectedProducts}
           onDeleteButton={deleteTest}
