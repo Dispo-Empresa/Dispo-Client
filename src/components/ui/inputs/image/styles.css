@@ -4,18 +4,12 @@
     z-index: 1;
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
-    display: block;
     padding: 0.375rem 0.75rem;
-    font-size: 1rem;
+    font-size: 15px;
     font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    background-color: #fff;
-    background-clip: padding-box;
     border: 1px solid #ced4da;
-    appearance: none;
     border-radius: 0.375rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: transparent;
 }
 
 .clear-image {
@@ -27,7 +21,7 @@
     font-size: 15px;
     font-weight: 400;
     border: 1px solid;
-    border-radius: 0.375rem;
+    border-radius: 5px;
     margin-left: -50px;
     z-index: 1;
 }

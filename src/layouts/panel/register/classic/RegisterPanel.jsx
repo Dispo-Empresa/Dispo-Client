@@ -41,16 +41,18 @@ function RegisterPanel({
             />
           )}
         </div>
-        <label className="title">{title}</label>
-        <div className="buttons">
-          {buttons}
-          {hideSaveButton ? (
-            ""
-          ) : (
-            <SaveButton type="submit" onClick={onSave} loading={loading} />
-          )}
+        <div className="content">
+          <label className="title">{title}</label>
+          <div className="buttons">
+            {buttons}
+            {hideSaveButton ? (
+              ""
+            ) : (
+              <SaveButton type="submit" onClick={onSave} loading={loading} />
+            )}
+          </div>
         </div>
-        <hr style={{ marginBottom: "50px", width: "100%" }} />
+        <hr style={{ marginBottom: "30px", marginTop: "5px", width: "100%" }} />
         <MDBRow className="g-5">{children}</MDBRow>
       </form>
     </div>

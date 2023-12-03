@@ -1,50 +1,43 @@
-import { useState } from "react";
-import { Card, CardContent } from "@material-ui/core";
-
-import { COLORS } from "../../themes/colors";
+import { Card } from "@material-ui/core";
+import { Panel } from "primereact/panel";
 import { CollapseButton } from "../../components/ui/buttons/icons/IconButton";
 
 import "./styles.css";
 
 function ContentPage(props) {
-  const [collapsed, setCollapsed] = useState(false);
+  const template = (options) => {
+    return (
+      <div className="card-content">
+        <label className="card-title">{props.title}</label>
+        <div className="card-buttons">
+          {props.buttons}
+          <CollapseButton
+            collapsed={options.collapsed}
+            onClick={options.onTogglerClick}
+          />
+        </div>
+      </div>
+    );
+  };
 
   return (
     <Card
       id={props.id}
       style={{
-        height: collapsed && "75px",
-        minHeight: !collapsed && "350px",
-        marginBottom: "32px",
+        marginBottom: "30px",
         borderRadius: "10px",
         maxWidth: "100%",
-        boxShadow: "0px 0.2px 0px",
-        border: "1px solid #ffff",
       }}
     >
-      <CardContent>
-        <div className="card-content">
-          <div>
-            <label
-              className="card-title"
-              style={{
-                color: COLORS.SecondColor,
-              }}
-            >
-              {props.title}
-            </label>
-          </div>
-          <div className="card-buttons">
-            {!collapsed && props.buttons}
-            <CollapseButton
-              collapsed={collapsed}
-              onClick={() => setCollapsed(!collapsed)}
-            />
-          </div>
-        </div>
-        {collapsed || (!props.dividerOff && <hr />)}
+      <Panel
+        id={props.id}
+        headerTemplate={template}
+        toggleable
+        collapsed={props.defaultCollapsed}
+      >
+        <hr style={{ marginTop: "-20px" }} />
         <div className="content-children">{props.children}</div>
-      </CardContent>
+      </Panel>
     </Card>
   );
 }

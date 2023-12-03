@@ -15,6 +15,9 @@ import { SelectWithFilter } from "../../../components/ui/inputs/select/SelectFie
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
 import { post } from "../../../services/httpMethods";
 
+import { QueryDataButton } from "../../../components/ui/buttons/icons/IconButton";
+import { useTour } from "@reactour/tour";
+
 const categoryTypes = [
   { value: 0, label: "Alimentação" },
   { value: 1, label: "Bebidas" },
@@ -43,6 +46,8 @@ function ProductRegisterCard() {
   const [showAlert, openAlert] = useAlertScheme();
   const [loading, setLoading] = useState(false);
   const [productImage, setProductImage] = useState(null);
+
+  const { setIsOpen } = useTour();
 
   const formik = useFormik({
     initialValues: {

@@ -1,12 +1,14 @@
 .card-content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
 }
 
 .content-children {
     margin-bottom: 3%;
-    margin-top: 3%;
 }
 
 .card-title {
@@ -16,7 +18,5 @@
 
 .card-buttons {
     display: flex;
-    justify-content: center;
-    align-items: center;
     gap: 10px;
 }

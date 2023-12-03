@@ -26,8 +26,8 @@ const ENDPOINTS = {
   },
 
   userAccount: {
-    updateUserAccountInfo: "user/{id}",
-    getAllUserInfo: "user/id={id}",
+    updateUserAccountInfo: "user-account/{id}",
+    getAllUserInfo: "user-account/id={id}",
   },
 
   products: {
