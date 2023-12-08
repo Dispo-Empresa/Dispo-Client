@@ -22,6 +22,7 @@ function ContentPage(props) {
 
   return (
     <Card
+      className={props.className}
       id={props.id}
       style={{
         marginBottom: "30px",

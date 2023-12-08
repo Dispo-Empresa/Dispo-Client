@@ -1,33 +1,36 @@
-export default function ForgotPassword() {
-  //const [emailRequest, setEmailRequest] = useState("");
-  //const [goToResetPassword, setGoToResetPassword] = useState(false);
-  //const [accountId, setAccountId] = useState("");
-  //
-  //if (goToResetPassword && accountId !== ""){
-  //  var urlWithAccountId = "/login/emailCodeResetPassword/accountId=" + accountId;  // Validar a possibilidade de melhorar isso
-  //  return <Navigate to={urlWithAccountId} />
-  //}
-  //
-  //const SendResetPasswordCodeEmail = () => {
-  //
-  //  setLocalStorage("emailInputed", emailRequest);
-  //  setGoToResetPassword(true);
-  //}
-  //
-  //return (
-  //  <Grid backgroundColor={COLORS.SecondColor}>
-  //    <Box sx={{ width: "950px", height: "500px" }}>
-  //      <Typography variant="h3" color={COLORS.PrimaryColor} textAlign="center" paddingTop="35" text="Redefina sua senha" />
-  //      <Typography variant="h6" color={COLORS.PrimaryColor} textAlign="center" paddingTop="35"
-  //        text="Informe seu Email e vamos enviar um código de 6 dígitos para que você possa refazer sua senha." />
-  //      <Box textAlign="center">
-  //        <TextField label="Informe seu Email" variant="outlined" type="email" placeholder="name@example.com"
-  //                   width="600px" onChange={(value)=> setEmailRequest(value.target.value)} />
-  //      </Box>
-  //      <Box textAlign="center">
-  //        <DefaultButton onClick={SendResetPasswordCodeEmail} backgroundColor={COLORS.PrimaryColor} title="Enviar Código" />
-  //      </Box>
-  //    </Box>
-  //  </Grid>
-  //);
+import React, { useState } from 'react';
+import { Card, CardContent } from "@material-ui/core";
+import { Stepper } from "../../../components/structured/stepper/Stepper";
+import ContentPage from '../../../layouts/content/ContentPage';
+import ForgotPasswordStep1 from './ForgotPasswordSteps/ForgotPasswordStep1';
+import ForgotPasswordStep2 from './ForgotPasswordSteps/ForgotPasswordStep2';
+import ForgotPasswordStep3 from './ForgotPasswordSteps/ForgotPasswordStep3';
+import "./style.css";
+
+function ForgotPassword() {
+  const steps = ["E-mail", "Codigo de confirmação", "Redefinir senha"];
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const [isTimerInicialized, setIsTimerInicialized] = useState(false);
+
+  return (
+    <div className="body--login">
+      <Card className="card--login" >
+        <CardContent>
+        <label className="title--login">Redefinir senha</label>
+          <div className="content-children">
+            <Stepper steps={steps} activeStep={currentStep} >
+              <ForgotPasswordStep1 timerInicialized={setIsTimerInicialized} />
+              <ForgotPasswordStep2 timerInicialStarted={isTimerInicialized} />
+              <ForgotPasswordStep3 />
+            </Stepper>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+  
+  
 }
+
+export default ForgotPassword;
