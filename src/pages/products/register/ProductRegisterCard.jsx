@@ -1,222 +1,162 @@
-import { useState } from "react";
+import { useContext, useEffect } from "react";
 import { MDBCol } from "mdb-react-ui-kit";
-import { useFormik } from "formik";
 
 import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
-import useAlertScheme from "../../../hooks/alert/useAlertScheme";
 import ContentPage from "../../../layouts/content/ContentPage";
 import ContentDivisor from "../../../components/structured/divisor/ContentDivisor";
-import validateProducts from "./validate";
+import useFetch from "../../../hooks/useFetchApi";
+
 import { ImageField } from "../../../components/ui/inputs/image/ImageField";
 import { TextField } from "../../../components/ui/inputs/textfield/TextField";
 import { CurrencyField } from "../../../components/ui/inputs/currency/CurrencyField";
 import { TextArea } from "../../../components/ui/inputs/textarea/TextArea";
-import { SelectWithFilter } from "../../../components/ui/inputs/select/SelectField";
+import { SelectProductCategory, SelectProductUnitOfMeasurement } from "../../../components/ui/inputs/select/SelectProduct";
+import { ProductFormikContext } from "../../../components/ui/context/contextProduct";
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
 import { post } from "../../../services/httpMethods";
 
 import { QueryDataButton } from "../../../components/ui/buttons/icons/IconButton";
 import { useTour } from "@reactour/tour";
 
-const categoryTypes = [
-  { value: 0, label: "Alimentação" },
-  { value: 1, label: "Bebidas" },
-  { value: 2, label: "Vestuário" },
-  { value: 3, label: "Esporte" },
-  { value: 4, label: "Cosmético" },
-  { value: 5, label: "Livros" },
-  { value: 6, label: "Eletrônico" },
-  { value: 7, label: "Video Games" },
-  { value: 8, label: "Presentes" },
-  { value: 9, label: "Informática" },
-  { value: 10, label: "Outros" },
-];
+function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
+  const { formik, showAlert, loading, handleBeforeSubmiting, isNewRegister, setIsNewRegister } = useContext(ProductFormikContext); 
+  const { data } = useFetch(ENDPOINTS.products.get, selectedRowData ? selectedRowData : 0);
 
-const unitOfMeasurementTypes = [
-  { value: 0, label: "KG (Kilograma)" },
-  { value: 1, label: "G (Grama)" },
-  { value: 2, label: "L (Litro)" },
-  { value: 3, label: "ML (Mililitro)" },
-  { value: 4, label: "M (Metro)" },
-  { value: 5, label: "CM  (Centímetro)" },
-  { value: 6, label: "Outros" },
-];
+  setIsNewRegister(!isEdit);
 
-function ProductRegisterCard() {
-  const [showAlert, openAlert] = useAlertScheme();
-  const [loading, setLoading] = useState(false);
-  const [productImage, setProductImage] = useState(null);
+  useEffect(() =>
+  {
+    if (selectedRowData && data) {
+      formik?.setFieldValue("id", data.data.id);
+      formik?.setFieldValue("name", data.data.name);
+      formik?.setFieldValue("purchasePrice", data.data.purchasePrice);
+      formik?.setFieldValue("salePrice", data.data.salePrice);
+      formik?.setFieldValue("category", data.data.category);
+      formik?.setFieldValue("unitOfMeasurement", data.data.unitOfMeasurement);
+      formik?.setFieldValue("description", data.data.description);
+      formik?.setFieldValue("weight", data.data.weight);
+      formik?.setFieldValue("height", data.data.height);
+      formik?.setFieldValue("width", data.data.width);
+      formik?.setFieldValue("depth", data.data.depth);
 
-  const { setIsOpen } = useTour();
-
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      description: "",
-      image: null,
-      purchasePrice: null,
-      salePrice: null,
-      category: null,
-      unitOfMeasurement: null,
-
-      // dimension
-      weight: null,
-      height: null,
-      width: null,
-      depth: null,
-    },
-    validationSchema: validateProducts,
-    validateOnChange: false,
-    onSubmit: async (values) => {
-      setLoading(true);
-
-      const formDataValues = new FormData(); // criar um padrão para usar isso de forma mais resumida?
-      formDataValues.append("Name", values.name);
-      formDataValues.append("Description", values.description);
-      formDataValues.append("Image", productImage);
-      formDataValues.append("PurchasePrice", values.purchasePrice);
-      formDataValues.append("SalePrice", values.salePrice);
-      formDataValues.append("Category", values.category);
-      formDataValues.append("UnitOfMeasurement", values.unitOfMeasurement);
-      formDataValues.append("Weight", values.weight ?? 0);
-      formDataValues.append("Height", values.height ?? 0);
-      formDataValues.append("Width", values.width ?? 0);
-      formDataValues.append("Depth", values.depth ?? 0);
-
-      var response = await post(
-        ENDPOINTS.products.createProduct,
-        formDataValues,
-        "multipart/form-data"
-      );
-
-      if (response.success) {
-        openAlert(response.alertType, response.message);
-
-        setProductImage(null);
-        formik.resetForm();
-      } else {
-        openAlert(response.alertType, "Erro", response.message);
-      }
-
-      setLoading(false);
-    },
-  });
-
-  const handleBeforeSubmiting = () => {
-    if (formik.errors) {
-      openAlert("error", "Existem campos com erro, por favor verifique!");
-      return;
-    }
-  };
+    } 
+  }, [selectedRowData, data, isNewRegister]); 
 
   return (
     <ContentPage id="productRegister" title="Cadastro de Produto">
       <RegisterPanel
         alertPanel={showAlert}
         title="Informações Básicas"
-        onSubmit={formik.handleSubmit}
+        onSubmit={formik?.handleSubmit}
         onSave={handleBeforeSubmiting}
         loading={loading}
+        hideSaveButton={readOnly}
       >
         <MDBCol>
           <TextField
+            id="name"
             required
             label="Nome do produto"
-            value={formik.values.name}
-            error={formik.errors.name}
-            onChange={(e) => formik.setFieldValue("name", e.target.value)}
+            value={formik?.values.name}
+            error={formik?.errors.name}
+            onChange={(e) => formik?.setFieldValue("name", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
           <CurrencyField
+            id="purchasePrice"
             label="Preço de compra"
-            value={formik.values.purchasePrice}
-            error={formik.errors.purchasePrice}
-            onChange={(e) => formik.setFieldValue("purchasePrice", e.value)}
+            value={formik?.values.purchasePrice}
+            error={formik?.errors.purchasePrice}
+            onChange={(e) => formik?.setFieldValue("purchasePrice", e.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
           <CurrencyField
+            id="salePrice"
             required
             label="Preço de venda"
-            value={formik.values.salePrice}
-            error={formik.errors.salePrice}
-            onChange={(e) => formik.setFieldValue("salePrice", e.value)}
+            value={formik?.values.salePrice}
+            error={formik?.errors.salePrice}
+            onChange={(e) => formik?.setFieldValue("salePrice", e.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
-          <SelectWithFilter
-            required
-            label="Categoria"
-            options={categoryTypes}
-            value={formik.values.category}
-            error={formik.errors.category}
-            onChange={(e) => formik.setFieldValue("category", e.value)}
+          <SelectProductCategory
+            value={formik?.values.category}
+            error={formik?.errors.category}
+            onChange={(e) => formik?.setFieldValue("category", e.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
-          <SelectWithFilter
-            required
-            label="Unidade de peso"
-            options={unitOfMeasurementTypes}
-            value={formik.values.unitOfMeasurement}
-            error={formik.errors.unitOfMeasurement}
-            onChange={(e) => formik.setFieldValue("unitOfMeasurement", e.value)}
+          <SelectProductUnitOfMeasurement
+            value={formik?.values.unitOfMeasurement}
+            error={formik?.errors.unitOfMeasurement}
+            onChange={(e) => formik?.setFieldValue("unitOfMeasurement", e.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
           <TextArea
+            id="description"
             required
             label="Descrição"
-            value={formik.values.description}
-            error={formik.errors.description}
-            onChange={(e) =>
-              formik.setFieldValue("description", e.target.value)
-            }
+            value={formik?.values.description}
+            error={formik?.errors.description}
+            onChange={(e) => formik?.setFieldValue("description", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
-          <ImageField
-            label="Imagem"
-            value={productImage}
-            onChange={setProductImage}
-          />
+          <ImageField label="Imagem" disabled={readOnly}/>
         </MDBCol>
         <ContentDivisor title="Dimensões do produto" />
         <MDBCol>
           <TextField
+            id="weight"
             label="Peso"
             type="number"
-            value={formik.values.weight}
-            error={formik.errors.weight}
-            onChange={(e) => formik.setFieldValue("weight", e.value)}
+            value={formik?.values.weight}
+            error={formik?.errors.weight}
+            onChange={(e) => formik?.setFieldValue("weight", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
           <TextField
+            id="height"
             label="Altura"
             type="number"
-            value={formik.values.height}
-            error={formik.errors.height}
-            onChange={(e) => formik.setFieldValue("height", e.value)}
+            value={formik?.values.height}
+            error={formik?.errors.height}
+            onChange={(e) => formik?.setFieldValue("height", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
           <TextField
+            id="width"
             label="Largura"
             type="number"
-            value={formik.values.width}
-            error={formik.errors.width}
-            onChange={(e) => formik.setFieldValue("width", e.value)}
+            value={formik?.values.width}
+            error={formik?.errors.width}
+            onChange={(e) => formik?.setFieldValue("width", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
           <TextField
+            id="depth"
             label="Profundidade"
             type="number"
-            value={formik.values.depth}
-            error={formik.errors.depth}
-            onChange={(e) => formik.setFieldValue("depth", e.value)}
+            value={formik?.values.depth}
+            error={formik?.errors.depth}
+            onChange={(e) => formik?.setFieldValue("depth", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
       </RegisterPanel>

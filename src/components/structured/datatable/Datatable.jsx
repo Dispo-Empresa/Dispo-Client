@@ -6,6 +6,7 @@ import ButtonGroup from "../../ui/buttons/group/ButtonGroup";
 import {
   QueryDataButton,
   DisableButton,
+  EditButton,
 } from "../../ui/buttons/icons/IconButton";
 
 function Datatable({
@@ -22,8 +23,10 @@ function Datatable({
   onSelectItensCallback,
   onDeleteButton,
   onViewButton,
+  onEditButton,
   fromApi,
   singleSelect,
+  onRowClick
 }) {
   const buttonsTemplate = (rowData) => {
     const acceptRemove = () => {
@@ -39,6 +42,15 @@ function Datatable({
             }}
           />
         ) : null}
+
+        {onEditButton ? (
+                  <EditButton
+                    onClick={() => {
+                      onEditButton(rowData);
+                    }}
+                  />
+                ) : null}
+
         {onDeleteButton ? (
           <DisableButton
             onClick={() => {
@@ -66,6 +78,7 @@ function Datatable({
     <div>
       <ConfirmDialog />
       <DataTable
+        onRowClick={onRowClick}
         size="small"
         paginatorLeft={
           showCheckbox && !singleSelect ? (

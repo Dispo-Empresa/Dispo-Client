@@ -1,83 +1,45 @@
-import { useState } from "react";
-import { MDBCol } from "mdb-react-ui-kit";
-import { useFormik } from "formik";
+import { useContext, useEffect } from "react";
 
-import ContentPage from "../../../layouts/content/ContentPage";
-import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
-import useAlertScheme from "../../../hooks/alert/useAlertScheme";
-import ContentDivisor from "../../../components/structured/divisor/ContentDivisor";
-import validateSupplier from "./validate";
+import { MDBCol } from "mdb-react-ui-kit";
 import { TextField } from "../../../components/ui/inputs/textfield/TextField";
 import { PhoneField } from "../../../components/ui/inputs/masked/PhoneField";
 import { cnpjFormater } from "../../../utils/format/cnpjFormat";
 import { TextArea } from "../../../components/ui/inputs/textarea/TextArea";
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
-import { post } from "../../../services/httpMethods";
+import { SupplierFormikContext } from "../../../components/ui/context/supplierContext";
 
-function SupplierRegisterCard() {
-  const [showAlert, openAlert] = useAlertScheme();
-  const [loading, setLoading] = useState(false);
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      contactName: "",
-      contactTitle: "",
-      cnpj: "",
-      email: "",
-      phone: "",
 
-      // adresses
+import ContentPage from "../../../layouts/content/ContentPage";
+import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
+import ContentDivisor from "../../../components/structured/divisor/ContentDivisor";
+import useFetch from "../../../hooks/useFetchApi";
 
-      country: "",
-      uf: "",
-      city: "",
-      district: "",
-      cep: "",
-      additionalInfo: "",
-    },
-    validationSchema: validateSupplier,
-    validateOnChange: false,
-    onSubmit: async (values) => {
-      setLoading(true);
+function SupplierRegisterCard({selectedRowData, readOnly, isEdit}) {
+  const { formik, showAlert, loading, handleBeforeSubmiting, isNewRegister, setIsNewRegister } = useContext(SupplierFormikContext);  
+  const { data } = useFetch(ENDPOINTS.suppliers.get, selectedRowData ? selectedRowData : 0);
 
-      var dataAddress = {
-        country: values.country,
-        uf: values.uf,
-        city: values.city,
-        district: values.district,
-        cep: values.cep,
-        additionalInfo: values.additionalInfo,
-      };
+  setIsNewRegister(!isEdit);
+  
+  useEffect(() =>
+  {
+    if (selectedRowData && data) {
+      formik?.setFieldValue("id", data.data.id);
+      formik?.setFieldValue("name", data.data.name);
+      formik?.setFieldValue("contactName", data.data.contactName);
+      formik?.setFieldValue("contactTitle", data.data.contactTitle);
+      formik?.setFieldValue("cnpj", data.data.cnpj);
+      formik?.setFieldValue("email", data.data.email);
+      formik?.setFieldValue("phone", data.data.phone);
 
-      var data = {
-        name: values.name,
-        contactName: values.contactName,
-        contactTitle: values.contactTitle,
-        cnpj: values.cnpj,
-        email: values.email,
-        phone: values.phone,
-        address: dataAddress,
-      };
-
-      var response = await post(ENDPOINTS.suppliers.createSupplier, data);
-
-      if (response.success) {
-        openAlert(response.alertType, response.message);
-        formik.resetForm();
-      } else {
-        openAlert(response.alertType, "Erro", response.message);
-      }
-
-      setLoading(false);
-    },
-  });
-
-  const handleBeforeSubmiting = () => {
-    if (formik.errors) {
-      openAlert("error", "Existem campos com erro, por favor verifique!");
-      return;
-    }
-  };
+      formik?.setFieldValue("addressId", data.data.addressId);
+      formik?.setFieldValue("country", data.data.address.country);
+      formik?.setFieldValue("uf", data.data.address.uf);
+      formik?.setFieldValue("city", data.data.address.city);
+      formik?.setFieldValue("district", data.data.address.district);
+      formik?.setFieldValue("cep", data.data.address.cep);
+      formik?.setFieldValue("additionalInfo", data.data.address.additionalInfo);
+    } 
+  }, [selectedRowData, data, isNewRegister]);
 
   return (
     <ContentPage title="Cadastro de Fornecedores">
@@ -87,6 +49,7 @@ function SupplierRegisterCard() {
         onSubmit={formik.handleSubmit}
         onSave={handleBeforeSubmiting}
         loading={loading}
+        hideSaveButton={readOnly}
       >
         <MDBCol>
           <TextField
@@ -95,6 +58,7 @@ function SupplierRegisterCard() {
             value={formik.values.name}
             error={formik.errors.name}
             onChange={(e) => formik.setFieldValue("name", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -106,6 +70,7 @@ function SupplierRegisterCard() {
             onChange={(e) =>
               formik.setFieldValue("contactName", e.target.value)
             }
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -117,6 +82,7 @@ function SupplierRegisterCard() {
             onChange={(e) =>
               formik.setFieldValue("contactTitle", e.target.value)
             }
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -127,6 +93,7 @@ function SupplierRegisterCard() {
             value={cnpjFormater(formik.values.cnpj)}
             error={formik.errors.cnpj}
             onChange={(e) => formik.setFieldValue("cnpj", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -138,6 +105,7 @@ function SupplierRegisterCard() {
             value={formik.values.email}
             error={formik.errors.email}
             onChange={(e) => formik.setFieldValue("email", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -148,6 +116,7 @@ function SupplierRegisterCard() {
             value={formik.values.phone}
             error={formik.errors.phone}
             onChange={(e) => formik.setFieldValue("phone", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <ContentDivisor title="Endereço" />
@@ -158,6 +127,7 @@ function SupplierRegisterCard() {
             value={formik.values.country}
             error={formik.errors.country}
             onChange={(e) => formik.setFieldValue("country", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -168,6 +138,7 @@ function SupplierRegisterCard() {
             value={formik.values.uf}
             error={formik.errors.uf}
             onChange={(e) => formik.setFieldValue("uf", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -177,6 +148,7 @@ function SupplierRegisterCard() {
             value={formik.values.city}
             error={formik.errors.city}
             onChange={(e) => formik.setFieldValue("city", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -186,6 +158,7 @@ function SupplierRegisterCard() {
             value={formik.values.district}
             error={formik.errors.district}
             onChange={(e) => formik.setFieldValue("district", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -195,6 +168,7 @@ function SupplierRegisterCard() {
             value={formik.values.cep}
             error={formik.errors.cep}
             onChange={(e) => formik.setFieldValue("cep", e.target.value)}
+            disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
@@ -205,6 +179,7 @@ function SupplierRegisterCard() {
             onChange={(e) =>
               formik.setFieldValue("additionalInfo", e.target.value)
             }
+            disabled={readOnly}
           />
         </MDBCol>
       </RegisterPanel>

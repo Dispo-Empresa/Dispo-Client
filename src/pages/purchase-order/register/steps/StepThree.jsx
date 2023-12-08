@@ -22,17 +22,14 @@ const StepThree = (props) => {
         supplierId: props.purchaseOrderInfo.supplier,
         orders: props.orderInfo,
       };
-      console.log(data);
 
-      var response = await post(
-        ENDPOINTS.purchaseorder.createPurchaseOrder,
-        data
-      );
+      var response = await post(ENDPOINTS.purchaseorder.createPurchaseOrder,data);
 
       if (response.success) {
+        console.log(response.success);
       }
     } catch (err) {
-      console.log(err);
+        console.log(err);
     } finally {
       setLoading(false);
     }

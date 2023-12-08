@@ -123,7 +123,7 @@ function Navbar() {
                   key={option.warehouseId}
                   value={option.warehouseId}
                   name={option.name}
-                  selected={option}
+                  selected={option ? true : false}
                   data-value={option.warehouseId}
                   component="a"
                   href="/login/signin"

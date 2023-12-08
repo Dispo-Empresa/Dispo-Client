@@ -60,6 +60,7 @@ const ImageField = (props) => {
         ref={inputRef}
         onChange={handleFileChange}
         style={{ display: "none" }}
+        disabled={props.disabled}
       />
     </div>
   );

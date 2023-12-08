@@ -14,6 +14,7 @@ function TextArea(props) {
         </div>
       </div>
       <textarea
+        id={props.id}
         rows={props.rows ?? 4}
         cols={props.cols ?? 50}
         disabled={props.disabled ?? false}

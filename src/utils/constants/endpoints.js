@@ -31,9 +31,10 @@ const ENDPOINTS = {
   },
 
   products: {
-    get: "products/get/{id}",
+    get: "products/{id}",
     getAll: "products",
     createProduct: "products",
+    updateProduct: "products/edit",
     getProductNames: "products/get-names",
     getWithActivePurschaseOrder: "products/get-with-active-pursche-orders",
     getProductsWithSalePrice: "products/get-with-saleprice",
@@ -46,12 +47,16 @@ const ENDPOINTS = {
 
   manufacturers: {
     getAll: "manufacturers",
-    createManufacturer: "manufacturers"
+    get: "manufacturers/{id}",
+    createManufacturer: "manufacturers",
+    updateManufacturer: "manufacturers/edit"
   },
 
   suppliers: {
     getAll: "suppliers",
-    createSupplier: "suppliers"
+    get: "suppliers/{id}",
+    createSupplier: "suppliers",
+    updateSupplier: "suppliers/edit"
   },
 
   warehouses: {
@@ -71,7 +76,8 @@ const ENDPOINTS = {
 
   purchaseorder:{
     createPurchaseOrder: "purchase-orders",
-    getByProduct: "purchase-orders/get-by-product/{productId}"
+    getByProduct: "purchase-orders/get-by-product/{productId}",
+    getAll: "purchase-orders"
   }
 };
 
