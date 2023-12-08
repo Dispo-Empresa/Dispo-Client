@@ -7,7 +7,7 @@ import ContentPage from "../../../layouts/content/ContentPage";
 import ViewPanel from "../../../layouts/panel/view/ViewPanel";
 import ModalCRUD from "../../../components/structured/modal/ModalCRUD";
 import ProductRegisterCard from "../register/ProductRegisterCard";
-
+import ButtonGroup from "../../../components/ui/buttons/group/ButtonGroup";
 import { ENDPOINTS } from "../../../utils/constants/endpoints";
 import { AbstractFormContextProvider } from "../../../components/ui/context/abstractFormContext";
 import { ProductContextProvider } from "../../../components/ui/context/contextProduct";
@@ -48,6 +48,19 @@ function ProductQueryCard() {
 
   const deleteTest = (row) => {
     alert("Deletando: " + row.id);
+  };
+
+  const customButtons = (row) => {
+    return (
+      <ButtonGroup>
+        <GenericDatabaseButton
+          color="#4EB254"
+          icon={<ToggleOnIcon />}
+          title="Habilitar ordem de compra automática"
+          onClick={() => {}}
+        />
+      </ButtonGroup>
+    );
   };
 
   return (
