@@ -15,7 +15,7 @@ function ForgotPassword() {
 
   return (
     <div className="body--login">
-      <Card className="card--login" >
+      <Card className="card--login" style={{ borderRadius: "10px" }} >
         <CardContent>
         <label className="title--login">Redefinir senha</label>
           <div className="content-children">
