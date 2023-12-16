@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -12,30 +12,53 @@ import RequiredIcon from '../indicators/required/RequiredIcon';
 import '../styles.css';
 
 function PasswordField(props) {
+  const [password, setPassword] = useState('');
 
-    const [password, setPassword] = useState('');
+  const [suggestionsCompleted, setSuggestionsCompleted] = useState({
+    lowercase: false,
+    uppercase: false,
+    numeric: false,
+    minLength: false,
+  });
 
-    const [suggestionsCompleted, setSuggestionsCompleted] = useState({
-        lowercase: false,
-        uppercase: false,
-        numeric: false,
-        minLength: false
-      });
+  const header = <div className="font-bold mb-3">Escolha uma senha</div>;
 
-    const header = <div className="font-bold mb-3">Escolha uma senha</div>;
-    const footer = (
-      <>
-        <Divider />
-        <p className="mt-2">Sugestões</p>
-        <ul className="pl-2 ml-2 mt-0 line-height-3">
-          <li style={{ textDecoration: suggestionsCompleted.lowercase ? 'line-through' : 'none' }}>Pelo menos uma letra minúscula</li>
-          <li style={{ textDecoration: suggestionsCompleted.uppercase ? 'line-through' : 'none' }}>Pelo menos uma letra maiúscula</li>
-          <li style={{ textDecoration: suggestionsCompleted.numeric ? 'line-through' : 'none' }}>Pelo menos um número</li>
-          <li style={{ textDecoration: suggestionsCompleted.minLength ? 'line-through' : 'none' }}>Mínimo de 8 caracteres</li>
-        </ul>
-      </>
-    );
-  
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+
+    // Atualizar o estado das sugestões conforme necessário
+    setSuggestionsCompleted({
+      lowercase: /[a-z]/.test(newPassword),
+      uppercase: /[A-Z]/.test(newPassword),
+      numeric: /\d/.test(newPassword),
+      minLength: newPassword.length >= 8,
+    });
+
+    setPassword(newPassword);
+  };
+
+  const suggestionStyle = { textDecoration: 'line-through' };
+
+  const footer = (
+    <>
+      <Divider />
+      <p className="mt-2">Sugestões</p>
+      <ul className="pl-2 ml-2 mt-0 line-height-3">
+        <li style={suggestionsCompleted.lowercase ? suggestionStyle : {}}>
+          Pelo menos uma letra minúscula
+        </li>
+        <li style={suggestionsCompleted.uppercase ? suggestionStyle : {}}>
+          Pelo menos uma letra maiúscula
+        </li>
+        <li style={suggestionsCompleted.numeric ? suggestionStyle : {}}>
+          Pelo menos um número
+        </li>
+        <li style={suggestionsCompleted.minLength ? suggestionStyle : {}}>
+          Mínimo de 8 caracteres
+        </li>
+      </ul>
+    </>
+  );
 
   return (
     <div>
@@ -52,11 +75,14 @@ function PasswordField(props) {
         footer={footer}
         weakLabel="Fraca"
         mediumLabel="Media"
-        strongLabel="Forte"     
+        strongLabel="Forte"
         toggleMask={props.toggleMask}
         placeholder={props.placeholder}
         style={props.style}
-        onChange={props.onChange}
+        onChange={(e) => {
+          handlePasswordChange(e);
+          props.onChange && props.onChange(e); // Chamar onChange fornecido, se existir
+        }}
         value={props.value}
         InputProps={{
           endAdornment: (
