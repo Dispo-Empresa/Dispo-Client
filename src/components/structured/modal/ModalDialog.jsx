@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import IconButton from "@mui/material/IconButton";
-import CancelIcon from "@mui/icons-material/Cancel";
+import CloseIcon from "@mui/icons-material/Close";
 
 import { COLORS } from "../../../themes/colors";
 import {
@@ -30,8 +30,8 @@ function ModalDialog(props) {
               </Typography>
             </Box>
             <Box sx={ModalCloseButton}>
-              <IconButton sx={CloseButton} onClick={props.onClose}>
-                <CancelIcon />
+              <IconButton sx={CloseButton} onClick={props.onClose} size="small">
+                <CloseIcon />
               </IconButton>
             </Box>
           </Box>

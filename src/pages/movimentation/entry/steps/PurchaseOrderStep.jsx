@@ -135,7 +135,9 @@ const PurchaseOrderStep = (props) => {
         {noOc ? (
           <div>
             <label>Sem ordem de compra para o produto informado.&nbsp;</label>
-            <a href="/purchaseOrder/register">Registrar uma ordem de compra.</a>
+            <a href="/ordem-de-compra/cadastrar">
+              Registrar uma ordem de compra.
+            </a>
           </div>
         ) : (
           <div>

@@ -2,23 +2,23 @@
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import SignInCard from "../pages/login/signin/SignInCard";
-import DashboardCard from "../pages/dashboard/DashboardCard";
-import ProfileCard from "../pages/profile/ProfileCard";
-import ProductCard from "../pages/products/ProductCard";
-import SupplierCard from "../pages/suppliers/SupplierCard";
+import SignInCard from "@pages/login/signin/SignInCard";
+import DashboardCard from "@pages/dashboard/DashboardCard";
+import ProfileCard from "@pages/profile/ProfileCard";
+import ProductCard from "@pages/products/ProductCard";
+import SupplierCard from "@pages/suppliers/SupplierCard";
 import BodyLayout from "../layouts/body/BodyLayout";
 import PrivateRoute from "./PrivateRoute";
-import SettingsCard from "../pages/settings/SettingsCard";
-import NotFound from "../pages/not-found/NotFound";
-import NotAuthorized from "../pages/not-found/NotAuthorized";
-import ProductEntryMovimentation from "../pages/movimentation/entry/ProductEntryMovimentation";
-import ProductExitMovimentation from "../pages/movimentation/exit/ProductExitMovimentation";
-import ManufacturerCard from "../pages/manufacturers/ManufacturerCard";
-import PurchaseOrderCard from "../pages/purchase-order/PurchaseOrderCard";
-import PurchaseOrderAttachmentFormCard from "../pages/purchase-order/attachment/PurchaseOrderAttachmentFormCard";
-import WarehouseCard from "../pages/warehouses/WarehouseCard";
-import ForgotpasswordCard from "../pages/login/forgot-password/ForgotPasswordCard"
+import SettingsCard from "@pages/settings/SettingsCard";
+import NotFound from "@pages/not-found/NotFound";
+import NotAuthorized from "@pages/not-found/NotAuthorized";
+import ProductEntryMovimentation from "@pages/movimentation/entry/ProductEntryMovimentation";
+import ProductExitMovimentation from "@pages/movimentation/exit/ProductExitMovimentation";
+import ManufacturerCard from "@pages/manufacturers/ManufacturerCard";
+import PurchaseOrderCard from "@pages/purchase-order/PurchaseOrderCard";
+import PurchaseOrderAttachmentFormCard from "@pages/purchase-order/attachment/PurchaseOrderAttachmentFormCard";
+import WarehouseCard from "@pages/warehouses/WarehouseCard";
+import ForgotpasswordCard from "@pages/login/forgot-password/ForgotPasswordCard";
 import { roles } from "../utils/constants/constants";
 
 function RouteController({ children, allowedRoles, hideNavigatorOnRoute }) {

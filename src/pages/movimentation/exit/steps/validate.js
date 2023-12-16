@@ -9,6 +9,7 @@ const productInfoStep = () => {
 
 const validateBatchesStep = () => {
   return Yup.object().shape({
+    batch: Yup.number().required("Campo obrigatório"),
     quantityOnBatch: Yup.number().required("Campo obrigatório").positive("Informe uma quantidade válida").integer(),
   });
 }

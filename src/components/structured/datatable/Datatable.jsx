@@ -26,7 +26,7 @@ function Datatable({
   onEditButton,
   fromApi,
   singleSelect,
-  onRowClick
+  onRowClick,
 }) {
   const buttonsTemplate = (rowData) => {
     const acceptRemove = () => {
@@ -44,12 +44,12 @@ function Datatable({
         ) : null}
 
         {onEditButton ? (
-                  <EditButton
-                    onClick={() => {
-                      onEditButton(rowData);
-                    }}
-                  />
-                ) : null}
+          <EditButton
+            onClick={() => {
+              onEditButton(rowData);
+            }}
+          />
+        ) : null}
 
         {onDeleteButton ? (
           <DisableButton
@@ -70,7 +70,7 @@ function Datatable({
   };
 
   const onSelectItens = (e) => {
-    onSelectItensCallback(e.value);
+    onSelectItensCallback && onSelectItensCallback(e.value);
     setSelectedItens(e.value);
   };
 

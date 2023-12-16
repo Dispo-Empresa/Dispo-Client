@@ -14,7 +14,8 @@ export const ModalDefaultStyle = {
 }
 
 export const CloseButton = {
-  color: "#000",
+  bgcolor: "#ffff",
+  color: "#e43846",
 
   "&:hover": {
     bgcolor: "#e43846",
