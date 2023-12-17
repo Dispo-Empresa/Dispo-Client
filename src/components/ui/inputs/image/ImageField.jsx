@@ -1,10 +1,10 @@
-import { useRef } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import { useRef } from "react";
 
-import TipIcon from "../indicators/tip/TipIcon";
-import RequiredIcon from "../indicators/required/RequiredIcon";
+import TipIcon from "components/ui/inputs/indicators/tip/TipIcon";
+import RequiredIcon from "components/ui/inputs/indicators/required/RequiredIcon";
 
-import "../styles.css";
+import "components/ui/inputs/styles.css";
 import "./styles.css";
 
 const ImageField = (props) => {

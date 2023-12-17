@@ -1,10 +1,10 @@
 import { InputNumber } from "primereact/inputnumber";
 import { classNames } from "primereact/utils";
 
-import TipIcon from "../indicators/tip/TipIcon";
-import RequiredIcon from "../indicators/required/RequiredIcon";
+import TipIcon from "components/ui/inputs/indicators/tip/TipIcon";
+import RequiredIcon from "components/ui/inputs/indicators/required/RequiredIcon";
 
-import "../styles.css";
+import "components/ui/inputs/styles.css";
 
 function NumberField(props) {
   return (

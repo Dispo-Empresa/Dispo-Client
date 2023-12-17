@@ -1,6 +1,3 @@
-import { Button, Tooltip } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
 import SaveIcon from "@mui/icons-material/Save";
 import SearchIcon from "@mui/icons-material/Search";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
@@ -10,9 +7,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
+import { Button, Tooltip } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
 
-import { ReactComponent as Loader } from "../loader.svg";
-import { COLORS } from "../../../../themes/colors";
+import { ReactComponent as Loader } from "components/ui/buttons/loader.svg";
+import { COLORS } from "themes/colors";
 
 import "./styles.css";
 

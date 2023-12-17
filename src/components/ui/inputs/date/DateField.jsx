@@ -1,7 +1,8 @@
-import TipIcon from "../indicators/tip/TipIcon";
-import RequiredIcon from "../indicators/required/RequiredIcon";
 import { Calendar } from "primereact/calendar";
 import { classNames } from "primereact/utils";
+
+import TipIcon from "components/ui/inputs/indicators/tip/TipIcon";
+import RequiredIcon from "components/ui/inputs/indicators/required/RequiredIcon";
 
 function Datefield(props) {
   return (

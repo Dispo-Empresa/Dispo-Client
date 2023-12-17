@@ -1,11 +1,10 @@
 import { createContext, useContext } from 'react';
 import { useFormik } from 'formik';
 
-import { post } from "../../../services/httpMethods";
-import { ENDPOINTS } from "../../../utils/constants/endpoints";
+import validateManufacturer from "pages/manufacturers/register/validate";
+import { post } from "services/httpMethods";
+import { ENDPOINTS } from "utils/constants/endpoints";
 import { AbstractFormContext } from './abstractFormContext';
-
-import validateManufacturer from "../../../pages/manufacturers/register/validate";
 
 const ManufacturerContextProvider = ({ children }) => {
   const { showAlert, openAlert, loading, setLoading, isNewRegister, setIsNewRegister } = useContext(AbstractFormContext);

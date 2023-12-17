@@ -6,8 +6,8 @@ import { useState } from "react";
 import { Steps } from "primereact/steps";
 import { MDBContainer } from "mdb-react-ui-kit";
 
-import RegisterPanelMultiStep from "../../../layouts/panel/register/multi-step/RegisterPanelMultistep";
-import { COLORS } from "../../../themes/colors";
+import RegisterPanelMultiStep from "layouts/panel/register/multi-step/RegisterPanelMultistep";
+import { COLORS } from "themes/colors";
 
 import "./styles.css";
 
@@ -67,9 +67,6 @@ function StepLayout(props) {
       alertPanel={props.alertPanel}
     >
       <div className="multistep-container">
-
-      
-
         {props.currentStep > 1 && !props.hideButtonsBack && (
           <button onClick={handleBack} className="button-stepper">
             <ArrowBackIosNewIcon style={{ fontSize: "50px" }} />
@@ -78,14 +75,14 @@ function StepLayout(props) {
         <div className="multistep-content">
           <MDBContainer>{props.children}</MDBContainer>
         </div>
-        {(props.currentStep < props.totalSteps && !props.hideButtonsFront) && (
+        {props.currentStep < props.totalSteps && !props.hideButtonsFront && (
           <button type="submit" onClick={handleNext} className="button-stepper">
             <ArrowForwardIosIcon style={{ fontSize: "50px" }} />
           </button>
         )}
       </div>
     </RegisterPanelMultiStep>
-  );  
+  );
 }
 
 export { Stepper, StepLayout };

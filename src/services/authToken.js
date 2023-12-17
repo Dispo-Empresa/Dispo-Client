@@ -1,7 +1,7 @@
 import axios from "axios"
 import jwt_decode from "jwt-decode";
 
-import { getCookie, setCookie, removeCookie } from "../data/cookies";
+import { getCookie, setCookie, removeCookie } from "data/cookies";
 
 const setToken = (token) => {
   if (token){

@@ -1,9 +1,9 @@
 import { InputMask } from "primereact/inputmask";
 
-import TipIcon from "../indicators/tip/TipIcon";
-import RequiredIcon from "../indicators/required/RequiredIcon";
+import TipIcon from "components/ui/inputs/indicators/tip/TipIcon";
+import RequiredIcon from "components/ui/inputs/indicators/required/RequiredIcon";
 
-import "../styles.css";
+import "components/ui/inputs/styles.css";
 
 function PhoneField(props) {
   return (

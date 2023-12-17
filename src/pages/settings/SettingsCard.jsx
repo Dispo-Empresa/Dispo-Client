@@ -1,8 +1,8 @@
-import ContentPage from "../../layouts/content/ContentPage";
-import Tabs from "../../components/structured/tabs/Tabs";
-import EmployeeRegisterTab from "../settings/adm-panel/employeeRegisterTab/EmployeeRegisterTab";
-import EmployeeViewTab from "../settings/adm-panel/employeeViewTab/EmployeeViewTab";
-import { isRoleManager } from "../../services/role-auth";
+import ContentPage from "layouts/content/ContentPage";
+import Tabs from "components/structured/tabs/Tabs";
+import EmployeeRegisterTab from "pages/settings/adm-panel/employeeRegisterTab/EmployeeRegisterTab";
+import EmployeeViewTab from "pages/settings/adm-panel/employeeViewTab/EmployeeViewTab";
+import { isRoleManager } from "services/role-auth";
 
 function SettingsCard() {
   const tabs = [

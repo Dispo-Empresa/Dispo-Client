@@ -1,16 +1,14 @@
 import RoutesConfiguration from "./routes/Routes";
-import React from "react";
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
+import styled from "styled-components";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import { Provider } from "react-alert";
+import { useState } from "react";
 
 import {
   NotificacaoOptions,
   NotificacaoTemplate,
 } from "./components/structured/alert/notification/Notification";
-
-import { useState } from "react";
-import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
-import styled from "styled-components";
 
 function ScrollButton() {
   const [visible, setVisible] = useState(false);

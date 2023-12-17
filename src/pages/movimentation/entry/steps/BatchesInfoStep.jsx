@@ -3,15 +3,15 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import { MDBCol } from "mdb-react-ui-kit";
 
-import RegisterPanelSimple from "../../../../layouts/panel/register/classic/RegisterPanelSimple";
-import Datatable from "../../../../components/structured/datatable/Datatable";
-import ViewPanel from "../../../../layouts/panel/view/ViewPanel";
-import Button from "../../../../components/ui/buttons/classic/Button";
-import useAlertScheme from "../../../../hooks/alert/useAlertScheme";
-import { StepLayout } from "../../../../components/structured/stepper/Stepper";
-import { TextField } from "../../../../components/ui/inputs/textfield/TextField";
-import { Datefield } from "../../../../components/ui/inputs/date/DateField";
-import { NumberField } from "../../../../components/ui/inputs/number/NumberField";
+import RegisterPanelSimple from "layouts/panel/register/classic/RegisterPanelSimple";
+import Datatable from "components/structured/datatable/Datatable";
+import ViewPanel from "layouts/panel/view/ViewPanel";
+import Button from "components/ui/buttons/classic/Button";
+import useAlertScheme from "hooks/alert/useAlertScheme";
+import { StepLayout } from "components/structured/stepper/Stepper";
+import { TextField } from "components/ui/inputs/textfield/TextField";
+import { Datefield } from "components/ui/inputs/date/DateField";
+import { NumberField } from "components/ui/inputs/number/NumberField";
 import { validateBatchesStep } from "./validate";
 
 const BatchesInfoStep = (props) => {

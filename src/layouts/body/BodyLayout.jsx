@@ -4,10 +4,9 @@ import { useState } from "react";
 
 import Sidebar from "./sidebar/SidebarContent";
 import Navbar from "./navbar/Navbar";
-import { Footer } from "./footer/Footer";
-import { getLocalStorage, setLocalStorage } from "../../data/local";
-
 import Navigator from "./Navigator";
+import { Footer } from "./footer/Footer";
+import { getLocalStorage, setLocalStorage } from "data/local";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";

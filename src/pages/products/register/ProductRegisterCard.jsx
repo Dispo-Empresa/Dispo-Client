@@ -1,31 +1,39 @@
 import { useContext, useEffect } from "react";
 import { MDBCol } from "mdb-react-ui-kit";
 
-import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
-import ContentPage from "../../../layouts/content/ContentPage";
-import ContentDivisor from "../../../components/structured/divisor/ContentDivisor";
-import useFetch from "../../../hooks/useFetchApi";
+import RegisterPanel from "layouts/panel/register/classic/RegisterPanel";
+import ContentPage from "layouts/content/ContentPage";
+import ContentDivisor from "components/structured/divisor/ContentDivisor";
+import useFetch from "hooks/useFetchApi";
 
-import { ImageField } from "../../../components/ui/inputs/image/ImageField";
-import { TextField } from "../../../components/ui/inputs/textfield/TextField";
-import { CurrencyField } from "../../../components/ui/inputs/currency/CurrencyField";
-import { TextArea } from "../../../components/ui/inputs/textarea/TextArea";
-import { SelectProductCategory, SelectProductUnitOfMeasurement } from "../../../components/ui/inputs/select/SelectProduct";
-import { ProductFormikContext } from "../../../components/ui/context/contextProduct";
-import { ENDPOINTS } from "../../../utils/constants/endpoints";
-import { post } from "../../../services/httpMethods";
+import { ImageField } from "components/ui/inputs/image/ImageField";
+import { TextField } from "components/ui/inputs/textfield/TextField";
+import { CurrencyField } from "components/ui/inputs/currency/CurrencyField";
+import { TextArea } from "components/ui/inputs/textarea/TextArea";
+import {
+  SelectProductCategory,
+  SelectProductUnitOfMeasurement,
+} from "components/ui/inputs/select/SelectProduct";
+import { ProductFormikContext } from "components/ui/context/contextProduct";
+import { ENDPOINTS } from "utils/constants/endpoints";
 
-import { QueryDataButton } from "../../../components/ui/buttons/icons/IconButton";
-import { useTour } from "@reactour/tour";
-
-function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
-  const { formik, showAlert, loading, handleBeforeSubmiting, isNewRegister, setIsNewRegister } = useContext(ProductFormikContext); 
-  const { data } = useFetch(ENDPOINTS.products.get, selectedRowData ? selectedRowData : 0);
+function ProductRegisterCard({ selectedRowData, readOnly, isEdit }) {
+  const {
+    formik,
+    showAlert,
+    loading,
+    handleBeforeSubmiting,
+    isNewRegister,
+    setIsNewRegister,
+  } = useContext(ProductFormikContext);
+  const { data } = useFetch(
+    ENDPOINTS.products.get,
+    selectedRowData ? selectedRowData : 0
+  );
 
   setIsNewRegister(!isEdit);
 
-  useEffect(() =>
-  {
+  useEffect(() => {
     if (selectedRowData && data) {
       formik?.setFieldValue("id", data.data.id);
       formik?.setFieldValue("name", data.data.name);
@@ -38,9 +46,8 @@ function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
       formik?.setFieldValue("height", data.data.height);
       formik?.setFieldValue("width", data.data.width);
       formik?.setFieldValue("depth", data.data.depth);
-
-    } 
-  }, [selectedRowData, data, isNewRegister]); 
+    }
+  }, [selectedRowData, data, isNewRegister]);
 
   return (
     <ContentPage id="productRegister" title="Cadastro de Produto">
@@ -96,7 +103,9 @@ function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
           <SelectProductUnitOfMeasurement
             value={formik?.values.unitOfMeasurement}
             error={formik?.errors.unitOfMeasurement}
-            onChange={(e) => formik?.setFieldValue("unitOfMeasurement", e.value)}
+            onChange={(e) =>
+              formik?.setFieldValue("unitOfMeasurement", e.value)
+            }
             disabled={readOnly}
           />
         </MDBCol>
@@ -107,12 +116,14 @@ function ProductRegisterCard({selectedRowData, readOnly, isEdit}) {
             label="Descrição"
             value={formik?.values.description}
             error={formik?.errors.description}
-            onChange={(e) => formik?.setFieldValue("description", e.target.value)}
+            onChange={(e) =>
+              formik?.setFieldValue("description", e.target.value)
+            }
             disabled={readOnly}
           />
         </MDBCol>
         <MDBCol>
-          <ImageField label="Imagem" disabled={readOnly}/>
+          <ImageField label="Imagem" disabled={readOnly} />
         </MDBCol>
         <ContentDivisor title="Dimensões do produto" />
         <MDBCol>

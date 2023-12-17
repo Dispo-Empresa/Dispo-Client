@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
 
-import logo from "../../assets/img/logo_sem_fundo.png";
-import ContentPage from "../../layouts/content/ContentPage";
+import logo from "assets/img/logo_sem_fundo.png";
+import ContentPage from "layouts/content/ContentPage";
 
 function DashboardCard() {
   const [chartData, setChartData] = useState({});

@@ -1,6 +1,6 @@
 import { Card } from "@material-ui/core";
 import { Panel } from "primereact/panel";
-import { CollapseButton } from "../../components/ui/buttons/icons/IconButton";
+import { CollapseButton } from "components/ui/buttons/icons/IconButton";
 
 import "./styles.css";
 

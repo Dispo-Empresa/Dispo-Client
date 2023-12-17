@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import ContentPage from "../../../layouts/content/ContentPage";
+import ContentPage from "layouts/content/ContentPage";
 import PurchaseOrderStep from "./steps/PurchaseOrderStep";
 import BatchesInfoStep from "./steps/BatchesInfoStep";
 import ConfirmationStep from "./steps/ConfirmationStep";
-import { Stepper } from "../../../components/structured/stepper/Stepper";
+import { Stepper } from "components/structured/stepper/Stepper";
 
 function ProductEntryMovimentation() {
   const stepLabels = ["Ordem de compra", "Informação dos lotes", "Confirmação"];

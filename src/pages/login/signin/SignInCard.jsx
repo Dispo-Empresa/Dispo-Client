@@ -2,15 +2,15 @@ import { useState } from "react";
 import { Link } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
-import { setToken } from "../../../services/authToken";
-import { post } from "../../../services/httpMethods";
-import { ENDPOINTS } from "../../../utils/constants/endpoints";
-import { getLocalStorage } from "../../../data/local";
-import { browserStorageKeys } from "../../../utils/constants/constants";
-import Button from "../../../components/ui/buttons/classic/Button";
-import imagem from "../../../assets/img/visual-inventory-management.png";
-import logoSFundo from "../../../assets/img/logo_sem_fundo.png";
-import useKeyPress from "../../../hooks/useKeyPress";
+import Button from "components/ui/buttons/classic/Button";
+import imagem from "assets/img/visual-inventory-management.png";
+import logoSFundo from "assets/img/logo_sem_fundo.png";
+import useKeyPress from "hooks/useKeyPress";
+import { setToken } from "services/authToken";
+import { post } from "services/httpMethods";
+import { ENDPOINTS } from "utils/constants/endpoints";
+import { getLocalStorage } from "data/local";
+import { browserStorageKeys } from "utils/constants/constants";
 
 import "./style.css";
 

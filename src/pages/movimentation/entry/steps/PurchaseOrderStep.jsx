@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { MDBCol } from "mdb-react-ui-kit";
 import { useFormik } from "formik";
 
-import useFetch from "../../../../hooks/useFetchApi";
-import Datatable from "../../../../components/structured/datatable/Datatable";
-import ViewPanel from "../../../../layouts/panel/view/ViewPanel";
-import RegisterPanelSimple from "../../../../layouts/panel/register/classic/RegisterPanelSimple";
-import { SelectWithFilter } from "../../../../components/ui/inputs/select/SelectField";
-import { ENDPOINTS } from "../../../../utils/constants/endpoints";
-import { StepLayout } from "../../../../components/structured/stepper/Stepper";
+import useFetch from "hooks/useFetchApi";
+import Datatable from "components/structured/datatable/Datatable";
+import ViewPanel from "layouts/panel/view/ViewPanel";
+import RegisterPanelSimple from "layouts/panel/register/classic/RegisterPanelSimple";
+import { SelectWithFilter } from "components/ui/inputs/select/SelectField";
+import { ENDPOINTS } from "utils/constants/endpoints";
+import { StepLayout } from "components/structured/stepper/Stepper";
 import { validatePurchaseOrderStep } from "./validate";
 
 const PurchaseOrderStep = (props) => {

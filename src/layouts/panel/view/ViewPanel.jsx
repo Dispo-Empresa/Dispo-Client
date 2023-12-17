@@ -1,7 +1,7 @@
 import {
   RefreshButton,
   ExportButton,
-} from "../../../components/ui/buttons/icons/IconButton";
+} from "components/ui/buttons/icons/IconButton";
 
 import "./styles.css";
 

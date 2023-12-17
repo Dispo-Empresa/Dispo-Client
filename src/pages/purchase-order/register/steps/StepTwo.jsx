@@ -1,22 +1,20 @@
+import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import { MDBCol } from "mdb-react-ui-kit";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 
-import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
-
-import { TextArea } from "../../../../components/ui/inputs/textarea/TextArea";
-import { CurrencyField } from "../../../../components/ui/inputs/currency/CurrencyField";
-import { StepLayout } from "../../../../components/structured/stepper/Stepper";
-import { SelectWithFilter } from "../../../../components/ui/inputs/select/SelectField";
-import { ENDPOINTS } from "../../../../utils/constants/endpoints";
-import { NumberField } from "../../../../components/ui/inputs/number/NumberField";
-import useFetch from "../../../../hooks/useFetchApi";
-
-import RegisterPanelSimple from "../../../../layouts/panel/register/classic/RegisterPanelSimple";
-import ViewPanel from "../../../../layouts/panel/view/ViewPanel";
-import Datatable from "../../../../components/structured/datatable/Datatable";
-import Button from "../../../../components/ui/buttons/classic/Button";
-import useAlertScheme from "../../../../hooks/alert/useAlertScheme";
+import RegisterPanelSimple from "layouts/panel/register/classic/RegisterPanelSimple";
+import ViewPanel from "layouts/panel/view/ViewPanel";
+import Datatable from "components/structured/datatable/Datatable";
+import Button from "components/ui/buttons/classic/Button";
+import useAlertScheme from "hooks/alert/useAlertScheme";
+import useFetch from "hooks/useFetchApi";
+import { TextArea } from "components/ui/inputs/textarea/TextArea";
+import { CurrencyField } from "components/ui/inputs/currency/CurrencyField";
+import { StepLayout } from "components/structured/stepper/Stepper";
+import { SelectWithFilter } from "components/ui/inputs/select/SelectField";
+import { ENDPOINTS } from "utils/constants/endpoints";
+import { NumberField } from "components/ui/inputs/number/NumberField";
 
 function StepTwo(props) {
   const { data: products } = useFetch(ENDPOINTS.products.getProductNames);

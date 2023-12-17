@@ -1,15 +1,15 @@
 import { MDBCol } from "mdb-react-ui-kit";
 import { useFormik } from "formik";
 
-import useFetch from "../../../../hooks/useFetchApi";
-import RegisterPanel from "../../../../layouts/panel/register/classic/RegisterPanel";
-import useAlertScheme from "../../../../hooks/alert/useAlertScheme";
+import useFetch from "hooks/useFetchApi";
+import RegisterPanel from "layouts/panel/register/classic/RegisterPanel";
+import useAlertScheme from "hooks/alert/useAlertScheme";
 import validateEmployee from "./validate";
-import { TextField } from "../../../../components/ui/inputs/textfield/TextField";
-import { MultiSelect } from "../../../../components/ui/inputs/select/SelectField";
-import { RadioButtons } from "../../../../components/ui/inputs/radio/RadioButtons";
-import { ENDPOINTS } from "../../../../utils/constants/endpoints";
-import { post } from "../../../../services/httpMethods";
+import { TextField } from "components/ui/inputs/textfield/TextField";
+import { MultiSelect } from "components/ui/inputs/select/SelectField";
+import { RadioButtons } from "components/ui/inputs/radio/RadioButtons";
+import { ENDPOINTS } from "utils/constants/endpoints";
+import { post } from "services/httpMethods";
 
 function EmployeeRegisterTab() {
   const { data: roles } = useFetch(ENDPOINTS.adm.getRoles);

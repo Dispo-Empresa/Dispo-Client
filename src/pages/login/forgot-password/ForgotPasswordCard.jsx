@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 import { Card, CardContent } from "@material-ui/core";
-import { Stepper } from "../../../components/structured/stepper/Stepper";
-import ContentPage from '../../../layouts/content/ContentPage';
-import ForgotPasswordStep1 from './ForgotPasswordSteps/ForgotPasswordStep1';
-import ForgotPasswordStep2 from './ForgotPasswordSteps/ForgotPasswordStep2';
-import ForgotPasswordStep3 from './ForgotPasswordSteps/ForgotPasswordStep3';
+
+import ForgotPasswordStep1 from "./ForgotPasswordSteps/ForgotPasswordStep1";
+import ForgotPasswordStep2 from "./ForgotPasswordSteps/ForgotPasswordStep2";
+import ForgotPasswordStep3 from "./ForgotPasswordSteps/ForgotPasswordStep3";
+import { Stepper } from "components/structured/stepper/Stepper";
+
 import "./style.css";
 
 function ForgotPassword() {
@@ -15,11 +16,11 @@ function ForgotPassword() {
 
   return (
     <div className="body--login">
-      <Card className="card--login" style={{ borderRadius: "10px" }} >
+      <Card className="card--login" style={{ borderRadius: "10px" }}>
         <CardContent>
-        <label className="title--login">Redefinir senha</label>
+          <label className="title--login">Redefinir senha</label>
           <div className="content-children">
-            <Stepper steps={steps} activeStep={currentStep} >
+            <Stepper steps={steps} activeStep={currentStep}>
               <ForgotPasswordStep1 timerInicialized={setIsTimerInicialized} />
               <ForgotPasswordStep2 timerInicialStarted={isTimerInicialized} />
               <ForgotPasswordStep3 />
@@ -29,8 +30,6 @@ function ForgotPassword() {
       </Card>
     </div>
   );
-  
-  
 }
 
 export default ForgotPassword;

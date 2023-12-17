@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { MDBRow } from "mdb-react-ui-kit";
 
-import useAlert from "../../../../hooks/alert/useAlert";
-import AlertMessagePanel from "../../../../components/structured/alert/panel/AlertPanel";
-import { SaveButton } from "../../../../components/ui/buttons/icons/IconButton";
+import useAlert from "hooks/alert/useAlert";
+import AlertMessagePanel from "components/structured/alert/panel/AlertPanel";
+import { SaveButton } from "components/ui/buttons/icons/IconButton";
 
 import "./styles.css";
 

@@ -1,14 +1,14 @@
 //import React, { useState } from 'react';
 //import InputMask from "react-input-mask"
 //
-//import { DefaultTextField, PasswordTextField } from "../../../components/Basic/TextField/TextField"
-//import { DefaultButton } from "../../../components/Basic/Button/Default/DefaultButton"
-//import { DefaultIconButton } from "../../../components/Basic/Icons/IconButton"
-//import { handleSignUp } from "../../../services/Login/signup"
+//import { DefaultTextField, PasswordTextField } from "components/Basic/TextField/TextField"
+//import { DefaultButton } from "components/Basic/Button/Default/DefaultButton"
+//import { DefaultIconButton } from "components/Basic/Icons/IconButton"
+//import { handleSignUp } from "services/Login/signup"
 //import { BACKGROUNDS, COLORS } from "../../../config/defaultColors"
 //import { Box, Card, CardContent } from '@material-ui/core';
 //import { TextField } from '@mui/material';
-//import { cpfCnpjChange } from "../../../utils/helperFunctions"
+//import { cpfCnpjChange } from "utils/helperFunctions"
 
 export default function SignUpCard() {
   //const [cpfCnpjRequest, setCpfCnpjRequest] = useState("");

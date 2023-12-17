@@ -1,25 +1,15 @@
-import React, { useState } from "react";
-import ContentPage from "../../../layouts/content/ContentPage";
-import ModalDialog from "../../../components/structured/modal/ModalDialog";
-import ButtonGroup from "../../../components/ui/buttons/group/ButtonGroup";
-import { QueryDataButton } from "../../../components/ui/buttons/icons/IconButton"
+import { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import FileUploader from "../attachment/FileUploader";
+
+import ContentPage from "layouts/content/ContentPage";
+import ModalDialog from "components/structured/modal/ModalDialog";
+import ButtonGroup from "components/ui/buttons/group/ButtonGroup";
+import FileUploader from "pages/purchase-order/attachment/FileUploader";
+import { QueryDataButton } from "components/ui/buttons/icons/IconButton";
 
 function PurchaseOrderAttachmentFormCard() {
   const [showModal, setShowModal] = useState(false);
-  const [selectedItems, setSelectedItems] = useState([]);
-
-  const onViewButton = (rowData) => {
-    // Ação ao clicar no botão de visualização (se necessário)
-    console.log("Visualizar", rowData);
-  };
-
-  const onDeleteButton = (rowData) => {
-    // Ação ao clicar no botão de exclusão (se necessário)
-    console.log("Excluir", rowData);
-  };
 
   const buttonsTemplate = (rowData) => {
     return (
@@ -37,7 +27,7 @@ function PurchaseOrderAttachmentFormCard() {
     { field: "orderNumber", header: " Número ordem", sort: false, width: 100 },
     { field: "company", header: " Empresa", sort: false, width: 250 },
     { field: "supplier", header: " Fornecedor", sort: false, width: 250 },
-    { field: "creationDate", header: " Data criação", sort: false, width: 100 }
+    { field: "creationDate", header: " Data criação", sort: false, width: 100 },
   ];
 
   const data = [
@@ -63,8 +53,12 @@ function PurchaseOrderAttachmentFormCard() {
 
   return (
     <ContentPage title="Anexos de ordem de compra">
-      <ModalDialog title="Anexos" open={showModal} onClose={() => setShowModal(false)}>
-       <FileUploader></FileUploader>
+      <ModalDialog
+        title="Anexos"
+        open={showModal}
+        onClose={() => setShowModal(false)}
+      >
+        <FileUploader></FileUploader>
       </ModalDialog>
       <DataTable value={data} tableStyle={{ minWidth: "50rem" }}>
         {columns.map((col, i) => (

@@ -14,14 +14,13 @@ import { useEffect, useState } from "react";
 import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 
-import { getSessionStorage, setSessionStorage } from "../../../data/session";
-
+import { getSessionStorage, setSessionStorage } from "data/session";
 import {
   isRoleManager,
   isRolePurchasingManager,
   isRoleWarehouseOperator,
-} from "../../../services/role-auth";
-import { COLORS } from "../../../themes/colors";
+} from "services/role-auth";
+import { COLORS } from "themes/colors";
 
 import "./styles.css";
 

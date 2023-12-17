@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { PasswordField } from "../../../../components/ui/inputs/password/PasswordField";
-import { StepLayout } from "../../../../components/structured/stepper/Stepper";
-import Button from "../../../../components/ui/buttons/classic/Button";
+import Button from "components/ui/buttons/classic/Button";
+import { PasswordField } from "components/ui/inputs/password/PasswordField";
+import { StepLayout } from "components/structured/stepper/Stepper";
 
 import "./style.css";
 
@@ -29,7 +29,7 @@ function ForgotPasswordStep3(props) {
       minLength: e.target.value.length >= 8,
     });
 
-    if (confirmPassword != e.target.value) {
+    if (confirmPassword !== e.target.value) {
       setPasswordError("As senhas não conferem");
     } else {
       setPasswordError(null);
@@ -38,7 +38,7 @@ function ForgotPasswordStep3(props) {
 
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
-    if (password != e.target.value) {
+    if (password !== e.target.value) {
       setPasswordError("As senhas não conferem");
     } else {
       setPasswordError(null);

@@ -2,15 +2,15 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { MDBCol } from "mdb-react-ui-kit";
 
-import ContentPage from "../../../layouts/content/ContentPage";
-import useAlertScheme from "../../../hooks/alert/useAlertScheme";
-import { TextField } from "../../../components/ui/inputs/textfield/TextField";
-import { SelectWithFilter } from "../../../components/ui/inputs/select/SelectField";
-import { ENDPOINTS } from "../../../utils/constants/endpoints";
-import { post } from "../../../services/httpMethods";
+import ContentPage from "layouts/content/ContentPage";
+import useAlertScheme from "hooks/alert/useAlertScheme";
 import validateWarehouse from "./validate";
-import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
-import useFetch from "../../../hooks/useFetchApi";
+import RegisterPanel from "layouts/panel/register/classic/RegisterPanel";
+import useFetch from "hooks/useFetchApi";
+import { TextField } from "components/ui/inputs/textfield/TextField";
+import { SelectWithFilter } from "components/ui/inputs/select/SelectField";
+import { ENDPOINTS } from "utils/constants/endpoints";
+import { post } from "services/httpMethods";
 
 function WarehouseRegisterCard() {
   const { data: addresses } = useFetch(
