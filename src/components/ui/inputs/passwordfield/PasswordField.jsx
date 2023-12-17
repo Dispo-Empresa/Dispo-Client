@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { Divider } from 'primereact/divider';
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useState } from "react";
+import { Divider } from "primereact/divider";
 
-import TipIcon from '../indicators/tip/TipIcon';
-import { Password } from 'primereact/password';
-import RequiredIcon from '../indicators/required/RequiredIcon';
+import TipIcon from "components/ui/inputs/indicators/tip/TipIcon";
+import RequiredIcon from "components/ui/inputs/indicators/required/RequiredIcon";
+import { Password } from "primereact/password";
 
-import '../styles.css';
+import "components/ui/inputs/styles.css";
 
 function PasswordField(props) {
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
 
   const [suggestionsCompleted, setSuggestionsCompleted] = useState({
     lowercase: false,
@@ -37,7 +37,7 @@ function PasswordField(props) {
     setPassword(newPassword);
   };
 
-  const suggestionStyle = { textDecoration: 'line-through' };
+  const suggestionStyle = { textDecoration: "line-through" };
 
   const footer = (
     <>

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-import ContentPage from "../../../layouts/content/ContentPage";
+import ContentPage from "layouts/content/ContentPage";
 import StepOne from "./steps/StepOne";
 import StepTwo from "./steps/StepTwo";
 import StepThree from "./steps/StepThree";
-import { Stepper } from "../../../components/structured/stepper/Stepper";
+import { Stepper } from "components/structured/stepper/Stepper";
 
 function PurchaseOrder() {
   const steps = [

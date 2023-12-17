@@ -1,17 +1,17 @@
 import SuplierRegisterCard from "./register/SupplierRegisterCard";
 import SuplierQueryCard from "./query/SupplierQueryCard";
-import { AbstractFormContextProvider } from "../../components/ui/context/abstractFormContext";
-import { SupplierContextProvider } from "../../components/ui/context/supplierContext";
+import { AbstractFormContextProvider } from "components/ui/context/abstractFormContext";
+import { SupplierContextProvider } from "components/ui/context/supplierContext";
 
 function SupplierCard() {
   return (
-    <div> 
+    <div>
       <AbstractFormContextProvider>
         <SupplierContextProvider>
-          <SuplierRegisterCard isEdit={false}/>
+          <SuplierRegisterCard isEdit={false} />
         </SupplierContextProvider>
       </AbstractFormContextProvider>
-      
+
       <SuplierQueryCard />
     </div>
   );

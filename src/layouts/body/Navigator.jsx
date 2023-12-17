@@ -1,8 +1,6 @@
-import React from "react";
+import HomeIcon from "@mui/icons-material/Home";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { useLocation } from "react-router-dom";
-
-import HomeIcon from "@mui/icons-material/Home";
 
 const withLocation = (Component) => (props) => {
   const location = useLocation();

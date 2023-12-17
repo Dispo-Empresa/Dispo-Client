@@ -1,8 +1,7 @@
-import React from "react";
-import { Box, Button, Container, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
+import { Box, Button, Container, Typography } from "@mui/material";
 
-import logo from "../../assets/img/logo_sem_fundo.png";
+import logo from "assets/img/logo_sem_fundo.png";
 
 function NotAuthorized() {
   return (

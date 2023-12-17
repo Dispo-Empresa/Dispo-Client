@@ -1,7 +1,6 @@
-import React from "react";
 import "./stylesStepThree.css";
 
-import RegisterPanel from "../../../../layouts/panel/register/classic/RegisterPanel";
+import RegisterPanel from "layouts/panel/register/classic/RegisterPanel";
 
 function Tiles({ field, value, isTitle }) {
   return (

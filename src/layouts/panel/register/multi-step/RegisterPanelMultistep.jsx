@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
-import useAlert from "../../../../hooks/alert/useAlert";
-import AlertMessagePanel from "../../../../components/structured/alert/panel/AlertPanel";
+import useAlert from "hooks/alert/useAlert";
+import AlertMessagePanel from "components/structured/alert/panel/AlertPanel";
 
-import "../classic/styles.css";
+import "layouts/panel/register/classic/styles.css";
 
 function RegisterPanelMultiStep({ children, title, buttons, alertPanel }) {
   const [alertType, alertTitle, alertMessage, openAlert, closeAlert] =

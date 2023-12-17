@@ -1,13 +1,13 @@
 import { Dropdown } from "primereact/dropdown";
 import { MultiSelect as Multi } from "primereact/multiselect";
 
-import TipIcon from "../indicators/tip/TipIcon";
-import RequiredIcon from "../indicators/required/RequiredIcon";
+import TipIcon from "components/ui/inputs/indicators/tip/TipIcon";
+import RequiredIcon from "components/ui/inputs/indicators/required/RequiredIcon";
 
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.css";
 
-import "../styles.css";
+import "components/ui/inputs/styles.css";
 
 function SelectWithFilter(props) {
   return (

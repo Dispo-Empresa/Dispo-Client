@@ -1,10 +1,10 @@
 import axios from "axios"
 
 import { getToken } from "./authToken";
-import { LOCALHOST } from "../utils/constants/endpoints";
+import { LOCALHOST } from "utils/constants/endpoints";
 import { API_RESPONSE } from "./helper";
-import { setLocalStorage } from "../data/local";
-import { browserStorageKeys } from "../utils/constants/constants";
+import { setLocalStorage } from "data/local";
+import { browserStorageKeys } from "utils/constants/constants";
 
 const BASE_URL = LOCALHOST;
 const TIME_OUT = 10000;

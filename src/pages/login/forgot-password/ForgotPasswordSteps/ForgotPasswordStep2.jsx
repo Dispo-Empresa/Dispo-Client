@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
-import { StepLayout } from "../../../../components/structured/stepper/Stepper";
+
+import { StepLayout } from "components/structured/stepper/Stepper";
+
 import "./style.css";
 
 function ForgotPasswordStep2(props) {
@@ -75,7 +77,7 @@ function ForgotPasswordStep2(props) {
         <div className="code-input-container">
           {codes.map((code, index) => (
             <TextField
-              autoFocus={codes == 1}
+              autoFocus={codes === 1}
               className="code-input"
               key={index}
               variant="outlined"

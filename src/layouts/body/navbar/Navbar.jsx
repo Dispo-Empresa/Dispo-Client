@@ -14,14 +14,14 @@ import {
 import { IconButton, Menu, Avatar, MenuItem } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import useFetch from "../../../hooks/useFetchApi";
+import useFetch from "hooks/useFetchApi";
 import {
   removeToken,
   getUserName,
   getCurrentWarehouseName,
-} from "../../../services/authToken";
-import { post } from "../../../services/httpMethods";
-import { ENDPOINTS } from "../../../utils/constants/endpoints";
+} from "services/authToken";
+import { post } from "services/httpMethods";
+import { ENDPOINTS } from "utils/constants/endpoints";
 
 import "./styles.css";
 

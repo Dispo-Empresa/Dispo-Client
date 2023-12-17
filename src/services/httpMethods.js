@@ -1,5 +1,4 @@
 import { callApi } from "./api"
-
 import { API_RESPONSE, joinParameters } from "./helper";
 
 const get = async (endpoint, parameters) => {

@@ -5,10 +5,11 @@ import { FormikWizard } from "formik-wizard-form";
 import { Steps } from "primereact/steps";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-import useAlert from "../../../hooks/alert/useAlert";
-import AlertMessagePanel from "../../../components/structured/alert/panel/AlertPanel";
-import { SaveButton } from "../../../components/ui/buttons/icons/IconButton";
-import "../../../layouts/panel/register/classic/styles.css";
+import useAlert from "hooks/alert/useAlert";
+import AlertMessagePanel from "components/structured/alert/panel/AlertPanel";
+import { SaveButton } from "components/ui/buttons/icons/IconButton";
+
+import "layouts/panel/register/classic/styles.css";
 import "./styles.css";
 
 function Stepper({

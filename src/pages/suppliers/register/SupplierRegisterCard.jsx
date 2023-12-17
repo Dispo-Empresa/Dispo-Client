@@ -1,27 +1,34 @@
 import { useContext, useEffect } from "react";
-
 import { MDBCol } from "mdb-react-ui-kit";
-import { TextField } from "../../../components/ui/inputs/textfield/TextField";
-import { PhoneField } from "../../../components/ui/inputs/masked/PhoneField";
-import { cnpjFormater } from "../../../utils/format/cnpjFormat";
-import { TextArea } from "../../../components/ui/inputs/textarea/TextArea";
-import { ENDPOINTS } from "../../../utils/constants/endpoints";
-import { SupplierFormikContext } from "../../../components/ui/context/supplierContext";
 
+import ContentPage from "layouts/content/ContentPage";
+import RegisterPanel from "layouts/panel/register/classic/RegisterPanel";
+import ContentDivisor from "components/structured/divisor/ContentDivisor";
+import useFetch from "hooks/useFetchApi";
+import { TextField } from "components/ui/inputs/textfield/TextField";
+import { PhoneField } from "components/ui/inputs/masked/PhoneField";
+import { cnpjFormater } from "utils/format/cnpjFormat";
+import { TextArea } from "components/ui/inputs/textarea/TextArea";
+import { ENDPOINTS } from "utils/constants/endpoints";
+import { SupplierFormikContext } from "components/ui/context/supplierContext";
 
-import ContentPage from "../../../layouts/content/ContentPage";
-import RegisterPanel from "../../../layouts/panel/register/classic/RegisterPanel";
-import ContentDivisor from "../../../components/structured/divisor/ContentDivisor";
-import useFetch from "../../../hooks/useFetchApi";
-
-function SupplierRegisterCard({selectedRowData, readOnly, isEdit}) {
-  const { formik, showAlert, loading, handleBeforeSubmiting, isNewRegister, setIsNewRegister } = useContext(SupplierFormikContext);  
-  const { data } = useFetch(ENDPOINTS.suppliers.get, selectedRowData ? selectedRowData : 0);
+function SupplierRegisterCard({ selectedRowData, readOnly, isEdit }) {
+  const {
+    formik,
+    showAlert,
+    loading,
+    handleBeforeSubmiting,
+    isNewRegister,
+    setIsNewRegister,
+  } = useContext(SupplierFormikContext);
+  const { data } = useFetch(
+    ENDPOINTS.suppliers.get,
+    selectedRowData ? selectedRowData : 0
+  );
 
   setIsNewRegister(!isEdit);
-  
-  useEffect(() =>
-  {
+
+  useEffect(() => {
     if (selectedRowData && data) {
       formik?.setFieldValue("id", data.data.id);
       formik?.setFieldValue("name", data.data.name);
@@ -38,7 +45,7 @@ function SupplierRegisterCard({selectedRowData, readOnly, isEdit}) {
       formik?.setFieldValue("district", data.data.address.district);
       formik?.setFieldValue("cep", data.data.address.cep);
       formik?.setFieldValue("additionalInfo", data.data.address.additionalInfo);
-    } 
+    }
   }, [selectedRowData, data, isNewRegister]);
 
   return (

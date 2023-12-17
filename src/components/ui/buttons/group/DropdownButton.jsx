@@ -3,7 +3,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 
-import { MoreButton } from "../icons/IconButton";
+import { MoreButton } from "components/ui/buttons/icons/IconButton";
 
 function DropdownButtons() {
   const StyledMenu = styled((props) => (

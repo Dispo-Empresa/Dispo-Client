@@ -1,8 +1,8 @@
-import Datatable from "../../../components/structured/datatable/Datatable";
-import useFetch from "../../../hooks/useFetchApi";
-import ContentPage from "../../../layouts/content/ContentPage";
-import ViewPanel from "../../../layouts/panel/view/ViewPanel";
-import { ENDPOINTS } from "../../../utils/constants/endpoints";
+import Datatable from "components/structured/datatable/Datatable";
+import useFetch from "hooks/useFetchApi";
+import ContentPage from "layouts/content/ContentPage";
+import ViewPanel from "layouts/panel/view/ViewPanel";
+import { ENDPOINTS } from "utils/constants/endpoints";
 
 function WarehouseQueryCard() {
   const columns = [

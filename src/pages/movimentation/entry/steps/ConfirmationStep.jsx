@@ -1,7 +1,7 @@
 import { Accordion, AccordionTab } from "primereact/accordion";
 
-import { StepLayout } from "../../../../components/structured/stepper/Stepper";
-import { SaveButton } from "../../../../components/ui/buttons/icons/IconButton";
+import { StepLayout } from "components/structured/stepper/Stepper";
+import { SaveButton } from "components/ui/buttons/icons/IconButton";
 import { useState } from "react";
 
 const ConfirmationStep = (props) => {

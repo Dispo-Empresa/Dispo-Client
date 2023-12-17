@@ -1,9 +1,10 @@
 import { InputNumber } from "primereact/inputnumber";
 import { classNames } from "primereact/utils";
 
-import Tip from "../indicators/tip/TipIcon";
-import Required from "../indicators/required/RequiredIcon";
-import "../styles.css";
+import Tip from "components/ui/inputs/indicators/tip/TipIcon";
+import Required from "components/ui/inputs/indicators/required/RequiredIcon";
+
+import "components/ui/inputs/styles.css";
 
 function CurrencyField(props) {
   return (

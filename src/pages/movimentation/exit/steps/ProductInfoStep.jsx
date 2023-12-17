@@ -1,22 +1,20 @@
 import { useFormik } from "formik";
 import { MDBCol, MDBRow } from "mdb-react-ui-kit";
 
-import RegisterPanelSimple from "../../../../layouts/panel/register/classic/RegisterPanelSimple";
-import useAlertScheme from "../../../../hooks/alert/useAlertScheme";
-import useFetch from "../../../../hooks/useFetchApi";
-import { StepLayout } from "../../../../components/structured/stepper/Stepper";
-import { Datefield } from "../../../../components/ui/inputs/date/DateField";
-import { NumberField } from "../../../../components/ui/inputs/number/NumberField";
-import { CurrencyField } from "../../../../components/ui/inputs/currency/CurrencyField";
+import RegisterPanelSimple from "layouts/panel/register/classic/RegisterPanelSimple";
+import useFetch from "hooks/useFetchApi";
+import { StepLayout } from "components/structured/stepper/Stepper";
+import { Datefield } from "components/ui/inputs/date/DateField";
+import { NumberField } from "components/ui/inputs/number/NumberField";
+import { CurrencyField } from "components/ui/inputs/currency/CurrencyField";
 import { productInfoStep } from "./validate";
-import { ENDPOINTS } from "../../../../utils/constants/endpoints";
-import { SelectWithFilter } from "../../../../components/ui/inputs/select/SelectField";
+import { ENDPOINTS } from "utils/constants/endpoints";
+import { SelectWithFilter } from "components/ui/inputs/select/SelectField";
 
 const ProductInfoStep = (props) => {
   const { data: products } = useFetch(
     ENDPOINTS.products.getProductsWithSalePrice
   );
-  const [showAlert, openAlert] = useAlertScheme();
 
   const formik = useFormik({
     initialValues: {
@@ -54,7 +52,7 @@ const ProductInfoStep = (props) => {
   };
 
   return (
-    <StepLayout {...props} onNextStep={handleNextStep} alertPanel={showAlert}>
+    <StepLayout {...props} onNextStep={handleNextStep}>
       <RegisterPanelSimple>
         <MDBRow>
           <MDBCol md={6}>

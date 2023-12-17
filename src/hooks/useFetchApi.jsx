@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { get } from "../services/httpMethods";
+import { get } from "services/httpMethods";
 
 function useFetch(endpoint, parameters) {
   const [data, setData] = useState(null);

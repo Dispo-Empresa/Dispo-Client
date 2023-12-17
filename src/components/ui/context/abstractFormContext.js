@@ -1,5 +1,5 @@
+import useAlertScheme from 'hooks/alert/useAlertScheme';
 import { createContext, useState } from 'react';
-import useAlertScheme from '../../../hooks/alert/useAlertScheme';
 
 const AbstractFormContext = createContext();
 

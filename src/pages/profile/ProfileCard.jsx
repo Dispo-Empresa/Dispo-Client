@@ -1,5 +1,5 @@
-import ContentPage from "../../layouts/content/ContentPage";
-import Tabs from "../../components/structured/tabs/Tabs";
+import ContentPage from "layouts/content/ContentPage";
+import Tabs from "components/structured/tabs/Tabs";
 
 function ProfileCard() {
   const tabs = [

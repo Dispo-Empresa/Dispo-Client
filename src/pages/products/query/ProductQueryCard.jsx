@@ -1,20 +1,20 @@
-import React, { useState } from "react";
 import ToggleOnIcon from "@mui/icons-material/ToggleOn";
+import { useState } from "react";
 
-import useFetch from "../../../hooks/useFetchApi";
-import Datatable from "../../../components/structured/datatable/Datatable";
-import ContentPage from "../../../layouts/content/ContentPage";
-import ViewPanel from "../../../layouts/panel/view/ViewPanel";
-import ModalCRUD from "../../../components/structured/modal/ModalCRUD";
-import ProductRegisterCard from "../register/ProductRegisterCard";
-import ButtonGroup from "../../../components/ui/buttons/group/ButtonGroup";
-import { ENDPOINTS } from "../../../utils/constants/endpoints";
-import { AbstractFormContextProvider } from "../../../components/ui/context/abstractFormContext";
-import { ProductContextProvider } from "../../../components/ui/context/contextProduct";
-import { GenericDatabaseButton } from "../../../components/ui/buttons/icons/IconButton";
+import useFetch from "hooks/useFetchApi";
+import Datatable from "components/structured/datatable/Datatable";
+import ContentPage from "layouts/content/ContentPage";
+import ViewPanel from "layouts/panel/view/ViewPanel";
+import ModalCRUD from "components/structured/modal/ModalCRUD";
+import ProductRegisterCard from "pages/products/register/ProductRegisterCard";
+import ButtonGroup from "components/ui/buttons/group/ButtonGroup";
+import { ENDPOINTS } from "utils/constants/endpoints";
+import { AbstractFormContextProvider } from "components/ui/context/abstractFormContext";
+import { ProductContextProvider } from "components/ui/context/contextProduct";
+import { GenericDatabaseButton } from "components/ui/buttons/icons/IconButton";
 
 function ProductQueryCard() {
-  const [ selectedProducts, setSelectedProducts ] = useState(null);
+  const [selectedProducts, setSelectedProducts] = useState(null);
   const { data, loading, refetch } = useFetch(ENDPOINTS.products.getAll);
 
   //Configuração para o modal funcionar{
@@ -22,7 +22,7 @@ function ProductQueryCard() {
   const [selectedRowData, setSelectedRowData] = useState(null);
   const [readOnly, setReadOnly] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
- 
+
   const viewProducts = (row) => {
     setSelectedRowData(row.id);
     setIsModalOpen(true);
@@ -81,8 +81,8 @@ function ProductQueryCard() {
           onViewButton={viewProducts}
           onEditButton={editProducts}
         />
-      </ViewPanel> 
-      
+      </ViewPanel>
+
       <AbstractFormContextProvider>
         <ProductContextProvider>
           <ModalCRUD
@@ -90,16 +90,15 @@ function ProductQueryCard() {
             setShowModal={setIsModalOpen}
             title="Produtos"
           >
-            <ProductRegisterCard 
+            <ProductRegisterCard
               selectedRowData={selectedRowData}
               readOnly={readOnly}
               isEdit={isEdit}
-            >
-            </ProductRegisterCard>
+            ></ProductRegisterCard>
           </ModalCRUD>
         </ProductContextProvider>
-      </AbstractFormContextProvider>         
-    </ContentPage>                
+      </AbstractFormContextProvider>
+    </ContentPage>
   );
 }
 

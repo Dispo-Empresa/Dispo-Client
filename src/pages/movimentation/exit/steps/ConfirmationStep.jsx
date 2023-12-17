@@ -1,8 +1,8 @@
+import { useState } from "react";
 import { Accordion, AccordionTab } from "primereact/accordion";
 
-import { StepLayout } from "../../../../components/structured/stepper/Stepper";
-import { SaveButton } from "../../../../components/ui/buttons/icons/IconButton";
-import { useState } from "react";
+import { StepLayout } from "components/structured/stepper/Stepper";
+import { SaveButton } from "components/ui/buttons/icons/IconButton";
 
 const ConfirmationStep = (props) => {
   const [productInfoJson, setProductInfoJson] = useState(null);

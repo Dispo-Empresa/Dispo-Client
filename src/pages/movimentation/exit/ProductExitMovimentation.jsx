@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import ContentPage from "../../../layouts/content/ContentPage";
+import ContentPage from "layouts/content/ContentPage";
 import ProductInfoStep from "./steps/ProductInfoStep";
 import BatchesInfoStep from "./steps/BatchesInfoStep";
 import ConfirmationStep from "./steps/ConfirmationStep";
-import { Stepper } from "../../../components/structured/stepper/Stepper";
+import { Stepper } from "components/structured/stepper/Stepper";
 
 function ProductExitMovimentation() {
   const stepLabels = [

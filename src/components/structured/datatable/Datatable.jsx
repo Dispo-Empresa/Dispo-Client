@@ -1,13 +1,16 @@
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { ConfirmDialog, confirmDialog } from "../dialog/ConfirmDialog";
 
-import ButtonGroup from "../../ui/buttons/group/ButtonGroup";
+import ButtonGroup from "components/ui/buttons/group/ButtonGroup";
+import {
+  ConfirmDialog,
+  confirmDialog,
+} from "components/structured/dialog/ConfirmDialog";
 import {
   QueryDataButton,
   DisableButton,
   EditButton,
-} from "../../ui/buttons/icons/IconButton";
+} from "components/ui/buttons/icons/IconButton";
 
 function Datatable({
   rowClick,

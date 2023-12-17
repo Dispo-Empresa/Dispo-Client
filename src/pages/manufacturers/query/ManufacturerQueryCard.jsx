@@ -1,39 +1,39 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-import useFetch from "../../../hooks/useFetchApi";
-import Datatable from "../../../components/structured/datatable/Datatable";
-import ContentPage from "../../../layouts/content/ContentPage";
-import ViewPanel from "../../../layouts/panel/view/ViewPanel";
-import { ENDPOINTS } from "../../../utils/constants/endpoints";
-import { AbstractFormContextProvider } from "../../../components/ui/context/abstractFormContext";
-import { ManufacturerContextProvider } from "../../../components/ui/context/manufacturerContext";
-import ManufacturerRegisterCard from "../register/ManufacturerRegisterCard";
-import ModalCrud from "../../../components/structured/modal/ModalCRUD";
+import useFetch from "hooks/useFetchApi";
+import Datatable from "components/structured/datatable/Datatable";
+import ContentPage from "layouts/content/ContentPage";
+import ViewPanel from "layouts/panel/view/ViewPanel";
+import ManufacturerRegisterCard from "pages/manufacturers/register/ManufacturerRegisterCard";
+import ModalCrud from "components/structured/modal/ModalCRUD";
+import { ENDPOINTS } from "utils/constants/endpoints";
+import { AbstractFormContextProvider } from "components/ui/context/abstractFormContext";
+import { ManufacturerContextProvider } from "components/ui/context/manufacturerContext";
 
 function ManufacturerQueryCard() {
   const [selectedManufacturers, setSelectedManufacturers] = useState(null);
   const { data, loading, refetch } = useFetch(ENDPOINTS.manufacturers.getAll);
 
   //Configuração para o modal funcionar{
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedRowData, setSelectedRowData] = useState(null);
-    const [readOnly, setReadOnly] = useState(false);
-    const [isEdit, setIsEdit] = useState(false);
-   
-    const viewManufacturer = (row) => {
-      setSelectedRowData(row.id);
-      setIsModalOpen(true);
-      setReadOnly(true);
-      setIsEdit(false);
-    };
-  
-    const editManufacturer = (row) => {
-      setSelectedRowData(row.id);
-      setIsModalOpen(true);
-      setReadOnly(false);
-      setIsEdit(true);
-    };
-    //Fim da configuração}
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRowData, setSelectedRowData] = useState(null);
+  const [readOnly, setReadOnly] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+
+  const viewManufacturer = (row) => {
+    setSelectedRowData(row.id);
+    setIsModalOpen(true);
+    setReadOnly(true);
+    setIsEdit(false);
+  };
+
+  const editManufacturer = (row) => {
+    setSelectedRowData(row.id);
+    setIsModalOpen(true);
+    setReadOnly(false);
+    setIsEdit(true);
+  };
+  //Fim da configuração}
 
   const columns = [{ field: "name", header: "Nome", minWidth: "350px" }];
 
@@ -71,9 +71,8 @@ function ManufacturerQueryCard() {
               selectedRowData={selectedRowData}
               readOnly={readOnly}
               isEdit={isEdit}
-            >
-            </ManufacturerRegisterCard>
-          </ModalCrud>         
+            ></ManufacturerRegisterCard>
+          </ModalCrud>
         </ManufacturerContextProvider>
       </AbstractFormContextProvider>
     </ContentPage>

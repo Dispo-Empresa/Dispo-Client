@@ -1,19 +1,15 @@
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
-import { useState } from "react";
+
+import Button from "components/ui/buttons/classic/Button";
+import { post } from "services/httpMethods";
+import { ENDPOINTS } from "utils/constants/endpoints";
+import { StepLayout } from "components/structured/stepper/Stepper";
 
 import "./stylesStepThree.css";
-import Button from "../../../../components/ui/buttons/classic/Button";
-import { post } from "../../../../services/httpMethods";
-import { ENDPOINTS } from "../../../../utils/constants/endpoints";
-import { StepLayout } from "../../../../components/structured/stepper/Stepper";
 
 const StepThree = (props) => {
-  const [loading, setLoading] = useState(false);
-
   const onSave = async () => {
     try {
-      setLoading(true);
-
       var data = {
         number: props.purchaseOrderInfo.orderNumber,
         creationDate: props.purchaseOrderInfo.creationDate,
@@ -23,15 +19,17 @@ const StepThree = (props) => {
         orders: props.orderInfo,
       };
 
-      var response = await post(ENDPOINTS.purchaseorder.createPurchaseOrder,data);
+      var response = await post(
+        ENDPOINTS.purchaseorder.createPurchaseOrder,
+        data
+      );
 
       if (response.success) {
         console.log(response.success);
       }
     } catch (err) {
-        console.log(err);
+      console.log(err);
     } finally {
-      setLoading(false);
     }
   };
 

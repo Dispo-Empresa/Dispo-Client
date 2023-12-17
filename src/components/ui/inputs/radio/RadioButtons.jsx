@@ -1,8 +1,7 @@
-import React from "react";
 import { RadioButton } from "primereact/radiobutton";
 
-import TipIcon from "../indicators/tip/TipIcon";
-import RequiredIcon from "../indicators/required/RequiredIcon";
+import TipIcon from "components/ui/inputs/indicators/tip/TipIcon";
+import RequiredIcon from "components/ui/inputs/indicators/required/RequiredIcon";
 
 function RadioButtons(props) {
   return (

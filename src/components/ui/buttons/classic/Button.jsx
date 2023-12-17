@@ -1,5 +1,5 @@
-import { ReactComponent as Loader } from "../loader.svg";
-import { COLORS } from "../../../../themes/colors";
+import { ReactComponent as Loader } from "components/ui/buttons/loader.svg";
+import { COLORS } from "themes/colors";
 
 import "./styles.css";
 
