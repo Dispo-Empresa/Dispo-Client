@@ -37,7 +37,7 @@ function ContentPage(props) {
         collapsed={props.defaultCollapsed}
       >
         <hr style={{ marginTop: "-20px" }} />
-        <div className="content-children">{props.children}</div>
+        <div className="content-page-children">{props.children}</div>
       </Panel>
     </Card>
   );

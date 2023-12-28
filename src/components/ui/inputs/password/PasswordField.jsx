@@ -9,7 +9,7 @@ import "./styles.css";
 
 function PasswordField(props) {
   const header = <div className="font-bold mb-3">Escolha uma senha</div>;
-  const footer = (
+  const footer = props.sugestion && (
     <>
       <Divider />
       <p className="mt-2">Sugestões</p>
@@ -55,7 +55,7 @@ function PasswordField(props) {
           {props.tip && <TipIcon message={props.tip} />}
         </div>
       </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <Password
           type={props.type}
           header={header}
@@ -64,18 +64,24 @@ function PasswordField(props) {
           mediumLabel="Media"
           strongLabel="Forte"
           promptLabel="Informe uma senha"
+          feedback={props.sugestion}
           toggleMask={props.toggleMask}
           placeholder={props.placeholder}
-          style={{ marginBottom: "30px", ...props.style }}
+          style={{
+            marginBottom: props.allowConfirmPassword && "30px",
+            ...props.style,
+          }}
           onChange={props.onChange}
           value={props.value}
         />
-        <Password
-          feedback={false}
-          placeholder="Confirme a senha"
-          onChange={props.onChangeConfirm}
-          value={props.valueConfirm}
-        />
+        {props.allowConfirmPassword && (
+          <Password
+            feedback={false}
+            placeholder="Confirme a senha"
+            onChange={props.onChangeConfirm}
+            value={props.valueConfirm}
+          />
+        )}
       </div>
       {props.error && <span className="errors">{props.error}</span>}
     </div>

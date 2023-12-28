@@ -67,18 +67,6 @@ function EmployeeRegisterTab() {
         />
       </MDBCol>
       <MDBCol>
-        <TextField
-          required
-          disabled
-          type="password"
-          label="Senha"
-          width="250px"
-          tip="A senha vai ser refatorada pelo usuário no primeiro momento do login"
-          value="alterarsenha"
-          onChange={() => {}}
-        />
-      </MDBCol>
-      <MDBCol>
         <MultiSelect
           required
           label="Depósitos"

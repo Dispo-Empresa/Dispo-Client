@@ -7,7 +7,7 @@ function RegisterPanelSimple({ onSubmit, title, children }) {
     <div style={{ width: "100%", marginBottom: "5%" }}>
       <form onSubmit={onSubmit}>
         <label className="title">{title}</label>
-        <MDBRow>{children}</MDBRow>
+        <MDBRow className="g-5">{children}</MDBRow>
       </form>
     </div>
   );

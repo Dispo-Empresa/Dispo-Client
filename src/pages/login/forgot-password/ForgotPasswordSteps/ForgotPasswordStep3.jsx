@@ -1,10 +1,8 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import Button from "components/ui/buttons/classic/Button";
 import { PasswordField } from "components/ui/inputs/password/PasswordField";
 import { StepLayout } from "components/structured/stepper/Stepper";
-
 import "./style.css";
 
 function ForgotPasswordStep3(props) {
@@ -17,7 +15,9 @@ function ForgotPasswordStep3(props) {
     numeric: false,
     minLength: false,
   });
-  let navigate = useNavigate();
+  const [hideConfirmation, setHideConfirmation] = useState(false);
+  const [countdown, setCountdown] = useState(5);
+  const navigate = useNavigate();
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -46,7 +46,6 @@ function ForgotPasswordStep3(props) {
   };
 
   const validatePassword = (value) => {
-    debugger;
     if (!value) {
       return "Campo obrigatório";
     } else if (!/^\S*$/.test(value)) {
@@ -68,39 +67,71 @@ function ForgotPasswordStep3(props) {
     setPasswordError(errors);
 
     if (!errors) {
-      navigate("/login/signin");
+      ////
+      // FAZER A REFATORAÇÃO DA SENHA NA API
+      ////
+
+      setHideConfirmation(true);
+
+      const interval = setInterval(() => {
+        setCountdown((prevCountdown) => prevCountdown - 1);
+      }, 1000);
+
+      setTimeout(() => {
+        clearInterval(interval);
+        navigate("/login/signin");
+      }, countdown * 1000);
     }
   };
+
+  useEffect(() => {
+    if (countdown === 0) {
+      setHideConfirmation(false);
+    }
+  }, [countdown]);
 
   return (
     <StepLayout {...props} hideButtonsBack>
       <div className="container-step3">
-        <PasswordField
-          toggleMask
-          placeholder="Nova Senha"
-          onChange={(e) => {
-            handlePasswordChange(e);
-          }}
-          value={password}
-          onChangeConfirm={(e) => handleConfirmPasswordChange(e)}
-          valueConfirm={confirmPassword}
-          error={passwordError}
-          sugestion={suggestionsCompleted}
-        />
-        <p className="info-text">
-          <u>
-            Todas as informações sigilosas são submetidas a criptografia e são
-            tão bem protegidas que nem a equipe da Dispo possui acesso a elas.
-          </u>
-        </p>
-        <div className="confirm-button">
-          <Button
-            title="Confirmar"
-            width="300px"
-            height="45px"
-            onClick={onConfirmar}
+        {!hideConfirmation ? (
+          <PasswordField
+            allowConfirmPassword
+            toggleMask
+            placeholder="Nova Senha"
+            onChange={(e) => handlePasswordChange(e)}
+            value={password}
+            onChangeConfirm={(e) => handleConfirmPasswordChange(e)}
+            valueConfirm={confirmPassword}
+            error={passwordError}
+            sugestion={suggestionsCompleted}
+            disabled={hideConfirmation}
           />
-        </div>
+        ) : null}
+        {!hideConfirmation && (
+          <p className="info-text">
+            <u>
+              Todas as informações sigilosas são submetidas a criptografia e são
+              tão bem protegidas que nem a equipe da Dispo possui acesso a elas.
+            </u>
+          </p>
+        )}
+        {!hideConfirmation ? (
+          <div className="confirm-button">
+            <Button
+              title="Confirmar"
+              width="300px"
+              height="45px"
+              onClick={onConfirmar}
+            />
+          </div>
+        ) : (
+          <div className="confirmation-text">
+            <p style={{ color: "green" }}>
+              Senha redefinida com sucesso, indo para tela de login em{" "}
+              <span className="countdown">{countdown}</span> segundos
+            </p>
+          </div>
+        )}
       </div>
     </StepLayout>
   );

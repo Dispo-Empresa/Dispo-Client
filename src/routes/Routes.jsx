@@ -12,7 +12,7 @@ import PrivateRoute from "./PrivateRoute";
 import SettingsCard from "pages/settings/SettingsCard";
 import NotFound from "pages/not-found/NotFound";
 import NotAuthorized from "pages/not-found/NotAuthorized";
-import ProductEntryMovimentation from "pages/movimentation/entry/ProductEntryMovimentation";
+import MovimentationCard from "pages/movimentation/MovimentationCard";
 import ProductExitMovimentation from "pages/movimentation/exit/ProductExitMovimentation";
 import ManufacturerCard from "pages/manufacturers/ManufacturerCard";
 import PurchaseOrderCard from "pages/purchase-order/PurchaseOrderCard";
@@ -132,7 +132,7 @@ function RoutesConfiguration() {
             <RouteController
               allowedRoles={[roles.Manager, roles.WarehouseOperator]}
             >
-              <ProductEntryMovimentation />
+              <MovimentationCard />
             </RouteController>
           }
         />

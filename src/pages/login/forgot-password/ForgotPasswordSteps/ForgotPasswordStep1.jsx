@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { TextField } from "components/ui/inputs/textfield/TextField";
 import { StepLayout } from "components/structured/stepper/Stepper";
+import { post } from "services/httpMethods";
+import { ENDPOINTS } from "utils/constants/endpoints";
 
 function ForgotPasswordStep1(props) {
   const [email, setEmail] = useState("");
@@ -20,15 +22,22 @@ function ForgotPasswordStep1(props) {
     setEmail(event.target.value);
   };
 
-  const handleEmailBlur = () => {
-    // Validar o e-mail
+  const handleEmailBlur = async () => {
     const error = validateEmail(email);
     setEmailError(error);
 
     if (!error) {
-      // Se não houver erro, avance para o próximo passo
-      props.timerInicialized(true);
-      props.nextStep();
+      var response = await post(
+        ENDPOINTS.userAccount.getAccountIdByEmail,
+        email
+      );
+
+      if (response.data < 0) {
+        setEmailError("Email informado não existe");
+      } else {
+        props.timerInicialized(true);
+        props.nextStep();
+      }
     }
   };
 

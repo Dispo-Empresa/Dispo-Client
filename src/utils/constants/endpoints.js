@@ -28,6 +28,7 @@ const ENDPOINTS = {
   userAccount: {
     updateUserAccountInfo: "user-account/{id}",
     getAllUserInfo: "user-account/id={id}",
+    getAccountIdByEmail: "user-account/getAccountIdByEmail"
   },
 
   products: {
@@ -42,7 +43,8 @@ const ENDPOINTS = {
   },
 
   movements: {
-    moveProduct: "movements/move"
+    moveProduct: "movements/move/batch",
+    getAll: "movements"
   },
 
   manufacturers: {

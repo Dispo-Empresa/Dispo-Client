@@ -78,10 +78,8 @@ const BatchesInfoStep = (props) => {
     } else {
       const newBatch = {
         batch: formik.values.batch,
-        manufacturingDate:
-          formik.values.manufacturingDate.toLocaleDateString("pt-BR"),
-        validatingDate:
-          formik.values.validatingDate.toLocaleDateString("pt-BR"),
+        manufacturingDate: formik.values.manufacturingDate.toString(),
+        validatingDate: formik.values.validatingDate.toString(),
         quantityOnBatch: formik.values.quantityOnBatch,
       };
 

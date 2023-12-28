@@ -123,7 +123,12 @@ function Datatable({
               key={col.field}
               field={col.field}
               header={col.header}
-              headerStyle={{ minWidth: col.minWidth ?? "250px" }}
+              body={col.body}
+              headerStyle={{
+                fontWeight: "700",
+                minWidth: col.minWidth ?? "250px",
+                width: col.width,
+              }}
             />
           ))}
         {onDeleteButton || onViewButton || customButtons ? (

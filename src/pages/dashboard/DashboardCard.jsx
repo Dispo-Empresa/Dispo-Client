@@ -76,7 +76,7 @@ function DashboardCard() {
         <img
           src={logo}
           alt="Dispo"
-          height={300}
+          height={100}
           style={{ marginLeft: "40%" }}
         />
       </ContentPage>

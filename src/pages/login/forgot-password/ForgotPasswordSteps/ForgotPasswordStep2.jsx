@@ -6,9 +6,12 @@ import { StepLayout } from "components/structured/stepper/Stepper";
 import "./style.css";
 
 function ForgotPasswordStep2(props) {
+  const codeExpirationTime = 180; // 180 sec > 3 min
   const [codes, setCodes] = useState(["", "", "", "", "", ""]);
-  const [timeRemaining, setTimeRemaining] = useState(180); // 3 minutos
-  const [isResendDisabled, setIsResendDisabled] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(codeExpirationTime);
+  const [isResendDisabled, setIsResendDisabled] = useState(true);
+
+  const inputRefs = Array.from({ length: 6 }, () => React.createRef());
 
   const handleInputChange = (e, index) => {
     const inputValue = e.target.value.slice(0, 1);
@@ -18,9 +21,15 @@ function ForgotPasswordStep2(props) {
       newCodes[index] = inputValue;
       setCodes(newCodes);
 
-      // Muda o foco para o próximo campo quando o comprimento atinge 1
       if (index < codes.length - 1) {
         inputRefs[index + 1].focus();
+      }
+
+      if (newCodes.every((code) => code !== "")) {
+        ////
+        // VALIDAR SE CÓDIGO ESTA CORRETO
+        ////
+        props.nextStep();
       }
     }
   };
@@ -28,18 +37,20 @@ function ForgotPasswordStep2(props) {
   const handleResendCode = () => {
     if (!isResendDisabled) {
       setIsResendDisabled(true);
-      setTimeRemaining(10); // Reinicia o tempo de expiração
+      setTimeRemaining(codeExpirationTime);
     }
   };
 
   useEffect(() => {
+    inputRefs[0].focus();
+
     const timer = setInterval(() => {
       if (props.timerInicialStarted) {
         setTimeRemaining((prevTime) => {
           if (prevTime > 0) {
             return prevTime - 1;
           } else {
-            setIsResendDisabled(false); // Reabilita o botão após 5 minutos
+            setIsResendDisabled(false);
             return 0;
           }
         });
@@ -51,12 +62,6 @@ function ForgotPasswordStep2(props) {
     return () => clearInterval(timer);
   }, [props.timerInicialStarted]);
 
-  const EmailCodeChecker = () => {
-    if (codes.every((code) => code !== "")) {
-      props.nextStep();
-    }
-  };
-
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -65,11 +70,8 @@ function ForgotPasswordStep2(props) {
     ).padStart(2, "0")}`;
   };
 
-  // Refs para os campos de texto
-  const inputRefs = Array.from({ length: 6 }, () => React.createRef());
-
   return (
-    <StepLayout {...props} hideButtonsBack onNextStep={EmailCodeChecker}>
+    <StepLayout {...props} hideButtonsBack>
       <div className="container-step2">
         <h1 className="step2-title">
           Código de recuperação enviado para o seu e-mail.
@@ -77,14 +79,12 @@ function ForgotPasswordStep2(props) {
         <div className="code-input-container">
           {codes.map((code, index) => (
             <TextField
-              autoFocus={codes === 1}
               className="code-input"
               key={index}
               variant="outlined"
               value={code}
               onChange={(e) => handleInputChange(e, index)}
               inputProps={{ style: { textAlign: "center" } }}
-              onBlur={EmailCodeChecker}
               inputRef={(ref) => (inputRefs[index] = ref)}
             />
           ))}
@@ -96,7 +96,10 @@ function ForgotPasswordStep2(props) {
         >
           <u>Reenviar código de recuperação</u>
         </p>
-        <h1 className="expiry-message">
+        <h1
+          className="expiry-message"
+          style={{ visibility: isResendDisabled ? "visible" : "hidden" }}
+        >
           Código expira em {formatTime(timeRemaining)}
         </h1>
       </div>

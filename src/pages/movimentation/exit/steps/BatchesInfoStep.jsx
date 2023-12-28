@@ -114,8 +114,7 @@ const BatchesInfoStep = (props) => {
       const newBatch = {
         batchId: formik.values.batch,
         batch: batchSelected.key,
-        validatingDate:
-          formik.values.validatingDate.toLocaleDateString("pt-BR"),
+        validatingDate: formik.values.validatingDate.toString(),
         quantityOnBatch: formik.values.quantityOnBatch,
       };
 

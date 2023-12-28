@@ -82,5 +82,21 @@
     margin-top: 5%;
   }
   
-  
-  
+/*
+    Step 3
+*/
+
+.confirmation-text {
+  text-align: center;
+}
+
+.confirmation-text p {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.countdown {
+  font-size: 20px;
+  color: red;
+  font-weight: 800;
+}
