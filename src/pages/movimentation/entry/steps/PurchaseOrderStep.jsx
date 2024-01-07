@@ -9,7 +9,7 @@ import RegisterPanelSimple from "layouts/panel/register/classic/RegisterPanelSim
 import { SelectWithFilter } from "components/ui/inputs/select/SelectField";
 import { ENDPOINTS } from "utils/constants/endpoints";
 import { StepLayout } from "components/structured/stepper/Stepper";
-import { validatePurchaseOrderStep } from "./validate";
+import { validatePurchaseOrderStep } from "../../steps/validate";
 
 const PurchaseOrderStep = (props) => {
   const { data: products } = useFetch(

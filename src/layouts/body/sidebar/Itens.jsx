@@ -10,6 +10,8 @@ import BusinessIcon from "@mui/icons-material/Business";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import TurnLeftIcon from "@mui/icons-material/TurnLeft";
 import TurnRightIcon from "@mui/icons-material/TurnRight";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import GridViewIcon from "@mui/icons-material/GridView";
 import { useEffect, useState } from "react";
 import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
@@ -125,13 +127,25 @@ function SidebarItens(props) {
 
         {(isRoleWarehouseOperator() || isRoleManager()) && (
           <SubMenu
-            label="Movimentação"
-            icon={<SyncAltIcon />}
-            open={menuStates["batch-movimentation"] === "path-open"}
+            label="Depósito"
+            icon={<InventoryIcon />}
+            open={menuStates["warehouse"] === "path-open"}
             onOpenChange={() => {
-              onMenuOpen("batch-movimentation");
+              onMenuOpen("warehouse");
             }}
           >
+            <MenuItem
+              component={<Link to="/warehouse" />}
+              active={isActivePage("/warehouse")}
+              prefix="Visão geral"
+              icon={<GridViewIcon />}
+            />
+            <MenuItem
+              component={<Link to="/movimentacoes" />}
+              active={isActivePage("/movimentacoes")}
+              prefix="Movimentações"
+              icon={<SyncAltIcon />}
+            />
             <MenuItem
               component={<Link to="/movimentacoes/entrada" />}
               active={isActivePage("/movimentacoes/entrada")}

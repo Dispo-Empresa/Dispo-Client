@@ -84,13 +84,12 @@ function Datatable({
         onRowClick={onRowClick}
         size="small"
         paginatorLeft={
-          showCheckbox && !singleSelect ? (
+          showCheckbox &&
+          !singleSelect && (
             <label>
               <b>Selecionadas:</b>&nbsp;
               {selectedItens == null ? 0 : selectedItens.length}
             </label>
-          ) : (
-            <></>
           )
         }
         selectionMode={!rowClick && showCheckbox ? "checkbox" : null}
@@ -105,10 +104,6 @@ function Datatable({
         rowsPerPageOptions={rowsPerPage}
         loading={loading}
         emptyMessage={noDataMessage ?? "Nenhum resultado encontrado"}
-        tableStyle={{
-          maxWidth: "100%",
-          overflowX: "auto",
-        }}
       >
         {showCheckbox ? (
           <Column
@@ -126,7 +121,7 @@ function Datatable({
               body={col.body}
               headerStyle={{
                 fontWeight: "700",
-                minWidth: col.minWidth ?? "250px",
+                minWidth: col.minWidth,
                 width: col.width,
               }}
             />
@@ -135,7 +130,7 @@ function Datatable({
           <Column
             field="actions"
             header="Ações"
-            headerStyle={{ minWidth: "180px" }}
+            headerStyle={{ fontWeight: "700", minWidth: "150px" }}
             frozen
             alignFrozen="right"
             body={buttonsTemplate}

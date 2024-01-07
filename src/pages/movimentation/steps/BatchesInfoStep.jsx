@@ -12,7 +12,11 @@ import { StepLayout } from "components/structured/stepper/Stepper";
 import { TextField } from "components/ui/inputs/textfield/TextField";
 import { Datefield } from "components/ui/inputs/date/DateField";
 import { NumberField } from "components/ui/inputs/number/NumberField";
-import { validateBatchesStep } from "../../steps/validate";
+import { validateBatchesStep } from "./validate";
+import useFetch from "hooks/useFetchApi";
+import { ENDPOINTS } from "utils/constants/endpoints";
+import { SelectWithFilter } from "components/ui/inputs/select/SelectField";
+import { movementType } from "utils/constants/constants";
 
 const BatchesInfoStep = (props) => {
   const columns = [
@@ -21,6 +25,11 @@ const BatchesInfoStep = (props) => {
     { field: "validatingDate", header: "Data de validade" },
     { field: "quantityOnBatch", header: "Quantidade" },
   ];
+
+  const { data: batchesOptions } = useFetch(
+    ENDPOINTS.batches.getByProduct,
+    props.productInfo.product
+  );
 
   const [showAlert, openAlert] = useAlertScheme();
   const [batches, setBatches] = useState([]);
@@ -35,7 +44,34 @@ const BatchesInfoStep = (props) => {
     },
     validationSchema: validateBatchesStep,
     validateOnChange: false,
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      if (batches.find((batch) => batch.batch === values.batch) !== undefined) {
+        openAlert("info", "Info", "Já existe o lote informado!");
+      } else if (
+        quantityPerBatchTotal + values.quantityOnBatch >
+        props.productsQuantityPurshaseOrder
+      ) {
+        openAlert(
+          "info",
+          "Info",
+          "A soma da quantidade de produtos em cada lote passa da quantidade da ordem de compra!"
+        );
+      } else {
+        const newBatch = {
+          batch: values.batch,
+          manufacturingDate: values.manufacturingDate.toString(),
+          validatingDate: values.validatingDate.toString(),
+          quantityOnBatch: values.quantityOnBatch,
+        };
+
+        setQuantityPerBatchTotal(
+          quantityPerBatchTotal + newBatch.quantityOnBatch
+        );
+
+        openAlert(null);
+        setBatches([...batches, newBatch]);
+      }
+    },
   });
 
   const handleNextStep = () => {
@@ -54,42 +90,6 @@ const BatchesInfoStep = (props) => {
 
   const onInsertBatch = () => {
     formik.handleSubmit();
-
-    const isFormValid =
-      formik.isValid && Object.keys(formik.touched).length > 0;
-
-    if (!isFormValid) {
-      return;
-    }
-
-    if (
-      batches.find((batch) => batch.batch === formik.values.batch) !== undefined
-    ) {
-      openAlert("info", "Info", "Já existe o lote informado!");
-    } else if (
-      quantityPerBatchTotal + formik.values.quantityOnBatch >
-      props.productsQuantityPurshaseOrder
-    ) {
-      openAlert(
-        "info",
-        "Info",
-        "A soma da quantidade de produtos em cada lote passa da quantidade da ordem de compra!"
-      );
-    } else {
-      const newBatch = {
-        batch: formik.values.batch,
-        manufacturingDate: formik.values.manufacturingDate.toString(),
-        validatingDate: formik.values.validatingDate.toString(),
-        quantityOnBatch: formik.values.quantityOnBatch,
-      };
-
-      setQuantityPerBatchTotal(
-        quantityPerBatchTotal + newBatch.quantityOnBatch
-      );
-
-      openAlert(null);
-      setBatches([...batches, newBatch]);
-    }
   };
 
   const onDeleteRow = (rowToDelete) => {
@@ -110,6 +110,16 @@ const BatchesInfoStep = (props) => {
     />,
   ];
 
+  const onSelectBatch = (e) => {
+    formik.setFieldValue("batch", e.value);
+    let batchSelected = batches.data.find((batch) => batch.id === e.value);
+    formik.setFieldValue(
+      "validatingDate",
+      new Date(batchSelected.expirationDate)
+    );
+    formik.setFieldValue("quantityOnBatch", batchSelected.quantity);
+  };
+
   return (
     <StepLayout
       {...props}
@@ -119,13 +129,32 @@ const BatchesInfoStep = (props) => {
     >
       <RegisterPanelSimple>
         <MDBCol>
-          <TextField
-            required
-            label="Lote"
-            value={formik.values.batch}
-            error={formik.errors.batch}
-            onChange={(e) => formik.setFieldValue("batch", e.target.value)}
-          />
+          {props.type == movementType.Input ? (
+            <TextField
+              required
+              label="Lote"
+              value={formik.values.batch}
+              error={formik.errors.batch}
+              onChange={(e) => formik.setFieldValue("batch", e.target.value)}
+            />
+          ) : (
+            <SelectWithFilter
+              required
+              label="Lote"
+              options={
+                batchesOptions &&
+                batchesOptions.data.map((selectedBatch) => ({
+                  value: selectedBatch.id,
+                  label: selectedBatch.key,
+                }))
+              }
+              value={formik.values.batch}
+              error={formik.errors.batch}
+              width="500px"
+              emptyMessage="Sem lotes encontrados para o produto informado"
+              onChange={(e) => onSelectBatch(e)}
+            />
+          )}
         </MDBCol>
         <MDBCol>
           <Datefield

@@ -30,7 +30,7 @@ function CurrencyField(props) {
           width: "200px",
         }}
       />
-      {props.error && <span className="errors">{props.error}</span>}
+      <div>{props.error && <span className="errors">{props.error}</span>}</div>
     </div>
   );
 }

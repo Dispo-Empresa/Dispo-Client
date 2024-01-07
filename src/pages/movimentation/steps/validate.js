@@ -1,5 +1,22 @@
 import * as Yup from "yup";
 
+const validateMovementTypeStep = () => {
+  return Yup.object().shape({
+    type: Yup.string().required("Campo obrigatório"),
+    quantity: Yup.number().required("Campo obrigatório").positive("Informe uma quantidade válida").integer(),
+    date: Yup.date().required("Campo obrigatório")
+  });
+}
+
+const validateProductInfoStep = () => {
+  return Yup.object().shape({
+    product: Yup.string().required("Campo obrigatório"),
+    unitPrice: Yup.number()
+    .required("Campo obrigatório")
+    .min(0.01, "O valor deve ser maior que zero")
+  });
+}
+
 const validatePurchaseOrderStep = () => {
   return Yup.object().shape({
     product: Yup.string().required("Campo obrigatório"),
@@ -17,4 +34,4 @@ const validateBatchesStep = () => {
   });
 }
 
-export { validatePurchaseOrderStep, validateBatchesStep };
+export { validateMovementTypeStep, validateProductInfoStep, validatePurchaseOrderStep, validateBatchesStep };

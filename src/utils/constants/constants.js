@@ -11,4 +11,9 @@ const browserStorageKeys = {
     LastAccessedUrl: "lastAccessedUrl"
 };
 
-export { roles, browserStorageKeys };
+const movementType = {
+    Input: 0,
+    Output: 1
+}
+
+export { roles, browserStorageKeys, movementType };
