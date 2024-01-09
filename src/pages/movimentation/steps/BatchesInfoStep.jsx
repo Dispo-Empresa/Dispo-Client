@@ -184,8 +184,7 @@ const BatchesInfoStep = (props) => {
           />
         </MDBCol>
       </RegisterPanelSimple>
-      {props.productsQuantityPurshaseOrder - quantityPerBatchTotal ===
-      0 ? null : (
+      {props.type === movementType.Input && (
         <div>
           <b style={{ fontSize: "15px", fontWeight: "600", color: "red" }}>
             Observação:
