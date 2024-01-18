@@ -20,6 +20,7 @@ function EmployeeViewTab() {
   return (
     <ViewPanel refreshData={refetch}>
       <Datatable
+        showCheckbox
         fromApi
         noDataMessage="Colaboradores não encontrados"
         rowsPerPage={[5, 10, 25]}

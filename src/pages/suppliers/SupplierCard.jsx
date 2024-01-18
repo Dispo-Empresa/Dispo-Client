@@ -1,7 +1,7 @@
 import SuplierRegisterCard from "./register/SupplierRegisterCard";
 import SuplierQueryCard from "./query/SupplierQueryCard";
-import { AbstractFormContextProvider } from "components/ui/context/abstractFormContext";
-import { SupplierContextProvider } from "components/ui/context/supplierContext";
+import { AbstractFormContextProvider } from "context/abstractFormContext";
+import { SupplierContextProvider } from "context/supplierContext";
 
 function SupplierCard() {
   return (

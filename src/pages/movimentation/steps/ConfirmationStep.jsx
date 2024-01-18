@@ -19,24 +19,35 @@ const ConfirmationStep = (props) => {
   const onSave = async () => {
     setLoading(true);
 
-    var batchesInfoRequest =
-      props.batchesInfo &&
-      props.batchesInfo.map((batch) => ({
+    var movementRequest = null;
+
+    if (!props.batchesInfo) return;
+
+    if (props.type == MovementType.Input) {
+      movementRequest = props.batchesInfo.map((batch) => ({
         key: batch.batch,
         manufacturingDate: new Date(batch.manufacturingDate),
         expirationDate: new Date(batch.validatingDate),
         quantity: batch.quantityOnBatch,
-        orderId: props.purchaseOrderInfo.idOrder,
+        orderId: props.purchaseOrderInfo.orderId,
       }));
+    } else if (props.type == MovementType.Output) {
+      movementRequest = props.batchesInfo.map((batch) => ({
+        id: batch.batchId,
+        manufacturingDate: new Date(batch.manufacturingDate),
+        expirationDate: new Date(batch.validatingDate),
+        quantity: batch.quantityOnBatch,
+      }));
+    }
 
     var request = {
-      batches: batchesInfoRequest,
-      movementType: MovementType.Input,
+      batches: movementRequest,
+      MovementType: props.type,
     };
     var response = await post(ENDPOINTS.movements.moveProduct, request);
 
     if (response.success) {
-      openAlert(response.alertType, response.message);
+      openAlert(response.alertType, "Sucesso", response.message);
     } else {
       openAlert(response.alertType, "Erro", response.message);
     }

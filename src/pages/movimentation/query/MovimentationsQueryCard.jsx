@@ -6,7 +6,7 @@ import ContentPage from "layouts/content/ContentPage";
 import ViewPanel from "layouts/panel/view/ViewPanel";
 import { ENDPOINTS } from "utils/constants/endpoints";
 
-function MovimentationsQueryCard() {
+function ProductMovimentationsQueryCard() {
   const { data, loading, refetch } = useFetch(ENDPOINTS.movements.getAll);
 
   const typeBodyTemplate = (movement) => {
@@ -61,6 +61,7 @@ function MovimentationsQueryCard() {
       <ViewPanel refreshData={refetch}>
         <Datatable
           noDataMessage="Movimentações não encontradas"
+          showCheckbox
           fromApi
           rowsPerPage={[5, 10, 25]}
           columns={columns}
@@ -72,4 +73,4 @@ function MovimentationsQueryCard() {
   );
 }
 
-export default MovimentationsQueryCard;
+export default ProductMovimentationsQueryCard;

@@ -1,5 +1,5 @@
-import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
-import { useState } from "react";
+import AddIcon from "@mui/icons-material/Add";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { MDBCol } from "mdb-react-ui-kit";
 
@@ -8,24 +8,18 @@ import Datatable from "components/structured/datatable/Datatable";
 import ViewPanel from "layouts/panel/view/ViewPanel";
 import Button from "components/ui/buttons/classic/Button";
 import useAlertScheme from "hooks/alert/useAlertScheme";
+import useFetch from "hooks/useFetchApi";
+import InfoIcon from "@mui/icons-material/Info";
 import { StepLayout } from "components/structured/stepper/Stepper";
 import { TextField } from "components/ui/inputs/textfield/TextField";
 import { Datefield } from "components/ui/inputs/date/DateField";
 import { NumberField } from "components/ui/inputs/number/NumberField";
 import { validateBatchesStep } from "./validate";
-import useFetch from "hooks/useFetchApi";
 import { ENDPOINTS } from "utils/constants/endpoints";
 import { SelectWithFilter } from "components/ui/inputs/select/SelectField";
-import { movementType } from "utils/constants/constants";
+import { MovementType } from "utils/constants/enums";
 
 const BatchesInfoStep = (props) => {
-  const columns = [
-    { field: "batch", header: "Lote", minWidth: "350px" },
-    { field: "manufacturingDate", header: "Data de fabricação" },
-    { field: "validatingDate", header: "Data de validade" },
-    { field: "quantityOnBatch", header: "Quantidade" },
-  ];
-
   const { data: batchesOptions } = useFetch(
     ENDPOINTS.batches.getByProduct,
     props.productInfo.product
@@ -34,12 +28,20 @@ const BatchesInfoStep = (props) => {
   const [showAlert, openAlert] = useAlertScheme();
   const [batches, setBatches] = useState([]);
   const [quantityPerBatchTotal, setQuantityPerBatchTotal] = useState(0);
+  const [showInfoBatch, setShowInfoBatch] = useState(false);
+
+  const columns = [
+    { field: "batch", header: "Lote" },
+    { field: "manufacturingDate", header: "Data de fabricação" },
+    { field: "validatingDate", header: "Data de validade" },
+    { field: "quantityOnBatch", header: "Quantidade" },
+  ];
 
   const formik = useFormik({
     initialValues: {
       batch: "",
-      manufacturingDate: new Date(),
-      validatingDate: new Date(),
+      manufacturingDate: props.type == MovementType.Input && new Date(),
+      validatingDate: props.type == MovementType.Input && new Date(),
       quantityOnBatch: 0,
     },
     validationSchema: validateBatchesStep,
@@ -49,18 +51,39 @@ const BatchesInfoStep = (props) => {
         openAlert("info", "Info", "Já existe o lote informado!");
       } else if (
         quantityPerBatchTotal + values.quantityOnBatch >
-        props.productsQuantityPurshaseOrder
+        props.quantity
       ) {
         openAlert(
-          "info",
-          "Info",
+          "warning",
+          "Aviso",
           "A soma da quantidade de produtos em cada lote passa da quantidade da ordem de compra!"
+        );
+      } else if (
+        props.type == MovementType.Output &&
+        values.quantityOnBatch >
+          batchesOptions.data.find((batch) => batch.id == values.batch).quantity
+      ) {
+        openAlert(
+          "warning",
+          "Aviso",
+          "Quantidade não disponível no lote selecionado!"
         );
       } else {
         const newBatch = {
-          batch: values.batch,
-          manufacturingDate: values.manufacturingDate.toString(),
-          validatingDate: values.validatingDate.toString(),
+          batch:
+            props.type == MovementType.Input
+              ? values.batch
+              : batchesOptions.data.filter(
+                  (batch) => batch.id === values.batch
+                )[0].key,
+          batchId:
+            props.type == MovementType.Output
+              ? batchesOptions.data.filter(
+                  (batch) => batch.id === values.batch
+                )[0].id
+              : -1,
+          manufacturingDate: values.manufacturingDate.toDateString(),
+          validatingDate: values.validatingDate.toDateString(),
           quantityOnBatch: values.quantityOnBatch,
         };
 
@@ -71,11 +94,14 @@ const BatchesInfoStep = (props) => {
         openAlert(null);
         setBatches([...batches, newBatch]);
       }
+
+      setShowInfoBatch();
+      formik.resetForm();
     },
   });
 
   const handleNextStep = () => {
-    if (quantityPerBatchTotal === props.productsQuantityPurshaseOrder) {
+    if (quantityPerBatchTotal === props.quantity) {
       props.setBatchesCallBack(batches);
       openAlert(null);
       props.nextStep();
@@ -83,16 +109,18 @@ const BatchesInfoStep = (props) => {
       openAlert(
         "warning",
         "Aviso",
-        "A quantidade da ordem de compra ainda não foi suprida!"
+        props.type == MovementType.Input
+          ? "A quantidade da ordem de compra ainda não foi suprida!"
+          : "A quantidade informada para retirada de produtos ainda não foi suprida!"
       );
     }
   };
 
-  const onInsertBatch = () => {
+  const handleInsertBatch = () => {
     formik.handleSubmit();
   };
 
-  const onDeleteRow = (rowToDelete) => {
+  const handleDeleteRow = (rowToDelete) => {
     const updatedBatches = batches.filter((row) => row !== rowToDelete);
     const batch = batches.find((row) => row === rowToDelete);
 
@@ -100,25 +128,65 @@ const BatchesInfoStep = (props) => {
     setBatches(updatedBatches);
   };
 
-  var customButtons = [
-    <Button
-      title="Inserir Lote"
-      width="150px"
-      height="40px"
-      onClick={onInsertBatch}
-      icon={<KeyboardDoubleArrowDownIcon />}
-    />,
-  ];
-
-  const onSelectBatch = (e) => {
+  const handleSelectBatch = (e) => {
+    setShowInfoBatch(false);
     formik.setFieldValue("batch", e.value);
-    let batchSelected = batches.data.find((batch) => batch.id === e.value);
+    let batchSelected = batchesOptions.data.filter(
+      (batch) => batch.id === e.value
+    )[0];
+
+    formik.setFieldValue(
+      "manufacturingDate",
+      new Date(batchSelected.manufacturingDate)
+    );
     formik.setFieldValue(
       "validatingDate",
       new Date(batchSelected.expirationDate)
     );
     formik.setFieldValue("quantityOnBatch", batchSelected.quantity);
   };
+
+  useEffect(() => {
+    if (
+      props.type == MovementType.Input ||
+      (props.type == MovementType.Output && !batchesOptions)
+    ) {
+      return;
+    }
+
+    const oldestBatch = batchesOptions.data.reduce((oldest, current) => {
+      const currentDate = new Date();
+      const currentExpirationDate = new Date(current.expirationDate);
+
+      if (!oldest) return current;
+
+      if (currentExpirationDate < currentDate) {
+        return current;
+      }
+
+      return oldest;
+    }, null);
+
+    setShowInfoBatch(true);
+
+    formik.setValues({
+      batch: oldestBatch.id,
+      manufacturingDate: new Date(oldestBatch.manufacturingDate),
+      validatingDate: new Date(oldestBatch.expirationDate),
+      quantityOnBatch: oldestBatch.quantity,
+    });
+  }, [batches, batchesOptions]);
+
+  var customButtons = [
+    <Button
+      title={
+        props.type == MovementType.Input ? "Inserir Lote" : "Retirar do lote"
+      }
+      height="40px"
+      onClick={handleInsertBatch}
+      icon={<AddIcon />}
+    />,
+  ];
 
   return (
     <StepLayout
@@ -129,7 +197,7 @@ const BatchesInfoStep = (props) => {
     >
       <RegisterPanelSimple>
         <MDBCol>
-          {props.type == movementType.Input ? (
+          {props.type == MovementType.Input ? (
             <TextField
               required
               label="Lote"
@@ -138,27 +206,46 @@ const BatchesInfoStep = (props) => {
               onChange={(e) => formik.setFieldValue("batch", e.target.value)}
             />
           ) : (
-            <SelectWithFilter
-              required
-              label="Lote"
-              options={
-                batchesOptions &&
-                batchesOptions.data.map((selectedBatch) => ({
-                  value: selectedBatch.id,
-                  label: selectedBatch.key,
-                }))
-              }
-              value={formik.values.batch}
-              error={formik.errors.batch}
-              width="500px"
-              emptyMessage="Sem lotes encontrados para o produto informado"
-              onChange={(e) => onSelectBatch(e)}
-            />
+            <div>
+              <SelectWithFilter
+                required
+                label="Lote"
+                options={
+                  batchesOptions &&
+                  batchesOptions.data.map((selectedBatch) => ({
+                    value: selectedBatch.id,
+                    label: `${selectedBatch.key} - ${selectedBatch.quantity} produtos`,
+                  }))
+                }
+                value={formik.values.batch}
+                error={formik.errors.batch}
+                width="500px"
+                emptyMessage="Sem lotes encontrados para o produto informado"
+                onChange={(e) => handleSelectBatch(e)}
+              />
+              {showInfoBatch && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    color: "#1677FF",
+                    fontSize: "15px",
+                    marginTop: "5px",
+                  }}
+                >
+                  <InfoIcon style={{ marginRight: "8px" }} fontSize="7" />
+                  <label>
+                    O lote foi selecionado automáticamente pela data de validade
+                  </label>
+                </div>
+              )}
+            </div>
           )}
         </MDBCol>
         <MDBCol>
           <Datefield
             required
+            disabled={props.type == MovementType.Output}
             label="Data de fabricação"
             value={formik.values.manufacturingDate}
             error={formik.errors.manufacturingDate}
@@ -168,6 +255,7 @@ const BatchesInfoStep = (props) => {
         <MDBCol>
           <Datefield
             required
+            disabled={props.type == MovementType.Output}
             label="Data de validade"
             value={formik.values.validatingDate}
             error={formik.errors.validatingDate}
@@ -182,29 +270,30 @@ const BatchesInfoStep = (props) => {
             error={formik.errors.quantityOnBatch}
             onChange={(e) => formik.setFieldValue("quantityOnBatch", e.value)}
           />
+          {props.quantity - quantityPerBatchTotal > 0 && (
+            <label
+              style={{
+                fontSize: "14px",
+                color: "#FAAD14",
+                fontWeight: "600",
+              }}
+            >
+              Restam {props.quantity - quantityPerBatchTotal} produtos
+            </label>
+          )}
         </MDBCol>
       </RegisterPanelSimple>
-      {props.type === movementType.Input && (
-        <div>
-          <b style={{ fontSize: "15px", fontWeight: "600", color: "red" }}>
-            Observação:
-          </b>
-          <label style={{ fontSize: "15px" }}>
-            &nbsp; Faltam{" "}
-            {props.productsQuantityPurshaseOrder - quantityPerBatchTotal}{" "}
-            produtos para atingir a quantidade da OC
-          </label>
-        </div>
+      {batches.length > 0 && (
+        <ViewPanel>
+          <Datatable
+            noDataMessage="Sem lotes no momento"
+            columns={columns}
+            data={batches}
+            fromApi={false}
+            onDeleteButton={handleDeleteRow}
+          />
+        </ViewPanel>
       )}
-      <ViewPanel>
-        <Datatable
-          noDataMessage="Sem lotes no momento"
-          columns={columns}
-          data={batches}
-          fromApi={false}
-          onDeleteButton={onDeleteRow}
-        />
-      </ViewPanel>
     </StepLayout>
   );
 };

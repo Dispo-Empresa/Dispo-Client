@@ -42,19 +42,8 @@ function EmployeeRegisterTab() {
     },
   });
 
-  const handleBeforeSubmiting = () => {
-    if (formik.errors) {
-      openAlert("error", "Existem campos com erro, por favor verifique!");
-      return;
-    }
-  };
-
   return (
-    <RegisterPanel
-      alertPanel={showAlert}
-      onSubmit={formik.handleSubmit}
-      onSave={handleBeforeSubmiting}
-    >
+    <RegisterPanel alertPanel={showAlert} onSubmit={formik.handleSubmit}>
       <MDBCol>
         <TextField
           required

@@ -1,19 +1,22 @@
 import * as Yup from "yup";
 
+import { MovementType } from "utils/constants/enums";
+
 const validateMovementTypeStep = () => {
   return Yup.object().shape({
     type: Yup.string().required("Campo obrigatório"),
-    quantity: Yup.number().required("Campo obrigatório").positive("Informe uma quantidade válida").integer(),
-    date: Yup.date().required("Campo obrigatório")
-  });
-}
-
-const validateProductInfoStep = () => {
-  return Yup.object().shape({
-    product: Yup.string().required("Campo obrigatório"),
-    unitPrice: Yup.number()
-    .required("Campo obrigatório")
-    .min(0.01, "O valor deve ser maior que zero")
+    date: Yup.date().required("Campo obrigatório"),
+    product: Yup.number().when("type", {
+      is: (type) => type != null,
+      then: (schema) => schema.required("Campo obrigatório"),
+      otherwise: (schema) => schema.notRequired()
+    }),
+    quantity: Yup.number().when(['product', 'type'], {
+      is: (product, type) => product != null && type == MovementType.Output,
+      then: (schema) => schema.required("Campo obrigatório").positive("Informe uma quantidade válida").integer(),
+      otherwise: (schema) => schema.notRequired()
+    }),
+    unitPrice: Yup.number().required("Campo obrigatório").min(0.01, "O valor deve ser maior que zero")
   });
 }
 
@@ -34,4 +37,4 @@ const validateBatchesStep = () => {
   });
 }
 
-export { validateMovementTypeStep, validateProductInfoStep, validatePurchaseOrderStep, validateBatchesStep };
+export { validateMovementTypeStep, validatePurchaseOrderStep, validateBatchesStep };

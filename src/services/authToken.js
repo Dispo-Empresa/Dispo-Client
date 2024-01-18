@@ -21,7 +21,7 @@ const getUserName = () => jwt_decode(getCookie("accessToken")).unique_name;
 
 const getRole = () => jwt_decode(getCookie("accessToken")).role;
 
-const getAccountId = () => jwt_decode(getCookie("accessToken")).accountId;
+const getAccountId = () => Number(jwt_decode(getCookie("accessToken")).accountId);
 
 const getCurrentWarehouseName = () => jwt_decode(getCookie("accessToken")).currentWarehouseName;
 

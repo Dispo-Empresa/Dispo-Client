@@ -14,7 +14,7 @@ import {
   SelectProductCategory,
   SelectProductUnitOfMeasurement,
 } from "components/ui/inputs/select/SelectProduct";
-import { ProductFormikContext } from "components/ui/context/contextProduct";
+import { ProductFormikContext } from "context/contextProduct";
 import { ENDPOINTS } from "utils/constants/endpoints";
 
 function ProductRegisterCard({ selectedRowData, readOnly, isEdit }) {

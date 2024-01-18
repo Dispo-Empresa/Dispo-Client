@@ -1,11 +1,11 @@
-import ProductEntryMovimentation from "pages/movimentation/entry/ProductEntryMovimentation";
-import MovimentationsQueryCard from "pages/movimentation/query/MovimentationsQueryCard";
+import ProductMovimentation from "pages/movimentation/ProductMovimentation";
+import ProductMovimentationsQueryCard from "pages/movimentation/query/MovimentationsQueryCard";
 
 function MovimentationCard() {
   return (
     <div>
-      <ProductEntryMovimentation />
-      <MovimentationsQueryCard />
+      <ProductMovimentation />
+      <ProductMovimentationsQueryCard />
     </div>
   );
 }

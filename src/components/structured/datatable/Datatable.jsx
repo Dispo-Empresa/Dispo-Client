@@ -77,6 +77,16 @@ function Datatable({
     setSelectedItens(e.value);
   };
 
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    return new Date(dateString).toLocaleDateString("pt-BR", options);
+  };
+
+  const dateTemplate = (rowData, column) => {
+    const field = column.field;
+    return formatDate(rowData[field]);
+  };
+
   return (
     <div>
       <ConfirmDialog />
@@ -118,7 +128,11 @@ function Datatable({
               key={col.field}
               field={col.field}
               header={col.header}
-              body={col.body}
+              body={
+                col.field.toLowerCase().includes("date")
+                  ? dateTemplate
+                  : col.body
+              }
               headerStyle={{
                 fontWeight: "700",
                 minWidth: col.minWidth,

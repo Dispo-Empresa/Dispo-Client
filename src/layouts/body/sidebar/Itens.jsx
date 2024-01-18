@@ -8,8 +8,6 @@ import DraftsIcon from "@mui/icons-material/Drafts";
 import ShortcutIcon from "@mui/icons-material/Shortcut";
 import BusinessIcon from "@mui/icons-material/Business";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-import TurnLeftIcon from "@mui/icons-material/TurnLeft";
-import TurnRightIcon from "@mui/icons-material/TurnRight";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { useEffect, useState } from "react";
@@ -145,18 +143,6 @@ function SidebarItens(props) {
               active={isActivePage("/movimentacoes")}
               prefix="Movimentações"
               icon={<SyncAltIcon />}
-            />
-            <MenuItem
-              component={<Link to="/movimentacoes/entrada" />}
-              active={isActivePage("/movimentacoes/entrada")}
-              prefix="Entrada"
-              icon={<TurnRightIcon />}
-            />
-            <MenuItem
-              component={<Link to="/movimentacoes/saida" />}
-              active={isActivePage("/movimentacoes/saida")}
-              prefix="Saída"
-              icon={<TurnLeftIcon />}
             />
           </SubMenu>
         )}

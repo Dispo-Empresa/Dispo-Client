@@ -15,7 +15,7 @@ function Datefield(props) {
         </div>
       </div>
       <Calendar
-        showIcon={!props.hideIcon}
+        showIcon={!props.disabled}
         timeOnly={props.timeOnly}
         name={props.name} // Usar apenas no MultiStep
         dateFormat="dd/mm/yy"

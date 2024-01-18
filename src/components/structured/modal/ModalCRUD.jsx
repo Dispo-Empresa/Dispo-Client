@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { useEffect, useContext } from "react";
 
-import { AbstractFormContext } from "components/ui/context/abstractFormContext";
+import { AbstractFormContext } from "context/abstractFormContext";
 
 import ModalDialog from "./ModalDialog";
 

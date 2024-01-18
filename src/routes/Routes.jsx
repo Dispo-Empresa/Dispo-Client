@@ -13,7 +13,6 @@ import SettingsCard from "pages/settings/SettingsCard";
 import NotFound from "pages/not-found/NotFound";
 import NotAuthorized from "pages/not-found/NotAuthorized";
 import MovementCard from "pages/movimentation/MovementCard";
-import ProductExitMovimentation from "pages/movimentation/exit/ProductExitMovimentation";
 import ManufacturerCard from "pages/manufacturers/ManufacturerCard";
 import PurchaseOrderCard from "pages/purchase-order/PurchaseOrderCard";
 import PurchaseOrderAttachmentFormCard from "pages/purchase-order/attachment/PurchaseOrderAttachmentFormCard";
@@ -133,26 +132,6 @@ function RoutesConfiguration() {
               allowedRoles={[roles.Manager, roles.WarehouseOperator]}
             >
               <MovementCard />
-            </RouteController>
-          }
-        />
-        <Route
-          path="/movimentacoes/entrada"
-          element={
-            <RouteController
-              allowedRoles={[roles.Manager, roles.WarehouseOperator]}
-            >
-              <MovementCard />
-            </RouteController>
-          }
-        />
-        <Route
-          path="/movimentacoes/saida"
-          element={
-            <RouteController
-              allowedRoles={[roles.Manager, roles.WarehouseOperator]}
-            >
-              <ProductExitMovimentation />
             </RouteController>
           }
         />

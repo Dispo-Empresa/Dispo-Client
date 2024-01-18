@@ -27,7 +27,7 @@ const ENDPOINTS = {
 
   userAccount: {
     updateUserAccountInfo: "user-account/{id}",
-    getAllUserInfo: "user-account/id={id}",
+    getAllUserInfo: "user-account/{id}",
     getAccountIdByEmail: "user-account/getAccountIdByEmail"
   },
 
@@ -37,7 +37,7 @@ const ENDPOINTS = {
     createProduct: "products",
     updateProduct: "products/edit",
     getProductNames: "products/get-names",
-    getWithActivePurschaseOrder: "products/get-with-active-pursche-orders",
+    getWithActivePurschaseOrder: "products/get-with-active-pursche-orders/{movementType}",
     getProductsWithSalePrice: "products/get-with-saleprice",
     getPurchaseOrders: "products/getPurchaseOrders" // teste - apagar
   },
@@ -66,6 +66,7 @@ const ENDPOINTS = {
     getWithAdress: "warehouses/get-with-address",
     create: "warehouses",
     getAll: "warehouses",
+    getWarehousesByAccountId: "warehouses/get-by-accountId/{accountId}"
   },
 
   addresses: {
@@ -73,7 +74,8 @@ const ENDPOINTS = {
   },
 
   batches: {
-    getByProduct: "batches/get-by-product/{productId}"
+    getByProduct: "batches/get-by-product/{productId}",
+    getTotalQuantityOfProducts: "batches/get-total-quantity-products/{productId}"
   },
 
   purchaseorder:{

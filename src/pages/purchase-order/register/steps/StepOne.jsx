@@ -39,26 +39,21 @@ function StepOne(props) {
     },
     validationSchema: PurchaseOrderStepValidations,
     validateOnChange: false,
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      props.setPurchaseOrderInfoCallBack({
+        orderNumber: values.orderNumber,
+        creationDate: values.creationDate,
+        notificationType: values.notificationType,
+        supplier: values.supplier,
+        paymentMethod: values.paymentMethod,
+      });
+
+      props.nextStep();
+    },
   });
 
   const handleNextStep = () => {
     formik.handleSubmit();
-
-    const isFormValid =
-      formik.isValid && Object.keys(formik.touched).length > 0;
-
-    if (isFormValid) {
-      props.setPurchaseOrderInfoCallBack({
-        orderNumber: formik.values.orderNumber,
-        creationDate: formik.values.creationDate,
-        notificationType: formik.values.notificationType,
-        supplier: formik.values.supplier,
-        paymentMethod: formik.values.paymentMethod,
-      });
-
-      props.nextStep();
-    }
   };
 
   return (
