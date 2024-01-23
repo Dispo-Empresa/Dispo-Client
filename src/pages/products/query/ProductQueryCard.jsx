@@ -9,8 +9,8 @@ import ModalCRUD from "components/structured/modal/ModalCRUD";
 import ProductRegisterCard from "pages/products/register/ProductRegisterCard";
 import ButtonGroup from "components/ui/buttons/group/ButtonGroup";
 import { ENDPOINTS } from "utils/constants/endpoints";
-import { AbstractFormContextProvider } from "components/ui/context/abstractFormContext";
-import { ProductContextProvider } from "components/ui/context/contextProduct";
+import { AbstractFormContextProvider } from "context/abstractFormContext";
+import { ProductContextProvider } from "context/contextProduct";
 import { GenericDatabaseButton } from "components/ui/buttons/icons/IconButton";
 
 function ProductQueryCard() {

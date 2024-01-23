@@ -21,9 +21,7 @@ function NumberField(props) {
         inputClassName={classNames({ "p-invalid": props.error })}
         value={props.value}
         onValueChange={props.onChange}
-        style={{
-          width: props.width ?? "100px",
-        }}
+        size={10}
       />
       <div>{props.error && <span className="errors">{props.error}</span>}</div>
     </div>

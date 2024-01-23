@@ -17,7 +17,7 @@ const post = async (endpoint, data, contentType) =>
 
 const put = async (endpoint, id, data) => {
 
-    if(id <= 0){
+    if(id <= 0){    
         return API_RESPONSE(
             null,
             'Id Inválido',

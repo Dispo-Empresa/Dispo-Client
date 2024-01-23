@@ -1,7 +1,7 @@
 import ProductQueryCard from "./query/ProductQueryCard";
 import ProductRegisterCard from "./register/ProductRegisterCard";
-import { ProductContextProvider } from "components/ui/context/contextProduct";
-import { AbstractFormContextProvider } from "components/ui/context/abstractFormContext";
+import { ProductContextProvider } from "context/contextProduct";
+import { AbstractFormContextProvider } from "context/abstractFormContext";
 
 function ProductCard() {
   return (

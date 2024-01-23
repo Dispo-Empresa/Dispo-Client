@@ -2,22 +2,19 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: stretch;
-  margin-bottom: -50px;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .multistep-content {
   flex: 2;
   display: flex;
-  margin-left: 20px;
-  margin-right: 20px;
+  padding: 0px 10px 0px 10px;
 }
 
 .button-stepper {
   color: #6C757D;
   background-color: transparent;
-  z-index: 999;
-  padding: 10px;
   border: none;
   opacity: 0.5;
   width: 80px;
@@ -29,39 +26,4 @@
   opacity: 0.3;
   background-color: #6C757D;
   color: white;
-}
-
-.forward-enter {
-  opacity: 0;
-  transform: translateX(-100%);
-}
-
-.forward-enter-active {
-  opacity: 1;
-  transform: translateX(0);
-  transition: opacity 300ms, transform 300ms;
-}
-
-.forward-exit-active {
-  opacity: 0;
-  transform: translateX(100%);
-  transition: opacity 300ms, transform 300ms;
-}
-
-
-.backward-enter {
-  opacity: 0;
-  transform: translateX(100%);
-}
-
-.backward-enter-active {
-  opacity: 1;
-  transform: translateX(0);
-  transition: opacity 300ms, transform 300ms;
-}
-
-.backward-exit-active {
-  opacity: 0;
-  transform: translateX(-100%);
-  transition: opacity 300ms, transform 300ms; 
 }

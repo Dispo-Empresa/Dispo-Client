@@ -77,6 +77,16 @@ function Datatable({
     setSelectedItens(e.value);
   };
 
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    return new Date(dateString).toLocaleDateString("pt-BR", options);
+  };
+
+  const dateTemplate = (rowData, column) => {
+    const field = column.field;
+    return formatDate(rowData[field]);
+  };
+
   return (
     <div>
       <ConfirmDialog />
@@ -84,13 +94,12 @@ function Datatable({
         onRowClick={onRowClick}
         size="small"
         paginatorLeft={
-          showCheckbox && !singleSelect ? (
+          showCheckbox &&
+          !singleSelect && (
             <label>
               <b>Selecionadas:</b>&nbsp;
               {selectedItens == null ? 0 : selectedItens.length}
             </label>
-          ) : (
-            <></>
           )
         }
         selectionMode={!rowClick && showCheckbox ? "checkbox" : null}
@@ -105,10 +114,6 @@ function Datatable({
         rowsPerPageOptions={rowsPerPage}
         loading={loading}
         emptyMessage={noDataMessage ?? "Nenhum resultado encontrado"}
-        tableStyle={{
-          maxWidth: "100%",
-          overflowX: "auto",
-        }}
       >
         {showCheckbox ? (
           <Column
@@ -123,14 +128,23 @@ function Datatable({
               key={col.field}
               field={col.field}
               header={col.header}
-              headerStyle={{ minWidth: col.minWidth ?? "250px" }}
+              body={
+                col.field.toLowerCase().includes("date")
+                  ? dateTemplate
+                  : col.body
+              }
+              headerStyle={{
+                fontWeight: "700",
+                minWidth: col.minWidth,
+                width: col.width,
+              }}
             />
           ))}
         {onDeleteButton || onViewButton || customButtons ? (
           <Column
             field="actions"
             header="Ações"
-            headerStyle={{ minWidth: "180px" }}
+            headerStyle={{ fontWeight: "700", minWidth: "150px" }}
             frozen
             alignFrozen="right"
             body={buttonsTemplate}

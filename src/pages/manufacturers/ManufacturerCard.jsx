@@ -1,7 +1,7 @@
 import ManufacturerRegisterCard from "./register/ManufacturerRegisterCard";
 import ManufacturerQueryCard from "./query/ManufacturerQueryCard";
-import { AbstractFormContextProvider } from "components/ui/context/abstractFormContext";
-import { ManufacturerContextProvider } from "components/ui/context/manufacturerContext";
+import { AbstractFormContextProvider } from "context/abstractFormContext";
+import { ManufacturerContextProvider } from "context/manufacturerContext";
 
 function ManufacturerCard() {
   return (

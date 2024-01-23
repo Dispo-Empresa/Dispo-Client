@@ -42,19 +42,8 @@ function EmployeeRegisterTab() {
     },
   });
 
-  const handleBeforeSubmiting = () => {
-    if (formik.errors) {
-      openAlert("error", "Existem campos com erro, por favor verifique!");
-      return;
-    }
-  };
-
   return (
-    <RegisterPanel
-      alertPanel={showAlert}
-      onSubmit={formik.handleSubmit}
-      onSave={handleBeforeSubmiting}
-    >
+    <RegisterPanel alertPanel={showAlert} onSubmit={formik.handleSubmit}>
       <MDBCol>
         <TextField
           required
@@ -64,18 +53,6 @@ function EmployeeRegisterTab() {
           value={formik.values.email}
           error={formik.errors.email}
           onChange={(e) => formik.setFieldValue("email", e.target.value)}
-        />
-      </MDBCol>
-      <MDBCol>
-        <TextField
-          required
-          disabled
-          type="password"
-          label="Senha"
-          width="250px"
-          tip="A senha vai ser refatorada pelo usuário no primeiro momento do login"
-          value="alterarsenha"
-          onChange={() => {}}
         />
       </MDBCol>
       <MDBCol>

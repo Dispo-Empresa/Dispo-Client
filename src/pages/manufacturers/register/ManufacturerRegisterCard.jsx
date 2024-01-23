@@ -6,7 +6,7 @@ import RegisterPanel from "layouts/panel/register/classic/RegisterPanel";
 import useFetch from "hooks/useFetchApi";
 import { TextField } from "components/ui/inputs/textfield/TextField";
 import { ImageField } from "components/ui/inputs/image/ImageField";
-import { ManufacturerFormikContext } from "components/ui/context/manufacturerContext";
+import { ManufacturerFormikContext } from "context/manufacturerContext";
 import { ENDPOINTS } from "utils/constants/endpoints";
 
 function ManufacturerRegisterCard({ selectedRowData, readOnly, isEdit }) {

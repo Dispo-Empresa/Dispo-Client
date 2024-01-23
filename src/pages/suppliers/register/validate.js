@@ -8,11 +8,6 @@ const validateSupplier = () => {
     cnpj: Yup.string().required("Campo obrigatório"),
     email: Yup.string().required("Campo obrigatório"),
     phone: Yup.string().required("Campo obrigatório"),
-    country: Yup.string().required("Campo obrigatório"),
-    uf: Yup.string().required("Campo obrigatório"),
-    city: Yup.string().required("Campo obrigatório"),
-    district: Yup.string().required("Campo obrigatório"),
-    cep: Yup.string().required("Campo obrigatório"),
   });
 }
 

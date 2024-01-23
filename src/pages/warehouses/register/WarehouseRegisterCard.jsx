@@ -6,36 +6,34 @@ import ContentPage from "layouts/content/ContentPage";
 import useAlertScheme from "hooks/alert/useAlertScheme";
 import validateWarehouse from "./validate";
 import RegisterPanel from "layouts/panel/register/classic/RegisterPanel";
-import useFetch from "hooks/useFetchApi";
+import ContentDivisor from "components/structured/divisor/ContentDivisor";
 import { TextField } from "components/ui/inputs/textfield/TextField";
-import { SelectWithFilter } from "components/ui/inputs/select/SelectField";
+import { TextArea } from "components/ui/inputs/textarea/TextArea";
 import { ENDPOINTS } from "utils/constants/endpoints";
 import { post } from "services/httpMethods";
 
 function WarehouseRegisterCard() {
-  const { data: addresses } = useFetch(
-    ENDPOINTS.addresses.getFormattedAddresses
-  );
-
   const [showAlert, openAlert] = useAlertScheme();
   const [loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues: {
       name: "",
-      address: 0,
+      country: "",
+      uf: "",
+      city: "",
+      district: "",
+      cep: "",
+      additionalInfo: "",
     },
     validationSchema: validateWarehouse,
     validateOnChange: false,
     onSubmit: async (values) => {
       setLoading(true);
 
-      let response = await post(ENDPOINTS.warehouses.create, {
-        name: values.name,
-        addressId: values.address,
-      });
+      let response = await post(ENDPOINTS.warehouses.create, values);
 
       if (response.success) {
-        openAlert(response.alertType, response.message);
+        openAlert(response.alertType, "Sucesso", response.message);
         formik.resetForm();
       } else {
         openAlert(response.alertType, "Erro", response.message);
@@ -45,18 +43,9 @@ function WarehouseRegisterCard() {
     },
   });
 
-  const handleBeforeSubmiting = () => {
-    if (formik.errors) {
-      openAlert("error", "Existem campos com erro, por favor verifique!");
-    }
-  };
-
-  // cadastrar o endereço como um todo
-
   return (
     <ContentPage title="Cadastro de Depósitos">
       <RegisterPanel
-        onSave={handleBeforeSubmiting}
         onSubmit={formik.handleSubmit}
         title="Informações Básicas"
         alertPanel={showAlert}
@@ -71,20 +60,61 @@ function WarehouseRegisterCard() {
             onChange={(e) => formik.setFieldValue("name", e.target.value)}
           />
         </MDBCol>
+        <ContentDivisor title="Endereço" />
         <MDBCol>
-          <SelectWithFilter
+          <TextField
             required
-            label="Endereço"
-            options={
-              addresses &&
-              addresses.data.map((item) => ({
-                value: item.addressId,
-                label: item.address,
-              }))
+            label="País"
+            value={formik.values.country}
+            error={formik.errors.country}
+            onChange={(e) => formik.setFieldValue("country", e.target.value)}
+          />
+        </MDBCol>
+        <MDBCol>
+          <TextField
+            required
+            label="UF"
+            width="100px"
+            value={formik.values.uf}
+            error={formik.errors.uf}
+            onChange={(e) => formik.setFieldValue("uf", e.target.value)}
+          />
+        </MDBCol>
+        <MDBCol>
+          <TextField
+            required
+            label="Cidade"
+            value={formik.values.city}
+            error={formik.errors.city}
+            onChange={(e) => formik.setFieldValue("city", e.target.value)}
+          />
+        </MDBCol>
+        <MDBCol>
+          <TextField
+            required
+            label="Bairro"
+            value={formik.values.district}
+            error={formik.errors.district}
+            onChange={(e) => formik.setFieldValue("district", e.target.value)}
+          />
+        </MDBCol>
+        <MDBCol>
+          <TextField
+            required
+            label="CEP"
+            value={formik.values.cep}
+            error={formik.errors.cep}
+            onChange={(e) => formik.setFieldValue("cep", e.target.value)}
+          />
+        </MDBCol>
+        <MDBCol>
+          <TextArea
+            label="Informação Adicional"
+            value={formik.values.additionalInfo}
+            error={formik.errors.additionalInfo}
+            onChange={(e) =>
+              formik.setFieldValue("additionalInfo", e.target.value)
             }
-            value={formik.values.address}
-            error={formik.errors.address}
-            onChange={(e) => formik.setFieldValue("address", e.target.value)}
           />
         </MDBCol>
       </RegisterPanel>

@@ -20,12 +20,15 @@ function SelectWithFilter(props) {
         </div>
       </div>
       <Dropdown
+        loading
         appendTo="self"
         id={props.id}
         filter
         showFilterClear
         emptyMessage={props.emptyMessage ?? "Nenhum resultado encontrado"}
-        emptyFilterMessage="Nenhum resultado encontrado"
+        emptyFilterMessage={
+          props.emptyFilterMessage ?? "Nenhum resultado encontrado"
+        }
         name={props.name}
         value={props.value}
         optionLabel={props.optionLabel}
@@ -56,6 +59,7 @@ function MultiSelect(props) {
         </div>
       </div>
       <Multi
+        loading
         value={props.value}
         onChange={props.onChange}
         options={props.options}

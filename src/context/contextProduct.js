@@ -49,15 +49,8 @@ const ProductContextProvider = ({ children }) => {
     },
   });
 
-  const handleBeforeSubmiting = () => {
-    if (formik.errors) {
-      openAlert("error", "Existem campos com erro, por favor verifique!");
-      return;
-    }
-  };
-
   return (
-    <ProductFormikContext.Provider value={{ formik, showAlert, loading, handleBeforeSubmiting, setIsNewRegister }}>
+    <ProductFormikContext.Provider value={{ formik, showAlert, loading, setIsNewRegister }}>
       {children}
     </ProductFormikContext.Provider>
   );

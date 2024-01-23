@@ -7,8 +7,8 @@ import ViewPanel from "layouts/panel/view/ViewPanel";
 import ModalCrud from "components/structured/modal/ModalCRUD";
 import SupplierRegisterCard from "pages/suppliers/register/SupplierRegisterCard";
 import { ENDPOINTS } from "utils/constants/endpoints";
-import { AbstractFormContextProvider } from "components/ui/context/abstractFormContext";
-import { SupplierContextProvider } from "components/ui/context/supplierContext";
+import { AbstractFormContextProvider } from "context/abstractFormContext";
+import { SupplierContextProvider } from "context/supplierContext";
 
 function SupplierQueryCard() {
   const [selectedSuppliers, setSelectedSuppliers] = useState(null);

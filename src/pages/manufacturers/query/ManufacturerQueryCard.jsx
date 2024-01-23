@@ -7,8 +7,8 @@ import ViewPanel from "layouts/panel/view/ViewPanel";
 import ManufacturerRegisterCard from "pages/manufacturers/register/ManufacturerRegisterCard";
 import ModalCrud from "components/structured/modal/ModalCRUD";
 import { ENDPOINTS } from "utils/constants/endpoints";
-import { AbstractFormContextProvider } from "components/ui/context/abstractFormContext";
-import { ManufacturerContextProvider } from "components/ui/context/manufacturerContext";
+import { AbstractFormContextProvider } from "context/abstractFormContext";
+import { ManufacturerContextProvider } from "context/manufacturerContext";
 
 function ManufacturerQueryCard() {
   const [selectedManufacturers, setSelectedManufacturers] = useState(null);

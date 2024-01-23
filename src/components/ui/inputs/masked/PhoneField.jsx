@@ -17,7 +17,7 @@ function PhoneField(props) {
       </div>
       <InputMask
         type="phone"
-        mask="+55 (99) 9 9999-9999"
+        mask="(99) 9 9999-9999"
         className="form-control"
         placeholder={props.placeholder}
         value={props.value}

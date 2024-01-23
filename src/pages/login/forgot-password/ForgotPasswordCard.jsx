@@ -16,10 +16,10 @@ function ForgotPassword() {
 
   return (
     <div className="body--login">
-      <Card className="card--login" style={{ borderRadius: "10px" }}>
+      <Card className="content-children" style={{ borderRadius: "10px" }}>
         <CardContent>
-          <label className="title--login">Redefinir senha</label>
-          <div className="content-children">
+          <label className="title-redefinir-senha">Redefinir senha</label>
+          <div>
             <Stepper steps={steps} activeStep={currentStep}>
               <ForgotPasswordStep1 timerInicialized={setIsTimerInicialized} />
               <ForgotPasswordStep2 timerInicialStarted={isTimerInicialized} />
