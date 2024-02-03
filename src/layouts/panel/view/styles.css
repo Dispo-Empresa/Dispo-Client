@@ -4,11 +4,3 @@
   color: #029DBE;
   font-weight: bold;
 }
-
-.buttons {
-  float: right;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  gap: 10px;
-}

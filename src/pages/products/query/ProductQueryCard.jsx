@@ -12,9 +12,11 @@ import { ENDPOINTS } from "utils/constants/endpoints";
 import { AbstractFormContextProvider } from "context/abstractFormContext";
 import { ProductContextProvider } from "context/contextProduct";
 import { GenericDatabaseButton } from "components/ui/buttons/icons/IconButton";
+import { FilterMatchMode, FilterOperator } from "primereact/api";
+
+import "./style.css";
 
 function ProductQueryCard() {
-  const [selectedProducts, setSelectedProducts] = useState(null);
   const { data, loading, refetch } = useFetch(ENDPOINTS.products.getAll);
 
   //Configuração para o modal funcionar{
@@ -39,7 +41,7 @@ function ProductQueryCard() {
   //Fim da configuração}
 
   const columns = [
-    { field: "name", header: "Nome", minWidth: "350px" },
+    { field: "name", header: "Nome", minWidth: "350px", filterField: "name" },
     { field: "purchasePrice", header: "Preço de compra" },
     { field: "salePrice", header: "Preço de venda" },
     { field: "category", header: "Categoria" },
@@ -50,38 +52,20 @@ function ProductQueryCard() {
     alert("Deletando: " + row.id);
   };
 
-  const customButtons = (row) => {
-    return (
-      <ButtonGroup>
-        <GenericDatabaseButton
-          color="#4EB254"
-          icon={<ToggleOnIcon />}
-          title="Habilitar ordem de compra automática"
-          onClick={() => {}}
-        />
-      </ButtonGroup>
-    );
-  };
-
   return (
     <ContentPage id="productView" title="Produtos">
-      <ViewPanel refreshData={refetch}>
-        <Datatable
-          noDataMessage="Produtos não encontrados"
-          showCheckbox
-          fromApi
-          rowsPerPage={[5, 10, 25]}
-          columns={columns}
-          data={data}
-          loading={loading}
-          customButtons={customButtons}
-          setSelectedItens={setSelectedProducts}
-          selectedItens={selectedProducts}
-          onDeleteButton={deleteTest}
-          onViewButton={viewProducts}
-          onEditButton={editProducts}
-        />
-      </ViewPanel>
+      <Datatable
+        refreshData={refetch}
+        noDataMessage="Produtos não encontrados"
+        fromApi
+        rowsPerPage={[5, 10, 25]}
+        columns={columns}
+        data={data}
+        loading={loading}
+        onDeleteButton={deleteTest}
+        onViewButton={viewProducts}
+        onEditButton={editProducts}
+      />
 
       <AbstractFormContextProvider>
         <ProductContextProvider>

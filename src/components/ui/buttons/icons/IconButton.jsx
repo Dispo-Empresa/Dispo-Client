@@ -110,7 +110,7 @@ function EditButton(props) {
   return (
     <Button
       onClick={props.onClick}
-      className="form-button"
+      className="datatable-button"
       style={{
         backgroundColor: "#02AEEC",
         color: COLORS.DetailsColor,
@@ -179,6 +179,7 @@ function RefreshButton(props) {
       style={{
         backgroundColor: "#02AEEC",
         color: COLORS.DetailsColor,
+        height: "45px",
       }}
     >
       <RefreshIcon />

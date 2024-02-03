@@ -1,6 +1,6 @@
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-
+import { useState } from "react";
 import ButtonGroup from "components/ui/buttons/group/ButtonGroup";
 import {
   ConfirmDialog,
@@ -11,6 +11,25 @@ import {
   DisableButton,
   EditButton,
 } from "components/ui/buttons/icons/IconButton";
+import { FilterMatchMode, FilterOperator } from "primereact/api";
+import {
+  RefreshButton,
+  ExportButton,
+} from "components/ui/buttons/icons/IconButton";
+
+// PAGINACAO:
+
+//Pré-carregamento de dados:
+
+//Carregar uma quantidade maior de dados nas primeiras requisições, de modo que o cliente tenha alguns conjuntos de
+//páginas disponíveis localmente. Isso pode ser útil se os usuários costumam navegar para frente e para trás nas páginas.
+
+//Cache de dados no cliente:
+
+//Armazenar localmente os dados já obtidos no cliente, utilizando o armazenamento local (local storage) ou outro mecanismo de cache.
+//Isso pode reduzir a necessidade de buscar os mesmos dados várias vezes.
+
+// https://codewithmukesh.com/blog/pagination-in-aspnet-core-webapi/
 
 function Datatable({
   rowClick,
@@ -30,6 +49,13 @@ function Datatable({
   fromApi,
   singleSelect,
   onRowClick,
+  //filterDisplay,
+  //header,
+  //filters,
+  title,
+  buttons,
+  onExportButton,
+  refreshData,
 }) {
   const buttonsTemplate = (rowData) => {
     const acceptRemove = () => {
@@ -87,10 +113,75 @@ function Datatable({
     return formatDate(rowData[field]);
   };
 
+  const [globalFilterValue, setGlobalFilterValue] = useState("");
+  const [filters, setFilters] = useState({
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    purchasePrice: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    salePrice: { value: null, matchMode: FilterMatchMode.IN },
+    category: { value: null, matchMode: FilterMatchMode.EQUALS },
+    unitOfMeasurement: { value: null, matchMode: FilterMatchMode.EQUALS },
+  });
+
+  const onGlobalFilterChange = (e) => {
+    const value = e.target.value;
+    let _filters = { ...filters };
+
+    _filters["global"].value = value;
+
+    setFilters(_filters);
+    setGlobalFilterValue(value);
+  };
+
+  const renderHeader = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          marginTop: "20px",
+        }}
+      >
+        <input
+          type="text"
+          className="form-control filter-text-field"
+          placeholder="Pesquisar..."
+          value={globalFilterValue}
+          onChange={onGlobalFilterChange}
+        />
+        {buttons}
+        {refreshData && <RefreshButton onClick={refreshData} />}
+        {onExportButton && <ExportButton />}
+      </div>
+    );
+  };
+
+  const header = renderHeader();
+
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(5);
+
+  const onPageChange = (event) => {
+    console.log(`Mudou para a página: ${event.page + 1}`);
+    setFirst(event.first);
+    setRows(event.rows);
+  };
+
   return (
-    <div>
+    <div style={{ marginBottom: "80px" }}>
+      <label className="title">{title}</label>
+      <hr style={{ marginBottom: "50px", width: "100%" }} />
       <ConfirmDialog />
       <DataTable
+        rows={rows}
+        first={first}
+        onPage={onPageChange}
+        globalFilterFields={["name"]}
+        filterDisplay="row"
+        header={header}
+        filters={filters}
+        alwaysShowPaginator={false}
         onRowClick={onRowClick}
         size="small"
         paginatorLeft={
@@ -104,13 +195,11 @@ function Datatable({
         }
         selectionMode={!rowClick && showCheckbox ? "checkbox" : null}
         resizableColumns
-        showGridlines
         scrollable
         value={fromApi ? data && data.data : data}
         selection={selectedItens}
         onSelectionChange={(e) => onSelectItens(e)}
         paginator
-        rows={rowsPerPage != null ? rowsPerPage[0] : 5}
         rowsPerPageOptions={rowsPerPage}
         loading={loading}
         emptyMessage={noDataMessage ?? "Nenhum resultado encontrado"}
@@ -125,9 +214,11 @@ function Datatable({
         {columns &&
           columns.map((col) => (
             <Column
+              filter
               key={col.field}
               field={col.field}
               header={col.header}
+              filterField={col.filterField}
               body={
                 col.field.toLowerCase().includes("date")
                   ? dateTemplate

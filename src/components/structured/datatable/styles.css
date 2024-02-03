@@ -26,45 +26,49 @@ border-color: #029DBE;
 
 /* Paginator */
 
+.p-datatable.p-datatable-gridlines .p-paginator-bottom {
+  float: right;
+}
+
 .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
-  background: #029DBE;
-  border-color: #029DBE;
-  color: #fff;
+  background: #029DBE !important;
+  border-color: #029DBE !important;
+  color: #fff !important;
 }
 
 .p-paginator .p-dropdown {
-  height: 36px;
-  font-size: 12px;
+  height: 36px !important;
+  font-size: 12px !important;
 }
 
 .p-paginator .p-paginator-pages .p-paginator-page {
-  height: 35px;
-  min-width: 35px;
+  height: 35px !important;
+  min-width: 35px !important;
 }
 
 .p-paginator .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
-  padding: 8px 35px;
+  padding: 8px 35px !important;
 }
 
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
-  color: #029DBE;
+  color: #029DBE !important;
 }
 
 .p-paginator .p-dropdown:not(.p-disabled).p-focus {
-  border-color: #029DBE;
-  box-shadow: 0 0 0 1px #029DBE;
+  border-color: #029DBE !important;
+  box-shadow: 0 0 0 1px #029DBE !important;
 }
 
 .p-paginator .p-dropdown:not(.p-disabled):hover {
-  border-color: #029DBE;
+  border-color: #029DBE !important;
 }
 
 .p-paginator .p-datatable .p-datatable-tbody > tr > td {
-  border: 3px solid #fff;
+  border: 3px solid #fff !important;
 }
 
 .p-paginator .p-paginator-first, .p-paginator .p-paginator-prev, .p-paginator .p-paginator-next, .p-paginator .p-paginator-last {
-  height: 35px;
+  height: 35px !important;
 }
 
 /* Dialog */
