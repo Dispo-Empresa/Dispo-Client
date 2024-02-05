@@ -17,6 +17,11 @@ import {
   ExportButton,
 } from "components/ui/buttons/icons/IconButton";
 
+import useFetch from "hooks/useFetchApi";
+import { ENDPOINTS } from "utils/constants/endpoints";
+import { Paginator } from "primereact/paginator";
+import ViewPanel from "layouts/panel/view/ViewPanel";
+
 // PAGINACAO:
 
 //Pré-carregamento de dados:
@@ -30,6 +35,8 @@ import {
 //Isso pode reduzir a necessidade de buscar os mesmos dados várias vezes.
 
 // https://codewithmukesh.com/blog/pagination-in-aspnet-core-webapi/
+
+// https://primereact.org/paginator/
 
 function Datatable({
   rowClick,
@@ -56,6 +63,7 @@ function Datatable({
   buttons,
   onExportButton,
   refreshData,
+  entity,
 }) {
   const buttonsTemplate = (rowData) => {
     const acceptRemove = () => {
@@ -162,86 +170,112 @@ function Datatable({
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(5);
 
+  const [urlTeste, setUrlTeste] = useState(
+    `https://localhost:7153/api/v1/datatable/get-all?Entity=${entity}&PageNumber=1&PageSize=5`
+  );
+
+  const {
+    data: datatableData,
+    loading: loadingData,
+    refetch,
+  } = useFetch(urlTeste);
+
   const onPageChange = (event) => {
     console.log(`Mudou para a página: ${event.page + 1}`);
     setFirst(event.first);
     setRows(event.rows);
+
+    setUrlTeste(
+      `https://localhost:7153/api/v1/datatable/get-all?Entity=${entity}&PageNumber=${
+        event.page + 1
+      }&PageSize=${event.rows}`
+    );
   };
+
+  const { data: getCount } = useFetch(
+    "https://localhost:7153/api/v1/datatable/get-count"
+  );
 
   return (
     <div style={{ marginBottom: "80px" }}>
       <label className="title">{title}</label>
       <hr style={{ marginBottom: "50px", width: "100%" }} />
       <ConfirmDialog />
-      <DataTable
-        rows={rows}
-        first={first}
-        onPage={onPageChange}
-        globalFilterFields={["name"]}
-        filterDisplay="row"
-        header={header}
-        filters={filters}
-        alwaysShowPaginator={false}
-        onRowClick={onRowClick}
-        size="small"
-        paginatorLeft={
-          showCheckbox &&
-          !singleSelect && (
-            <label>
-              <b>Selecionadas:</b>&nbsp;
-              {selectedItens == null ? 0 : selectedItens.length}
-            </label>
-          )
-        }
-        selectionMode={!rowClick && showCheckbox ? "checkbox" : null}
-        resizableColumns
-        scrollable
-        value={fromApi ? data && data.data : data}
-        selection={selectedItens}
-        onSelectionChange={(e) => onSelectItens(e)}
-        paginator
-        rowsPerPageOptions={rowsPerPage}
-        loading={loading}
-        emptyMessage={noDataMessage ?? "Nenhum resultado encontrado"}
-      >
-        {showCheckbox ? (
-          <Column
-            frozen
-            selectionMode={singleSelect ? "single" : "multiple"}
-            headerStyle={{ width: "3rem" }}
-          />
-        ) : null}
-        {columns &&
-          columns.map((col) => (
+      <ViewPanel refreshData={refetch}>
+        <DataTable
+          rows={rows}
+          first={first}
+          globalFilterFields={["name"]}
+          filterDisplay="row"
+          header={header}
+          filters={filters}
+          onRowClick={onRowClick}
+          size="small"
+          paginatorLeft={
+            showCheckbox &&
+            !singleSelect && (
+              <label>
+                <b>Selecionadas:</b>&nbsp;
+                {selectedItens == null ? 0 : selectedItens.length}
+              </label>
+            )
+          }
+          selectionMode={!rowClick && showCheckbox ? "checkbox" : null}
+          resizableColumns
+          scrollable
+          value={datatableData && datatableData.data}
+          selection={selectedItens}
+          onSelectionChange={(e) => onSelectItens(e)}
+          loading={loadingData}
+          emptyMessage={noDataMessage ?? "Nenhum resultado encontrado"}
+        >
+          {showCheckbox ? (
             <Column
-              filter
-              key={col.field}
-              field={col.field}
-              header={col.header}
-              filterField={col.filterField}
-              body={
-                col.field.toLowerCase().includes("date")
-                  ? dateTemplate
-                  : col.body
-              }
-              headerStyle={{
-                fontWeight: "700",
-                minWidth: col.minWidth,
-                width: col.width,
-              }}
+              frozen
+              selectionMode={singleSelect ? "single" : "multiple"}
+              headerStyle={{ width: "3rem" }}
             />
-          ))}
-        {onDeleteButton || onViewButton || customButtons ? (
-          <Column
-            field="actions"
-            header="Ações"
-            headerStyle={{ fontWeight: "700", minWidth: "150px" }}
-            frozen
-            alignFrozen="right"
-            body={buttonsTemplate}
-          />
-        ) : null}
-      </DataTable>
+          ) : null}
+          {columns &&
+            columns.map((col) => (
+              <Column
+                filter
+                key={col.field}
+                field={col.field}
+                header={col.header}
+                filterField={col.filterField}
+                body={
+                  col.field.toLowerCase().includes("date")
+                    ? dateTemplate
+                    : col.body
+                }
+                headerStyle={{
+                  fontWeight: "700",
+                  minWidth: col.minWidth,
+                  width: col.width,
+                }}
+              />
+            ))}
+          {onDeleteButton || onViewButton || customButtons ? (
+            <Column
+              field="actions"
+              header="Ações"
+              headerStyle={{ fontWeight: "700", minWidth: "150px" }}
+              frozen
+              alignFrozen="right"
+              body={buttonsTemplate}
+            />
+          ) : null}
+        </DataTable>
+        <Paginator
+          //alwaysShow
+          first={first}
+          rows={rows}
+          totalRecords={getCount && getCount.data}
+          rowsPerPageOptions={rowsPerPage}
+          onPageChange={onPageChange}
+        />
+      </ViewPanel>
     </div>
   );
 }

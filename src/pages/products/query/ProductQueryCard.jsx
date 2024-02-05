@@ -17,8 +17,6 @@ import { FilterMatchMode, FilterOperator } from "primereact/api";
 import "./style.css";
 
 function ProductQueryCard() {
-  const { data, loading, refetch } = useFetch(ENDPOINTS.products.getAll);
-
   //Configuração para o modal funcionar{
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
@@ -55,16 +53,14 @@ function ProductQueryCard() {
   return (
     <ContentPage id="productView" title="Produtos">
       <Datatable
-        refreshData={refetch}
         noDataMessage="Produtos não encontrados"
         fromApi
         rowsPerPage={[5, 10, 25]}
         columns={columns}
-        data={data}
-        loading={loading}
         onDeleteButton={deleteTest}
         onViewButton={viewProducts}
         onEditButton={editProducts}
+        entity="product"
       />
 
       <AbstractFormContextProvider>

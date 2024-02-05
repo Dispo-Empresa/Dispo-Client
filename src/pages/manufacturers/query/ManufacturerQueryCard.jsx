@@ -12,7 +12,6 @@ import { ManufacturerContextProvider } from "context/manufacturerContext";
 
 function ManufacturerQueryCard() {
   const [selectedManufacturers, setSelectedManufacturers] = useState(null);
-  const { data, loading, refetch } = useFetch(ENDPOINTS.manufacturers.getAll);
 
   //Configuração para o modal funcionar{
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,22 +42,19 @@ function ManufacturerQueryCard() {
 
   return (
     <ContentPage title="Fabricantes">
-      <ViewPanel refreshData={refetch}>
-        <Datatable
-          noDataMessage="Fabricantes não encontrados"
-          showCheckbox
-          fromApi
-          rowsPerPage={[5, 10, 25]}
-          columns={columns}
-          data={data}
-          loading={loading}
-          setSelectedItens={setSelectedManufacturers}
-          selectedItens={selectedManufacturers}
-          onDeleteButton={deleteTest}
-          onViewButton={viewManufacturer}
-          onEditButton={editManufacturer}
-        />
-      </ViewPanel>
+      <Datatable
+        noDataMessage="Fabricantes não encontrados"
+        showCheckbox
+        fromApi
+        rowsPerPage={[5, 10, 25]}
+        columns={columns}
+        setSelectedItens={setSelectedManufacturers}
+        selectedItens={selectedManufacturers}
+        onDeleteButton={deleteTest}
+        onViewButton={viewManufacturer}
+        onEditButton={editManufacturer}
+        entity="manufacturer"
+      />
 
       <AbstractFormContextProvider>
         <ManufacturerContextProvider>
