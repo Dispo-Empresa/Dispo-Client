@@ -168,11 +168,13 @@ function Datatable({
   const header = renderHeader();
 
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(5);
+  const [rows, setRows] = useState(rowsPerPage[0] ?? 5);
 
   const [urlTeste, setUrlTeste] = useState(
-    `https://localhost:7153/api/v1/datatable/get-all?Entity=${entity}&PageNumber=1&PageSize=5`
+    `https://localhost:7153/api/v1/datatable/get-all?Entity=${entity}&PageNumber=1&PageSize=${5}`
   );
+
+  // temos que dar um jeito de carregar mais dados porem mostrar no maximo um numero fixo na datatable
 
   const {
     data: datatableData,
@@ -181,7 +183,6 @@ function Datatable({
   } = useFetch(urlTeste);
 
   const onPageChange = (event) => {
-    console.log(`Mudou para a página: ${event.page + 1}`);
     setFirst(event.first);
     setRows(event.rows);
 
@@ -203,6 +204,7 @@ function Datatable({
       <ConfirmDialog />
       <ViewPanel refreshData={refetch}>
         <DataTable
+          rowsPerPageOptions={[5, 10, 25]}
           rows={rows}
           first={first}
           globalFilterFields={["name"]}
@@ -272,7 +274,7 @@ function Datatable({
           first={first}
           rows={rows}
           totalRecords={getCount && getCount.data}
-          rowsPerPageOptions={rowsPerPage}
+          rowsPerPageOptions={[5, 10, 25]}
           onPageChange={onPageChange}
         />
       </ViewPanel>
