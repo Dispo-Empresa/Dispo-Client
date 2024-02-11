@@ -8,11 +8,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
 import { Button, Tooltip } from "@mui/material";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
 
 import { ReactComponent as Loader } from "components/ui/buttons/loader.svg";
 import { COLORS } from "themes/colors";
+
+import CheckIcon from "@mui/icons-material/Check";
+import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 
 import "./styles.css";
 
@@ -161,7 +165,7 @@ function DisableButton(props) {
         onClick={props.onClick}
         className="datatable-button"
         style={{
-          backgroundColor: "#f64e60",
+          backgroundColor: "#F64E60",
           color: COLORS.DetailsColor,
         }}
       >
@@ -195,9 +199,50 @@ function ExportButton(props) {
       style={{
         backgroundColor: "#299C66",
         color: COLORS.DetailsColor,
+        height: "45px",
       }}
     >
       <FontAwesomeIcon icon={faFileExcel} size="lg" />
+    </Button>
+  );
+}
+
+function ConfirmButton(props) {
+  return (
+    <Button
+      onClick={props.onClick}
+      className="form-button"
+      style={{
+        backgroundColor: "#299C66",
+        color: COLORS.DetailsColor,
+      }}
+    >
+      <CheckIcon />
+    </Button>
+  );
+}
+
+function ClearButton(props) {
+  return (
+    <Button
+      onClick={props.onClick}
+      variant="outlined"
+      startIcon={<FilterAltOffIcon />}
+      style={{
+        cursor: "pointer",
+        color: "#F64E60",
+        borderColor: "#F64E60",
+      }}
+    >
+      <label
+        style={{
+          cursor: "pointer",
+          textTransform: "none",
+          fontWeight: "600",
+        }}
+      >
+        Remover
+      </label>
     </Button>
   );
 }
@@ -214,4 +259,6 @@ export {
   DisableButton,
   RefreshButton,
   ExportButton,
+  ConfirmButton,
+  ClearButton,
 };

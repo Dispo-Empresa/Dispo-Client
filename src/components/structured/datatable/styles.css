@@ -105,6 +105,24 @@ border-color: #029DBE;
   background: #F64E60;
 }
 
+/* Filter */
+
+.p-column-filter-overlay .p-column-filter-row-items .p-column-filter-row-item.p-highlight {
+  color: #029DBE;
+}
+
+.p-column-filter-menu-button.p-column-filter-menu-button-active, .p-column-filter-menu-button.p-column-filter-menu-button-active:hover {
+  color: #029DBE;
+}
+
+.p-inputtext:enabled:hover {
+  border-color: #86B7FE;
+}
+
+.p-dropdown:not(.p-disabled):hover {
+  border-color: #86B7FE;
+}
+
 /* Stepper */
 
 .p-steps .p-steps-item.p-highlight .p-steps-number {
