@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
-import { Skeleton } from "primereact/skeleton";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
 
 import ButtonGroup from "components/ui/buttons/group/ButtonGroup";
@@ -15,13 +14,15 @@ import {
   QueryDataButton,
   DisableButton,
   EditButton,
-  ConfirmButton,
+  SearchButton,
   ClearButton,
+  ConfirmButton,
 } from "components/ui/buttons/icons/IconButton";
 import {
   RefreshButton,
   ExportButton,
 } from "components/ui/buttons/icons/IconButton";
+import { post } from "services/httpMethods";
 
 function Datatable({
   rowClick,
@@ -38,22 +39,22 @@ function Datatable({
   fromApi,
   singleSelect,
   onRowClick,
-  //filterDisplay,
-  //header,
-  //filters,
   title,
   buttons,
   entity,
 }) {
   let initialPageSize = 10;
   let urlDatatable = `https://localhost:7153/api/v1/datatable/get-all?Entity=${entity}&PageNumber=1&PageSize=${initialPageSize}`;
-  //let loadLazyTimeout = null;
   const [urlDataDatatable, setUrlDataDatatable] = useState(urlDatatable);
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(initialPageSize);
-  //const [virtualData, setVirtualData] = useState(Array.from({ length: initialPageSize }));
-  //const [lazyLoading, setLazyLoading] = useState(false);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
+  const [columnFilter, setColumnFilter] = useState([]);
+  const [filters, setFilters] = useState({});
+  const filterMatchModes = [
+    { label: "Contém", value: "contains" },
+    { label: "Começa com", value: "startsWith" },
+  ];
 
   const { data: getCount } = useFetch(
     "https://localhost:7153/api/v1/datatable/get-count"
@@ -64,6 +65,109 @@ function Datatable({
     loading: loadingData,
     refetch,
   } = useFetch(urlDataDatatable);
+
+  useEffect(() => {
+    const initialFilters = {};
+    columns.forEach((column) => {
+      initialFilters[column.field] = {
+        operator: FilterOperator.AND,
+        constraints: [
+          {
+            value: null,
+            matchMode: FilterMatchMode.CONTAINS,
+          },
+        ],
+      };
+    });
+    setFilters(initialFilters);
+  }, [columns]);
+
+  useEffect(() => {
+    console.log(columnFilter);
+
+    // CHAMADA DE API PARA O FILTRO
+  }, [columnFilter]);
+
+  const buildFilter = (fieldName, fieldValue) => {
+    var filterPropertiesModel = {
+      name: fieldName,
+      type: "",
+      value: fieldValue,
+    };
+
+    var paginationFilterModel = {
+      entity: entity,
+      pageNumber: 1,
+      pageSize: rows,
+    };
+
+    var requestData = {
+      propertes: filterPropertiesModel,
+      paginationConfig: paginationFilterModel,
+    };
+
+    var fieldNameIndex = columnFilter.findIndex(
+      (filter) => filter.name === fieldName
+    );
+
+    if (fieldNameIndex >= 0) {
+      const updatedColumnFilter = [...columnFilter];
+      updatedColumnFilter[fieldNameIndex] = filterPropertiesModel;
+      setColumnFilter(updatedColumnFilter);
+    } else {
+      setColumnFilter([...columnFilter, filterPropertiesModel]);
+    }
+
+    //var response = await post(
+    //  "https://localhost:7153/api/v1/datatable/get-by-filter",
+    //  requestData
+    //);
+  };
+
+  const saveAsExcelFile = (buffer, fileName) => {
+    import("file-saver").then((module) => {
+      if (module && module.default) {
+        let EXCEL_TYPE =
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+        let EXCEL_EXTENSION = ".xlsx";
+        const data = new Blob([buffer], {
+          type: EXCEL_TYPE,
+        });
+
+        module.default.saveAs(
+          data,
+          fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
+        );
+      }
+    });
+  };
+
+  const headerTemplate = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          marginTop: "20px",
+          marginBottom: "20px",
+        }}
+      >
+        <input
+          type="text"
+          className="form-control filter-text-field"
+          placeholder="Pesquisar..."
+          value={globalFilterValue}
+          onKeyDown={(e) => onSearchApply(e, true)}
+          onChange={onGlobalFilterChange}
+        />
+        {buttons}
+        {<SearchButton onClick={onSearchApply} />}
+        {<RefreshButton onClick={refetch} />}
+        {<ExportButton onClick={onExportExcel} />}
+      </div>
+    );
+  };
 
   const buttonsTemplate = (rowData) => {
     const acceptRemove = () => {
@@ -118,35 +222,16 @@ function Datatable({
     return formattedDate;
   };
 
-  //const loadingTemplate = (options) => {
-  //  return (
-  //    <div
-  //      className="flex align-items-center"
-  //      style={{ height: "17px", flexGrow: "1", overflow: "hidden" }}
-  //    >
-  //      <Skeleton
-  //        width={
-  //          options.cellEven
-  //            ? options.field === "year"
-  //              ? "30%"
-  //              : "40%"
-  //            : "60%"
-  //        }
-  //        height="1rem"
-  //      />
-  //    </div>
-  //  );
-  //};
+  const clearFilterButtonTemplate = (options) => {
+    return <ClearButton onClick={options.filterClearCallback} />;
+  };
 
-  const onSelectItens = (e) => {
-    onSelectItensCallback && onSelectItensCallback(e.value);
-    setSelectedItens(e.value);
+  const applyFilterButtonTemplate = (options) => {
+    return <ConfirmButton onClick={options.filterApplyCallback} />;
   };
 
   const onGlobalFilterChange = (e) => {
     setGlobalFilterValue(e.target.value);
-
-    // FAZER O FILTRO PEGAR OS DADOS DO BACK END JUNTO COM OS PADROES DO ARTHUR
   };
 
   const onPageChange = (event) => {
@@ -160,7 +245,13 @@ function Datatable({
     );
   };
 
-  const exportExcel = () => {
+  const onSearchApply = async (event, isKeyPressed = false) => {
+    if (event.key !== "Enter" && isKeyPressed) return;
+
+    buildFilter(columns[0].field, globalFilterValue);
+  };
+
+  const onExportExcel = () => {
     import("xlsx").then((xlsx) => {
       const worksheet = xlsx.utils.json_to_sheet(
         datatableData && datatableData.data
@@ -174,72 +265,6 @@ function Datatable({
       saveAsExcelFile(excelBuffer, entity ?? "data");
     });
   };
-
-  const saveAsExcelFile = (buffer, fileName) => {
-    import("file-saver").then((module) => {
-      if (module && module.default) {
-        let EXCEL_TYPE =
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-        let EXCEL_EXTENSION = ".xlsx";
-        const data = new Blob([buffer], {
-          type: EXCEL_TYPE,
-        });
-
-        module.default.saveAs(
-          data,
-          fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
-        );
-      }
-    });
-  };
-
-  const renderHeader = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-          marginTop: "20px",
-          marginBottom: "20px",
-        }}
-      >
-        <input
-          type="text"
-          className="form-control filter-text-field"
-          placeholder="Pesquisar..."
-          value={globalFilterValue}
-          onChange={onGlobalFilterChange}
-        />
-        {buttons}
-        {<RefreshButton onClick={refetch} />}
-        {<ExportButton onClick={exportExcel} />}
-      </div>
-    );
-  };
-
-  const filterMatchModes = [
-    { label: "Contém", value: "contains" },
-    { label: "Começa com", value: "startsWith" },
-  ];
-
-  const [filters, setFilters] = useState({});
-
-  useEffect(() => {
-    const initialFilters = {};
-    columns.forEach((column) => {
-      initialFilters[column.field] = {
-        operator: FilterOperator.AND,
-        constraints: [
-          {
-            value: null,
-            matchMode: FilterMatchMode.CONTAINS,
-          },
-        ],
-      };
-    });
-    setFilters(initialFilters);
-  }, [columns]);
 
   const onFilterMatchModeChanged = (e) => {
     setFilters((prevFilters) => ({
@@ -256,34 +281,8 @@ function Datatable({
     }));
   };
 
-  //const loadDataLazy = (event) => {
-  //  !lazyLoading && setLazyLoading(true);
-  //
-  //  if (loadLazyTimeout) {
-  //    clearTimeout(loadLazyTimeout);
-  //  }
-  //
-  //  loadLazyTimeout = setTimeout(() => {
-  //    let _virtualData = [...virtualData];
-  //    let { first, last } = event;
-  //
-  //    const loadedData = datatableData && datatableData.data.slice(first, last);
-  //
-  //    if (Array.isArray(loadedData)) {
-  //      Array.prototype.splice.apply(_virtualData, [
-  //        ...[first, last - first],
-  //        ...loadedData,
-  //      ]);
-  //
-  //      setVirtualData(_virtualData);
-  //    }
-  //
-  //    setLazyLoading(false);
-  //  }, Math.random() * 500);
-  //};
-
-  const clearFilterButtonTemplate = (options) => {
-    return <ClearButton onClick={options.filterClearCallback} />;
+  const onApplyColumnFilter = (event) => {
+    buildFilter(event.field, event.constraints.constraints[0].value);
   };
 
   return (
@@ -291,23 +290,13 @@ function Datatable({
       <label className="title">{title}</label>
       <ConfirmDialog />
       <DataTable
-        //scrollable
         scrollHeight="550px"
-        //virtualScrollerOptions={{
-        //  lazy: true,
-        //  onLazyLoad: loadDataLazy,
-        //  itemSize: 46,
-        //  delay: loadLazyTimeout,
-        //  showLoader: true,
-        //  loading: lazyLoading,
-        //  loadingTemplate,
-        //}}
         rowsPerPageOptions={[10, 20, 30]}
         rows={rows}
         first={first}
         globalFilterFields={columns.map((col) => col.field)}
         filterDisplay="menu"
-        header={renderHeader()}
+        header={headerTemplate}
         showGridlines
         //stripedRows
         filters={filters}
@@ -340,13 +329,13 @@ function Datatable({
         {columns &&
           columns.map((col) => (
             <Column
-              //showFilterMenu={false}
               filter
               filterMatchModeOptions={filterMatchModes}
               showFilterOperator={false}
               showAddButton={false}
-              showApplyButton={false}
               filterClear={clearFilterButtonTemplate}
+              filterApply={applyFilterButtonTemplate}
+              onFilterApplyClick={onApplyColumnFilter}
               showFilterMatchModes={true}
               onFilterMatchModeChange={onFilterMatchModeChanged}
               filterPlaceholder={`Procurar por ${col.header}`}

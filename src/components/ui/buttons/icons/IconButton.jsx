@@ -175,6 +175,22 @@ function DisableButton(props) {
   );
 }
 
+function SearchButton(props) {
+  return (
+    <Button
+      onClick={props.onClick}
+      className="form-button"
+      style={{
+        backgroundColor: "#30BA56",
+        color: COLORS.DetailsColor,
+        height: "45px",
+      }}
+    >
+      <SearchIcon />
+    </Button>
+  );
+}
+
 function RefreshButton(props) {
   return (
     <Button
@@ -211,10 +227,11 @@ function ConfirmButton(props) {
   return (
     <Button
       onClick={props.onClick}
-      className="form-button"
+      variant="outlined"
       style={{
-        backgroundColor: "#299C66",
-        color: COLORS.DetailsColor,
+        cursor: "pointer",
+        color: "#299C66",
+        borderColor: "#299C66",
       }}
     >
       <CheckIcon />
@@ -227,22 +244,13 @@ function ClearButton(props) {
     <Button
       onClick={props.onClick}
       variant="outlined"
-      startIcon={<FilterAltOffIcon />}
       style={{
         cursor: "pointer",
         color: "#F64E60",
         borderColor: "#F64E60",
       }}
     >
-      <label
-        style={{
-          cursor: "pointer",
-          textTransform: "none",
-          fontWeight: "600",
-        }}
-      >
-        Remover
-      </label>
+      <FilterAltOffIcon />
     </Button>
   );
 }
@@ -257,6 +265,7 @@ export {
   MoreButton,
   DeleteButton,
   DisableButton,
+  SearchButton,
   RefreshButton,
   ExportButton,
   ConfirmButton,
