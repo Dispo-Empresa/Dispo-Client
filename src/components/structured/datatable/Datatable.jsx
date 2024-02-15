@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
@@ -51,6 +51,7 @@ function Datatable({
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [columnFilter, setColumnFilter] = useState([]);
   const [filters, setFilters] = useState({});
+  const [dataByFilter, setDataByFilter] = useState(null);
   const filterMatchModes = [
     { label: "Contém", value: "contains" },
     { label: "Começa com", value: "startsWith" },
@@ -82,11 +83,30 @@ function Datatable({
     setFilters(initialFilters);
   }, [columns]);
 
-  useEffect(() => {
-    console.log(columnFilter);
+  const firstUpdate = useRef(true);
 
-    // CHAMADA DE API PARA O FILTRO
-  }, [columnFilter]);
+  useLayoutEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+
+    var requestData = {
+      entity: entity.charAt(0).toUpperCase() + entity.slice(1),
+      properties: columnFilter,
+    };
+
+    async function fetchData() {
+      var response = await post(
+        "https://localhost:7153/api/v1/datatable/get-by-filter",
+        requestData
+      );
+      console.log(response);
+
+      setDataByFilter(response.data);
+    }
+    fetchData();
+  }, [columnFilter, entity]);
 
   const buildFilter = (fieldName, fieldValue) => {
     var filterPropertiesModel = {
@@ -281,8 +301,35 @@ function Datatable({
     }));
   };
 
-  const onApplyColumnFilter = (event) => {
-    buildFilter(event.field, event.constraints.constraints[0].value);
+  const onApplyColumnFilter = async (event) => {
+    var filterPropertiesModel = {
+      name: event.field,
+      value: event.constraints.constraints[0].value,
+    };
+
+    var requestData = {
+      entity: entity,
+      properties: filterPropertiesModel,
+    };
+
+    var fieldNameIndex = columnFilter.findIndex(
+      (filter) => filter.name === event.field
+    );
+
+    if (fieldNameIndex >= 0) {
+      const updatedColumnFilter = [...columnFilter];
+      updatedColumnFilter[fieldNameIndex] = filterPropertiesModel;
+      setColumnFilter(updatedColumnFilter);
+    } else {
+      setColumnFilter([...columnFilter, filterPropertiesModel]);
+    }
+
+    //var response = await post(
+    //  "https://localhost:7153/api/v1/datatable/get-by-filter",
+    //  requestData
+    //);
+
+    //buildFilter(event.field, event.constraints.constraints[0].value);
   };
 
   return (
@@ -313,7 +360,9 @@ function Datatable({
         //}
         //selectionMode={!rowClick && showCheckbox ? "checkbox" : null}
         resizableColumns
-        value={datatableData && datatableData.data}
+        value={
+          dataByFilter ? dataByFilter : datatableData && datatableData.data
+        }
         //selection={selectedItens}
         //onSelectionChange={(e) => onSelectItens(e)}
         loading={loadingData}
