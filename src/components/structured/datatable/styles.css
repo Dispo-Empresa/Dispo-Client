@@ -89,7 +89,11 @@ border-color: #029DBE;
 }
 
 .p-button.p-button-text {
-  color: #029DBE;
+  color: #db182c;
+}
+
+.p-button.p-button-text:enabled:hover {
+  color: #be3344;
 }
 
 .p-button:focus {

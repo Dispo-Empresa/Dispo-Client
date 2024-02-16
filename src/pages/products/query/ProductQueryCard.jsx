@@ -13,6 +13,8 @@ import { AbstractFormContextProvider } from "context/abstractFormContext";
 import { ProductContextProvider } from "context/contextProduct";
 import { GenericDatabaseButton } from "components/ui/buttons/icons/IconButton";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
+import { InputNumber } from "primereact/inputnumber";
+import { SelectProductCategory } from "components/ui/inputs/select/SelectProduct";
 
 import "./style.css";
 
@@ -38,11 +40,47 @@ function ProductQueryCard() {
   };
   //Fim da configuração}
 
+  // CONTINUAR COM OS FILTROS COM TEMPLATE
+
+  const balanceFilterTemplate = (options) => {
+    return (
+      <InputNumber
+        value={options.value}
+        onChange={(e) => options.filterCallback(e.value, options.index)}
+        mode="currency"
+        currency="BRL"
+        locale="pt-BR"
+      />
+    );
+  };
+
+  const statusRowFilterTemplate = (options) => {
+    return (
+      <SelectProductCategory
+        hideLabel
+        value={options.value}
+        onChange={(e) => options.filterApplyCallback(e.value)}
+      />
+    );
+  };
+
   const columns = [
     { field: "name", header: "Nome", minWidth: "350px", filterField: "name" },
-    { field: "purchasePrice", header: "Preço de compra" },
-    { field: "salePrice", header: "Preço de venda" },
-    { field: "category", header: "Categoria" },
+    {
+      field: "purchasePrice",
+      header: "Preço de compra",
+      filterElement: balanceFilterTemplate,
+    },
+    {
+      field: "salePrice",
+      header: "Preço de venda",
+      filterElement: balanceFilterTemplate,
+    },
+    {
+      field: "category",
+      header: "Categoria",
+      filterElement: statusRowFilterTemplate,
+    },
     { field: "unitOfMeasurement", header: "Unidade de Peso" },
   ];
 

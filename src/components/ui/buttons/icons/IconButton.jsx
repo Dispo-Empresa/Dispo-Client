@@ -227,11 +227,10 @@ function ConfirmButton(props) {
   return (
     <Button
       onClick={props.onClick}
-      variant="outlined"
       style={{
         cursor: "pointer",
-        color: "#299C66",
-        borderColor: "#299C66",
+        backgroundColor: "#02AEEC",
+        color: "#FFFF",
       }}
     >
       <CheckIcon />
@@ -246,8 +245,8 @@ function ClearButton(props) {
       variant="outlined"
       style={{
         cursor: "pointer",
-        color: "#F64E60",
-        borderColor: "#F64E60",
+        color: "#02AEEC",
+        borderColor: "#02AEEC",
       }}
     >
       <FilterAltOffIcon />

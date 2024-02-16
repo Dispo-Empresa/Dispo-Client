@@ -84,7 +84,6 @@ function Datatable({
   }, [columns]);
 
   const firstUpdate = useRef(true);
-
   useLayoutEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false;
@@ -101,7 +100,6 @@ function Datatable({
         "https://localhost:7153/api/v1/datatable/get-by-filter",
         requestData
       );
-      console.log(response);
 
       setDataByFilter(response.data);
     }
@@ -111,19 +109,7 @@ function Datatable({
   const buildFilter = (fieldName, fieldValue) => {
     var filterPropertiesModel = {
       name: fieldName,
-      type: "",
       value: fieldValue,
-    };
-
-    var paginationFilterModel = {
-      entity: entity,
-      pageNumber: 1,
-      pageSize: rows,
-    };
-
-    var requestData = {
-      propertes: filterPropertiesModel,
-      paginationConfig: paginationFilterModel,
     };
 
     var fieldNameIndex = columnFilter.findIndex(
@@ -137,11 +123,6 @@ function Datatable({
     } else {
       setColumnFilter([...columnFilter, filterPropertiesModel]);
     }
-
-    //var response = await post(
-    //  "https://localhost:7153/api/v1/datatable/get-by-filter",
-    //  requestData
-    //);
   };
 
   const saveAsExcelFile = (buffer, fileName) => {
@@ -302,34 +283,7 @@ function Datatable({
   };
 
   const onApplyColumnFilter = async (event) => {
-    var filterPropertiesModel = {
-      name: event.field,
-      value: event.constraints.constraints[0].value,
-    };
-
-    var requestData = {
-      entity: entity,
-      properties: filterPropertiesModel,
-    };
-
-    var fieldNameIndex = columnFilter.findIndex(
-      (filter) => filter.name === event.field
-    );
-
-    if (fieldNameIndex >= 0) {
-      const updatedColumnFilter = [...columnFilter];
-      updatedColumnFilter[fieldNameIndex] = filterPropertiesModel;
-      setColumnFilter(updatedColumnFilter);
-    } else {
-      setColumnFilter([...columnFilter, filterPropertiesModel]);
-    }
-
-    //var response = await post(
-    //  "https://localhost:7153/api/v1/datatable/get-by-filter",
-    //  requestData
-    //);
-
-    //buildFilter(event.field, event.constraints.constraints[0].value);
+    buildFilter(event.field, event.constraints.constraints[0].value);
   };
 
   return (
@@ -378,6 +332,7 @@ function Datatable({
         {columns &&
           columns.map((col) => (
             <Column
+              filterElement={col.filterElement}
               filter
               filterMatchModeOptions={filterMatchModes}
               showFilterOperator={false}
