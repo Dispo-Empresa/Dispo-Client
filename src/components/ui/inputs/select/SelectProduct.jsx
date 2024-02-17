@@ -41,8 +41,8 @@ function SelectProductUnitOfMeasurement(props) {
   return (
     <SelectWithFilter
       id="unitOfMeasurement"
-      required
-      label="Unidade de peso"
+      required={!props.hideLabel}
+      label={!props.hideLabel && "Unidade de peso"}
       options={unitOfMeasurementTypes}
       value={props.value}
       error={props.error}

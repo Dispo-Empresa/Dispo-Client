@@ -58,7 +58,9 @@ function Datatable({
   ];
 
   const { data: getCount } = useFetch(
-    "https://localhost:7153/api/v1/datatable/get-count"
+    `https://localhost:7153/api/v1/datatable/get-count?entity=${
+      entity.charAt(0).toUpperCase() + entity.slice(1)
+    }`
   );
 
   const {

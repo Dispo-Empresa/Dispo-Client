@@ -14,7 +14,11 @@ import { ProductContextProvider } from "context/contextProduct";
 import { GenericDatabaseButton } from "components/ui/buttons/icons/IconButton";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
 import { InputNumber } from "primereact/inputnumber";
-import { SelectProductCategory } from "components/ui/inputs/select/SelectProduct";
+import {
+  SelectProductCategory,
+  SelectProductUnitOfMeasurement,
+} from "components/ui/inputs/select/SelectProduct";
+import { CurrencyField } from "components/ui/inputs/currency/CurrencyField";
 
 import "./style.css";
 
@@ -40,23 +44,29 @@ function ProductQueryCard() {
   };
   //Fim da configuração}
 
-  // CONTINUAR COM OS FILTROS COM TEMPLATE
-
   const balanceFilterTemplate = (options) => {
     return (
-      <InputNumber
+      <CurrencyField
+        placeholder="R$"
         value={options.value}
         onChange={(e) => options.filterCallback(e.value, options.index)}
-        mode="currency"
-        currency="BRL"
-        locale="pt-BR"
       />
     );
   };
 
-  const statusRowFilterTemplate = (options) => {
+  const categoryRowFilterTemplate = (options) => {
     return (
       <SelectProductCategory
+        hideLabel
+        value={options.value}
+        onChange={(e) => options.filterApplyCallback(e.value)}
+      />
+    );
+  };
+
+  const unitOfMeasurementRowFilterTemplate = (options) => {
+    return (
+      <SelectProductUnitOfMeasurement
         hideLabel
         value={options.value}
         onChange={(e) => options.filterApplyCallback(e.value)}
@@ -79,9 +89,13 @@ function ProductQueryCard() {
     {
       field: "category",
       header: "Categoria",
-      filterElement: statusRowFilterTemplate,
+      filterElement: categoryRowFilterTemplate,
     },
-    { field: "unitOfMeasurement", header: "Unidade de Peso" },
+    {
+      field: "unitOfMeasurement",
+      header: "Unidade de Peso",
+      filterElement: unitOfMeasurementRowFilterTemplate,
+    },
   ];
 
   const deleteTest = (row) => {

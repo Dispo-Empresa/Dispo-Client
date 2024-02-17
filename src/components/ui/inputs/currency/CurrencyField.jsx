@@ -24,6 +24,7 @@ function CurrencyField(props) {
         mode="currency"
         currency="BRL"
         locale="pt-BR"
+        placeholder={props.placeholder}
         inputClassName={classNames({ "p-invalid": props.error })}
         style={{
           borderColor: props.error && "red",
