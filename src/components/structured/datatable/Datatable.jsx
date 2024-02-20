@@ -22,7 +22,9 @@ import {
   RefreshButton,
   ExportButton,
 } from "components/ui/buttons/icons/IconButton";
-import { post } from "services/httpMethods";
+import { get, post } from "services/httpMethods";
+
+import convert from "components/structured/datatable/filterMatchModeConverter";
 
 function Datatable({
   rowClick,
@@ -52,6 +54,7 @@ function Datatable({
   const [columnFilter, setColumnFilter] = useState([]);
   const [filters, setFilters] = useState({});
   const [dataByFilter, setDataByFilter] = useState(null);
+  const [recordCount, setRecordCount] = useState(0);
   const filterMatchModes = [
     { label: "Contém", value: "contains" },
     { label: "Começa com", value: "startsWith" },
@@ -95,6 +98,10 @@ function Datatable({
     var requestData = {
       entity: entity.charAt(0).toUpperCase() + entity.slice(1),
       properties: columnFilter,
+      paginationConfig: {
+        pageNumber: 1,
+        pageSize: rows,
+      },
     };
 
     async function fetchData() {
@@ -103,15 +110,19 @@ function Datatable({
         requestData
       );
 
-      setDataByFilter(response.data);
+      if (response === null || response === undefined) return;
+
+      setDataByFilter(response.data.records);
+      setRecordCount(response.data.recordCount);
     }
     fetchData();
-  }, [columnFilter, entity]);
+  }, [columnFilter, entity, rows]);
 
-  const buildFilter = (fieldName, fieldValue) => {
+  const buildFilter = (fieldName, fieldValue, filterMatchMode) => {
     var filterPropertiesModel = {
       name: fieldName,
       value: fieldValue,
+      searchType: convert(filterMatchMode),
     };
 
     var fieldNameIndex = columnFilter.findIndex(
@@ -237,21 +248,49 @@ function Datatable({
     setGlobalFilterValue(e.target.value);
   };
 
-  const onPageChange = (event) => {
+  // Já estamos mandando o filterMatchMode para a api, porem ela ainda não esta filtrando corretamente
+  // Filtrar pelos outros tipos de filtros (valor, enum etc)
+  // Adicionar filterMatchModes diferentes para filtros personalizados (ex: campo de valor vai ter greater than e less than)
+  // Analisar como vamos formatar os dados ao obte-los
+
+  const onPageChange = async (event) => {
+    var existsFilter = columnFilter.length > 0;
+
     setFirst(event.first);
     setRows(event.rows);
 
-    setUrlDataDatatable(
-      `https://localhost:7153/api/v1/datatable/get-all?Entity=${entity}&PageNumber=${
-        event.page + 1
-      }&PageSize=${event.rows}`
-    );
+    if (existsFilter) {
+      var requestData = {
+        entity: entity.charAt(0).toUpperCase() + entity.slice(1),
+        properties: columnFilter,
+        paginationConfig: {
+          pageNumber: event.page + 1,
+          pageSize: event.rows,
+        },
+      };
+
+      var response = await post(
+        "https://localhost:7153/api/v1/datatable/get-by-filter",
+        requestData
+      );
+
+      if (response === null || response === undefined) return;
+
+      setDataByFilter(response.data.records);
+      setRecordCount(response.data.recordCount);
+    } else {
+      setUrlDataDatatable(
+        `https://localhost:7153/api/v1/datatable/get-all?Entity=${entity}&PageNumber=${
+          event.page + 1
+        }&PageSize=${event.rows}`
+      );
+    }
   };
 
   const onSearchApply = async (event, isKeyPressed = false) => {
     if (event.key !== "Enter" && isKeyPressed) return;
 
-    buildFilter(columns[0].field, globalFilterValue);
+    buildFilter(columns[0].field, globalFilterValue, filterMatchModes[0].value);
   };
 
   const onExportExcel = () => {
@@ -277,7 +316,7 @@ function Datatable({
         constraints: [
           {
             ...prevFilters[e.field],
-            matchMode: e.matchMode ?? FilterMatchMode.CONTAINS,
+            matchMode: e.matchMode ?? filterMatchModes[0].value,
           },
         ],
       },
@@ -285,7 +324,11 @@ function Datatable({
   };
 
   const onApplyColumnFilter = async (event) => {
-    buildFilter(event.field, event.constraints.constraints[0].value);
+    buildFilter(
+      event.field,
+      event.constraints.constraints[0].value,
+      event.constraints.constraints[0].matchMode
+    );
   };
 
   return (
@@ -378,7 +421,7 @@ function Datatable({
         <Paginator
           first={first}
           rows={rows}
-          totalRecords={getCount && getCount.data}
+          totalRecords={recordCount ? recordCount : getCount && getCount.data}
           rowsPerPageOptions={[10, 20, 30]}
           onPageChange={onPageChange}
         />
