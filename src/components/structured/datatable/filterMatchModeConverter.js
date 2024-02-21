@@ -16,6 +16,12 @@ export default function convert(filterMatchMode){
         return searchType.Contains;
     case "startsWith":
         return searchType.StartsWith;
+    case "equals":
+        return searchType.Equals;
+    case "gt":
+        return searchType.GreaterThan;
+    case "lt":
+        return searchType.LessThan;
     default: 
         return searchType.Contains;
   }

@@ -74,17 +74,25 @@ function ProductQueryCard() {
     );
   };
 
+  const filterMatchModes = [
+    { label: "Igual", value: FilterMatchMode.EQUALS },
+    { label: "Maior que", value: FilterMatchMode.GREATER_THAN },
+    { label: "Menor que", value: FilterMatchMode.LESS_THAN },
+  ];
+
   const columns = [
     { field: "name", header: "Nome", minWidth: "350px", filterField: "name" },
     {
       field: "purchasePrice",
       header: "Preço de compra",
       filterElement: balanceFilterTemplate,
+      filterMatchModes: filterMatchModes,
     },
     {
       field: "salePrice",
       header: "Preço de venda",
       filterElement: balanceFilterTemplate,
+      filterMatchModes: filterMatchModes,
     },
     {
       field: "category",

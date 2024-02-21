@@ -56,8 +56,8 @@ function Datatable({
   const [dataByFilter, setDataByFilter] = useState(null);
   const [recordCount, setRecordCount] = useState(0);
   const filterMatchModes = [
-    { label: "Contém", value: "contains" },
-    { label: "Começa com", value: "startsWith" },
+    { label: "Contém", value: FilterMatchMode.CONTAINS },
+    { label: "Começa com", value: FilterMatchMode.STARTS_WITH },
   ];
 
   const { data: getCount } = useFetch(
@@ -80,7 +80,11 @@ function Datatable({
         constraints: [
           {
             value: null,
-            matchMode: FilterMatchMode.CONTAINS,
+            matchMode:
+              column.filterMatchModes !== null &&
+              column.filterMatchModes !== undefined
+                ? column.filterMatchModes[0].value
+                : FilterMatchMode.CONTAINS,
           },
         ],
       };
@@ -248,10 +252,10 @@ function Datatable({
     setGlobalFilterValue(e.target.value);
   };
 
-  // Já estamos mandando o filterMatchMode para a api, porem ela ainda não esta filtrando corretamente
-  // Filtrar pelos outros tipos de filtros (valor, enum etc)
-  // Adicionar filterMatchModes diferentes para filtros personalizados (ex: campo de valor vai ter greater than e less than)
-  // Analisar como vamos formatar os dados ao obte-los
+  // OK - API  // Já estamos mandando o filterMatchMode para a api, porem ela ainda não esta filtrando corretamente - Só esta filtrando quando colocamos o nome exatamente igual
+  // OK - API  // Filtrar pelos outros tipos de filtros (valor, enum etc) - Se mandamos algo diferente de string para a api da erro, por enquanto ela aceita apenas string
+  // OK        // Adicionar filterMatchModes diferentes para filtros personalizados (ex: campo de valor vai ter greater than e less than) - feito passar o filterMatchModes como parametro nas colunas (da pra padronizar se passarmos o tipo do campo (currency, enum, string), o default (caso nao passar parametro) ficou como é hoje)
+  // NAO OK    // Analisar como vamos formatar os dados ao obte-los
 
   const onPageChange = async (event) => {
     var existsFilter = columnFilter.length > 0;
@@ -379,7 +383,7 @@ function Datatable({
             <Column
               filterElement={col.filterElement}
               filter
-              filterMatchModeOptions={filterMatchModes}
+              filterMatchModeOptions={col.filterMatchModes ?? filterMatchModes}
               showFilterOperator={false}
               showAddButton={false}
               filterClear={clearFilterButtonTemplate}
