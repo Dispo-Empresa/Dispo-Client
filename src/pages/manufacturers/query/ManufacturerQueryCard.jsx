@@ -53,7 +53,7 @@ function ManufacturerQueryCard() {
         onDeleteButton={deleteTest}
         onViewButton={viewManufacturer}
         onEditButton={editManufacturer}
-        entity="manufacturer"
+        entity="Manufacturer"
       />
 
       <AbstractFormContextProvider>

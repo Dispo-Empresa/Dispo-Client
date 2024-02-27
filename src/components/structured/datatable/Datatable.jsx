@@ -61,9 +61,7 @@ function Datatable({
   ];
 
   const { data: getCount } = useFetch(
-    `https://localhost:7153/api/v1/datatable/get-count?entity=${
-      entity.charAt(0).toUpperCase() + entity.slice(1)
-    }`
+    `https://localhost:7153/api/v1/datatable/get-count?entity=${entity}`
   );
 
   const {
@@ -100,7 +98,7 @@ function Datatable({
     }
 
     var requestData = {
-      entity: entity.charAt(0).toUpperCase() + entity.slice(1),
+      entity: entity,
       properties: columnFilter,
       paginationConfig: {
         pageNumber: 1,
@@ -181,7 +179,7 @@ function Datatable({
         />
         {buttons}
         {<SearchButton onClick={onSearchApply} />}
-        {<RefreshButton onClick={refetch} />}
+        {<RefreshButton onClick={onRefresh} />}
         {<ExportButton onClick={onExportExcel} />}
       </div>
     );
@@ -252,10 +250,13 @@ function Datatable({
     setGlobalFilterValue(e.target.value);
   };
 
-  // OK - API  // Já estamos mandando o filterMatchMode para a api, porem ela ainda não esta filtrando corretamente - Só esta filtrando quando colocamos o nome exatamente igual
-  // OK - API  // Filtrar pelos outros tipos de filtros (valor, enum etc) - Se mandamos algo diferente de string para a api da erro, por enquanto ela aceita apenas string
-  // OK        // Adicionar filterMatchModes diferentes para filtros personalizados (ex: campo de valor vai ter greater than e less than) - feito passar o filterMatchModes como parametro nas colunas (da pra padronizar se passarmos o tipo do campo (currency, enum, string), o default (caso nao passar parametro) ficou como é hoje)
-  // NAO OK    // Analisar como vamos formatar os dados ao obte-los
+  // OK // Já estamos mandando o filterMatchMode para a api, porem ela ainda não esta filtrando corretamente - Só esta filtrando quando colocamos o nome exatamente igual
+  // OK // Filtrar pelos outros tipos de filtros (valor, enum etc) - Se mandamos algo diferente de string para a api da erro, por enquanto ela aceita apenas string
+  // OK // Adicionar filterMatchModes diferentes para filtros personalizados (ex: campo de valor vai ter greater than e less than) - feito passar o filterMatchModes como parametro nas colunas (da pra padronizar se passarmos o tipo do campo (currency, enum, string), o default (caso nao passar parametro) ficou como é hoje)
+  // OK // TESTAR OS TIPOS DE FILTRO PARA VER SE ESTA MANDANDO O VALOR DAS STRINGS, ENUNS E VALORES
+  // NAO OK // Analisar como vamos formatar os dados ao obte-los
+  // NAO OK // FILTRO POR DATETIME
+  // NAO OK // BOTÃO REFRESH DEVE LIMPAR OS FILTROS E FAZER UM REFRESH NA DATATABLE COMO ACONTECIA ANTES
 
   const onPageChange = async (event) => {
     var existsFilter = columnFilter.length > 0;
@@ -265,7 +266,7 @@ function Datatable({
 
     if (existsFilter) {
       var requestData = {
-        entity: entity.charAt(0).toUpperCase() + entity.slice(1),
+        entity: entity,
         properties: columnFilter,
         paginationConfig: {
           pageNumber: event.page + 1,
@@ -312,6 +313,30 @@ function Datatable({
     });
   };
 
+  const onRefresh = () => {
+    //const initialFilters = {};
+    //columns.forEach((column) => {
+    //  initialFilters[column.field] = {
+    //    operator: FilterOperator.AND,
+    //    constraints: [
+    //      {
+    //        value: null,
+    //        matchMode:
+    //          column.filterMatchModes !== null &&
+    //          column.filterMatchModes !== undefined
+    //            ? column.filterMatchModes[0].value
+    //            : FilterMatchMode.CONTAINS,
+    //      },
+    //    ],
+    //  };
+    //});
+    //setFilters(initialFilters);
+    //setGlobalFilterValue("");
+    //setDataByFilter(datatableData.data);
+    //setRecordCount(getCount && getCount.data);
+    refetch();
+  };
+
   const onFilterMatchModeChanged = (e) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -327,10 +352,16 @@ function Datatable({
     }));
   };
 
-  const onApplyColumnFilter = async (event) => {
+  const onApplyColumnFilter = async (event, col) => {
+    var filterInputedValue = event.constraints.constraints[0].value;
+
+    if (col.enum) {
+      filterInputedValue = col.enum.find((x) => x.value === filterInputedValue);
+    }
+
     buildFilter(
       event.field,
-      event.constraints.constraints[0].value,
+      filterInputedValue,
       event.constraints.constraints[0].matchMode
     );
   };
@@ -388,8 +419,8 @@ function Datatable({
               showAddButton={false}
               filterClear={clearFilterButtonTemplate}
               filterApply={applyFilterButtonTemplate}
-              onFilterApplyClick={onApplyColumnFilter}
-              showFilterMatchModes={true}
+              onFilterApplyClick={(event) => onApplyColumnFilter(event, col)}
+              showFilterMatchModes={!col.hideFilterMatchModes ?? true}
               onFilterMatchModeChange={onFilterMatchModeChanged}
               filterPlaceholder={`Procurar por ${col.header}`}
               key={col.field}

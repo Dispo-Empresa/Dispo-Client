@@ -21,6 +21,7 @@ import {
 import { CurrencyField } from "components/ui/inputs/currency/CurrencyField";
 
 import "./style.css";
+import { categoryTypes, unitOfMeasurementTypes } from "utils/constants/enums";
 
 function ProductQueryCard() {
   //Configuração para o modal funcionar{
@@ -59,7 +60,7 @@ function ProductQueryCard() {
       <SelectProductCategory
         hideLabel
         value={options.value}
-        onChange={(e) => options.filterApplyCallback(e.value)}
+        onChange={(e) => options.filterCallback(e.value, options.index)}
       />
     );
   };
@@ -69,7 +70,7 @@ function ProductQueryCard() {
       <SelectProductUnitOfMeasurement
         hideLabel
         value={options.value}
-        onChange={(e) => options.filterApplyCallback(e.value)}
+        onChange={(e) => options.filterCallback(e.value, options.index)}
       />
     );
   };
@@ -98,11 +99,15 @@ function ProductQueryCard() {
       field: "category",
       header: "Categoria",
       filterElement: categoryRowFilterTemplate,
+      enum: categoryTypes,
+      hideFilterMatchModes: true,
     },
     {
       field: "unitOfMeasurement",
       header: "Unidade de Peso",
       filterElement: unitOfMeasurementRowFilterTemplate,
+      enum: unitOfMeasurementTypes,
+      hideFilterMatchModes: true,
     },
   ];
 
@@ -120,7 +125,7 @@ function ProductQueryCard() {
         onDeleteButton={deleteTest}
         onViewButton={viewProducts}
         onEditButton={editProducts}
-        entity="product"
+        entity="Product"
       />
 
       <AbstractFormContextProvider>
