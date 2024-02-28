@@ -52,8 +52,8 @@ function Datatable({
   const [rows, setRows] = useState(initialPageSize);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [columnFilter, setColumnFilter] = useState([]);
-  const [filters, setFilters] = useState({});
   const [dataByFilter, setDataByFilter] = useState(null);
+  const [filters, setFilters] = useState({});
   const [recordCount, setRecordCount] = useState(0);
   const filterMatchModes = [
     { label: "Contém", value: FilterMatchMode.CONTAINS },
@@ -64,13 +64,15 @@ function Datatable({
     `https://localhost:7153/api/v1/datatable/get-count?entity=${entity}`
   );
 
+  //const [recordsTeste, setRecordsTeste] = useState(null);
+
   const {
     data: datatableData,
     loading: loadingData,
     refetch,
   } = useFetch(urlDataDatatable);
 
-  useEffect(() => {
+  const initFilters = () => {
     const initialFilters = {};
     columns.forEach((column) => {
       initialFilters[column.field] = {
@@ -88,11 +90,13 @@ function Datatable({
       };
     });
     setFilters(initialFilters);
-  }, [columns]);
+    setGlobalFilterValue("");
+  };
 
   const firstUpdate = useRef(true);
   useLayoutEffect(() => {
     if (firstUpdate.current) {
+      initFilters();
       firstUpdate.current = false;
       return;
     }
@@ -107,6 +111,8 @@ function Datatable({
     };
 
     async function fetchData() {
+      if (columnFilter.length < 1) return;
+
       var response = await post(
         "https://localhost:7153/api/v1/datatable/get-by-filter",
         requestData
@@ -313,27 +319,11 @@ function Datatable({
     });
   };
 
-  const onRefresh = () => {
-    //const initialFilters = {};
-    //columns.forEach((column) => {
-    //  initialFilters[column.field] = {
-    //    operator: FilterOperator.AND,
-    //    constraints: [
-    //      {
-    //        value: null,
-    //        matchMode:
-    //          column.filterMatchModes !== null &&
-    //          column.filterMatchModes !== undefined
-    //            ? column.filterMatchModes[0].value
-    //            : FilterMatchMode.CONTAINS,
-    //      },
-    //    ],
-    //  };
-    //});
-    //setFilters(initialFilters);
-    //setGlobalFilterValue("");
-    //setDataByFilter(datatableData.data);
-    //setRecordCount(getCount && getCount.data);
+  const onRefresh = async () => {
+    initFilters();
+    setDataByFilter(null);
+    setRecordCount(getCount && getCount.data);
+    setColumnFilter([]);
     refetch();
   };
 
@@ -379,7 +369,6 @@ function Datatable({
         filterDisplay="menu"
         header={headerTemplate}
         showGridlines
-        //stripedRows
         filters={filters}
         onRowClick={onRowClick}
         size="small"
@@ -394,9 +383,7 @@ function Datatable({
         //}
         //selectionMode={!rowClick && showCheckbox ? "checkbox" : null}
         resizableColumns
-        value={
-          dataByFilter ? dataByFilter : datatableData && datatableData.data
-        }
+        value={dataByFilter ?? (datatableData && datatableData.data)}
         //selection={selectedItens}
         //onSelectionChange={(e) => onSelectItens(e)}
         loading={loadingData}
