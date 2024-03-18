@@ -12,7 +12,6 @@ import { SupplierContextProvider } from "context/supplierContext";
 
 function SupplierQueryCard() {
   const [selectedSuppliers, setSelectedSuppliers] = useState(null);
-  const { data, loading, refetch } = useFetch(ENDPOINTS.suppliers.getAll);
 
   //Configuração para o modal funcionar{
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,22 +48,19 @@ function SupplierQueryCard() {
 
   return (
     <ContentPage title="Fornecedores">
-      <ViewPanel refreshData={refetch}>
-        <Datatable
-          noDataMessage="Fornecedores não encontrados"
-          showCheckbox
-          fromApi
-          rowsPerPage={[5, 10, 25]}
-          columns={columns}
-          data={data}
-          loading={loading}
-          setSelectedItens={setSelectedSuppliers}
-          selectedItens={selectedSuppliers}
-          onDeleteButton={deleteTest}
-          onViewButton={viewSupplier}
-          onEditButton={editSupplier}
-        />
-      </ViewPanel>
+      <Datatable
+        noDataMessage="Fornecedores não encontrados"
+        showCheckbox
+        fromApi
+        rowsPerPage={[5, 10, 25]}
+        columns={columns}
+        setSelectedItens={setSelectedSuppliers}
+        selectedItens={selectedSuppliers}
+        onDeleteButton={deleteTest}
+        onViewButton={viewSupplier}
+        onEditButton={editSupplier}
+        entity="Supplier"
+      />
 
       <AbstractFormContextProvider>
         <SupplierContextProvider>

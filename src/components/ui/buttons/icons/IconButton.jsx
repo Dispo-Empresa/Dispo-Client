@@ -8,11 +8,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
 import { Button, Tooltip } from "@mui/material";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
 
 import { ReactComponent as Loader } from "components/ui/buttons/loader.svg";
 import { COLORS } from "themes/colors";
+
+import CheckIcon from "@mui/icons-material/Check";
+import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 
 import "./styles.css";
 
@@ -110,7 +114,7 @@ function EditButton(props) {
   return (
     <Button
       onClick={props.onClick}
-      className="form-button"
+      className="datatable-button"
       style={{
         backgroundColor: "#02AEEC",
         color: COLORS.DetailsColor,
@@ -161,13 +165,29 @@ function DisableButton(props) {
         onClick={props.onClick}
         className="datatable-button"
         style={{
-          backgroundColor: "#f64e60",
+          backgroundColor: "#F64E60",
           color: COLORS.DetailsColor,
         }}
       >
         <DoNotDisturbOnIcon fontSize="small" />
       </Button>
     </Tooltip>
+  );
+}
+
+function SearchButton(props) {
+  return (
+    <Button
+      onClick={props.onClick}
+      className="form-button"
+      style={{
+        backgroundColor: "#30BA56",
+        color: COLORS.DetailsColor,
+        height: "45px",
+      }}
+    >
+      <SearchIcon />
+    </Button>
   );
 }
 
@@ -179,6 +199,7 @@ function RefreshButton(props) {
       style={{
         backgroundColor: "#02AEEC",
         color: COLORS.DetailsColor,
+        height: "45px",
       }}
     >
       <RefreshIcon />
@@ -194,9 +215,41 @@ function ExportButton(props) {
       style={{
         backgroundColor: "#299C66",
         color: COLORS.DetailsColor,
+        height: "45px",
       }}
     >
       <FontAwesomeIcon icon={faFileExcel} size="lg" />
+    </Button>
+  );
+}
+
+function ConfirmButton(props) {
+  return (
+    <Button
+      onClick={props.onClick}
+      style={{
+        cursor: "pointer",
+        backgroundColor: "#02AEEC",
+        color: "#FFFF",
+      }}
+    >
+      <CheckIcon />
+    </Button>
+  );
+}
+
+function ClearButton(props) {
+  return (
+    <Button
+      onClick={props.onClick}
+      variant="outlined"
+      style={{
+        cursor: "pointer",
+        color: "#02AEEC",
+        borderColor: "#02AEEC",
+      }}
+    >
+      <FilterAltOffIcon />
     </Button>
   );
 }
@@ -211,6 +264,9 @@ export {
   MoreButton,
   DeleteButton,
   DisableButton,
+  SearchButton,
   RefreshButton,
   ExportButton,
+  ConfirmButton,
+  ClearButton,
 };
