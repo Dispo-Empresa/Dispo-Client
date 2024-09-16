@@ -12,11 +12,18 @@ import { ENDPOINTS } from "utils/constants/endpoints";
 import { AbstractFormContextProvider } from "context/abstractFormContext";
 import { ProductContextProvider } from "context/contextProduct";
 import { GenericDatabaseButton } from "components/ui/buttons/icons/IconButton";
+import { FilterMatchMode, FilterOperator } from "primereact/api";
+import { InputNumber } from "primereact/inputnumber";
+import {
+  SelectProductCategory,
+  SelectProductUnitOfMeasurement,
+} from "components/ui/inputs/select/SelectProduct";
+import { CurrencyField } from "components/ui/inputs/currency/CurrencyField";
+
+import "./style.css";
+import { categoryTypes, unitOfMeasurementTypes } from "utils/constants/enums";
 
 function ProductQueryCard() {
-  const [selectedProducts, setSelectedProducts] = useState(null);
-  const { data, loading, refetch } = useFetch(ENDPOINTS.products.getAll);
-
   //Configuração para o modal funcionar{
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
@@ -38,50 +45,88 @@ function ProductQueryCard() {
   };
   //Fim da configuração}
 
+  const balanceFilterTemplate = (options) => {
+    return (
+      <CurrencyField
+        placeholder="R$"
+        value={options.value}
+        onChange={(e) => options.filterCallback(e.value, options.index)}
+      />
+    );
+  };
+
+  const categoryRowFilterTemplate = (options) => {
+    return (
+      <SelectProductCategory
+        hideLabel
+        value={options.value}
+        onChange={(e) => options.filterCallback(e.value, options.index)}
+      />
+    );
+  };
+
+  const unitOfMeasurementRowFilterTemplate = (options) => {
+    return (
+      <SelectProductUnitOfMeasurement
+        hideLabel
+        value={options.value}
+        onChange={(e) => options.filterCallback(e.value, options.index)}
+      />
+    );
+  };
+
+  const filterMatchModes = [
+    { label: "Igual", value: FilterMatchMode.EQUALS },
+    { label: "Maior que", value: FilterMatchMode.GREATER_THAN },
+    { label: "Menor que", value: FilterMatchMode.LESS_THAN },
+  ];
+
   const columns = [
-    { field: "name", header: "Nome", minWidth: "350px" },
-    { field: "purchasePrice", header: "Preço de compra" },
-    { field: "salePrice", header: "Preço de venda" },
-    { field: "category", header: "Categoria" },
-    { field: "unitOfMeasurement", header: "Unidade de Peso" },
+    { field: "name", header: "Nome", minWidth: "350px", filterField: "name" },
+    {
+      field: "purchasePrice",
+      header: "Preço de compra",
+      filterElement: balanceFilterTemplate,
+      filterMatchModes: filterMatchModes,
+    },
+    {
+      field: "salePrice",
+      header: "Preço de venda",
+      filterElement: balanceFilterTemplate,
+      filterMatchModes: filterMatchModes,
+    },
+    {
+      field: "category",
+      header: "Categoria",
+      filterElement: categoryRowFilterTemplate,
+      enum: categoryTypes,
+      hideFilterMatchModes: true,
+    },
+    {
+      field: "unitOfMeasurement",
+      header: "Unidade de Peso",
+      filterElement: unitOfMeasurementRowFilterTemplate,
+      enum: unitOfMeasurementTypes,
+      hideFilterMatchModes: true,
+    },
   ];
 
   const deleteTest = (row) => {
     alert("Deletando: " + row.id);
   };
 
-  const customButtons = (row) => {
-    return (
-      <ButtonGroup>
-        <GenericDatabaseButton
-          color="#4EB254"
-          icon={<ToggleOnIcon />}
-          title="Habilitar ordem de compra automática"
-          onClick={() => {}}
-        />
-      </ButtonGroup>
-    );
-  };
-
   return (
     <ContentPage id="productView" title="Produtos">
-      <ViewPanel refreshData={refetch}>
-        <Datatable
-          noDataMessage="Produtos não encontrados"
-          showCheckbox
-          fromApi
-          rowsPerPage={[5, 10, 25]}
-          columns={columns}
-          data={data}
-          loading={loading}
-          customButtons={customButtons}
-          setSelectedItens={setSelectedProducts}
-          selectedItens={selectedProducts}
-          onDeleteButton={deleteTest}
-          onViewButton={viewProducts}
-          onEditButton={editProducts}
-        />
-      </ViewPanel>
+      <Datatable
+        noDataMessage="Produtos não encontrados"
+        fromApi
+        rowsPerPage={[5, 10, 25]}
+        columns={columns}
+        onDeleteButton={deleteTest}
+        onViewButton={viewProducts}
+        onEditButton={editProducts}
+        entity="Product"
+      />
 
       <AbstractFormContextProvider>
         <ProductContextProvider>
